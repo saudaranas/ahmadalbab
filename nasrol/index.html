@@ -39,7 +39,8 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
 .share-icon:active{opacity:.6}
 .user-profile{position:relative;z-index:2;display:flex;flex-direction:row;align-items:flex-start;gap:12px;padding:20px 16px 12px}
 .avatar-container{flex-shrink:0;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
-.avatar-placeholder{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.6rem}
+.avatar-placeholder{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden}
+.avatar-placeholder img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .tap-ripple{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;transition:all .3s;pointer-events:none}
 .avatar-container.tapped .tap-ripple{border-color:rgba(255,255,255,0.6);transform:scale(1.3);opacity:0}
 .tap-dots{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);display:flex;gap:3px;pointer-events:none;opacity:0;transition:opacity .2s}
@@ -67,6 +68,7 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
 .sticky-bar{position:fixed;top:0;left:50%;transform:translateX(-50%) translateY(-100%);width:100%;max-width:480px;height:54px;background:rgba(255,255,255,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--nc-util-line-o);z-index:100;display:flex;align-items:center;padding:0 16px;gap:10px;transition:transform .22s cubic-bezier(0.4,0,0.2,1)}
 .sticky-bar.on{transform:translateX(-50%) translateY(0)}
 .sticky-av{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(92,156,183,0.2)}
+.sticky-av img{width:100%;height:100%;object-fit:cover}
 .sticky-name{flex:1;font-family:var(--nt-font-bold-f);font-weight:var(--nt-font-bold-w);font-size:var(--nt-size-large);color:var(--nc-text-primary)}
 .sticky-share-btn{width:34px;height:34px;border-radius:50%;background:#fef2ef;border:1.5px solid #fdd0c5;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .sticky-share-btn:active{background:#fdd0c5}
@@ -177,7 +179,6 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
 .btn-sec{width:100%;padding:11px;margin-top:8px;background:#fff;color:var(--nc-text-secondary);border:1.5px solid var(--nc-util-line-o);border-radius:10px;font-family:var(--nt-font-regular-f);font-size:var(--nt-size-normal);cursor:pointer}
 .adiv{height:1px;background:var(--nc-util-line-o);margin:20px 0}
 .af-note{font-size:var(--nt-size-foot);color:var(--nc-text-tertiary);margin-top:6px}
-/* ── Image preview in admin form ── */
 .img-preview-wrap{margin-top:8px;display:none}
 .img-preview-wrap.show{display:block}
 .img-preview-wrap img{width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--nc-util-line-o)}
@@ -200,6 +201,12 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
 .admin-fab.on{display:block}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:#29292f;color:#fff;padding:10px 20px;border-radius:20px;font-size:var(--nt-size-small);font-weight:var(--nt-font-medium-w);opacity:0;transition:all .25s;z-index:9999;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+
+/* ── Hero image in settings ── */
+.hero-preview{width:100%;height:80px;border-radius:8px;background:#4a8aa8;margin-bottom:8px;background-size:cover;background-position:center;position:relative;overflow:hidden}
+.hero-preview-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.7);font-size:var(--nt-size-small)}
+
 </style>
 </head>
 <body>
@@ -214,7 +221,7 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
     <div class="storefront-header">
       <div class="avatar-background-blur">
         <div class="bg-image" id="bgImage"></div>
-        <div class="linear-mask"></div>
+        <div class="linear-mask" id="linearMask"></div>
         <div class="shadow-mask"></div>
       </div>
 
@@ -274,7 +281,7 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
   </div>
 
   <div class="sticky-bar" id="sBar">
-    <div class="sticky-av">&#x1F9D1;&#x200D;&#x1F4BB;</div>
+    <div class="sticky-av" id="stickyAv">&#x1F9D1;&#x200D;&#x1F4BB;</div>
     <span class="sticky-name" id="stickyName">Nasrol</span>
     <div class="sticky-share-btn" onclick="openShare()">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
@@ -375,24 +382,15 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
         <div class="af-group"><label>Label Pendek</label><input type="text" id="fL" placeholder="cth: KURSUS"></div>
         <div class="af-group"><label>Nombor &amp; Nama Produk</label><input type="text" id="fN" placeholder="cth: 1: Nama Produk"></div>
         <div class="af-group"><label>URL Produk</label><input type="text" id="fUrl" placeholder="https://..."></div>
-
-        <!-- ═══════════════════════════════════════════
-             PATCH: URL Gambar field (baru ditambah)
-             Map ke field `img` dalam product object
-             dan kolum `image_url` dalam GAS/Sheets
-        ════════════════════════════════════════════ -->
         <div class="af-group">
           <label>&#x1F5BC;&#xFE0F; URL Gambar Produk <span style="font-weight:400;color:var(--nc-text-tertiary)">(pilihan)</span></label>
           <input type="text" id="fImg" placeholder="https://i.imgur.com/abc123.jpg" oninput="previewAdminImg()">
-          <p class="af-note">Kosongkan untuk guna Emoji sebagai placeholder. Boleh pakai Imgur, Cloudinary, atau mana-mana direct image URL (.jpg/.png/.webp).</p>
+          <p class="af-note">Kosongkan untuk guna Emoji. Boleh pakai Imgur, Cloudinary, dll (.jpg/.png/.webp)</p>
           <div class="img-preview-wrap" id="imgPreviewWrap">
-            <img id="imgPreviewEl" src="" alt="Preview gambar"
-              onerror="this.style.display='none';document.getElementById('imgPreviewErr').style.display='block'">
-            <p class="img-preview-err" id="imgPreviewErr">&#x26A0;&#xFE0F; URL tidak boleh dipapar — pastikan link betul &amp; public</p>
+            <img id="imgPreviewEl" src="" alt="Preview" onerror="this.style.display='none';document.getElementById('imgPreviewErr').style.display='block'">
+            <p class="img-preview-err" id="imgPreviewErr">&#x26A0;&#xFE0F; URL tidak boleh dipapar</p>
           </div>
         </div>
-        <!-- ═══════════════════════════════════════════ -->
-
         <div class="af-group"><label>Kategori</label><select id="fCat"></select></div>
         <div class="af-group"><label>Warna Background</label><input type="text" id="fBg" placeholder="cth: #eff6ff"></div>
         <div class="af-group"><label>Warna Teks Label</label><input type="text" id="fLc" placeholder="cth: #1565c0"></div>
@@ -442,10 +440,37 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
       <!-- TAB: SETTINGS -->
       <div class="asec" id="asec-settings">
         <p class="af-title">Tetapan Store</p>
+
         <div class="af-group"><label>Nama Store</label><input type="text" id="sName"></div>
         <div class="af-group"><label>Deskripsi</label><textarea id="sDesc" rows="3" style="resize:vertical"></textarea></div>
         <div class="af-group"><label>Domain / URL</label><input type="text" id="sDomain"></div>
+
+        <div class="adiv"></div>
+        <p class="af-title">&#x1F5BC;&#xFE0F; Gambar Profile</p>
+        <div class="af-group">
+          <label>URL Gambar Profile <span style="font-weight:400;color:var(--nc-text-tertiary)">(cross-device)</span></label>
+          <input type="text" id="sAvatarUrl" placeholder="https://i.imgur.com/abc.jpg" oninput="previewAvatarUrl()">
+          <p class="af-note">Pakai URL untuk semua peranti nampak gambar yang sama.</p>
+        </div>
+
+        <div class="adiv"></div>
+        <p class="af-title">&#x1F3DE;&#xFE0F; Gambar Hero / Background</p>
+        <div class="hero-preview" id="heroPreview">
+          <div class="hero-preview-label" id="heroPreviewLabel">Tiada gambar hero</div>
+        </div>
+        <div class="af-group">
+          <label>URL Gambar Hero <span style="font-weight:400;color:var(--nc-text-tertiary)">(cross-device)</span></label>
+          <input type="text" id="sHeroUrl" placeholder="https://i.imgur.com/abc.jpg" oninput="previewHeroUrl()">
+          <p class="af-note">URL gambar untuk background header. Cross-device ✓</p>
+        </div>
+        <div class="af-group">
+          <label>Warna Tint Header</label>
+          <input type="text" id="sHeroTint" placeholder="cth: #4a8aa8" oninput="previewHeroTint()">
+          <p class="af-note">Warna asas header kalau tiada gambar hero. Tersimpan dalam Sheets ✓</p>
+        </div>
+
         <button class="btn-save" onclick="saveSettings()">&#x1F4BE; Simpan Tetapan</button>
+
         <div class="adiv"></div>
         <p class="af-title">Tukar Password</p>
         <div class="af-group"><label>Password Baru</label><input type="password" id="newPw"></div>
@@ -469,12 +494,56 @@ html,body{background:#111;font-family:var(--nt-font-regular-f);font-weight:var(-
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwGCkSZSH1aRgIB-oZAdTM3ZrPQCd7Nh4WsVQf_NaPBNeOQZrjIOOyUKFJ2quMQGqdl/exec';
 const DEFAULT_PW = '8891';
 
+/* ══ DEFAULT PRODUCTS — poskedai & tvsolattaqwim ══ */
+const DEFAULT_PRODUCTS = [
+  {
+    id: 9001,
+    n: '1: PosKedai — Platform Jualan Online',
+    url: 'https://poskedai.online',
+    img: null,
+    cat: 'tools',
+    bg: '#eff6ff',
+    e: '🏪',
+    l: 'TOOLS',
+    lc: '#1565c0',
+    d: null,
+    b: '🆕 New',
+    bc: 'bn',
+    po: null,
+    pn: null,
+    pt: 'free',
+    s: null,
+    popular: 0, latest: Date.now(), topsales: 0
+  },
+  {
+    id: 9002,
+    n: '2: TV Solat Taqwim — Waktu Solat Malaysia',
+    url: 'https://tvsolattaqwim.com',
+    img: null,
+    cat: 'tools',
+    bg: '#f0fdf4',
+    e: '🕌',
+    l: 'WAKTU',
+    lc: '#166534',
+    d: null,
+    b: '🌙 Solat',
+    bc: 'bs',
+    po: null,
+    pn: null,
+    pt: 'free',
+    s: null,
+    popular: 0, latest: Date.now() - 1000, topsales: 0
+  }
+];
+
 /* ══ STATE ══ */
 let S = {
   products:[], categories:[],
-  settings:{name:'Nasrol',desc:'Type je di bawah\uD83D\uDD0D item nombor berapa korang nak.\nNanti dia keluar item yang korang cari',domain:'nasrolsani.com'}
+  settings:{name:'Nasrol',desc:'Type je di bawah\uD83D\uDD0D item nombor berapa korang nak.\nNanti dia keluar item yang korang cari',domain:'nasrolsani.com',heroTint:'#4a8aa8'}
 };
 let isAdmin=false, adminPw='', sort='popular', cf=null;
+
+/* ══ LOCAL STORAGE KEYS ══ */
 
 /* ══ API ══ */
 async function gasGet(params={}){
@@ -497,7 +566,7 @@ function setSyncStatus(state,text){
 
 /* ══ LOAD DATA ══ */
 async function loadData(){
-  const timeoutP=new Promise((_,rej)=>setTimeout(()=>rej(new Error('Sambungan lambat \u2014 cuba refresh')),10000));
+  const timeoutP=new Promise((_,rej)=>setTimeout(()=>rej(new Error('Sambungan lambat — cuba refresh')),10000));
   try{
     const data=await Promise.race([gasGet({action:'getData'}), timeoutP]);
     S.products=data.products||[];
@@ -505,21 +574,91 @@ async function loadData(){
     if(data.settings) S.settings={
       name:data.settings.name||'Nasrol',
       desc:data.settings.desc||'',
-      domain:data.settings.domain||'nasrolsani.com'
+      domain:data.settings.domain||'nasrolsani.com',
+      heroTint:data.settings.heroTint||'#4a8aa8',
+      avatarUrl:data.settings.avatarUrl||null,
+      heroUrl:data.settings.heroUrl||null
     };
+    // Inject default products if not already in Sheets
+    injectDefaultProducts();
     applySettings(); doRender(); renderCategories();
   }catch(err){
-    showToast('\u26A0\uFE0F Gagal muatkan data: '+err.message);
-    applySettings(); doRender();
+    showToast('⚠️ Gagal muatkan data: '+err.message);
+    // Use defaults when offline
+    S.products = [...DEFAULT_PRODUCTS];
+    S.categories = [{key:'tools',name:'Tools & Apps',ico:'🛠️',bg:'#eff6ff'}];
+    applySettings(); doRender(); renderCategories();
   }finally{
     hideLoader();
   }
 }
+
+/* Inject default products if they don't exist in loaded data */
+function injectDefaultProducts(){
+  DEFAULT_PRODUCTS.forEach(dp=>{
+    const exists = S.products.find(p=>p.url===dp.url);
+    if(!exists) S.products.push(dp);
+  });
+  // Ensure tools category exists
+  if(!S.categories.find(c=>c.key==='tools')){
+    S.categories.push({key:'tools',name:'Tools & Apps',ico:'🛠️',bg:'#eff6ff'});
+  }
+}
+
 function hideLoader(){
   const l=document.getElementById('loadingScreen');
   l.classList.add('hide');
   setTimeout(()=>l.style.display='none',500);
 }
+
+/* ══ APPLY LOCAL IMAGES (localStorage, device-only) ══ */
+
+function setAvatarImg(src){
+  const ph = document.getElementById('avatarPH');
+  const sav = document.getElementById('stickyAv');
+  ph.innerHTML = `<img src="${src}" alt="avatar">`;
+  sav.innerHTML = `<img src="${src}" alt="avatar">`;
+}
+
+function setHeroImg(src){
+  const bg = document.getElementById('bgImage');
+  bg.style.backgroundImage = `url('${src}')`;
+  document.getElementById('linearMask').style.background =
+    'linear-gradient(rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.45) 100%)';
+}
+
+/* ══ IMAGE UPLOAD HELPERS ══ */
+
+
+
+
+function previewAvatarUrl(){
+  const url=document.getElementById('sAvatarUrl').value.trim();
+  if(url){ setAvatarImg(url); S.settings.avatarUrl=url; }
+}
+
+function previewHeroUrl(){
+  const url=document.getElementById('sHeroUrl').value.trim();
+  const prev=document.getElementById('heroPreview');
+  const lbl=document.getElementById('heroPreviewLabel');
+  if(url){
+    prev.style.backgroundImage=`url('${url}')`;
+    lbl.style.display='none';
+    setHeroImg(url);
+    S.settings.heroUrl=url;
+  }
+}
+
+function previewHeroTint(){
+  const tint=document.getElementById('sHeroTint').value.trim();
+  if(tint){
+    document.getElementById('bgImage').style.backgroundColor=tint;
+    document.getElementById('linearMask').style.background=
+      `linear-gradient(${tint}40 0%, ${tint} 100%)`;
+  }
+}
+
+/* ══ IMG TAB SWITCH ══ */
 
 /* ══ SECRET TAP (5x avatar = login) ══ */
 let tapCount=0, tapTimer=null;
@@ -556,6 +695,15 @@ function applySettings(){
   const base='https://'+st.domain;
   document.getElementById('waLink').href='https://wa.me/?text='+encodeURIComponent(base);
   document.getElementById('fbLink').href='https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(base);
+  // Apply tint
+  if(st.heroTint){
+    document.getElementById('bgImage').style.backgroundColor=st.heroTint;
+    document.getElementById('linearMask').style.background=
+      `linear-gradient(${st.heroTint}40 0%, ${st.heroTint} 100%)`;
+  }
+  // Apply URL-based images (cross-device)
+  if(st.avatarUrl) setAvatarImg(st.avatarUrl);
+  if(st.heroUrl) setHeroImg(st.heroUrl);
 }
 
 /* ══ SORT ══ */
@@ -566,10 +714,7 @@ function getSortVal(p,key){
   return Number(p.popular)||0;
 }
 
-/* ══ RENDER PRODUCT GRID ══
-   PATCH: support p.img — kalau ada URL gambar, tunjuk gambar.
-   Kalau gambar error (broken), fallback ke emoji placeholder.
-   ════════════════════════════════════════════════════════════ */
+/* ══ RENDER PRODUCT GRID ══ */
 function doRender(){
   const q=(document.getElementById('searchInput').value||'').toLowerCase();
   const g=document.getElementById('pGrid'), em=document.getElementById('emptyEl');
@@ -587,18 +732,15 @@ function doRender(){
   };
 
   g.innerHTML=list.map(p=>{
-    /* Build image section: real image + emoji fallback */
     const hasImg = p.img && p.img.trim();
     const imgHtml = hasImg
-      ? `<img src="${p.img}" alt="${p.n}" loading="lazy"
-           onerror="this.style.display='none';this.nextElementSibling.style.cssText='display:flex!important'">`
+      ? `<img src="${p.img}" alt="${p.n}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.cssText='display:flex!important'">`
       : '';
     const phStyle = hasImg ? 'display:none' : '';
     const phHtml = `<div class="pcard-ph" style="background:${p.bg||'#eee'};${phStyle}">
       <span class="e">${p.e||'\uD83D\uDCE6'}</span>
       <span class="l" style="color:${p.lc||'#555'}">${p.l||''}</span>
     </div>`;
-
     return `<a class="pcard" href="${p.url||'#'}" ${p.url&&p.url!=='#'?'target="_blank" rel="noopener"':''}>
       <div class="pcard-img-wrap">
         ${imgHtml}${phHtml}
@@ -666,7 +808,7 @@ function ovc(e){ if(e.target===e.currentTarget){ document.getElementById('ov').c
 function copyUrl(){
   const b=document.getElementById('cbtn');
   const urlTxt='https://'+S.settings.domain;
-  const ok=()=>{ b.textContent='Disalin \u2713'; b.style.background='#16a34a'; setTimeout(()=>{b.textContent='Salin';b.style.background='';},2000); };
+  const ok=()=>{ b.textContent='Disalin ✓'; b.style.background='#16a34a'; setTimeout(()=>{b.textContent='Salin';b.style.background='';},2000); };
   if(navigator.clipboard&&window.isSecureContext){
     navigator.clipboard.writeText(urlTxt).then(ok).catch(()=>fallbackCopy(urlTxt,ok));
   }else{ fallbackCopy(urlTxt,ok); }
@@ -674,7 +816,7 @@ function copyUrl(){
 function fallbackCopy(text,cb){
   const ta=document.createElement('textarea'); ta.value=text; ta.style.cssText='position:fixed;opacity:0';
   document.body.appendChild(ta); ta.focus(); ta.select();
-  try{ document.execCommand('copy'); cb(); }catch{ showToast('\u26A0\uFE0F Tak dapat salin \u2014 copy manual'); }
+  try{ document.execCommand('copy'); cb(); }catch{ showToast('⚠️ Tak dapat salin — copy manual'); }
   document.body.removeChild(ta);
 }
 
@@ -704,15 +846,15 @@ async function doLogin(){
 function afterLoginSuccess(pw){
   adminPw=pw; isAdmin=true; closeLogin();
   document.getElementById('adminFab').classList.add('on');
-  setSyncStatus('ok','Tersambung \u2713');
-  showToast('\u2705 Log masuk berjaya!');
+  setSyncStatus('ok','Tersambung ✓');
+  showToast('✅ Log masuk berjaya!');
   setTimeout(openAdmin,300);
 }
 function doLogout(){
   isAdmin=false; adminPw='';
   document.getElementById('adminFab').classList.remove('on');
   closeAdmin();
-  showToast('\uD83D\uDC4B Log keluar');
+  showToast('👋 Log keluar');
 }
 
 /* ══ ADMIN PANEL ══ */
@@ -736,9 +878,7 @@ function populateCatSelect(){
   if(cur&&S.categories.find(c=>c.key===cur)) sel.value=cur;
 }
 
-/* ══ RENDER ADMIN PRODUCT LIST ══
-   PATCH: show thumbnail in list if img exists
-   ═══════════════════════════════════════════ */
+/* ══ RENDER ADMIN PRODUCT LIST ══ */
 function renderAdminList(){
   const el=document.getElementById('apList');
   if(!S.products.length){
@@ -746,16 +886,16 @@ function renderAdminList(){
     return;
   }
   el.innerHTML=S.products.map(p=>{
-    const cat=S.categories.find(c=>c.key===p.cat)||{ico:'\uD83D\uDCE6',name:p.cat||'-'};
+    const cat=S.categories.find(c=>c.key===p.cat)||{ico:'📦',name:p.cat||'-'};
     const thumb=p.img
       ? `<img src="${p.img}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;border:1px solid var(--nc-util-line-o)"
-           onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div class=\\'ap-ico\\'>${p.e||'\uD83D\uDCE6'}</div>')">`
-      : `<div class="ap-ico">${p.e||'\uD83D\uDCE6'}</div>`;
+           onerror="this.style.display='none'">`
+      : `<div class="ap-ico">${p.e||'📦'}</div>`;
     return`<div class="ap-item">
       ${thumb}
       <div class="ap-info">
         <div class="ap-name">${p.n}</div>
-        <div class="ap-cat">${cat.ico} ${cat.name}${p.img?' \u00B7 \uD83D\uDDBC\uFE0F Gambar':''}</div>
+        <div class="ap-cat">${cat.ico} ${cat.name}${p.img?' · 🖼️ Gambar':''}</div>
       </div>
       <button class="btn-ae" onclick="editProduct(${p.id})">Edit</button>
       <button class="btn-ad" onclick="deleteProduct(${p.id})">Padam</button>
@@ -778,7 +918,6 @@ function previewAdminImg(){
 
 /* ══ RESET FORM ══ */
 function resetForm(){
-  /* PATCH: include fImg in reset */
   ['fE','fL','fN','fUrl','fImg','fPn','fPo','fB','fD','fS','fBg','fLc'].forEach(id=>{
     const e=document.getElementById(id); if(e) e.value='';
   });
@@ -791,20 +930,17 @@ function resetForm(){
   togglePriceFields();
 }
 
-/* ══ EDIT PRODUCT ══
-   PATCH: populate fImg field when editing
-   ═══════════════════════════════════════ */
+/* ══ EDIT PRODUCT ══ */
 function editProduct(id){
   const p=S.products.find(x=>x.id==id); if(!p) return;
   setATab('add',document.querySelectorAll('.atab')[1]);
   document.getElementById('editId').value=id;
-  document.getElementById('addFormTitle').textContent='\u270F\uFE0F Edit Produk';
+  document.getElementById('addFormTitle').textContent='✏️ Edit Produk';
   document.getElementById('cancelEdit').style.display='block';
   document.getElementById('fE').value=p.e||'';
   document.getElementById('fL').value=p.l||'';
   document.getElementById('fN').value=p.n||'';
   document.getElementById('fUrl').value=p.url||'';
-  /* PATCH: populate image URL */
   document.getElementById('fImg').value=p.img||'';
   previewAdminImg();
   document.getElementById('fBg').value=p.bg||'';
@@ -829,28 +965,25 @@ async function deleteProduct(id){
     await gasPost({action:'deleteProduct',password:adminPw,id});
     S.products=S.products.filter(p=>p.id!=id);
     doRender(); renderCategories(); applySettings(); renderAdminList();
-    setSyncStatus('ok','Dipadam \u2713'); showToast('\uD83D\uDDD1\uFE0F Produk dipadam');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    setSyncStatus('ok','Dipadam ✓'); showToast('🗑️ Produk dipadam');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 
-/* ══ SAVE PRODUCT ══
-   PATCH: include img field (maps to image_url in GAS Sheets)
-   ════════════════════════════════════════════════════════════ */
+/* ══ SAVE PRODUCT ══ */
 async function saveProduct(){
   const eid=document.getElementById('editId').value;
   const n=document.getElementById('fN').value.trim();
-  if(!n){ showToast('\u26A0\uFE0F Nama produk tak boleh kosong'); return; }
+  if(!n){ showToast('⚠️ Nama produk tak boleh kosong'); return; }
   const pt=document.getElementById('fPt').value;
   const now=Date.now();
   const product={
     id: eid ? parseInt(eid) : null,
     n,
     url: document.getElementById('fUrl').value.trim()||'#',
-    /* PATCH: image URL — saved as `img` in state, `image_url` in Sheets */
     img: document.getElementById('fImg').value.trim()||null,
     cat: document.getElementById('fCat').value,
     bg: document.getElementById('fBg').value.trim()||'#f0f4f8',
-    e: document.getElementById('fE').value.trim()||'\uD83D\uDCE6',
+    e: document.getElementById('fE').value.trim()||'📦',
     l: document.getElementById('fL').value.trim()||'PRODUK',
     lc: document.getElementById('fLc').value.trim()||'#555',
     d: document.getElementById('fD').value.trim()||null,
@@ -861,17 +994,11 @@ async function saveProduct(){
     pt,
     s: document.getElementById('fS').value.trim()||null,
     price: parseFloat((document.getElementById('fPn').value||'0').replace(/[^0-9.]/g,''))||0,
-    popular: 0,
-    latest: now,
-    topsales: 0
+    popular: 0, latest: now, topsales: 0
   };
   if(eid){
     const old=S.products.find(p=>p.id==eid);
-    if(old){
-      product.popular=old.popular??0;
-      product.latest=old.latest??now;
-      product.topsales=old.topsales??0;
-    }
+    if(old){ product.popular=old.popular??0; product.latest=old.latest??now; product.topsales=old.topsales??0; }
   }
   setSyncStatus('syncing','Menyimpan...');
   try{
@@ -881,9 +1008,9 @@ async function saveProduct(){
     else S.products.push(saved);
     doRender(); renderCategories(); applySettings(); renderAdminList();
     resetForm(); setATab('products',document.querySelectorAll('.atab')[0]);
-    setSyncStatus('ok','Tersimpan \u2713');
-    showToast(eid?'\u2705 Produk dikemaskini!':'\u2705 Produk berjaya ditambah!');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    setSyncStatus('ok','Tersimpan ✓');
+    showToast(eid?'✅ Produk dikemaskini!':'✅ Produk berjaya ditambah!');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 
 /* ══ CATEGORIES ══ */
@@ -899,7 +1026,7 @@ function renderCatAdminList(){
           <div class="cat-admin-ico" style="background:${c.bg}">${c.ico}</div>
           <div class="cat-admin-info">
             <div class="cat-admin-name">${c.name}</div>
-            <div class="cat-admin-key">key: ${c.key} \u00B7 ${cnt} produk</div>
+            <div class="cat-admin-key">key: ${c.key} · ${cnt} produk</div>
           </div>
           <button class="btn-ae" onclick="editCat('${c.key}')">Edit</button>
           <button class="btn-ad" onclick="deleteCat('${c.key}')">Padam</button>
@@ -909,14 +1036,14 @@ function renderCatAdminList(){
 function resetCatForm(){
   ['cKey','cName','cIco','cBg'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('editCatKey').value='';
-  document.getElementById('catFormTitle').textContent='\u2795 Tambah Kategori';
+  document.getElementById('catFormTitle').textContent='➕ Tambah Kategori';
   document.getElementById('cancelCatEdit').style.display='none';
   document.getElementById('cKey').readOnly=false;
   document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('sel'));
 }
 function editCat(key){
   const c=S.categories.find(x=>x.key===key); if(!c) return;
-  document.getElementById('catFormTitle').textContent='\u270F\uFE0F Edit Kategori';
+  document.getElementById('catFormTitle').textContent='✏️ Edit Kategori';
   document.getElementById('editCatKey').value=key;
   document.getElementById('cKey').value=c.key; document.getElementById('cKey').readOnly=true;
   document.getElementById('cName').value=c.name;
@@ -929,11 +1056,11 @@ async function saveCat(){
   const editKey=document.getElementById('editCatKey').value;
   const key=document.getElementById('cKey').value.trim().toLowerCase().replace(/\s+/g,'');
   const name=document.getElementById('cName').value.trim();
-  const ico=document.getElementById('cIco').value.trim()||'\uD83D\uDCE6';
+  const ico=document.getElementById('cIco').value.trim()||'📦';
   const bg=document.getElementById('cBg').value.trim()||'#f0f4f8';
-  if(!key){ showToast('\u26A0\uFE0F Key kategori tak boleh kosong'); return; }
-  if(!name){ showToast('\u26A0\uFE0F Nama kategori tak boleh kosong'); return; }
-  if(!editKey&&S.categories.find(c=>c.key===key)){ showToast('\u26A0\uFE0F Key "'+key+'" dah wujud'); return; }
+  if(!key){ showToast('⚠️ Key kategori tak boleh kosong'); return; }
+  if(!name){ showToast('⚠️ Nama kategori tak boleh kosong'); return; }
+  if(!editKey&&S.categories.find(c=>c.key===key)){ showToast('⚠️ Key "'+key+'" dah wujud'); return; }
   const category={key:editKey||key,name,ico,bg};
   setSyncStatus('syncing','Menyimpan...');
   try{
@@ -941,9 +1068,9 @@ async function saveCat(){
     if(editKey){ const idx=S.categories.findIndex(c=>c.key===editKey); if(idx>=0) S.categories[idx]=category; }
     else S.categories.push(category);
     renderCatAdminList(); renderCategories(); populateCatSelect();
-    resetCatForm(); setSyncStatus('ok','Tersimpan \u2713');
-    showToast(editKey?'\u2705 Kategori dikemaskini!':'\u2705 Kategori ditambah!');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    resetCatForm(); setSyncStatus('ok','Tersimpan ✓');
+    showToast(editKey?'✅ Kategori dikemaskini!':'✅ Kategori ditambah!');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 async function deleteCat(key){
   const linked=S.products.filter(p=>p.cat===key).length;
@@ -953,52 +1080,64 @@ async function deleteCat(key){
     await gasPost({action:'deleteCategory',password:adminPw,key});
     S.categories=S.categories.filter(c=>c.key!==key);
     renderCatAdminList(); renderCategories(); populateCatSelect();
-    setSyncStatus('ok','Dipadam \u2713'); showToast('\uD83D\uDDD1\uFE0F Kategori dipadam');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    setSyncStatus('ok','Dipadam ✓'); showToast('🗑️ Kategori dipadam');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 
 /* ══ SETTINGS ══ */
 function loadSettingsForm(){
-  document.getElementById('sName').value=S.settings.name||'';
-  document.getElementById('sDesc').value=S.settings.desc||'';
-  document.getElementById('sDomain').value=S.settings.domain||'';
+  const st=S.settings;
+  document.getElementById('sName').value=st.name||'';
+  document.getElementById('sDesc').value=st.desc||'';
+  document.getElementById('sDomain').value=st.domain||'';
+  document.getElementById('sAvatarUrl').value=st.avatarUrl||'';
+  document.getElementById('sHeroUrl').value=st.heroUrl||'';
+  document.getElementById('sHeroTint').value=st.heroTint||'#4a8aa8';
+  // Update hero preview
+  if(st.heroUrl){
+    document.getElementById('heroPreview').style.backgroundImage=`url('${st.heroUrl}')`;
+    document.getElementById('heroPreviewLabel').style.display='none';
+  }
 }
 async function saveSettings(){
   const settings={
     name:document.getElementById('sName').value.trim()||'Nasrol',
     desc:document.getElementById('sDesc').value.trim(),
-    domain:document.getElementById('sDomain').value.trim()||'nasrolsani.com'
+    domain:document.getElementById('sDomain').value.trim()||'nasrolsani.com',
+    heroTint:document.getElementById('sHeroTint').value.trim()||'#4a8aa8',
+    avatarUrl:document.getElementById('sAvatarUrl').value.trim()||null,
+    heroUrl:document.getElementById('sHeroUrl').value.trim()||null
   };
   setSyncStatus('syncing','Menyimpan...');
   try{
     await gasPost({action:'saveSettings',password:adminPw,settings});
     S.settings=settings; applySettings();
-    setSyncStatus('ok','Tersimpan \u2713'); showToast('\u2705 Tetapan disimpan!');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    setSyncStatus('ok','Tersimpan ✓'); showToast('✅ Tetapan disimpan!');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 async function changePw(){
   const p1=document.getElementById('newPw').value;
   const p2=document.getElementById('newPw2').value;
-  if(!p1){ showToast('\u26A0\uFE0F Masuk password baru'); return; }
-  if(p1!==p2){ showToast('\u26A0\uFE0F Password tak sepadan'); return; }
+  if(!p1){ showToast('⚠️ Masuk password baru'); return; }
+  if(p1!==p2){ showToast('⚠️ Password tak sepadan'); return; }
   setSyncStatus('syncing','Menukar...');
   try{
     await gasPost({action:'changePassword',password:adminPw,newPassword:p1});
     adminPw=p1;
     document.getElementById('newPw').value=''; document.getElementById('newPw2').value='';
-    setSyncStatus('ok','Ditukar \u2713'); showToast('\uD83D\uDD11 Password berjaya ditukar!');
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+    setSyncStatus('ok','Ditukar ✓'); showToast('🔑 Password berjaya ditukar!');
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 async function resetData(){
   if(!confirm('Reset semua data?')) return;
   setSyncStatus('syncing','Reset...');
   try{
     await gasPost({action:'resetData',password:adminPw});
-    S={products:[],categories:[],settings:{name:'Nasrol',desc:'',domain:'nasrolsani.com'}};
+    S={products:[],categories:[],settings:{name:'Nasrol',desc:'',domain:'nasrolsani.com',heroTint:'#4a8aa8'}};
     applySettings(); doRender(); renderCategories();
-    showToast('\uD83D\uDD04 Reset berjaya. Memuatkan semula...');
+    showToast('🔄 Reset berjaya. Memuatkan semula...');
     setTimeout(()=>location.reload(),1500);
-  }catch(err){ setSyncStatus('err','Gagal'); showToast('\u274C '+err.message); }
+  }catch(err){ setSyncStatus('err','Gagal'); showToast('❌ '+err.message); }
 }
 
 /* ══ PRICE FIELDS TOGGLE ══ */
