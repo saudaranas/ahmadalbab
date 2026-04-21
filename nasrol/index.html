@@ -383,6 +383,7 @@ html,body{background:#fff;font-family:var(--nt-font-regular-f);font-weight:var(-
         <div class="af-group"><label>Label Pendek</label><input type="text" id="fL" placeholder="cth: KURSUS"></div>
         <div class="af-group"><label>Nombor &amp; Nama Produk</label><input type="text" id="fN" placeholder="cth: 1: Nama Produk"></div>
         <div class="af-group"><label>URL Produk</label><input type="text" id="fUrl" placeholder="https://..."></div>
+        <div class="af-group"><label>Platform</label><input type="text" id="fPlat" placeholder="cth: Shopee, TikTok, Web"><p class="af-note">Akan terpapar pada kad produk. Kosongkan untuk guna nama store.</p></div>
         <div class="af-group">
           <label>&#x1F5BC;&#xFE0F; URL Gambar Produk <span style="font-weight:400;color:var(--nc-text-tertiary)">(pilihan)</span></label>
           <input type="text" id="fImg" placeholder="https://i.imgur.com/abc123.jpg" oninput="previewAdminImg()">
@@ -767,7 +768,7 @@ function doRender(){
         ${p.b?`<span class="pbadge ${p.bc||'ba'}">${p.b}</span>`:''}
       </div>
       <div class="pcard-body">
-        <div class="flag-row"><span class="fm">\uD83C\uDFEA ${S.settings.name}</span><span class="ff">\u2713</span></div>
+        <div class="flag-row"><span class="fm">🏪 ${p.plat||S.settings.name}</span><span class="ff">✓</span></div>
         <p class="pname">${p.n}</p>
         <div class="pr">${ph(p)}${p.s?`<span class="psold">${p.s}</span>`:''}</div>
       </div>
@@ -937,7 +938,7 @@ function previewAdminImg(){
 
 /* ══ RESET FORM ══ */
 function resetForm(){
-  ['fE','fL','fN','fUrl','fImg','fPn','fPo','fB','fD','fS','fBg','fLc'].forEach(id=>{
+  ['fE','fL','fN','fUrl','fPlat','fImg','fPn','fPo','fB','fD','fS','fBg','fLc'].forEach(id=>{
     const e=document.getElementById(id); if(e) e.value='';
   });
   document.getElementById('fPt').value='now';
@@ -960,6 +961,7 @@ function editProduct(id){
   document.getElementById('fL').value=p.l||'';
   document.getElementById('fN').value=p.n||'';
   document.getElementById('fUrl').value=p.url||'';
+  document.getElementById('fPlat').value=p.plat||'';
   document.getElementById('fImg').value=p.img||'';
   previewAdminImg();
   document.getElementById('fBg').value=p.bg||'';
@@ -999,6 +1001,7 @@ async function saveProduct(){
     id: eid ? parseInt(eid) : null,
     n,
     url: document.getElementById('fUrl').value.trim()||'#',
+    plat: document.getElementById('fPlat').value.trim()||null,
     img: document.getElementById('fImg').value.trim()||null,
     cat: document.getElementById('fCat').value,
     bg: document.getElementById('fBg').value.trim()||'#f0f4f8',
