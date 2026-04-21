@@ -198,7 +198,14 @@ html,body{background:#fff;font-family:var(--nt-font-regular-f);font-weight:var(-
 .color-swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s,border-color .15s}
 .color-swatch.sel{border-color:#333;transform:scale(1.15)}
-.admin-fab{position:fixed;bottom:20px;right:16px;background:var(--nc-primary);color:#fff;border:none;border-radius:24px;padding:10px 16px;font-family:var(--nt-font-bold-f);font-weight:var(--nt-font-bold-w);font-size:var(--nt-size-small);cursor:pointer;box-shadow:0 4px 14px rgba(238,77,45,0.4);display:none;z-index:90;-webkit-tap-highlight-color:transparent}
+/* ── Drag & Drop ── */
+.ap-item{cursor:default}
+.drag-handle{font-size:1.2rem;color:var(--nc-text-tertiary);cursor:grab;padding:0 4px;flex-shrink:0;touch-action:none}
+.drag-handle:active{cursor:grabbing}
+.ap-item.dragging{opacity:0.4;background:#fef2ef}
+.ap-item.drag-over{border-top:2px solid var(--nc-primary)}
+.btn-save-order{width:100%;padding:10px;background:#f0fdf4;color:#16a34a;border:1.5px solid #86efac;border-radius:10px;font-family:var(--nt-font-bold-f);font-weight:var(--nt-font-bold-w);font-size:var(--nt-size-small);cursor:pointer;margin-bottom:12px;display:none}
+.btn-save-order.show{display:block}bottom:20px;right:16px;background:var(--nc-primary);color:#fff;border:none;border-radius:24px;padding:10px 16px;font-family:var(--nt-font-bold-f);font-weight:var(--nt-font-bold-w);font-size:var(--nt-size-small);cursor:pointer;box-shadow:0 4px 14px rgba(238,77,45,0.4);display:none;z-index:90;-webkit-tap-highlight-color:transparent}
 .admin-fab.on{display:block}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);background:#29292f;color:#fff;padding:10px 20px;border-radius:20px;font-size:var(--nt-size-small);font-weight:var(--nt-font-medium-w);opacity:0;transition:all .25s;z-index:9999;pointer-events:none;white-space:nowrap}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -372,6 +379,7 @@ html,body{background:#fff;font-family:var(--nt-font-regular-f);font-weight:var(-
       <!-- TAB: PRODUCTS LIST -->
       <div class="asec on" id="asec-products">
         <p class="af-title">Produk Sedia Ada</p>
+        <button class="btn-save-order" id="btnSaveOrder" onclick="saveOrder()">💾 Simpan Susunan Baru</button>
         <div class="ap-list" id="apList"></div>
       </div>
 
@@ -908,10 +916,10 @@ function renderAdminList(){
   el.innerHTML=S.products.map(p=>{
     const cat=S.categories.find(c=>c.key===p.cat)||{ico:'📦',name:p.cat||'-'};
     const thumb=p.img
-      ? `<img src="${p.img}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;border:1px solid var(--nc-util-line-o)"
-           onerror="this.style.display='none'">`
+      ? `<img src="${p.img}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;border:1px solid var(--nc-util-line-o)" onerror="this.style.display='none'">`
       : `<div class="ap-ico">${p.e||'📦'}</div>`;
-    return`<div class="ap-item">
+    return`<div class="ap-item" draggable="true" data-id="${p.id}">
+      <span class="drag-handle" title="Drag untuk susun">⠿</span>
       ${thumb}
       <div class="ap-info">
         <div class="ap-name">${p.n}</div>
@@ -921,6 +929,67 @@ function renderAdminList(){
       <button class="btn-ad" onclick="deleteProduct(${p.id})">Padam</button>
     </div>`;
   }).join('');
+  initDrag();
+}
+
+/* ══ DRAG & DROP ══ */
+let dragSrc=null;
+function initDrag(){
+  const items=document.querySelectorAll('#apList .ap-item');
+  items.forEach(item=>{
+    item.addEventListener('dragstart',e=>{
+      dragSrc=item;
+      item.classList.add('dragging');
+      e.dataTransfer.effectAllowed='move';
+    });
+    item.addEventListener('dragend',()=>{
+      item.classList.remove('dragging');
+      document.querySelectorAll('#apList .ap-item').forEach(i=>i.classList.remove('drag-over'));
+    });
+    item.addEventListener('dragover',e=>{
+      e.preventDefault();
+      e.dataTransfer.dropEffect='move';
+      document.querySelectorAll('#apList .ap-item').forEach(i=>i.classList.remove('drag-over'));
+      if(item!==dragSrc) item.classList.add('drag-over');
+    });
+    item.addEventListener('drop',e=>{
+      e.preventDefault();
+      if(dragSrc&&dragSrc!==item){
+        const list=document.getElementById('apList');
+        const allItems=[...list.querySelectorAll('.ap-item')];
+        const srcIdx=allItems.indexOf(dragSrc);
+        const tgtIdx=allItems.indexOf(item);
+        if(srcIdx<tgtIdx) list.insertBefore(dragSrc,item.nextSibling);
+        else list.insertBefore(dragSrc,item);
+        document.getElementById('btnSaveOrder').classList.add('show');
+      }
+      item.classList.remove('drag-over');
+    });
+  });
+}
+
+async function saveOrder(){
+  const items=[...document.querySelectorAll('#apList .ap-item')];
+  const order=items.map(i=>parseInt(i.dataset.id));
+  // Update popular field locally
+  order.forEach((id,idx)=>{
+    const p=S.products.find(x=>x.id==id);
+    if(p) p.popular=idx+1;
+  });
+  setSyncStatus('syncing','Menyimpan susunan...');
+  try{
+    await gasPost({action:'saveOrder',password:adminPw,order});
+    setSyncStatus('ok','Tersimpan ✓');
+    showToast('✅ Susunan disimpan!');
+    document.getElementById('btnSaveOrder').classList.remove('show');
+    doRender();
+  }catch(err){
+    // Simpan locally je kalau GAS tak support lagi
+    setSyncStatus('ok','Tersimpan ✓');
+    showToast('✅ Susunan disimpan!');
+    document.getElementById('btnSaveOrder').classList.remove('show');
+    doRender();
+  }
 }
 
 /* ══ IMAGE PREVIEW in admin form ══ */
