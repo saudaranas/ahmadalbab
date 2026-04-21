@@ -913,13 +913,16 @@ function renderAdminList(){
     el.innerHTML='<p style="color:var(--nc-text-tertiary);font-size:var(--nt-size-small);text-align:center;padding:20px 0">Tiada produk lagi</p>';
     return;
   }
-  el.innerHTML=S.products.map(p=>{
+  el.innerHTML=S.products.map((p,idx)=>{
     const cat=S.categories.find(c=>c.key===p.cat)||{ico:'📦',name:p.cat||'-'};
     const thumb=p.img
       ? `<img src="${p.img}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;flex-shrink:0;border:1px solid var(--nc-util-line-o)" onerror="this.style.display='none'">`
       : `<div class="ap-ico">${p.e||'📦'}</div>`;
-    return`<div class="ap-item" draggable="true" data-id="${p.id}">
-      <span class="drag-handle" title="Drag untuk susun">⠿</span>
+    return`<div class="ap-item" data-id="${p.id}">
+      <div style="display:flex;flex-direction:column;gap:3px;flex-shrink:0">
+        <button onclick="moveProduct(${idx},-1)" style="background:${idx===0?'#f0f0f0':'#eff6ff'};border:1px solid ${idx===0?'#e0e0e0':'#bfdbfe'};border-radius:5px;padding:3px 7px;cursor:pointer;font-size:.7rem;color:${idx===0?'#aaa':'#1d4ed8'}" ${idx===0?'disabled':''}>▲</button>
+        <button onclick="moveProduct(${idx},1)" style="background:${idx===S.products.length-1?'#f0f0f0':'#eff6ff'};border:1px solid ${idx===S.products.length-1?'#e0e0e0':'#bfdbfe'};border-radius:5px;padding:3px 7px;cursor:pointer;font-size:.7rem;color:${idx===S.products.length-1?'#aaa':'#1d4ed8'}" ${idx===S.products.length-1?'disabled':''}>▼</button>
+      </div>
       ${thumb}
       <div class="ap-info">
         <div class="ap-name">${p.n}</div>
@@ -929,68 +932,34 @@ function renderAdminList(){
       <button class="btn-ad" onclick="deleteProduct(${p.id})">Padam</button>
     </div>`;
   }).join('');
-  initDrag();
 }
 
-/* ══ DRAG & DROP ══ */
-let dragSrc=null;
-function initDrag(){
-  const items=document.querySelectorAll('#apList .ap-item');
-  items.forEach(item=>{
-    item.addEventListener('dragstart',e=>{
-      dragSrc=item;
-      item.classList.add('dragging');
-      e.dataTransfer.effectAllowed='move';
-    });
-    item.addEventListener('dragend',()=>{
-      item.classList.remove('dragging');
-      document.querySelectorAll('#apList .ap-item').forEach(i=>i.classList.remove('drag-over'));
-    });
-    item.addEventListener('dragover',e=>{
-      e.preventDefault();
-      e.dataTransfer.dropEffect='move';
-      document.querySelectorAll('#apList .ap-item').forEach(i=>i.classList.remove('drag-over'));
-      if(item!==dragSrc) item.classList.add('drag-over');
-    });
-    item.addEventListener('drop',e=>{
-      e.preventDefault();
-      if(dragSrc&&dragSrc!==item){
-        const list=document.getElementById('apList');
-        const allItems=[...list.querySelectorAll('.ap-item')];
-        const srcIdx=allItems.indexOf(dragSrc);
-        const tgtIdx=allItems.indexOf(item);
-        if(srcIdx<tgtIdx) list.insertBefore(dragSrc,item.nextSibling);
-        else list.insertBefore(dragSrc,item);
-        document.getElementById('btnSaveOrder').classList.add('show');
-      }
-      item.classList.remove('drag-over');
-    });
-  });
+function moveProduct(idx, dir){
+  const newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= S.products.length) return;
+  const tmp = S.products[idx];
+  S.products[idx] = S.products[newIdx];
+  S.products[newIdx] = tmp;
+  renderAdminList();
+  document.getElementById('btnSaveOrder').classList.add('show');
 }
 
 async function saveOrder(){
-  const items=[...document.querySelectorAll('#apList .ap-item')];
-  const order=items.map(i=>parseInt(i.dataset.id));
-  // Update popular field locally
-  order.forEach((id,idx)=>{
-    const p=S.products.find(x=>x.id==id);
-    if(p) p.popular=idx+1;
-  });
+  const order = S.products.map(p => p.id);
+  S.products.forEach((p,idx) => p.popular = idx+1);
   setSyncStatus('syncing','Menyimpan susunan...');
   try{
     await gasPost({action:'saveOrder',password:adminPw,order});
     setSyncStatus('ok','Tersimpan ✓');
-    showToast('✅ Susunan disimpan!');
-    document.getElementById('btnSaveOrder').classList.remove('show');
-    doRender();
   }catch(err){
-    // Simpan locally je kalau GAS tak support lagi
     setSyncStatus('ok','Tersimpan ✓');
-    showToast('✅ Susunan disimpan!');
-    document.getElementById('btnSaveOrder').classList.remove('show');
-    doRender();
   }
+  showToast('✅ Susunan disimpan!');
+  document.getElementById('btnSaveOrder').classList.remove('show');
+  doRender();
 }
+
+/* ══ DRAG & DROP (removed) ══ */
 
 /* ══ IMAGE PREVIEW in admin form ══ */
 function previewAdminImg(){
