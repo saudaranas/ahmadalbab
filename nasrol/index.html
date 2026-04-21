@@ -727,7 +727,7 @@ function applySettings(){
 
 /* ══ SORT ══ */
 function getSortVal(p,key){
-  if(key==='price') return parseFloat((p.pn||'0').replace(/[^0-9.]/g,''))||0;
+  if(key==='price') return parseFloat(String(p.pn||'0').replace(/[^0-9.]/g,''))||0;
   if(key==='latest') return -(Number(p.latest)||p.id||0);
   if(key==='topsales') return -(Number(p.topsales)||0);
   return Number(p.popular)||0;
@@ -744,7 +744,7 @@ function doRender(){
   em.classList.remove('on');
 
   const ph=p=>{
-    if(p.pt==='now') return`<div class="pl">${p.po?`<span class="pold">${p.po}</span>`:''}<span class="pc">RM</span><span class="pv">${(p.pn||'').replace('RM','')}</span></div>`;
+    if(p.pt==='now') return`<div class="pl">${p.po?`<span class="pold">${p.po}</span>`:''}<span class="pc">RM</span><span class="pv">${String(p.pn||'').replace('RM','')}</span></div>`;
     if(p.pt==='free') return`<div class="pl"><span class="pfree">${p.pn||'FREE'}</span></div>`;
     if(p.pt==='saas') return`<div class="pl"><span class="psaas">${p.pn}</span></div>`;
     return`<div class="pl"></div>`;
