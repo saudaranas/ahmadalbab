@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dari Prompt ke RM300 — Panduan WFH Bina Website Guna AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --black: #0a0a0a;
+    --black2: #111111;
+    --black3: #1a1a1a;
+    --green: #00ff88;
+    --green-dim: #00cc6a;
+    --green-dark: #003d1f;
+    --white: #ffffff;
+    --off-white: #f8f8f8;
+    --gray: #888888;
+    --gray-light: #555555;
+    --border-dark: #222222;
+    --border-light: #e8e8e8;
+  }
+
+  body { background: var(--black); color: var(--white); font-family: "Inter", sans-serif; font-weight: 300; line-height: 1.7; min-height: 100vh; }
+
+  /* BG HELPERS */
+  .bg-dark { background: var(--black); }
+  .bg-dark2 { background: var(--black2); }
+  .bg-white { background: var(--white); color: var(--black); }
+  .bg-offwhite { background: var(--off-white); color: var(--black); }
+
+  /* HERO — hitam */
+  .hero { background: var(--black); padding: 4.5rem 1.5rem 4rem; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; top: -40%; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(0,255,136,0.07) 0%, transparent 70%); pointer-events: none; }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+  .hero-tag { display: inline-block; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.3); border-radius: 100px; padding: 0.35rem 1rem; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 1.75rem; }
+  .hero h1 { font-family: "Lora", serif; font-size: clamp(1.8rem, 6vw, 3.2rem); font-weight: 700; line-height: 1.2; color: var(--white); margin-bottom: 1.25rem; }
+  .hero h1 em { font-style: italic; font-weight: 400; color: var(--green); }
+  .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 0.5rem; line-height: 1.8; }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  .hero-sub2 { font-size: 0.875rem; color: rgba(255,255,255,0.35); margin-bottom: 2.5rem; }
+  .btn-hero { display: inline-block; background: var(--green); color: var(--black); border: none; border-radius: 8px; padding: 1rem 2.5rem; font-family: "Inter", sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 0 24px rgba(0,255,136,0.3); text-decoration: none; }
+  .btn-hero:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(0,255,136,0.45); }
+  .hero-note { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 0.75rem; display: block; }
+
+  /* FOMO STRIP — dark green */
+  .fomo-strip { background: #071a0f; border-top: 1px solid rgba(0,255,136,0.15); border-bottom: 1px solid rgba(0,255,136,0.15); padding: 1.25rem 1.5rem; text-align: center; }
+  .fomo-inner { max-width: 520px; margin: 0 auto; }
+  .fomo-text { font-size: 13px; color: var(--green); font-weight: 500; margin-bottom: 0.85rem; }
+  .fomo-text strong { font-weight: 700; }
+  .progress-wrap { background: rgba(0,0,0,0.5); border-radius: 100px; height: 8px; overflow: hidden; margin-bottom: 0.5rem; border: 1px solid rgba(0,255,136,0.15); }
+  .progress-bar { height: 100%; background: var(--green); border-radius: 100px; width: 23%; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 10px; color: rgba(255,255,255,0.3); }
+  .progress-label span { color: var(--green); font-weight: 600; }
+
+  /* PROOF STRIP — putih */
+  .proof-strip { background: var(--white); border-bottom: 1px solid var(--border-light); padding: 1.75rem 1.5rem; }
+  .proof-inner { max-width: 560px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 0.75rem; text-align: center; }
+  .proof-num { font-family: "Lora", serif; font-size: 1.4rem; font-weight: 700; color: var(--black); display: block; }
+  .proof-label { font-size: 10px; color: #999; line-height: 1.4; margin-top: 2px; }
+
+  /* SECTIONS */
+  .section { max-width: 600px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+  /* Label warna ikut bg */
+  .dark .section-label { color: var(--green); }
+  .light .section-label { color: #c0392b; }
+
+  .section-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.75rem; }
+  .section-title { font-family: "Lora", serif; font-size: clamp(1.4rem,4vw,1.8rem); font-weight: 700; line-height: 1.3; margin-bottom: 1rem; }
+  .section-desc { font-size: 0.95rem; line-height: 1.85; margin-bottom: 1.5rem; }
+
+  .dark .section-title { color: var(--white); }
+  .dark .section-title em { color: var(--green); font-style: italic; }
+  .dark .section-desc { color: rgba(255,255,255,0.6); }
+
+  .light .section-title { color: var(--black); }
+  .light .section-title em { color: #c0392b; font-style: italic; }
+  .light .section-desc { color: #555; }
+
+  /* BROWSER MOCKUP — putih */
+  .mockups-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0 0.5rem; align-items: center; }
+  .mock-col { display: flex; flex-direction: column; gap: 0.5rem; }
+  .browser-mock { border-radius: 10px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.12); border: 1px solid var(--border-light); }
+  .tilt-left { transform: perspective(900px) rotateY(10deg) rotateX(4deg) scale(0.97); }
+  .tilt-right { transform: perspective(900px) rotateY(-10deg) rotateX(4deg) scale(0.97); }
+  .browser-bar { background: #f5f5f5; padding: 8px 12px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid #eee; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; } .dot-y { background: #ffbd2e; } .dot-g { background: #28c840; }
+  .browser-url { background: #fff; border-radius: 4px; padding: 3px 8px; font-size: 9px; color: #999; flex: 1; border: 1px solid #e8e8e8; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .browser-img { width: 100%; display: block; }
+  .mock-placeholder { background: #f0f0f0; width: 100%; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
+  .mock-placeholder-text { color: #bbb; font-size: 11px; text-align: center; line-height: 1.6; }
+  .mock-label { text-align: center; font-size: 10px; color: #bbb; font-style: italic; }
+  @media (max-width: 520px) {
+    .mockups-wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+    .tilt-left, .tilt-right { transform: none; }
+  }
+
+  /* PAIN POINTS — hitam */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .pain-item { background: var(--black2); border: 1px solid var(--border-dark); border-radius: 10px; padding: 1rem; }
+  .pain-emoji { font-size: 1.3rem; margin-bottom: 0.4rem; display: block; }
+  .pain-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 0.25rem; }
+  .pain-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  @media (max-width: 480px) { .pain-grid { grid-template-columns: 1fr; } }
+  .solution-box { background: var(--black2); border: 1px solid rgba(0,255,136,0.2); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin-top: 1.5rem; font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.75; }
+  .solution-box strong { color: var(--white); }
+
+  /* GET LIST — putih */
+  .get-list { display: flex; flex-direction: column; gap: 0.85rem; margin: 1.5rem 0; }
+  .get-item { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.85rem 1rem; background: var(--off-white); border: 1px solid var(--border-light); border-radius: 10px; }
+  .get-num { width: 26px; height: 26px; min-width: 26px; border-radius: 50%; background: var(--black); color: var(--green); font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px; border: 1px solid rgba(0,255,136,0.3); }
+  .get-title { font-size: 14px; font-weight: 500; color: var(--black); margin-bottom: 2px; }
+  .get-desc { font-size: 12px; color: #777; line-height: 1.5; }
+
+  /* BONUS — hitam */
+  .bonus-box { background: var(--black2); border: 1px solid rgba(0,255,136,0.15); border-radius: 16px; padding: 1.75rem 1.5rem; margin: 1.5rem 0; }
+  .bonus-list { display: flex; flex-direction: column; gap: 0.85rem; }
+  .bonus-item { display: flex; align-items: flex-start; gap: 0.75rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-dark); }
+  .bonus-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .bonus-icon { width: 32px; height: 32px; min-width: 32px; border-radius: 8px; background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.2); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .bonus-name { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 2px; }
+  .bonus-desc { font-size: 12px; color: var(--gray); line-height: 1.5; }
+  .bonus-value { font-size: 11px; color: var(--green); font-weight: 600; margin-top: 2px; }
+
+  /* FOR WHO — putih */
+  .who-list { display: flex; flex-direction: column; margin: 1.5rem 0; }
+  .who-item { display: flex; align-items: center; gap: 0.75rem; font-size: 0.9rem; color: #444; padding: 0.65rem 0; border-bottom: 1px solid var(--border-light); }
+  .who-item:last-child { border-bottom: none; }
+  .who-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--black); flex-shrink: 0; }
+
+  /* PRICE — hitam */
+  .price-section { background: var(--black2); border: 1px solid rgba(0,255,136,0.15); border-radius: 16px; padding: 2rem 1.5rem; text-align: center; margin: 1.5rem 0; position: relative; overflow: hidden; }
+  .price-section::before { content: ""; position: absolute; top: -40%; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: radial-gradient(ellipse, rgba(0,255,136,0.05) 0%, transparent 70%); pointer-events: none; }
+  .price-badge { display: inline-block; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); border-radius: 100px; padding: 0.3rem 0.85rem; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); font-weight: 600; margin-bottom: 1rem; }
+  .price-title { font-family: "Lora", serif; font-size: 1.3rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+  .price-subtitle { font-size: 12px; color: var(--gray); margin-bottom: 1.25rem; }
+  .price-wrap { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .price-ori { font-size: 1.1rem; color: rgba(255,255,255,0.3); text-decoration: line-through; }
+  .price-arrow { font-size: 1rem; color: var(--green); font-weight: 600; }
+  .price-now { font-family: "Lora", serif; font-size: 2.8rem; font-weight: 700; color: var(--green); line-height: 1; }
+  .price-save { display: inline-block; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2); border-radius: 100px; padding: 0.25rem 0.75rem; font-size: 11px; color: var(--green); font-weight: 600; margin-bottom: 1.25rem; }
+  .nobrainer-box { background: var(--black3); border: 1px solid var(--border-dark); border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1rem; text-align: left; font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.75; }
+  .nobrainer-box strong { color: var(--green); font-weight: 600; }
+  .nobrainer-box .limit { color: var(--green); font-weight: 700; display: block; margin-top: 0.5rem; font-size: 13px; }
+  .fomo-mini { background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.15); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 12px; color: var(--green); text-align: center; font-weight: 500; }
+
+  /* BCL FORM — putih, section tersendiri */
+  .bcl-section { background: var(--white); padding: 3rem 1.5rem; text-align: center; border-top: 1px solid var(--border-light); }
+  .bcl-inner { max-width: 520px; margin: 0 auto; }
+  .bcl-title { font-family: "Lora", serif; font-size: 1.3rem; font-weight: 700; color: var(--black); margin-bottom: 0.4rem; }
+  .bcl-sub { font-size: 0.875rem; color: #888; margin-bottom: 1.75rem; }
+  .bcl-security { font-size: 11px; color: #bbb; margin-top: 1rem; }
+
+  /* FAQ — hitam */
+  .faq-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
+  .faq-item { background: var(--black2); border: 1px solid var(--border-dark); border-radius: 10px; overflow: hidden; cursor: pointer; }
+  .faq-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; gap: 1rem; }
+  .faq-q { font-size: 14px; font-weight: 500; color: var(--white); line-height: 1.4; }
+  .faq-icon { width: 20px; height: 20px; min-width: 20px; border-radius: 50%; border: 1px solid rgba(0,255,136,0.3); display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--green); transition: transform 0.3s; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.3s ease; }
+  .faq-item.open .faq-body { max-height: 200px; }
+  .faq-a { font-size: 13px; color: var(--gray); line-height: 1.6; padding: 0 1.25rem 1rem; border-top: 1px solid var(--border-dark); padding-top: 0.85rem; }
+
+  /* FOOTER CTA — hijau neon */
+  .footer-cta { background: var(--green); padding: 3rem 1.5rem; text-align: center; }
+  .footer-cta h2 { font-family: "Lora", serif; font-size: 1.5rem; font-weight: 700; color: var(--black); margin-bottom: 0.75rem; line-height: 1.3; }
+  .footer-cta p { font-size: 0.9rem; color: rgba(0,0,0,0.6); margin-bottom: 1.5rem; }
+  .btn-footer { display: inline-block; background: var(--black); color: var(--green); border-radius: 8px; padding: 1rem 2.5rem; font-family: "Inter", sans-serif; font-size: 1rem; font-weight: 700; text-decoration: none; transition: transform 0.15s; cursor: pointer; border: none; }
+  .btn-footer:hover { transform: translateY(-2px); }
+
+  footer { background: var(--black); padding: 2rem 1.5rem; text-align: center; border-top: 1px solid var(--border-dark); }
+  footer p { font-size: 11px; color: #333; line-height: 1.9; }
+  footer a { color: var(--green); text-decoration: none; }
+
+  /* SMOOTH SCROLL */
+  html { scroll-behavior: smooth; }
+
+  /* REPHRASE & RECAP */
+  .recap-masalah, .recap-impian { display: flex; flex-direction: column; gap: 0.85rem; margin: 1.75rem 0 0; }
+  .recap-item { display: flex; align-items: flex-start; gap: 0.9rem; background: var(--black2); border: 1px solid var(--border-dark); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+  .recap-item strong { color: var(--white); font-weight: 600; }
+  .recap-item--green { border-color: rgba(0,255,136,0.18); background: rgba(0,255,136,0.04); }
+  .recap-item--green strong { color: var(--green); }
+  .recap-icon { font-size: 1.3rem; margin-top: 1px; flex-shrink: 0; }
+  .recap-divider { height: 1px; background: var(--border-dark); margin: 2rem 0 1.5rem; }
+  .recap-impian-label { font-size: 12px; color: var(--gray); font-style: italic; text-align: center; margin-bottom: 1rem; }
+  .recap-closing { background: var(--black2); border: 1px solid rgba(0,255,136,0.2); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.75; }
+  .recap-closing strong { color: var(--white); font-weight: 600; }
+  .recap-closing em { color: var(--green); font-style: normal; font-weight: 700; }
+  .recap-closing-big { font-family: "Lora", serif; font-size: 1.05rem; color: var(--white); font-weight: 700; margin-top: 0.25rem; }
+
+
+  /* IMPIAN — light version */
+  .recap-item-light { display: flex; align-items: flex-start; gap: 0.9rem; background: var(--off-white); border: 1px solid var(--border-light); border-radius: 10px; padding: 1rem 1.1rem; font-size: 0.9rem; color: #444; line-height: 1.7; }
+  .recap-item-light strong { color: #c0392b; font-weight: 600; }
+  .recap-closing-light { background: var(--off-white); border: 1px solid #e0e0e0; border-left: 3px solid #c0392b; border-radius: 0 10px 10px 0; padding: 1.25rem 1.5rem; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; color: #555; line-height: 1.75; }
+  .recap-closing-light strong { color: var(--black); font-weight: 600; }
+  .recap-closing-light em { color: #c0392b; font-style: normal; font-weight: 700; }
+  .recap-closing-big-light { font-family: "Lora", serif; font-size: 1.05rem; color: var(--black); font-weight: 700; margin-top: 0.25rem; }
+
+
+  /* PRICE ESCALATE */
+  .price-nilai-box { background: rgba(0,255,136,0.06); border: 1px solid rgba(0,255,136,0.2); border-radius: 10px; padding: 0.85rem 1.25rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+  .price-nilai-label { font-size: 11px; color: var(--gray); letter-spacing: 0.08em; text-transform: uppercase; }
+  .price-nilai-amount { font-family: "Lora", serif; font-size: 1.6rem; font-weight: 700; color: rgba(255,255,255,0.35); text-decoration: line-through; }
+  .price-escalate { background: var(--black3); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 1.25rem 1rem; margin-top: 1.25rem; }
+  .price-escalate-title { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 1rem; text-align: center; }
+  .price-escalate-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.85rem; flex-wrap: wrap; }
+  .price-step { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; background: var(--black2); border: 1px solid var(--border-dark); border-radius: 8px; padding: 0.6rem 0.9rem; min-width: 64px; }
+  .price-step--active { border-color: rgba(0,255,136,0.4); background: rgba(0,255,136,0.06); }
+  .price-step-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); }
+  .price-step--active .price-step-label { color: var(--green); }
+  .price-step-price { font-family: "Lora", serif; font-size: 1.1rem; font-weight: 700; color: rgba(255,255,255,0.3); }
+  .price-step--active .price-step-price { color: var(--green); }
+  .price-step-arrow { color: rgba(255,255,255,0.2); font-size: 1rem; }
+  .price-escalate-note { font-size: 11px; color: rgba(255,255,255,0.3); text-align: center; line-height: 1.6; }
+
+
+  /* P/S box */
+  .price-ps { border-top: 1px solid var(--border-dark); margin-top: 1.25rem; padding-top: 1.1rem; font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.75; text-align: left; }
+  .price-ps strong { color: rgba(255,255,255,0.75); font-weight: 600; }
+
+</style>
+</head>
+<body>
+
+<!-- HERO — hitam -->
+<div class="hero bg-dark">
+  <div class="hero-inner">
+    <span class="hero-tag">Panduan WFH &mdash; Vibe Coder Malaysia</span>
+    <h1>Bina Website Guna AI.<br><em>Caj Client RM150&ndash;RM300.</em><br>Siap Dalam 3 Jam!</h1>
+    <p class="hero-sub">Tanpa coding. Tanpa pengalaman IT. Hanya dengan <strong>AI percuma</strong> dan panduan langkah demi langkah ini.</p>
+    <p class="hero-sub2">Sesuai untuk sesiapa yang nak buat duit dari rumah.</p>
+    <a class="btn-hero" href="#beli">Dapatkan Sekarang &rarr;</a>
+    <span class="hero-note">Harga launching RM37 &mdash; terhad untuk 100 orang terawal sahaja</span>
+  </div>
+</div>
+
+
+
+<!-- PROOF STRIP — putih -->
+<div class="proof-strip bg-white">
+  <div class="proof-inner">
+    <div><span class="proof-num">1&ndash;3j</span><span class="proof-label">Siap satu website</span></div>
+    <div><span class="proof-num">RM300</span><span class="proof-label">Bayaran client</span></div>
+    <div><span class="proof-num">RM0</span><span class="proof-label">Kos tools AI</span></div>
+    <div><span class="proof-num">100%</span><span class="proof-label">Boleh praktik hari ini</span></div>
+  </div>
+</div>
+
+<!-- WEBSITES — putih -->
+<div class="bg-white light">
+  <div class="section">
+    <p class="section-label">Bukti nyata</p>
+    <h2 class="section-title">Website Ini Dibina Guna <em>Kaedah Yang Sama!</em></h2>
+    <p class="section-desc">Bukan teori. Bukan rekaan. Website sebenar, client sebenar, bayaran sebenar.</p>
+    <div class="mockups-wrap">
+      <div class="mock-col">
+        <div class="browser-mock tilt-left">
+          <div class="browser-bar">
+            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="browser-url"></span>
+          </div>
+          <img class="browser-img" src="https://i.postimg.cc/pT5DyHnb/Screenshot-20260419-144948.jpg">
+        </div>
+        
+      </div>
+      <div class="mock-col">
+        <div class="browser-mock tilt-right">
+          <div class="browser-bar">
+            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="browser-url"></span>
+          </div>
+          <img class="browser-img" src="https://i.postimg.cc/d0x2q135/Screenshot-20260419-214241.jpg" />
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAIN POINTS — hitam -->
+<div class="bg-dark dark">
+  <div class="section">
+    <p class="section-label">Situasi anda sekarang</p>
+    <h2 class="section-title">Anda <em>WFH</em> Tapi Income Masih Kosong?</h2>
+    <div class="pain-grid">
+      <div class="pain-item">
+        <span class="pain-emoji">😮‍💨</span>
+        <p class="pain-title">Nak buat duit tapi tak tahu dari mana</p>
+        <p class="pain-desc">Scroll social media tengok orang lain berjaya, tapi diri sendiri stuck.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-emoji">😰</span>
+        <p class="pain-title">Takut sebab tak reti coding</p>
+        <p class="pain-desc">Fikir buat website kena belajar bertahun-tahun — padahal tidak!</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-emoji">💸</span>
+        <p class="pain-title">Modal tak ada</p>
+        <p class="pain-desc">Nak mula bisnes tapi takut kena keluar duit banyak.</p>
+      </div>
+      <div class="pain-item">
+        <span class="pain-emoji">⏳</span>
+        <p class="pain-title">Masa terhad</p>
+        <p class="pain-desc">Ada anak, ada kerja lain — tak boleh nak belajar benda complicated.</p>
+      </div>
+    </div>
+    <div class="solution-box">
+      Panduan <strong>"Dari Prompt ke RM300"</strong> selesaikan semua masalah ini &mdash; dengan cara yang mudah, praktikal, dan boleh dimulakan hari ini!
+    </div>
+  </div>
+</div>
+
+<!-- WHAT YOU GET — putih -->
+<div class="bg-white light">
+  <div class="section">
+    <p class="section-label">Isi kandungan</p>
+    <h2 class="section-title">Apa Yang Ada Dalam <em>"Dari Prompt ke RM300"</em></h2>
+    <div class="get-list">
+      <div class="get-item"><span class="get-num">1</span><div><p class="get-title">Mindset — Kenapa Ini Peluang WFH Terbaik Sekarang</p><p class="get-desc">Faham kenapa permintaan website tinggi, kenapa AI ubah segalanya, dan kenapa RM150–RM300 hanyalah permulaan.</p></div></div>
+      <div class="get-item"><span class="get-num">2</span><div><p class="get-title">Setup Tools — Semua Percuma, Siap Dalam Satu Petang</p><p class="get-desc">Claude AI, GitHub, Namecheap, payment gateway — step by step cara setup tanpa sebarang kos.</p></div></div>
+      <div class="get-item"><span class="get-num">3</span><div><p class="get-title">Vibe Code — Bina Website Guna AI Tanpa Coding</p><p class="get-desc">Cara bagi arahan kepada AI, prompt yang betul untuk pelbagai jenis website, cara edit dan customize ikut kehendak client.</p></div></div>
+      <div class="get-item"><span class="get-num">4</span><div><p class="get-title">Deploy — Website Live Dalam 30 Minit</p><p class="get-desc">Upload ke GitHub Pages, sambung domain Namecheap, hantar link kepada client — lengkap dengan screenshot.</p></div></div>
+      <div class="get-item"><span class="get-num">5</span><div><p class="get-title">Harga & Payment — Tetapkan Harga Dengan Yakin</p><p class="get-desc">Pakej harga RM150, RM250, RM350, skrip minta bayaran, dan cara terima payment.</p></div></div>
+      <div class="get-item"><span class="get-num">6</span><div><p class="get-title">Dapat Client Guna Threads — Tanpa Ads, Tanpa Tunjuk Muka</p><p class="get-desc">Formula S.T.O.P., 3 jenis post yang attract client, skrip balas DM, dan cara close deal dengan yakin.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS — hitam -->
+<div class="bg-dark dark">
+  <div class="section">
+    <p class="section-label">Bonus eksklusif</p>
+    <h2 class="section-title">Dapat <em>3 Bonus</em> Percuma!</h2>
+    <p class="section-desc">Bonus ini sahaja dah bernilai lebih dari harga panduan!</p>
+    <div class="bonus-box">
+      <div class="bonus-list">
+        <div class="bonus-item"><span class="bonus-icon">⚡</span><div><p class="bonus-name">Bonus 1 — 5 Prompt Sedia Guna</p><p class="bonus-desc">5 prompt vibe code untuk 5 jenis website. Copy, paste, edit — terus dapat website cantik dalam masa sejam.</p><p class="bonus-value">Nilai: RM47</p></div></div>
+        <div class="bonus-item"><span class="bonus-icon">✅</span><div><p class="bonus-name">Bonus 2 — Checklist Sebelum Hantar ke Client</p><p class="bonus-desc">8 perkara mesti semak sebelum hantar website. Nampak professional, kurang silap, client happy!</p><p class="bonus-value">Nilai: RM27</p></div></div>
+        <div class="bonus-item"><span class="bonus-icon">💬</span><div><p class="bonus-name">Bonus 3 — Skrip Close Deal WhatsApp</p><p class="bonus-desc">Template mesej approach client, balas DM, minta bayaran, dan follow up. Sesuai untuk introvert!</p><p class="bonus-value">Nilai: RM37</p></div></div>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:13px;color:var(--gray);">Jumlah nilai bonus: <strong style="color:var(--green);">RM111</strong> &mdash; anda dapat percuma!</p>
+  </div>
+</div>
+
+<!-- FOR WHO — putih -->
+<div class="bg-white light">
+  <div class="section">
+    <p class="section-label">Sesuai untuk</p>
+    <h2 class="section-title">Panduan Ini Untuk <em>Siapa?</em></h2>
+    <div class="who-list">
+      <div class="who-item"><span class="who-dot"></span>Ibu atau bapa yang nak income tambahan dari rumah</div>
+      <div class="who-item"><span class="who-dot"></span>Pekerja yang nak side income tanpa tinggalkan kerja tetap</div>
+      <div class="who-item"><span class="who-dot"></span>Fresh grad yang susah nak cari kerja dan nak mulakan sendiri</div>
+      <div class="who-item"><span class="who-dot"></span>Sesiapa yang nak buat duit guna AI tapi tak tahu dari mana nak mula</div>
+      <div class="who-item"><span class="who-dot"></span>Introvert yang tak suka tunjuk muka tapi nak bina income online</div>
+      <div class="who-item"><span class="who-dot"></span>Sesiapa yang pernah cuba buat duit online tapi selalu gagal</div>
+    </div>
+  </div>
+</div>
+
+<!-- REPHRASE & RECAP — hitam -->
+<div class="bg-dark dark">
+  <div class="section">
+
+    <!-- Masalah -->
+    <p class="section-label">Jujur dengan diri sendiri</p>
+    <h2 class="section-title">Jadi, <em>Adakah Ini Anda?</em></h2>
+
+    <div class="recap-masalah">
+      <div class="recap-item">
+        <span class="recap-icon">😮‍💨</span>
+        <p>Adakah anda <strong>tak tahu dari mana nak mula</strong> buat duit dari rumah — walaupun dah lama terfikir-fikir?</p>
+      </div>
+      <div class="recap-item">
+        <span class="recap-icon">😰</span>
+        <p>Adakah anda dah lama <strong>nak buat sesuatu</strong> tapi terhenti sebab takut — takut tak reti coding, takut buat silap, takut buang masa?</p>
+      </div>
+      <div class="recap-item">
+        <span class="recap-icon">💸</span>
+        <p>Adakah anda nak mulakan sesuatu tapi <strong>modal pun tak ada</strong> — dan tak mahu ambil risiko besar?</p>
+      </div>
+      <div class="recap-item">
+        <span class="recap-icon">⏳</span>
+        <p>Adakah anda rasa <strong>masa sentiasa tak cukup</strong> — ada anak, ada tanggungjawab lain — sampai rasa macam peluang ni bukan untuk anda?</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- IMPIAN — putih -->
+<div class="bg-white light">
+  <div class="section">
+    <p class="section-label">Bayangkan sebentar</p>
+    <h2 class="section-title">Adakah Ini Yang <em>Anda Mahukan...</em></h2>
+
+    <div class="recap-impian">
+      <div class="recap-item-light">
+        <span class="recap-icon">🏠</span>
+        <p>Mahukah anda ada <strong>income tambahan dari rumah</strong> — tanpa perlu keluar, tanpa perlu jumpa bos, tanpa perlu ikut orang lain?</p>
+      </div>
+      <div class="recap-item-light">
+        <span class="recap-icon">⚡</span>
+        <p>Mahukah anda buat <strong>income WFH tanpa perlu tahu coding</strong> satu baris pun — hanya guna AI yang sedia ada percuma?</p>
+      </div>
+      <div class="recap-item-light">
+        <span class="recap-icon">🕒</span>
+        <p>Mahukah anda <strong>siapkan website dalam masa 3 jam</strong> dan terus caj client RM150 hingga RM300 — tanpa modal besar?</p>
+      </div>
+    </div>
+
+    <!-- Pujukan -->
+    <div class="recap-closing-light">
+      <p>Jadi, apa yang anda perlukan bukanlah kemahiran coding. Bukanlah modal yang besar. Bukanlah masa yang banyak.</p>
+      <p>Apa yang anda perlukan ialah <strong>satu sistem yang terbukti</strong> — langkah demi langkah — yang boleh anda ikut hari ini juga.</p>
+      <p class="recap-closing-big-light">Dan itulah <em>tepat</em> apa yang ada dalam panduan ini.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRICE — hitam -->
+<div class="bg-dark dark" id="beli">
+  <div class="section">
+    <p class="section-label">Harga early bird</p>
+    <h2 class="section-title">Dapatkan <em>"Dari Prompt ke RM300"</em> Sekarang!</h2>
+    <div class="price-section">
+      <h3 class="price-title">Dari Prompt ke RM300</h3>
+      <p class="price-subtitle">Panduan + 3 Bonus Eksklusif (Nilai RM111)</p>
+
+      <div class="price-nilai-box">
+        <span class="price-nilai-label">Nilai sebenar panduan ini</span>
+        <span class="price-nilai-amount">RM197</span>
+      </div>
+
+      <div class="price-wrap">
+        <span class="price-ori">RM197</span>
+        <span class="price-arrow">&rarr;</span>
+        <span class="price-now">RM37</span>
+      </div>
+      <span class="price-save">Jimat RM160 &mdash; Early Bird Price!</span>
+
+      <div class="nobrainer-box">
+        <strong>Ini no-brainer!</strong> Dengan skill dalam panduan ini, anda boleh buat website dan caj client <strong>RM150 hingga RM300 on the spot!</strong><br><br>
+        Harga early bird panduan ini? <strong>RM37 sahaja.</strong>
+      </div>
+
+      <div class="price-ps">
+        <p><strong>P/S:</strong> Harga panduan ini akan dinaikkan kepada <strong>RM97, RM127 &amp; RM197</strong>. Jika anda tak nak terlepas peluang dapatkan pada harga Early Bird (<strong>RM37</strong>), boleh dapatkan sekarang. Harga akan dinaikkan pada bila-bila masa.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BCL FORM — putih, section tersendiri -->
+<div class="bcl-section">
+  <div class="bcl-inner">
+    <h3 class="bcl-title">Lengkapkan Pembayaran</h3>
+    <p class="bcl-sub">Bayaran selamat. Akses panduan terus selepas bayaran disahkan.</p>
+    <div id="bcl-payment-form" data-url="https://nucleusriver.bcl.my/embed/form/dari-prompt-ke-rm300"></div>
+    <script src="https://bcl.my/js/bc-encrypted-payment-embed.js"></script>
+    <p class="bcl-security">&#128274; Bayaran diproses dengan selamat melalui Bayarcash</p>
+  </div>
+</div>
+
+<!-- FAQ — hitam -->
+<div class="bg-dark dark">
+  <div class="section">
+    <p class="section-label">Soalan lazim</p>
+    <h2 class="section-title">Soalan <em>Yang Selalu Ditanya</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-header"><p class="faq-q">Saya langsung tak tahu coding. Boleh ke?</p><span class="faq-icon">+</span></div>
+        <div class="faq-body"><p class="faq-a">Boleh! Panduan ini direka khas untuk orang yang tidak tahu coding. AI yang akan tulis kod untuk anda &mdash; anda hanya perlu tahu apa yang nak disampaikan.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header"><p class="faq-q">Berapa lama untuk siapkan satu website?</p><span class="faq-icon">+</span></div>
+        <div class="faq-body"><p class="faq-a">Dengan kaedah dalam panduan ini, website asas boleh siap dalam 1 hingga 3 jam. Makin banyak praktik, makin laju!</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header"><p class="faq-q">Apa format panduan ini?</p><span class="faq-icon">+</span></div>
+        <div class="faq-body"><p class="faq-a">Panduan dalam format PDF yang boleh dibaca di telefon, tablet, atau komputer. Lengkap dengan prompt, skrip, dan checklist sedia guna.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header"><p class="faq-q">Macam mana nak dapat client pertama?</p><span class="faq-icon">+</span></div>
+        <div class="faq-body"><p class="faq-a">Dalam Bahagian 6, anda akan belajar cara attract client guna Threads tanpa ads dan tanpa tunjuk muka &mdash; lengkap dengan formula post dan skrip DM.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-header"><p class="faq-q">Kenapa harga akan naik?</p><span class="faq-icon">+</span></div>
+        <div class="faq-body"><p class="faq-a">RM37 adalah harga Early Bird sebagai penghargaan kepada mereka yang bertindak awal. Semakin ramai yang mendapat manfaat daripada panduan ini, semakin tinggi nilainya — dan harga akan disesuaikan mengikut masa. Tiada notis akan diberikan apabila harga dinaikkan.</p></div>
+      </div>
+
+<script>
+  document.querySelectorAll(".faq-item").forEach(item => {
+    item.querySelector(".faq-header").addEventListener("click", () => {
+      const isOpen = item.classList.contains("open");
+      document.querySelectorAll(".faq-item").forEach(i => i.classList.remove("open"));
+      if (!isOpen) item.classList.add("open");
+    });
+  });
+</script>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER CTA — hijau neon -->
+<div class="footer-cta">
+  <h2>Jangan Lepaskan Peluang Ini!</h2>
+  <p>Terhad untuk 100 orang terawal. Selepas slot habis, harga naik ke RM97 &mdash; tiada notis!</p>
+  <a class="btn-footer" href="#beli">Dapatkan Sekarang &rarr;</a>
+</div>
+
+<footer>
+  <p>Dari Prompt ke RM300 &mdash; Panduan WFH Bina Website Guna AI<br>&copy; 2025 Vibe Coder Malaysia. Hak Cipta Terpelihara.</p>
+</footer>
+
+</body>
+</html>
