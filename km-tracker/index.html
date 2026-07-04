@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>KM Tracker — ahmadalbab.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16130F;
+    --surface: #201C16;
+    --surface2: #2A251D;
+    --line: #37permanent302
+5;
+    --amber: #F7A80D;
+    --amber-dark: #B87A00;
+    --ink: #EFE8DA;
+    --muted: #948A79;
+    --ok: #7BC96F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 20px 16px 60px;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  header { margin-bottom: 20px; }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 34px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  h1 span { color: var(--amber); }
+
+  /* Blok jumlah — signature, gaya slab amber macam poster */
+  .total-slab {
+    background: var(--amber);
+    color: #171204;
+    padding: 20px 22px 24px;
+    margin: 18px 0 26px;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 6px 6px 0 rgba(247,168,13,.18);
+  }
+  .total-slab .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .total-slab .num {
+    font-family: 'Anton', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    margin-top: 4px;
+  }
+  .total-slab .sub {
+    font-size: 12px;
+    margin-top: 6px;
+    opacity: .75;
+  }
+
+  section { margin-bottom: 30px; }
+  h2 {
+    font-family: 'Anton', sans-serif;
+    font-size: 17px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--amber);
+    display: inline-block;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid #37302  5;
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  input[type=text] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid #46score3D30;
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    padding: 11px 12px;
+    outline: none;
+  }
+  input[type=text]:focus { border-color: var(--amber); }
+
+  .linkout {
+    margin-top: 12px;
+    background: var(--bg);
+    border: 1px dashed #4A4234;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    word-break: break-all;
+    color: var(--amber);
+  }
+  .btnrow { display: flex; gap: 10px; margin-top: 12px; }
+  button {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    padding: 11px 18px;
+    cursor: pointer;
+  }
+  .btn-amber { background: var(--amber); color: #171204; }
+  .btn-amber:active { background: var(--amber-dark); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid #4A4234;
+  }
+  .copied { background: var(--ok) !important; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 4px;
+    border-bottom: 1px solid #37302 5;
+  }
+  th:last-child, td:last-child { text-align: right; }
+  td {
+    padding: 10px 4px;
+    border-bottom: 1px solid #2A251D;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  td .src { font-family: 'IBM Plex Mono', monospace; font-size: 13px; }
+  td .bar {
+    height: 5px;
+    background: var(--amber);
+    border-radius: 3px;
+    margin-top: 6px;
+    min-width: 3px;
+  }
+  td .cnt { font-family: 'Anton', sans-serif; font-size: 19px; letter-spacing: .5px; }
+  td .copy-mini {
+    background: transparent;
+    border: 1px solid #4A4234;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 5px;
+    margin-left: 8px;
+  }
+
+  /* Carta harian */
+  .chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 110px;
+    padding-top: 8px;
+  }
+  .chart .col { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+  .chart .bar-v {
+    width: 100%;
+    background: var(--amber);
+    border-radius: 3px 3px 0 0;
+    min-height: 2px;
+    opacity: .9;
+  }
+  .chart .bar-v.zero { background: #37302  5; }
+  .chart .d {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+  .chart .v {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .recent-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid #2A251D;
+    font-size: 13px;
+  }
+  .recent-item .t { font-family: 'IBM Plex Mono', monospace; color: var(--muted); }
+  .recent-item .s { font-family: 'IBM Plex Mono', monospace; color: var(--amber); }
+
+  .status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 10px 0 24px;
+  }
+  .status.err { color: #E07A5F; }
+  .refresh-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .empty {
+    color: var(--muted);
+    font-size: 13px;
+    padding: 14px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">ahmadalbab.store / k-method</div>
+  <h1>KM <span>Tracker</span></h1>
+</header>
+
+<div class="refresh-row">
+  <button class="btn-amber" onclick="loadStats()">Muat semula data</button>
+  <div class="status" id="status" style="margin:0;">Memuatkan…</div>
+</div>
+
+<div class="total-slab">
+  <div class="label">Jumlah klik</div>
+  <div class="num" id="total">—</div>
+  <div class="sub" id="today-sub"></div>
+</div>
+
+<section>
+  <h2>Bina Link Parameter</h2>
+  <div class="card">
+    <label for="sumber">Nama sumber (contoh: copyA, grpNiaga1)</label>
+    <input type="text" id="sumber" placeholder="copyA" oninput="buildLink()" autocomplete="off">
+    <div class="linkout" id="linkout">https://ahmadalbab.store/k-method/</div>
+    <div class="btnrow">
+      <button class="btn-amber" id="copybtn" onclick="copyLink()">Salin link</button>
+      <button class="btn-ghost" onclick="testLink()">Uji link</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Klik Ikut Sumber</h2>
+  <div class="card" style="padding:6px 16px;">
+    <table>
+      <thead><tr><th>Sumber</th><th>Klik</th></tr></thead>
+      <tbody id="sumber-body">
+        <tr><td colspan="2" class="empty">Memuatkan…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>14 Hari Terakhir</h2>
+  <div class="card">
+    <div class="chart" id="chart"></div>
+  </div>
+</section>
+
+<section>
+  <h2>20 Klik Terkini</h2>
+  <div class="card" id="recent">
+    <div class="empty">Memuatkan…</div>
+  </div>
+</section>
+
+<script>
+// ================= TETAPAN =================
+// Ganti dengan URL Web App GAS awak (yang berakhir /exec)
+const GAS_URL  = "PASTE_URL_GAS_AWAK_SINI";
+// Link redirect awak
+const BASE_URL = "https://ahmadalbab.store/k-method/";
+// ===========================================
+
+function sanitize(v) {
+  return v.trim().replace(/\s+/g, "-").replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+function currentLink() {
+  const s = sanitize(document.getElementById("sumber").value);
+  return s ? BASE_URL + "?s=" + s : BASE_URL;
+}
+
+function buildLink() {
+  document.getElementById("linkout").textContent = currentLink();
+}
+
+function copyLink(text, btn) {
+  const link = text || currentLink();
+  const b = btn || document.getElementById("copybtn");
+  const done = () => {
+    const asal = b.textContent;
+    b.textContent = "Disalin ✓";
+    b.classList.add("copied");
+    setTimeout(() => { b.textContent = asal; b.classList.remove("copied"); }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(link).then(done).catch(() => fallbackCopy(link, done));
+  } else {
+    fallbackCopy(link, done);
+  }
+}
+
+function fallbackCopy(text, done) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { alert("Salin manual:\n" + text); }
+  document.body.removeChild(ta);
+}
+
+function testLink() {
+  window.open(currentLink(), "_blank");
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+async function loadStats() {
+  const status = document.getElementById("status");
+  status.classList.remove("err");
+
+  if (GAS_URL.indexOf("script.google.com") === -1) {
+    status.textContent = "Sila set GAS_URL dalam fail ini dulu.";
+    status.classList.add("err");
+    return;
+  }
+
+  status.textContent = "Memuatkan…";
+  try {
+    const res = await fetch(GAS_URL + "?view=json");
+    const d = await res.json();
+    render(d);
+    const now = new Date();
+    status.textContent = "Dikemaskini " + now.toLocaleTimeString("ms-MY", {hour:"2-digit", minute:"2-digit"});
+  } catch (e) {
+    status.textContent = "Gagal ambil data. Semak GAS_URL & deployment (Anyone).";
+    status.classList.add("err");
+  }
+}
+
+function render(d) {
+  // Jumlah
+  document.getElementById("total").textContent = d.total;
+
+  // Klik hari ini
+  const tz = new Date();
+  const todayKey = tz.getFullYear() + "-" +
+    String(tz.getMonth()+1).padStart(2,"0") + "-" +
+    String(tz.getDate()).padStart(2,"0");
+  const todayCount = d.daily[todayKey] || 0;
+  document.getElementById("today-sub").textContent = todayCount + " klik hari ini";
+
+  // Ikut sumber
+  const body = document.getElementById("sumber-body");
+  const entries = Object.entries(d.bySumber).sort((a,b) => b[1]-a[1]);
+  if (!entries.length) {
+    body.innerHTML = '<tr><td colspan="2" class="empty">Belum ada klik direkod. Uji link awak dan muat semula.</td></tr>';
+  } else {
+    const max = entries[0][1];
+    body.innerHTML = entries.map(([s, n]) => {
+      const w = Math.max(4, Math.round(n / max * 100));
+      const isReal = s !== "(tanpa sumber)";
+      const linkS = isReal ? BASE_URL + "?s=" + encodeURIComponent(s) : BASE_URL;
+      return '<tr><td>' +
+        '<span class="src">' + esc(s) + '</span>' +
+        '<button class="copy-mini" onclick="copyLink(\'' + linkS.replace(/'/g,"\\'") + '\', this)">salin link</button>' +
+        '<div class="bar" style="width:' + w + '%"></div>' +
+        '</td><td><span class="cnt">' + n + '</span></td></tr>';
+    }).join("");
+  }
+
+  // Carta 14 hari
+  const chart = document.getElementById("chart");
+  const days = [];
+  for (let i = 13; i >= 0; i--) {
+    const dt = new Date();
+    dt.setDate(dt.getDate() - i);
+    const key = dt.getFullYear() + "-" +
+      String(dt.getMonth()+1).padStart(2,"0") + "-" +
+      String(dt.getDate()).padStart(2,"0");
+    days.push({ label: dt.getDate() + "/" + (dt.getMonth()+1), v: d.daily[key] || 0 });
+  }
+  const maxV = Math.max(1, ...days.map(x => x.v));
+  chart.innerHTML = days.map(x => {
+    const h = Math.round(x.v / maxV * 78);
+    return '<div class="col">' +
+      (x.v ? '<div class="v">' + x.v + '</div>' : '') +
+      '<div class="bar-v' + (x.v ? '' : ' zero') + '" style="height:' + Math.max(2, h) + 'px"></div>' +
+      '<div class="d">' + x.label + '</div></div>';
+  }).join("");
+
+  // Terkini
+  const recent = document.getElementById("recent");
+  if (!d.recent.length) {
+    recent.innerHTML = '<div class="empty">Belum ada klik.</div>';
+  } else {
+    recent.innerHTML = d.recent.map(r =>
+      '<div class="recent-item"><span class="t">' + esc(r.t) + '</span><span class="s">' + esc(r.s) + '</span></div>'
+    ).join("");
+  }
+}
+
+buildLink();
+loadStats();
+</script>
+</body>
+</html>
