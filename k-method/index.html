@@ -4,9 +4,24 @@
 <meta charset="UTF-8">
 <title>K-Method by Tuan Khairi</title>
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0; url=https://k-method.tunkhairi.com/?ref=1022">
 <script>
-  window.location.replace("https://k-method.tunkhairi.com/?ref=1022");
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbzSCoRf_GjSHm_jopQDhBwHDrxy2JFSPjjNRlDfzXsAcNBni_zfbq6_rJGz2IIk3yLh-A/exec";
+  const DEST = "https://k-method.tunkhairi.com/?ref=1022";
+
+  // Ambil parameter sumber, cth: /k-method/?s=copyA
+  const p = new URLSearchParams(window.location.search);
+  const s = p.get("s") || "";
+  const r = document.referrer || "";
+  const trackUrl = GAS_URL + "?s=" + encodeURIComponent(s) + "&r=" + encodeURIComponent(r);
+
+  // sendBeacon: hantar log TANPA tunggu respon, redirect terus
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon(trackUrl);
+  } else {
+    fetch(trackUrl, { mode: "no-cors", keepalive: true });
+  }
+
+  window.location.replace(DEST);
 </script>
 </head>
 <body>
