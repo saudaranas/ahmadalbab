@@ -54,20 +54,31 @@
   }
 
   label { display: block; font-weight: 700; font-size: 17px; margin-bottom: 10px; }
-  input[type=text] {
-    width: 100%;
+  .nama-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .nama-btn {
     background: var(--bg);
     border: 2px solid #D8CDB4;
     border-radius: 12px;
     color: var(--ink);
     font-family: inherit;
-    font-size: 22px;
-    font-weight: 600;
-    padding: 16px;
-    outline: none;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 16px 8px;
+    cursor: pointer;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-  input[type=text]:focus { border-color: var(--hijau); }
+  .nama-btn.pilih {
+    background: var(--hijau);
+    border-color: var(--hijau);
+    color: #fff;
+  }
 
   .btn-utama {
     width: 100%;
@@ -212,11 +223,12 @@
 <div class="status-msg" id="status">Memuatkan…</div>
 
 <div class="card">
-  <label for="nama">Isi nama anda:</label>
-  <input type="text" id="nama" list="senarai-nama" placeholder="Contoh: Timah" autocomplete="off">
-  <datalist id="senarai-nama"></datalist>
-  <button class="btn-utama" id="btn" onclick="ambil()">📖 Ambil Juz Saya</button>
-  <div class="hint">Jika anda ada juz yang sedang dibaca, ia akan ditanda siap secara automatik.</div>
+  <label>Tekan nama anda:</label>
+  <div class="nama-grid" id="nama-grid">
+    <div class="hint" style="grid-column:1/-1;">Memuatkan senarai nama…</div>
+  </div>
+  <button class="btn-utama" id="btn" onclick="ambil()" disabled>📖 Ambil Juz Saya</button>
+  <div class="hint">Tekan nama anda dahulu, kemudian tekan butang hijau. Juz lama anda akan ditanda siap secara automatik.</div>
 </div>
 
 <div class="card" id="result">
@@ -281,6 +293,15 @@ async function loadStatus() {
   }
 }
 
+let namaPilih = "";
+
+function pilihNama(n, btn) {
+  namaPilih = n;
+  document.querySelectorAll(".nama-btn").forEach(b => b.classList.remove("pilih"));
+  btn.classList.add("pilih");
+  el("btn").disabled = false;
+}
+
 function render(d) {
   el("pusingan").textContent = "Pusingan " + d.pusingan;
   el("siap-count").textContent = d.siap;
@@ -291,7 +312,20 @@ function render(d) {
     return '<div class="box ' + cls + '"><div class="j">' + b.juz + '</div><div class="n">' + esc(b.nama || "") + '</div></div>';
   }).join("");
 
-  el("senarai-nama").innerHTML = d.namaList.map(n => '<option value="' + esc(n) + '">').join("");
+  const grid = el("nama-grid");
+  if (!d.namaList.length) {
+    grid.innerHTML = '<div class="hint" style="grid-column:1/-1;">Tiada nama didaftar lagi. Sila isi nama ahli dalam tab "Ahli" di Google Sheet.</div>';
+  } else if (!grid.dataset.done) {
+    grid.innerHTML = "";
+    d.namaList.forEach(n => {
+      const b = document.createElement("button");
+      b.className = "nama-btn";
+      b.textContent = n;
+      b.onclick = () => pilihNama(n, b);
+      grid.appendChild(b);
+    });
+    grid.dataset.done = "1";
+  }
 
   el("sejarah").textContent = d.totalKhatam > 0
     ? "Alhamdulillah, kumpulan ini telah khatam " + d.totalKhatam + " kali 🤲"
@@ -299,8 +333,8 @@ function render(d) {
 }
 
 async function ambil() {
-  const nama = el("nama").value.trim();
-  if (!nama) { alert("Sila isi nama dahulu ya."); return; }
+  const nama = namaPilih;
+  if (!nama) { alert("Sila tekan nama anda dahulu ya."); return; }
 
   const btn = el("btn");
   btn.disabled = true;
