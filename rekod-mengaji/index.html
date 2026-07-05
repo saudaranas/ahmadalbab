@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Rekod Mengaji — Khatam Bergilir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F1E6;
+    --surface: #FFFFFF;
+    --line: #E7DECB;
+    --hijau: #2E8B57;
+    --hijau-muda: #E4F2E9;
+    --amber: #F0A400;
+    --amber-muda: #FBEFD3;
+    --ink: #2B2318;
+    --muted: #8A7E68;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    padding: 24px 16px 60px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  header { text-align: center; margin-bottom: 24px; }
+  .bismillah { font-size: 15px; color: var(--muted); margin-bottom: 6px; }
+  h1 { font-weight: 800; font-size: 28px; letter-spacing: -0.5px; line-height: 1.2; }
+  h1 span { color: var(--hijau); }
+  .pusingan-label {
+    display: inline-block;
+    background: var(--hijau-muda);
+    color: var(--hijau);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    margin-top: 10px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px 20px;
+    margin-bottom: 22px;
+  }
+
+  label { display: block; font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+  input[type=text] {
+    width: 100%;
+    background: var(--bg);
+    border: 2px solid #D8CDB4;
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 16px;
+    outline: none;
+    text-align: center;
+  }
+  input[type=text]:focus { border-color: var(--hijau); }
+
+  .btn-utama {
+    width: 100%;
+    margin-top: 14px;
+    background: var(--hijau);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 21px;
+    padding: 18px;
+    cursor: pointer;
+  }
+  .btn-utama:active { background: #236B42; }
+  .btn-utama:disabled { opacity: .6; }
+  .hint { font-size: 14px; color: var(--muted); text-align: center; margin-top: 10px; }
+
+  /* Paparan keputusan */
+  #result { display: none; text-align: center; }
+  #result.show { display: block; }
+  .siap-note {
+    background: var(--hijau-muda);
+    color: var(--hijau);
+    font-weight: 700;
+    font-size: 17px;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+  }
+  .juz-label { font-size: 17px; font-weight: 600; color: var(--muted); }
+  .juz-besar {
+    font-weight: 800;
+    font-size: 88px;
+    letter-spacing: -3px;
+    line-height: 1;
+    color: var(--ink);
+    margin: 6px 0 2px;
+  }
+  .juz-besar small { font-size: 36px; letter-spacing: -1px; color: var(--muted); font-weight: 700; }
+  .nama-papar { font-size: 20px; font-weight: 700; margin-bottom: 18px; }
+  .btn-wa {
+    display: inline-block;
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 15px 26px;
+    border-radius: 12px;
+  }
+  .info-note {
+    background: var(--amber-muda);
+    color: #8A6200;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+
+  /* Khatam */
+  #khatam { display: none; text-align: center; }
+  #khatam.show { display: block; }
+  .khatam-card {
+    background: linear-gradient(160deg, #2E8B57, #1F6B41);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 22px;
+    margin-bottom: 22px;
+  }
+  .khatam-card .tahniah { font-weight: 800; font-size: 26px; margin-bottom: 8px; }
+  .khatam-card .doa {
+    font-size: 16px;
+    line-height: 1.8;
+    opacity: .95;
+    margin-top: 12px;
+  }
+
+  /* Progress */
+  h2 { font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+  .progress-text { font-weight: 800; font-size: 22px; margin-bottom: 8px; }
+  .progress-text span { color: var(--hijau); }
+  .bar-wrap {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    height: 18px;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .bar-fill {
+    background: var(--hijau);
+    height: 100%;
+    border-radius: 999px;
+    width: 0%;
+    transition: width .5s;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .box {
+    border-radius: 10px;
+    padding: 8px 4px 6px;
+    text-align: center;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    min-height: 58px;
+  }
+  .box .j { font-weight: 800; font-size: 17px; }
+  .box .n {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .box.sedang { background: var(--amber-muda); border-color: var(--amber); }
+  .box.sedang .j { color: #8A6200; }
+  .box.siap { background: var(--hijau); border-color: var(--hijau); }
+  .box.siap .j, .box.siap .n { color: #fff; }
+
+  .legend { display: flex; gap: 14px; justify-content: center; margin-top: 12px; font-size: 13px; color: var(--muted); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .status-msg { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+  .status-msg.err { color: #BE5B3E; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+  <h1>Rekod Mengaji <span>Khatam Bergilir</span></h1>
+  <div class="pusingan-label" id="pusingan">Pusingan —</div>
+</header>
+
+<div class="status-msg" id="status">Memuatkan…</div>
+
+<div class="card">
+  <label for="nama">Isi nama anda:</label>
+  <input type="text" id="nama" list="senarai-nama" placeholder="Contoh: Timah" autocomplete="off">
+  <datalist id="senarai-nama"></datalist>
+  <button class="btn-utama" id="btn" onclick="ambil()">📖 Ambil Juz Saya</button>
+  <div class="hint">Jika anda ada juz yang sedang dibaca, ia akan ditanda siap secara automatik.</div>
+</div>
+
+<div class="card" id="result">
+  <div class="siap-note" id="siap-note" style="display:none;"></div>
+  <div class="juz-label">Juz anda:</div>
+  <div class="juz-besar" id="juz-num">—</div>
+  <div class="nama-papar" id="nama-papar"></div>
+  <a class="btn-wa" id="wa-btn" href="#" target="_blank">Kongsi ke WhatsApp 💬</a>
+</div>
+
+<div class="card" id="result-info" style="display:none;">
+  <div class="info-note" id="info-note"></div>
+</div>
+
+<div id="khatam">
+  <div class="khatam-card">
+    <div class="tahniah">🎉 Alhamdulillah, KHATAM!</div>
+    <div id="khatam-info">Pusingan telah lengkap 30 juz.</div>
+    <div class="doa">
+      اللَّهُمَّ ارْحَمْنِي بِالْقُرْآنِ وَاجْعَلْهُ لِي إِمَامًا وَنُورًا وَهُدًى وَرَحْمَةً<br>
+      <em>"Ya Allah, rahmatilah kami dengan Al-Quran, jadikanlah ia pemimpin, cahaya, petunjuk dan rahmat bagi kami."</em>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Perkembangan Pusingan Ini</h2>
+  <div class="progress-text"><span id="siap-count">0</span> / 30 juz selesai</div>
+  <div class="bar-wrap"><div class="bar-fill" id="bar"></div></div>
+  <div class="grid" id="grid"></div>
+  <div class="legend">
+    <span><i style="background:var(--bg);border:1px solid var(--line);"></i>Belum</span>
+    <span><i style="background:var(--amber-muda);border:1px solid var(--amber);"></i>Sedang dibaca</span>
+    <span><i style="background:var(--hijau);"></i>Siap</span>
+  </div>
+</div>
+
+<footer id="sejarah">—</footer>
+
+<script>
+// ================= TETAPAN =================
+const GAS_URL = "https://script.google.com/macros/s/AKfycbySq13sChaZQt0eEPibtQTzNs9uceB9FRbG9P3K8U9P3kF5g7brGsD6zrJa_8yPvxKE/exec";
+// ===========================================
+
+const el = id => document.getElementById(id);
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  })[c]);
+}
+
+async function loadStatus() {
+  try {
+    const res = await fetch(GAS_URL + "?action=status");
+    const d = await res.json();
+    render(d);
+    el("status").textContent = "";
+  } catch (e) {
+    el("status").textContent = "Tidak dapat sambung. Cuba muat semula page.";
+    el("status").classList.add("err");
+  }
+}
+
+function render(d) {
+  el("pusingan").textContent = "Pusingan " + d.pusingan;
+  el("siap-count").textContent = d.siap;
+  el("bar").style.width = Math.round(d.siap / d.total * 100) + "%";
+
+  el("grid").innerHTML = d.boxes.map(b => {
+    const cls = b.status === "SIAP" ? "siap" : (b.status === "SEDANG" ? "sedang" : "");
+    return '<div class="box ' + cls + '"><div class="j">' + b.juz + '</div><div class="n">' + esc(b.nama || "") + '</div></div>';
+  }).join("");
+
+  el("senarai-nama").innerHTML = d.namaList.map(n => '<option value="' + esc(n) + '">').join("");
+
+  el("sejarah").textContent = d.totalKhatam > 0
+    ? "Alhamdulillah, kumpulan ini telah khatam " + d.totalKhatam + " kali 🤲"
+    : "Semoga Allah permudahkan khatam pertama kumpulan ini 🤲";
+}
+
+async function ambil() {
+  const nama = el("nama").value.trim();
+  if (!nama) { alert("Sila isi nama dahulu ya."); return; }
+
+  const btn = el("btn");
+  btn.disabled = true;
+  btn.textContent = "Sebentar…";
+
+  try {
+    const res = await fetch(GAS_URL + "?action=ambil&nama=" + encodeURIComponent(nama));
+    const d = await res.json();
+    if (!d.ok) { alert(d.msg || "Ralat. Cuba lagi."); return; }
+
+    // Khatam?
+    el("khatam").classList.toggle("show", !!d.khatam);
+    if (d.khatam) {
+      el("khatam-info").textContent = "Pusingan " + (d.pusingan - 1) +
+        " lengkap 30 juz. Pusingan " + d.pusingan + " bermula sekarang!";
+    }
+
+    if (d.newJuz) {
+      el("result").classList.add("show");
+      el("result-info").style.display = "none";
+      el("juz-num").innerHTML = '<small>JUZ</small> ' + d.newJuz;
+      el("nama-papar").textContent = d.nama;
+
+      const note = el("siap-note");
+      if (d.siapJuz) {
+        note.style.display = "block";
+        note.textContent = "✓ Juz " + d.siapJuz + " anda telah ditanda SIAP";
+      } else {
+        note.style.display = "none";
+      }
+
+      let waMsg = "Alhamdulillah 🤲";
+      if (d.siapJuz) waMsg += " Saya dah selesai Juz " + d.siapJuz + ".";
+      waMsg += " Saya sambung baca *Juz " + d.newJuz + "* (Pusingan " + d.pusingan + ") 📖";
+      if (d.khatam) waMsg = "🎉 Alhamdulillah kita dah KHATAM! Pusingan " + d.pusingan +
+        " bermula — saya ambil Juz 1 📖";
+      el("wa-btn").href = "https://wa.me/?text=" + encodeURIComponent(waMsg);
+
+      el("result").scrollIntoView({ behavior: "smooth" });
+    } else {
+      el("result").classList.remove("show");
+      el("result-info").style.display = "block";
+      el("info-note").textContent = d.msg;
+    }
+
+    loadStatus();
+  } catch (e) {
+    alert("Tidak dapat sambung ke sistem. Cuba lagi ya.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "📖 Ambil Juz Saya";
+  }
+}
+
+loadStatus();
+</script>
+</body>
+</html>
