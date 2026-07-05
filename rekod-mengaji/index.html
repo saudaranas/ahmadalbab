@@ -208,6 +208,69 @@
   .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
 
   footer { text-align: center; color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+  /* Panel urus nama */
+  .urus-toggle {
+    display: block;
+    margin: 0 auto 18px;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  #urus-panel { display: none; }
+  #urus-panel.show { display: block; }
+  .urus-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #F0EADB;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .btn-padam {
+    background: #FBE9E4;
+    border: 1px solid #E0B4A6;
+    color: #A6442A;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .tambah-row { display: flex; gap: 10px; margin-top: 14px; }
+  .tambah-row input {
+    flex: 1;
+    background: var(--bg);
+    border: 2px solid #D8CDB4;
+    border-radius: 10px;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px;
+    outline: none;
+    min-width: 0;
+  }
+  .tambah-row input:focus { border-color: var(--hijau); }
+  .btn-tambah {
+    background: var(--hijau);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 12px 20px;
+    cursor: pointer;
+  }
   .status-msg { text-align: center; font-size: 14px; color: var(--muted); margin-bottom: 14px; }
   .status-msg.err { color: #BE5B3E; font-weight: 600; }
 </style>
@@ -266,6 +329,17 @@
   </div>
 </div>
 
+<button class="urus-toggle" onclick="toggleUrus()">⚙️ Urus Nama Ahli</button>
+
+<div class="card" id="urus-panel">
+  <h2>Senarai Ahli</h2>
+  <div id="urus-list"><div class="hint">Memuatkan…</div></div>
+  <div class="tambah-row">
+    <input type="text" id="nama-baru" placeholder="Nama baru" autocomplete="off">
+    <button class="btn-tambah" onclick="tambahNama()">Tambah</button>
+  </div>
+</div>
+
 <footer id="sejarah">—</footer>
 
 <script>
@@ -312,20 +386,7 @@ function render(d) {
     return '<div class="box ' + cls + '"><div class="j">' + b.juz + '</div><div class="n">' + esc(b.nama || "") + '</div></div>';
   }).join("");
 
-  const grid = el("nama-grid");
-  if (!d.namaList.length) {
-    grid.innerHTML = '<div class="hint" style="grid-column:1/-1;">Tiada nama didaftar lagi. Sila isi nama ahli dalam tab "Ahli" di Google Sheet.</div>';
-  } else if (!grid.dataset.done) {
-    grid.innerHTML = "";
-    d.namaList.forEach(n => {
-      const b = document.createElement("button");
-      b.className = "nama-btn";
-      b.textContent = n;
-      b.onclick = () => pilihNama(n, b);
-      grid.appendChild(b);
-    });
-    grid.dataset.done = "1";
-  }
+  buildNama(d.namaList);
 
   el("sejarah").textContent = d.totalKhatam > 0
     ? "Alhamdulillah, kumpulan ini telah khatam " + d.totalKhatam + " kali 🤲"
@@ -386,6 +447,63 @@ async function ambil() {
   } finally {
     btn.disabled = false;
     btn.textContent = "📖 Ambil Juz Saya";
+  }
+}
+
+function buildNama(list) {
+  const grid = el("nama-grid");
+  grid.innerHTML = "";
+  if (!list.length) {
+    grid.innerHTML = '<div class="hint" style="grid-column:1/-1;">Belum ada nama didaftar. Tekan "⚙️ Urus Nama Ahli" di bawah untuk daftar nama.</div>';
+    namaPilih = "";
+    el("btn").disabled = true;
+  } else {
+    let masihAda = false;
+    list.forEach(n => {
+      const b = document.createElement("button");
+      b.className = "nama-btn";
+      b.textContent = n;
+      if (n === namaPilih) { b.classList.add("pilih"); masihAda = true; }
+      b.onclick = () => pilihNama(n, b);
+      grid.appendChild(b);
+    });
+    if (!masihAda) { namaPilih = ""; el("btn").disabled = true; }
+  }
+
+  const ul = el("urus-list");
+  ul.innerHTML = list.length
+    ? list.map(n => '<div class="urus-row"><span>' + esc(n) + '</span>' +
+        '<button class="btn-padam" onclick="padamNama(\'' + esc(n).replace(/'/g, "\\'") + '\')">Padam</button></div>').join("")
+    : '<div class="hint">Tiada nama lagi.</div>';
+}
+
+function toggleUrus() {
+  el("urus-panel").classList.toggle("show");
+}
+
+async function tambahNama() {
+  const nama = el("nama-baru").value.trim();
+  if (!nama) { alert("Sila isi nama dahulu."); return; }
+  try {
+    const res = await fetch(GAS_URL + "?action=daftar&nama=" + encodeURIComponent(nama));
+    const d = await res.json();
+    if (!d.ok) alert(d.msg);
+    else el("nama-baru").value = "";
+    if (d.namaList) buildNama(d.namaList);
+  } catch (e) {
+    alert("Tidak dapat sambung. Cuba lagi ya.");
+  }
+}
+
+async function padamNama(nama) {
+  if (!confirm("Padam nama \"" + nama + "\" dari senarai?\n\nRekod bacaan lama tidak akan hilang.")) return;
+  try {
+    const res = await fetch(GAS_URL + "?action=padam&nama=" + encodeURIComponent(nama));
+    const d = await res.json();
+    if (!d.ok) alert(d.msg);
+    if (d.namaList) buildNama(d.namaList);
+  } catch (e) {
+    alert("Tidak dapat sambung. Cuba lagi ya.");
   }
 }
 
