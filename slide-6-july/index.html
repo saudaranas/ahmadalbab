@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabun Badang HQ — Produk & Strategi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132430;
+    --paper:#F7FBFC;
+    --suds:#FF7A29;
+    --aqua:#1FA79A;
+    --line:#D8E2E6;
+    --muted:#546A76;
+    --gold:#F2B33D;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;background:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);overflow:hidden;}
+  .deck{height:100%;display:flex;transition:transform .35s cubic-bezier(.4,0,.2,1);}
+  .slide{min-width:100vw;height:100vh;background:var(--paper);display:flex;flex-direction:column;padding:4vh 4.5vw;position:relative;overflow:hidden;}
+  .eyebrow{font-family:'Archivo',sans-serif;font-weight:800;font-stretch:80%;letter-spacing:.16em;text-transform:uppercase;font-size:clamp(12px,1.8vh,17px);color:var(--aqua);margin-bottom:.4vh;}
+  h2{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:78%;font-size:clamp(26px,6vh,54px);line-height:1;margin:.4vh 0 2.2vh;}
+  h2 em{font-style:normal;color:var(--suds);}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--line);border-radius:14px;overflow:hidden;font-size:clamp(13px,2.35vh,19px);box-shadow:0 3px 14px rgba(19,36,48,.06);}
+  th,td{padding:1.5vh 1.2vw;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);line-height:1.55;}
+  tr:last-child td{border-bottom:none;}
+  thead th{background:var(--ink);color:#fff;font-family:'Archivo',sans-serif;font-weight:800;font-stretch:85%;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(14px,2.3vh,19px);}
+  td.rowlab{font-weight:800;color:var(--ink);white-space:nowrap;background:#EAF3F4;width:1%;font-size:clamp(12px,2vh,16px);}
+  .price{font-family:'Archivo',sans-serif;font-weight:900;color:var(--suds);font-size:1.08em;}
+  .strike{color:var(--muted);text-decoration:line-through;font-weight:500;font-size:.9em;}
+  .tag{display:inline-block;background:var(--gold);color:var(--ink);font-weight:800;font-size:.8em;padding:.15em .6em;border-radius:99px;}
+  .save{display:inline-block;background:var(--aqua);color:#fff;font-weight:800;font-size:.8em;padding:.15em .6em;border-radius:99px;}
+
+  /* header produk dengan gambar dalam thead */
+  th.prodhead{padding:1.2vh 1.2vw;}
+  .phwrap{display:flex;align-items:center;gap:1vw;}
+  .imgslot{width:clamp(64px,11vh,110px);height:clamp(64px,11vh,110px);flex:none;border-radius:10px;background:rgba(255,255,255,.12);border:2px dashed rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(9px,1.5vh,12px);color:#CFE0E7;cursor:pointer;overflow:hidden;font-weight:600;padding:4px;line-height:1.3;text-transform:none;letter-spacing:0;}
+  .imgslot img{width:100%;height:100%;object-fit:contain;background:#fff;border-radius:8px;}
+
+  /* table step (copywriting & skrip) */
+  td .step{display:block;margin-bottom:1.2vh;}
+  td .step:last-child{margin-bottom:0;}
+  .lbl{display:inline-block;background:var(--ink);color:#fff;font-weight:800;font-size:.75em;padding:.1em .6em;border-radius:6px;margin-right:.35em;vertical-align:middle;}
+  .lbl.o{background:var(--suds);}
+
+  /* Roadmap */
+  .phases{display:flex;gap:1.6vw;flex:1;min-height:0;align-items:stretch;}
+  .phase{flex:1;background:#fff;border:2px solid var(--line);border-radius:16px;padding:2.2vh 1.4vw;display:flex;flex-direction:column;box-shadow:0 3px 14px rgba(19,36,48,.06);overflow:auto;}
+  .phase .num{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(28px,5.5vh,48px);color:var(--suds);line-height:1;}
+  .phase h4{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:80%;font-size:clamp(18px,3.3vh,29px);margin:.9vh 0 1.3vh;line-height:1.1;}
+  .phase p{font-size:clamp(13px,2.3vh,18px);line-height:1.55;color:#2B404C;margin-bottom:1.1vh;}
+  .phase .kpi{margin-top:auto;background:#EAF3F4;border-radius:10px;padding:1.1vh 1vw;font-size:clamp(12.5px,2.1vh,17px);font-weight:700;line-height:1.5;}
+  .phase .kpi span{color:var(--aqua);font-weight:800;}
+  .arrow{align-self:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(24px,4.5vh,40px);color:var(--suds);flex:none;}
+
+  .foot{position:absolute;bottom:2vh;left:4.5vw;right:4.5vw;display:flex;justify-content:space-between;align-items:center;font-size:clamp(11px,1.8vh,15px);color:var(--muted);font-weight:600;gap:2vw;}
+  .dots{display:flex;gap:7px;flex:none;}
+  .dot{width:9px;height:9px;border-radius:99px;background:var(--line);}
+  .dot.on{background:var(--suds);}
+  .navhint{position:fixed;top:1.6vh;right:1.6vw;z-index:9;background:rgba(19,36,48,.78);color:#fff;font-size:13px;font-weight:600;padding:.45em 1em;border-radius:99px;opacity:1;transition:opacity .5s;pointer-events:none;}
+  .scrollwrap{flex:1;min-height:0;overflow:auto;}
+  @media (orientation:portrait){
+    .slide{padding:3vh 4.5vw;}
+    .phases{flex-direction:column;overflow:auto;}
+    .phase{flex:none;}
+    .arrow{transform:rotate(90deg);}
+  }
+</style>
+</head>
+<body>
+<div class="navhint" id="hint">Swipe / tap kiri-kanan · ← → pada keyboard</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 : INFO PRODUK -->
+  <section class="slide">
+    <div class="eyebrow">Sabun Badang HQ · 01</div>
+    <h2>Info Produk: <em>Perbandingan 2 Produk</em></h2>
+    <div class="scrollwrap">
+    <table>
+      <thead><tr>
+        <th></th>
+        <th class="prodhead"><div class="phwrap"><div class="imgslot" data-key="img-makeover">Tap letak<br>gambar</div><div>Makeover Booster<br>(Luxe)</div></div></th>
+        <th class="prodhead"><div class="phwrap"><div class="imgslot" data-key="img-fumeco">Tap letak<br>gambar</div><div>Fumeco<br>Spray</div></div></th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="rowlab">Fungsi</td>
+          <td>Sabun rendaman pakaian — kotoran degil (sambal, minyak, kunyit, dakwat) hilang <b>tanpa sental</b>. Semua jenis pakaian.</td>
+          <td>Spray penghapus bau degil — kucing, kasut, tong sampah, rokok, hapak, durian & kari dalam kereta. Neutralizer + anti-bakteria.</td></tr>
+        <tr><td class="rowlab">Harga seunit</td>
+          <td><span class="price">RM29</span> <span class="strike">RM116</span> · 500g</td>
+          <td><span class="price">RM35</span> <span class="strike">RM59</span> · 400ml</td></tr>
+        <tr><td class="rowlab">Target audience</td>
+          <td>Mak-mak / suri rumah — penat menyental, risau baju sekolah anak</td>
+          <td>Pemilik kucing, pemilik kereta, isi rumah dengan ruang tertutup</td></tr>
+        <tr><td class="rowlab">Harga offer pakej</td>
+          <td>Beli 3 Percuma 1 — <span class="price">RM87</span> <span class="strike">RM117</span><br>Beli 10 + Free Kuali — <span class="price">RM290</span> <span class="strike">RM429</span></td>
+          <td>Badang Series Beli 4 Percuma 1 — <span class="price">RM99</span> <span class="strike">RM116</span><br>Combo Jimat Raya — <span class="price">RM99</span></td></tr>
+        <tr><td class="rowlab">Penjimatan</td>
+          <td><span class="save">Jimat RM30</span> → RM21.75/botol<br><span class="save">Jimat RM139</span> → RM29/botol + kuali percuma</td>
+          <td><span class="save">Jimat RM17</span> → RM19.80/unit<br><span class="save">Jimat RM17</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="foot"><span>Insight: harga efektif turun RM29 → RM21.75 → RM19.80 ikut saiz pakej — direka untuk naikkan AOV</span><div class="dots" data-dots></div></div>
+  </section>
+
+  <!-- SLIDE 2 : COPYWRITING PASTOR -->
+  <section class="slide">
+    <div class="eyebrow">Sabun Badang HQ · 02</div>
+    <h2>Copywriting <em>PASTOR</em></h2>
+    <div class="scrollwrap">
+    <table>
+      <thead><tr><th>Makeover Booster</th><th>Fumeco Spray</th></tr></thead>
+      <tbody><tr>
+        <td>
+          <span class="step"><span class="lbl">P</span>"Kesan sambal, minyak & dakwat pen tak hilang walau dah basuh berkali-kali?"</span>
+          <span class="step"><span class="lbl">A</span>"Penat sental sampai sakit pinggang, baju putih makin kekuningan — malu nak pakai."</span>
+          <span class="step"><span class="lbl">S</span>"Puan Ana jumpa cara mudah — rendam je dengan Makeover Booster, tinggal buat kerja lain."</span>
+          <span class="step"><span class="lbl">T</span>"Sekarang petang je baju dah putih balik, tak sentuh berus dah — tengok testimoni pelanggan kami."</span>
+          <span class="step"><span class="lbl o">O</span>"Harga asal RM116, hari ni RM29 je. Beli 3 Percuma 1."</span>
+          <span class="step"><span class="lbl o">R</span>"Klik butang WhatsApp, taip NAK — kami proses hari ini."</span>
+        </td>
+        <td>
+          <span class="step"><span class="lbl">P</span>"Bau najis kucing tak hilang walau dah lap dan cuci?"</span>
+          <span class="step"><span class="lbl">A</span>"Dah malu nak jemput kawan datang rumah — bau hancing melekat kat ruang tamu."</span>
+          <span class="step"><span class="lbl">S</span>"Spray je Fumeco terus pada sangkar dan permukaan — siap dalam beberapa saat."</span>
+          <span class="step"><span class="lbl">T</span>"Sekarang 2-3 hari tak buang najis pun rumah tak berbau — ini kata pelanggan kami."</span>
+          <span class="step"><span class="lbl o">O</span>"RM59 turun ke RM35 je untuk 400ml."</span>
+          <span class="step"><span class="lbl o">R</span>"Tekan link kat bawah sebelum promo habis."</span>
+        </td>
+      </tr></tbody>
+    </table>
+    </div>
+    <div class="foot"><span>Testimoni (T) diambil dari Telegram channel — bukti sebenar, tiada claim rekaan</span><div class="dots" data-dots></div></div>
+  </section>
+
+  <!-- SLIDE 3 : SKRIP VIDEO ADS -->
+  <section class="slide">
+    <div class="eyebrow">Sabun Badang HQ · 03</div>
+    <h2>Skrip <em>Video Ads</em></h2>
+    <div class="scrollwrap">
+    <table>
+      <thead><tr><th>Makeover Booster</th><th>Fumeco Spray</th></tr></thead>
+      <tbody><tr>
+        <td>
+          <span class="step"><span class="lbl">Headline</span>"Jangan penat sental kalau ada cara lagi mudah"</span>
+          <span class="step"><span class="lbl">Hook 5s</span>Angkat baju putih dari baldi rendaman — "Aku tak sentuh berus langsung untuk hilangkan kesan kunyit ni..."</span>
+          <span class="step"><span class="lbl">Angle</span>Mak-mak / suri rumah</span>
+          <span class="step"><span class="lbl">Problem</span>"Korang dah cuba macam-macam sabun, sental sampai lenguh tangan, tapi kesan degil tetap ada kan?"</span>
+          <span class="step"><span class="lbl">Solution</span>Demo rendam live — lumur, scoop, rendam, angkat bersih</span>
+          <span class="step"><span class="lbl o">CTA</span>"Link kat bio, RM29 je — Beli 3 Free 1 sementara promo ada"</span>
+        </td>
+        <td>
+          <span class="step"><span class="lbl">Headline</span>"Jangan biar bau sangkar kucing memalukan awak depan tetamu"</span>
+          <span class="step"><span class="lbl">Hook 5s</span>Spray dekat sangkar + sniff test — "Aku perasan sejak pakai benda ni, 2-3 hari tak berbau..."</span>
+          <span class="step"><span class="lbl">Angle</span>Pemilik kucing</span>
+          <span class="step"><span class="lbl">Problem</span>"Pewangi cuma tutup bau sekejap, bukan hapuskan — sebab tu bau tu datang balik"</span>
+          <span class="step"><span class="lbl">Solution</span>Spray live pada sangkar + reaksi depan camera</span>
+          <span class="step"><span class="lbl o">CTA</span>"Tekan link kat bio, RM35 je sebelum promo habis"</span>
+        </td>
+      </tr></tbody>
+    </table>
+    </div>
+    <div class="foot"><span>Peraturan hook: no intro, no borak, no merapu — 5 saat pertama penentu</span><div class="dots" data-dots></div></div>
+  </section>
+
+  <!-- SLIDE 4 : ROADMAP -->
+  <section class="slide">
+    <div class="eyebrow">Sabun Badang HQ · 04</div>
+    <h2>Roadmap 3 Fasa: <em>Jual → Result → Program Ejen</em></h2>
+    <div class="phases">
+      <div class="phase">
+        <div class="num">1</div>
+        <h4>JUAL DIRECT</h4>
+        <p>Salespage Makeover & Fumeco + Meta Ads objective Sales. Pixel & CAPI setup betul dari hari pertama untuk track Purchase.</p>
+        <p>Budget test: RM30–50/hari × 2 minggu.</p>
+        <div class="kpi"><span>KPI:</span> Kos per purchase · ROAS · angle paling convert</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="phase">
+        <div class="num">2</div>
+        <h4>KUMPUL RESULT</h4>
+        <p>Data sebenar dari Fasa 1 jadi aset marketing: "Spend RMX, dapat Y sale" — angka penuh dengan konteks.</p>
+        <p>Result + testimoni tersusun = bahan untuk yakinkan bakal ejen.</p>
+        <div class="kpi"><span>Gate:</span> Masuk Fasa 3 hanya bila ROAS terbukti</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="phase">
+        <div class="num">3</div>
+        <h4>PROGRAM EJEN ECOM</h4>
+        <p>"Produk disediakan, sistem terbukti — ejen fokus jual." Ejen dapat bahan siap: salespage, skrip video, copy, testimoni.</p>
+        <p>Leverage: Affiliate page HQ sedia ada.</p>
+        <div class="kpi"><span>Hasil:</span> Jualan scale tanpa HQ jual sendiri setiap unit</div>
+      </div>
+    </div>
+    <div class="foot"><span>Setiap fasa membiayai fasa seterusnya — risiko berperingkat · Nasrol</span><div class="dots" data-dots></div></div>
+  </section>
+
+</div>
+<script>
+  const deck=document.getElementById('deck');
+  const slides=deck.children.length;
+  let i=0;
+  function go(n){i=Math.max(0,Math.min(slides-1,n));deck.style.transform='translateX(-'+(i*100)+'vw)';paint();}
+  function paint(){document.querySelectorAll('[data-dots]').forEach(d=>{d.innerHTML='';for(let k=0;k<slides;k++){const s=document.createElement('span');s.className='dot'+(k===i?' on':'');d.appendChild(s);}});}
+  paint();
+  setTimeout(()=>{document.getElementById('hint').style.opacity=0;},4000);
+
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.imgslot'))return;
+    if(e.clientX>window.innerWidth*0.72)go(i+1);
+    else if(e.clientX<window.innerWidth*0.28)go(i-1);
+  });
+  let sx=null;
+  document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',e=>{
+    if(sx===null)return;
+    const dx=e.changedTouches[0].clientX-sx;
+    if(Math.abs(dx)>60)go(i+(dx<0?1:-1));
+    sx=null;
+  },{passive:true});
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' ')go(i+1);
+    if(e.key==='ArrowLeft')go(i-1);
+  });
+
+  document.querySelectorAll('.imgslot').forEach(slot=>{
+    const key=slot.dataset.key;
+    const saved=localStorage.getItem(key);
+    if(saved)slot.innerHTML='<img src="'+saved+'" alt="">';
+    slot.addEventListener('click',ev=>{
+      ev.stopPropagation();
+      const url=prompt('Paste URL gambar produk (long-press gambar di website HQ → Copy image address):',localStorage.getItem(key)||'');
+      if(url===null)return;
+      if(url.trim()===''){localStorage.removeItem(key);slot.textContent='Tap letak gambar';return;}
+      localStorage.setItem(key,url.trim());
+      slot.innerHTML='<img src="'+url.trim()+'" alt="">';
+    });
+  });
+</script>
+</body>
+</html>
