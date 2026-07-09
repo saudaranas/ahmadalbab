@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short Link — ahmadalbab.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --surface:#F1F0FB; --ink:#1A1A2E; --muted:#6B6F8A;
+    --brand:#2E2A6E; --brand-dim:#4A4590; --signal:#FFD23F; --line:#E1DFF2;
+    --ok:#1F9D55; --err:#D64545;
+    --font-display:'Space Grotesk',sans-serif; --font-body:'Inter',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:480px;margin:0 auto;padding:56px 24px 64px;}
+  h1{font-family:var(--font-display);font-weight:700;font-size:30px;margin:0 0 8px;color:var(--brand);}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 32px;}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 6px;color:var(--ink);}
+  .field{margin-bottom:18px;}
+  input[type=text]{
+    width:100%; padding:13px 14px; border:1.5px solid var(--line); border-radius:12px;
+    font-family:var(--font-body); font-size:15px; color:var(--ink); background:#fff;
+  }
+  input[type=text]:focus{ outline:none; border-color:var(--brand); }
+  .hint{font-size:12px;color:var(--muted);margin-top:5px;}
+  .prefix-field{ display:flex; align-items:center; border:1.5px solid var(--line); border-radius:12px; overflow:hidden; }
+  .prefix{ font-family:var(--font-mono); font-size:13px; color:var(--muted); padding:13px 0 13px 14px; white-space:nowrap; }
+  .prefix-field input{ border:none; padding:13px 14px 13px 2px; }
+  .prefix-field input:focus{ outline:none; }
+  button{
+    width:100%; background:var(--brand); color:#fff; border:none; font-family:var(--font-display);
+    font-weight:600; font-size:16px; padding:15px 20px; border-radius:14px; cursor:pointer;
+  }
+  button:hover{ background:var(--brand-dim); }
+  button:disabled{ opacity:.6; cursor:default; }
+  .result{
+    margin-top:24px; padding:18px; border-radius:14px; display:none;
+  }
+  .result.show{ display:block; }
+  .result.ok{ background:#EEF9F1; border:1px solid #CBEBD5; }
+  .result.err{ background:#FDECEC; border:1px solid #F5C6C6; }
+  .result-label{ font-size:12px; color:var(--muted); margin-bottom:6px; }
+  .result-link{ display:flex; align-items:center; gap:8px; }
+  .result-url{ font-family:var(--font-mono); font-size:14.5px; font-weight:600; color:var(--brand); word-break:break-all; flex:1; }
+  .copy-btn{
+    background:var(--surface); border:1px solid var(--line); color:var(--brand); font-size:12.5px;
+    font-weight:600; padding:8px 12px; border-radius:8px; cursor:pointer; white-space:nowrap; flex-shrink:0;
+  }
+  .copy-btn:hover{ background:var(--line); }
+  .err-text{ color:var(--err); font-size:14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Short Link</h1>
+    <p class="sub">Tampal link panjang, dapatkan short link ahmadalbab.store dalam sesaat.</p>
+
+    <form id="shortenForm">
+      <div class="field">
+        <label for="url">Link panjang</label>
+        <input type="text" id="url" placeholder="https://contoh.com/link-panjang-anda" required>
+      </div>
+
+      <div class="field">
+        <label for="customCode">Custom code (optional)</label>
+        <div class="prefix-field">
+          <span class="prefix">ahmadalbab.store/</span>
+          <input type="text" id="customCode" placeholder="contoh-code">
+        </div>
+        <p class="hint">Kosongkan untuk code random automatik.</p>
+      </div>
+
+      <button type="submit" id="submitBtn">Shorten Link</button>
+    </form>
+
+    <div class="result" id="result"></div>
+  </div>
+
+<script>
+  // TUKAR dengan URL Web App GAS anda (dari deploy Code.gs shortener)
+  const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzDjVNfABJ47SIN6pgegBEwS-wVnMO5I5idAWBuJYDt06805PRUuS6TOm9mgJXJaAl6/exec';
+
+  const form = document.getElementById('shortenForm');
+  const resultBox = document.getElementById('result');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const url = document.getElementById('url').value.trim();
+    const customCode = document.getElementById('customCode').value.trim();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sedang proses...';
+    resultBox.className = 'result';
+
+    try {
+      const params = new URLSearchParams({ action: 'create', url: url });
+      if (customCode) params.set('customCode', customCode);
+
+      const res = await fetch(GAS_API_URL + '?' + params.toString());
+      const data = await res.json();
+
+      if (data.success) {
+        resultBox.className = 'result show ok';
+        resultBox.innerHTML =
+          '<div class="result-label">Short link anda:</div>' +
+          '<div class="result-link">' +
+            '<span class="result-url">' + data.shortUrl + '</span>' +
+            '<button class="copy-btn" onclick="copyLink(\\'' + data.shortUrl + '\\')">Copy</button>' +
+          '</div>';
+        form.reset();
+      } else {
+        resultBox.className = 'result show err';
+        resultBox.innerHTML = '<p class="err-text">' + data.error + '</p>';
+      }
+    } catch (err) {
+      resultBox.className = 'result show err';
+      resultBox.innerHTML = '<p class="err-text">Ralat sambungan. Sila cuba lagi.</p>';
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Shorten Link';
+  });
+
+  function copyLink(url) {
+    navigator.clipboard.writeText(url);
+    event.target.textContent = 'Disalin!';
+    setTimeout(() => { event.target.textContent = 'Copy'; }, 1500);
+  }
+</script>
+</body>
+</html>
