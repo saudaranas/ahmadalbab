@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ahmadalbab.store</title>
+<style>
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:#ffffff; color:#1A1A2E; font-family:'Inter',system-ui,sans-serif; text-align:center;
+  }
+  .box{ padding:24px; max-width:340px; }
+  .spinner{
+    width:28px; height:28px; margin:0 auto 16px; border-radius:50%;
+    border:3px solid #EAE8FB; border-top-color:#2E2A6E; animation:spin .8s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  p{ color:#6B6F8A; font-size:14px; margin:0 0 8px; }
+  a{ color:#2E2A6E; font-weight:600; }
+  .hidden{ display:none; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="spinner" id="spinner"></div>
+    <p id="statusText">Sedang alihkan...</p>
+    <p id="fallback" class="hidden"><a href="/">Buat short link baru</a></p>
+  </div>
+
+<script>
+  // TUKAR dengan URL Web App GAS anda (sama macam dalam shorten.html)
+  const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzDjVNfABJ47SIN6pgegBEwS-wVnMO5I5idAWBuJYDt06805PRUuS6TOm9mgJXJaAl6/exec';
+
+  const path = window.location.pathname.replace(/^\/|\/$/g, ''); // buang slash depan/belakang
+  const statusText = document.getElementById('statusText');
+  const spinner = document.getElementById('spinner');
+  const fallback = document.getElementById('fallback');
+
+  if (!path) {
+    // Bukan short link — page tak wujud betul-betul
+    spinner.classList.add('hidden');
+    statusText.textContent = 'Halaman tidak ditemui.';
+    fallback.classList.remove('hidden');
+  } else {
+    fetch(GAS_API_URL + '?action=redirect&code=' + encodeURIComponent(path))
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.destination) {
+          window.location.replace(data.destination);
+        } else {
+          spinner.classList.add('hidden');
+          statusText.textContent = 'Link "/' + path + '" tidak ditemui.';
+          fallback.classList.remove('hidden');
+        }
+      })
+      .catch(() => {
+        spinner.classList.add('hidden');
+        statusText.textContent = 'Ralat sambungan. Sila cuba lagi.';
+        fallback.classList.remove('hidden');
+      });
+  }
+</script>
+</body>
+</html>
