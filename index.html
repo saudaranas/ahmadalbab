@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Short Link — ahmadalbab.store</title>
+<title>ahmadalbab.store</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -16,6 +16,22 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
+  .hidden{ display:none !important; }
+
+  /* ---------- Redirect view ---------- */
+  #redirectView{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center;
+  }
+  .rbox{ padding:24px; max-width:340px; }
+  .spinner{
+    width:28px; height:28px; margin:0 auto 16px; border-radius:50%;
+    border:3px solid #EAE8FB; border-top-color:#2E2A6E; animation:spin .8s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .rbox p{ color:var(--muted); font-size:14px; margin:0 0 8px; }
+  .rbox a{ color:var(--brand); font-weight:600; }
+
+  /* ---------- App view (create + stats) ---------- */
   .wrap{max-width:520px;margin:0 auto;padding:56px 24px 64px;}
   h1{font-family:var(--font-display);font-weight:700;font-size:30px;margin:0 0 8px;color:var(--brand);}
   .sub{color:var(--muted);font-size:15px;margin:0 0 28px;}
@@ -62,10 +78,7 @@
   .copy-btn:hover{ background:var(--line); }
   .err-text{ color:var(--err); font-size:14px; margin:0; }
 
-  /* Stats panel */
-  .stats-summary{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0;
-  }
+  .stats-summary{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0; }
   .stat-card{ background:var(--surface); border-radius:12px; padding:14px; }
   .stat-card .num{ font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--brand); }
   .stat-card .lbl{ font-size:11.5px; color:var(--muted); margin-top:2px; }
@@ -86,50 +99,63 @@
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Short Link</h1>
-    <p class="sub">Urus short link ahmadalbab.store — cipta baru atau semak statistik klik.</p>
 
-    <div class="tabs">
-      <button class="tab-btn active" id="tabCreateBtn" onclick="switchTab('create')">Cipta Link</button>
-      <button class="tab-btn" id="tabStatsBtn" onclick="switchTab('stats')">Semak Statistik</button>
+  <!-- ===================== VIEW: REDIRECT (bila path bukan root) ===================== -->
+  <div id="redirectView" class="hidden">
+    <div class="rbox">
+      <div class="spinner" id="spinner"></div>
+      <p id="statusText">Sedang alihkan...</p>
+      <p id="fallback" class="hidden"><a href="/">Buat short link baru</a></p>
     </div>
+  </div>
 
-    <!-- ===================== PANEL: CIPTA LINK ===================== -->
-    <div class="panel active" id="panelCreate">
-      <form id="shortenForm">
-        <div class="field">
-          <label for="url">Link panjang</label>
-          <input type="text" id="url" placeholder="https://contoh.com/link-panjang-anda" required>
-        </div>
+  <!-- ===================== VIEW: APP (root — cipta link + stat) ===================== -->
+  <div id="appView" class="hidden">
+    <div class="wrap">
+      <h1>Short Link</h1>
+      <p class="sub">Urus short link ahmadalbab.store — cipta baru atau semak statistik klik.</p>
 
-        <div class="field">
-          <label for="customCode">Custom code (optional)</label>
-          <div class="prefix-field">
-            <span class="prefix">ahmadalbab.store/</span>
-            <input type="text" id="customCode" placeholder="contoh-code">
+      <div class="tabs">
+        <button class="tab-btn active" id="tabCreateBtn" onclick="switchTab('create')">Cipta Link</button>
+        <button class="tab-btn" id="tabStatsBtn" onclick="switchTab('stats')">Semak Statistik</button>
+      </div>
+
+      <!-- PANEL: CIPTA LINK -->
+      <div class="panel active" id="panelCreate">
+        <form id="shortenForm">
+          <div class="field">
+            <label for="url">Link panjang</label>
+            <input type="text" id="url" placeholder="https://contoh.com/link-panjang-anda" required>
           </div>
-          <p class="hint">Kosongkan untuk code random automatik.</p>
-        </div>
 
-        <button type="submit" class="primary" id="submitBtn">Shorten Link</button>
-      </form>
+          <div class="field">
+            <label for="customCode">Custom code (optional)</label>
+            <div class="prefix-field">
+              <span class="prefix">ahmadalbab.store/</span>
+              <input type="text" id="customCode" placeholder="contoh-code">
+            </div>
+            <p class="hint">Kosongkan untuk code random automatik.</p>
+          </div>
 
-      <div class="result" id="createResult"></div>
-    </div>
+          <button type="submit" class="primary" id="submitBtn">Shorten Link</button>
+        </form>
 
-    <!-- ===================== PANEL: SEMAK STATISTIK ===================== -->
-    <div class="panel" id="panelStats">
-      <form id="statsForm">
-        <div class="field">
-          <label for="statsInput">Short link atau code</label>
-          <input type="text" id="statsInput" placeholder="https://ahmadalbab.store/abc123 atau abc123" required>
-          <p class="hint">Tampal short link penuh, atau code sahaja.</p>
-        </div>
-        <button type="submit" class="primary" id="statsBtn">Dapatkan Stat</button>
-      </form>
+        <div class="result" id="createResult"></div>
+      </div>
 
-      <div class="result" id="statsResult"></div>
+      <!-- PANEL: SEMAK STATISTIK -->
+      <div class="panel" id="panelStats">
+        <form id="statsForm">
+          <div class="field">
+            <label for="statsInput">Short link atau code</label>
+            <input type="text" id="statsInput" placeholder="https://ahmadalbab.store/abc123 atau abc123" required>
+            <p class="hint">Tampal short link penuh, atau code sahaja.</p>
+          </div>
+          <button type="submit" class="primary" id="statsBtn">Dapatkan Stat</button>
+        </form>
+
+        <div class="result" id="statsResult"></div>
+      </div>
     </div>
   </div>
 
@@ -137,7 +163,47 @@
   // TUKAR dengan URL Web App GAS anda (dari deploy Code.gs shortener)
   const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzDjVNfABJ47SIN6pgegBEwS-wVnMO5I5idAWBuJYDt06805PRUuS6TOm9mgJXJaAl6/exec';
 
-  // ---------- Tabs ----------
+  // ============================================================
+  // ROUTING — satu fail ni handle root (form) DAN /code (redirect)
+  // ============================================================
+  const path = window.location.pathname.replace(/^\/|\/$/g, ''); // buang slash depan/belakang
+
+  if (!path) {
+    // Root domain — tunjuk form cipta link + stat
+    document.getElementById('appView').classList.remove('hidden');
+  } else {
+    // Ada path — anggap short code, cuba redirect
+    document.getElementById('redirectView').classList.remove('hidden');
+    runRedirect(path);
+  }
+
+  function runRedirect(code) {
+    const statusText = document.getElementById('statusText');
+    const spinner = document.getElementById('spinner');
+    const fallback = document.getElementById('fallback');
+    const ua = encodeURIComponent(navigator.userAgent || '');
+
+    fetch(GAS_API_URL + '?action=redirect&code=' + encodeURIComponent(code) + '&ua=' + ua)
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.destination) {
+          window.location.replace(data.destination);
+        } else {
+          spinner.classList.add('hidden');
+          statusText.textContent = 'Link "/' + code + '" tidak ditemui.';
+          fallback.classList.remove('hidden');
+        }
+      })
+      .catch(() => {
+        spinner.classList.add('hidden');
+        statusText.textContent = 'Ralat sambungan. Sila cuba lagi.';
+        fallback.classList.remove('hidden');
+      });
+  }
+
+  // ============================================================
+  // APP VIEW — Tabs
+  // ============================================================
   function switchTab(tab) {
     document.getElementById('panelCreate').classList.toggle('active', tab === 'create');
     document.getElementById('panelStats').classList.toggle('active', tab === 'stats');
