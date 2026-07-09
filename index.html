@@ -16,9 +16,19 @@
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:480px;margin:0 auto;padding:56px 24px 64px;}
+  .wrap{max-width:520px;margin:0 auto;padding:56px 24px 64px;}
   h1{font-family:var(--font-display);font-weight:700;font-size:30px;margin:0 0 8px;color:var(--brand);}
-  .sub{color:var(--muted);font-size:15px;margin:0 0 32px;}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 28px;}
+
+  .tabs{ display:flex; gap:6px; background:var(--surface); border-radius:14px; padding:5px; margin-bottom:24px; }
+  .tab-btn{
+    flex:1; border:none; background:transparent; padding:11px 14px; border-radius:10px;
+    font-family:var(--font-display); font-weight:600; font-size:14px; color:var(--muted); cursor:pointer;
+  }
+  .tab-btn.active{ background:#fff; color:var(--brand); box-shadow:0 1px 3px rgba(26,26,46,.08); }
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+
   label{display:block;font-size:13px;font-weight:600;margin:0 0 6px;color:var(--ink);}
   .field{margin-bottom:18px;}
   input[type=text]{
@@ -31,15 +41,14 @@
   .prefix{ font-family:var(--font-mono); font-size:13px; color:var(--muted); padding:13px 0 13px 14px; white-space:nowrap; }
   .prefix-field input{ border:none; padding:13px 14px 13px 2px; }
   .prefix-field input:focus{ outline:none; }
-  button{
+  button.primary{
     width:100%; background:var(--brand); color:#fff; border:none; font-family:var(--font-display);
     font-weight:600; font-size:16px; padding:15px 20px; border-radius:14px; cursor:pointer;
   }
-  button:hover{ background:var(--brand-dim); }
-  button:disabled{ opacity:.6; cursor:default; }
-  .result{
-    margin-top:24px; padding:18px; border-radius:14px; display:none;
-  }
+  button.primary:hover{ background:var(--brand-dim); }
+  button.primary:disabled{ opacity:.6; cursor:default; }
+
+  .result{ margin-top:24px; padding:18px; border-radius:14px; display:none; }
   .result.show{ display:block; }
   .result.ok{ background:#EEF9F1; border:1px solid #CBEBD5; }
   .result.err{ background:#FDECEC; border:1px solid #F5C6C6; }
@@ -51,41 +60,94 @@
     font-weight:600; padding:8px 12px; border-radius:8px; cursor:pointer; white-space:nowrap; flex-shrink:0;
   }
   .copy-btn:hover{ background:var(--line); }
-  .err-text{ color:var(--err); font-size:14px; }
+  .err-text{ color:var(--err); font-size:14px; margin:0; }
+
+  /* Stats panel */
+  .stats-summary{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:20px 0;
+  }
+  .stat-card{ background:var(--surface); border-radius:12px; padding:14px; }
+  .stat-card .num{ font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--brand); }
+  .stat-card .lbl{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .stat-dest{ font-size:13px; color:var(--muted); margin:0 0 4px; word-break:break-all; }
+
+  table.clicks{ width:100%; border-collapse:collapse; margin-top:14px; font-size:13px; }
+  table.clicks th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em;
+    color:var(--muted); padding:8px 6px; border-bottom:1.5px solid var(--line);
+  }
+  table.clicks td{ padding:9px 6px; border-bottom:1px solid var(--line); color:var(--ink); }
+  table.clicks tr:last-child td{ border-bottom:none; }
+  .badge{
+    display:inline-block; font-size:11px; font-weight:600; padding:3px 8px; border-radius:999px;
+    background:var(--surface); color:var(--brand);
+  }
+  .empty-clicks{ color:var(--muted); font-size:13px; text-align:center; padding:20px 0; }
 </style>
 </head>
 <body>
   <div class="wrap">
     <h1>Short Link</h1>
-    <p class="sub">Tampal link panjang, dapatkan short link ahmadalbab.store dalam sesaat.</p>
+    <p class="sub">Urus short link ahmadalbab.store — cipta baru atau semak statistik klik.</p>
 
-    <form id="shortenForm">
-      <div class="field">
-        <label for="url">Link panjang</label>
-        <input type="text" id="url" placeholder="https://contoh.com/link-panjang-anda" required>
-      </div>
+    <div class="tabs">
+      <button class="tab-btn active" id="tabCreateBtn" onclick="switchTab('create')">Cipta Link</button>
+      <button class="tab-btn" id="tabStatsBtn" onclick="switchTab('stats')">Semak Statistik</button>
+    </div>
 
-      <div class="field">
-        <label for="customCode">Custom code (optional)</label>
-        <div class="prefix-field">
-          <span class="prefix">ahmadalbab.store/</span>
-          <input type="text" id="customCode" placeholder="contoh-code">
+    <!-- ===================== PANEL: CIPTA LINK ===================== -->
+    <div class="panel active" id="panelCreate">
+      <form id="shortenForm">
+        <div class="field">
+          <label for="url">Link panjang</label>
+          <input type="text" id="url" placeholder="https://contoh.com/link-panjang-anda" required>
         </div>
-        <p class="hint">Kosongkan untuk code random automatik.</p>
-      </div>
 
-      <button type="submit" id="submitBtn">Shorten Link</button>
-    </form>
+        <div class="field">
+          <label for="customCode">Custom code (optional)</label>
+          <div class="prefix-field">
+            <span class="prefix">ahmadalbab.store/</span>
+            <input type="text" id="customCode" placeholder="contoh-code">
+          </div>
+          <p class="hint">Kosongkan untuk code random automatik.</p>
+        </div>
 
-    <div class="result" id="result"></div>
+        <button type="submit" class="primary" id="submitBtn">Shorten Link</button>
+      </form>
+
+      <div class="result" id="createResult"></div>
+    </div>
+
+    <!-- ===================== PANEL: SEMAK STATISTIK ===================== -->
+    <div class="panel" id="panelStats">
+      <form id="statsForm">
+        <div class="field">
+          <label for="statsInput">Short link atau code</label>
+          <input type="text" id="statsInput" placeholder="https://ahmadalbab.store/abc123 atau abc123" required>
+          <p class="hint">Tampal short link penuh, atau code sahaja.</p>
+        </div>
+        <button type="submit" class="primary" id="statsBtn">Dapatkan Stat</button>
+      </form>
+
+      <div class="result" id="statsResult"></div>
+    </div>
   </div>
 
 <script>
   // TUKAR dengan URL Web App GAS anda (dari deploy Code.gs shortener)
   const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzDjVNfABJ47SIN6pgegBEwS-wVnMO5I5idAWBuJYDt06805PRUuS6TOm9mgJXJaAl6/exec';
 
+  // ---------- Tabs ----------
+  function switchTab(tab) {
+    document.getElementById('panelCreate').classList.toggle('active', tab === 'create');
+    document.getElementById('panelStats').classList.toggle('active', tab === 'stats');
+    document.getElementById('tabCreateBtn').classList.toggle('active', tab === 'create');
+    document.getElementById('tabStatsBtn').classList.toggle('active', tab === 'stats');
+  }
+
+  // ---------- Cipta Link ----------
   const form = document.getElementById('shortenForm');
-  const resultBox = document.getElementById('result');
+  const createResult = document.getElementById('createResult');
   const submitBtn = document.getElementById('submitBtn');
 
   form.addEventListener('submit', async (e) => {
@@ -96,7 +158,7 @@
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sedang proses...';
-    resultBox.className = 'result';
+    createResult.className = 'result';
 
     try {
       const params = new URLSearchParams({ action: 'create', url: url });
@@ -106,8 +168,8 @@
       const data = await res.json();
 
       if (data.success) {
-        resultBox.className = 'result show ok';
-        resultBox.innerHTML =
+        createResult.className = 'result show ok';
+        createResult.innerHTML =
           '<div class="result-label">Short link anda:</div>' +
           '<div class="result-link">' +
             '<span class="result-url">' + data.shortUrl + '</span>' +
@@ -115,12 +177,12 @@
           '</div>';
         form.reset();
       } else {
-        resultBox.className = 'result show err';
-        resultBox.innerHTML = '<p class="err-text">' + data.error + '</p>';
+        createResult.className = 'result show err';
+        createResult.innerHTML = '<p class="err-text">' + data.error + '</p>';
       }
     } catch (err) {
-      resultBox.className = 'result show err';
-      resultBox.innerHTML = '<p class="err-text">Ralat sambungan. Sila cuba lagi.</p>';
+      createResult.className = 'result show err';
+      createResult.innerHTML = '<p class="err-text">Ralat sambungan. Sila cuba lagi.</p>';
     }
 
     submitBtn.disabled = false;
@@ -131,6 +193,89 @@
     navigator.clipboard.writeText(url);
     event.target.textContent = 'Disalin!';
     setTimeout(() => { event.target.textContent = 'Copy'; }, 1500);
+  }
+
+  // ---------- Semak Statistik ----------
+  const statsForm = document.getElementById('statsForm');
+  const statsResult = document.getElementById('statsResult');
+  const statsBtn = document.getElementById('statsBtn');
+
+  statsForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const input = document.getElementById('statsInput').value.trim();
+
+    statsBtn.disabled = true;
+    statsBtn.textContent = 'Sedang semak...';
+    statsResult.className = 'result';
+
+    try {
+      const params = new URLSearchParams({ action: 'stats', code: input });
+      const res = await fetch(GAS_API_URL + '?' + params.toString());
+      const data = await res.json();
+
+      if (data.success) {
+        renderStats(data);
+      } else {
+        statsResult.className = 'result show err';
+        statsResult.innerHTML = '<p class="err-text">' + data.error + '</p>';
+      }
+    } catch (err) {
+      statsResult.className = 'result show err';
+      statsResult.innerHTML = '<p class="err-text">Ralat sambungan. Sila cuba lagi.</p>';
+    }
+
+    statsBtn.disabled = false;
+    statsBtn.textContent = 'Dapatkan Stat';
+  });
+
+  function formatDateTime(iso) {
+    try {
+      const d = new Date(iso);
+      return new Intl.DateTimeFormat('ms-MY', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit',
+        timeZone: 'Asia/Kuala_Lumpur'
+      }).format(d);
+    } catch (e) {
+      return iso;
+    }
+  }
+
+  function renderStats(data) {
+    let html = '';
+    html += '<div class="result-label">ahmadalbab.store/' + data.code + '</div>';
+    html += '<p class="stat-dest">→ ' + data.destination + '</p>';
+
+    html += '<div class="stats-summary">';
+    html += '<div class="stat-card"><div class="num">' + data.totalClicks + '</div><div class="lbl">Jumlah Klik</div></div>';
+    html += '<div class="stat-card"><div class="num">' + countByDevice(data.clicks, 'Mobile') + '</div><div class="lbl">Mobile</div></div>';
+    html += '<div class="stat-card"><div class="num">' + countByDevice(data.clicks, 'Desktop') + '</div><div class="lbl">Desktop</div></div>';
+    html += '</div>';
+
+    if (data.clicks && data.clicks.length > 0) {
+      html += '<table class="clicks"><thead><tr>';
+      html += '<th>Tarikh &amp; Waktu</th><th>Device</th><th>OS / Browser</th>';
+      html += '</tr></thead><tbody>';
+      data.clicks.forEach(c => {
+        html += '<tr>';
+        html += '<td>' + formatDateTime(c.timestamp) + '</td>';
+        html += '<td><span class="badge">' + c.device + '</span></td>';
+        html += '<td>' + c.os + ' · ' + c.browser + '</td>';
+        html += '</tr>';
+      });
+      html += '</tbody></table>';
+    } else {
+      html += '<p class="empty-clicks">Belum ada rekod klik detail lagi.</p>';
+    }
+
+    statsResult.className = 'result show ok';
+    statsResult.innerHTML = html;
+  }
+
+  function countByDevice(clicks, type) {
+    if (!clicks) return 0;
+    return clicks.filter(c => c.device === type).length;
   }
 </script>
 </body>
