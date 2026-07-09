@@ -26,11 +26,9 @@
     <p id="statusText">Sedang alihkan...</p>
     <p id="fallback" class="hidden"><a href="/">Buat short link baru</a></p>
   </div>
-
 <script>
   // TUKAR dengan URL Web App GAS anda (sama macam dalam shorten.html)
   const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbzDjVNfABJ47SIN6pgegBEwS-wVnMO5I5idAWBuJYDt06805PRUuS6TOm9mgJXJaAl6/exec';
-
   const path = window.location.pathname.replace(/^\/|\/$/g, ''); // buang slash depan/belakang
   const statusText = document.getElementById('statusText');
   const spinner = document.getElementById('spinner');
@@ -42,7 +40,9 @@
     statusText.textContent = 'Halaman tidak ditemui.';
     fallback.classList.remove('hidden');
   } else {
-    fetch(GAS_API_URL + '?action=redirect&code=' + encodeURIComponent(path))
+    // Hantar navigator.userAgent supaya backend boleh log device/OS/browser
+    const ua = encodeURIComponent(navigator.userAgent || '');
+    fetch(GAS_API_URL + '?action=redirect&code=' + encodeURIComponent(path) + '&ua=' + ua)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.destination) {
