@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sabun Badang Makeover — Hilangkan Kotoran Degil Sekali Rendam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFAF8;
+    --ink:#1C1B19;
+    --ink-soft:#5A5650;
+    --accent:#2E5C6E;
+    --accent-soft:#E3EDF0;
+    --clean:#3E7A5C;
+    --clean-soft:#E6F0EA;
+    --line:#E5E2DC;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  img{max-width:100%;display:block;border-radius:14px;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-child{border-bottom:none;}
+
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(28px,5vw,42px);
+    line-height:1.18;
+    letter-spacing:-0.01em;
+    margin-bottom:16px;
+  }
+  h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:26px;
+    line-height:1.25;
+    margin-bottom:14px;
+  }
+  h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:19px;
+    margin-bottom:8px;
+  }
+  p{color:var(--ink-soft);font-size:16px;margin-bottom:14px;}
+  .lede{font-size:18px;color:var(--ink);}
+
+  /* HERO */
+  .hero{text-align:center;padding-top:64px;}
+  .badge-row{
+    display:flex;justify-content:center;gap:10px;
+    flex-wrap:wrap;margin-bottom:22px;
+  }
+  .badge{
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-size:13px;
+    font-weight:600;
+    padding:7px 14px;
+    border-radius:100px;
+  }
+  .badge.clean{background:var(--clean-soft);color:var(--clean);}
+  .bullet-row{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:10px 22px;margin:24px 0 30px;
+    font-size:14.5px;color:var(--ink-soft);
+  }
+  .bullet-row span{display:flex;align-items:center;gap:6px;}
+  .bullet-row span::before{content:"✓";color:var(--clean);font-weight:700;}
+
+  .hero-img{margin:32px 0;max-width:420px;margin-left:auto;margin-right:auto;}
+  .hero-img img{border:1px solid var(--line);}
+
+  .cta{
+    display:inline-block;
+    background:var(--accent);
+    color:var(--white);
+    font-weight:600;
+    font-size:16px;
+    padding:16px 36px;
+    border-radius:8px;
+    text-decoration:none;
+    letter-spacing:0.01em;
+    box-shadow:0 8px 20px -8px rgba(46,92,110,0.45);
+  }
+  .cta-sub{font-size:12.5px;color:var(--ink-soft);margin-top:10px;}
+
+  /* AGITATE */
+  .agitate{background:var(--white);}
+  .agitate blockquote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:21px;
+    line-height:1.5;
+    color:var(--ink);
+    border-left:3px solid var(--accent);
+    padding-left:20px;
+    margin:20px 0;
+  }
+
+  /* RESULT CARDS */
+  .result-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;
+    margin-top:24px;
+  }
+  @media(max-width:560px){.result-grid{grid-template-columns:1fr;}}
+  .result-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:22px;
+  }
+  .result-card .tag{
+    display:inline-block;
+    font-size:11px;font-weight:700;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--clean);
+    background:var(--clean-soft);
+    padding:4px 10px;border-radius:5px;
+    margin-bottom:12px;
+  }
+  .result-card p{font-size:14.5px;margin-bottom:0;}
+
+  /* PRODUCT GALLERY */
+  .gallery{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    margin-top:20px;
+  }
+  @media(max-width:560px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  .gallery img{border:1px solid var(--line);}
+
+  /* STEPS */
+  .steps{
+    counter-reset:step;
+    margin-top:24px;
+    display:grid;gap:12px;
+  }
+  .step{
+    display:flex;gap:16px;align-items:flex-start;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+  }
+  .step-num{
+    flex:0 0 auto;
+    width:30px;height:30px;
+    border-radius:50%;
+    background:var(--accent);
+    color:var(--white);
+    font-weight:700;
+    font-size:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;
+  }
+  .step p{margin-bottom:0;font-size:14.5px;}
+  .step strong{color:var(--ink);font-size:15px;}
+
+  .warning{
+    background:#FBF3E7;
+    border:1px solid #E8CFA0;
+    border-radius:10px;
+    padding:16px 18px;
+    font-size:14px;
+    color:#7A5A1E;
+    margin-top:18px;
+  }
+
+  /* COMPARISON TABLE */
+  table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14.5px;}
+  th,td{padding:12px 10px;text-align:center;border-bottom:1px solid var(--line);}
+  th{font-family:'Fraunces',serif;font-weight:600;font-size:15px;}
+  td:first-child,th:first-child{text-align:left;color:var(--ink-soft);}
+  th:nth-child(2){color:var(--accent);}
+  .yes{color:var(--clean);font-weight:700;}
+  .no{color:#C4A5A0;}
+
+  /* PRICE CARD */
+  .price-card{
+    background:var(--white);
+    border:2px solid var(--accent);
+    border-radius:14px;
+    padding:28px 24px;
+    text-align:center;
+    max-width:300px;
+    margin:24px auto 0;
+  }
+  .price-card h3{font-size:15px;font-family:'Inter',sans-serif;font-weight:600;color:var(--ink-soft);margin-bottom:10px;}
+  .price-new{
+    font-family:'Fraunces',serif;
+    font-size:36px;font-weight:700;
+    color:var(--accent);
+    margin:4px 0 6px;
+  }
+  .price-unit{font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
+  .price-cta{
+    display:block;
+    background:var(--accent);
+    color:var(--white);
+    font-weight:600;font-size:15px;
+    padding:13px;border-radius:8px;
+    text-decoration:none;
+  }
+  .trust-row{
+    display:flex;justify-content:center;gap:16px;flex-wrap:wrap;
+    margin-top:14px;font-size:12.5px;color:var(--ink-soft);
+  }
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid;gap:14px;margin-top:20px;}
+  .testi{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+  }
+  .testi .stars{color:#D9A441;font-size:14px;margin-bottom:6px;}
+  .testi .who{font-size:13px;color:var(--ink-soft);margin-top:8px;font-weight:600;}
+
+  /* RISK REVERSAL */
+  .risk{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:16px;
+    padding:40px 32px;
+    text-align:center;
+  }
+  .risk h2{color:var(--white);}
+  .risk p{color:#C9C6C0;}
+  .risk .shield{font-size:34px;margin-bottom:12px;}
+
+  /* FAQ */
+  .faq-item{padding:16px 0;border-bottom:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:none;}
+  .faq-item h3{font-size:16px;font-weight:600;font-family:'Inter',sans-serif;margin-bottom:6px;}
+  .faq-item p{font-size:14.5px;margin-bottom:0;}
+
+  .final-cta{text-align:center;}
+
+  footer{
+    text-align:center;
+    padding:32px 24px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge-row">
+      <span class="badge">RM33.00 / 500g</span>
+      <span class="badge clean">Same-Day Shipping</span>
+    </div>
+    <h1>Akhirnya… Kesan Kotoran Degil Hilang Tanpa Sental</h1>
+    <p class="lede">Sabun Badang Makeover melawan kesan sambal, minyak, dakwat pen dan tahi lalat pada mana-mana fabrik — sekali rendam, terus hilang.</p>
+
+    <div class="bullet-row">
+      <span>Sekali rendam terus hilang</span>
+      <span>Sesuai semua jenis pakaian</span>
+      <span>Tak perlu sental berjam-jam</span>
+      <span>Wangian dobi tahan lama</span>
+      <span>Cerahkan fabrik tanpa pudar warna</span>
+    </div>
+
+    <div class="hero-img">
+      <img src="https://img.shoppegram.com/ah_1830_new_sku_prod_i3gicthalyx38uqccbd6_1080x.webp" alt="Sabun Badang Makeover">
+    </div>
+
+    <a href="#beli" class="cta">BELI SEKARANG — RM33</a>
+    <div class="cta-sub">🔒 256-bit SSL checkout · Same-day shipping · 14 hari easy return</div>
+  </section>
+
+  <!-- AGITATE -->
+  <section class="agitate">
+    <h2>Korang Tak Sakit Pinggang Sental Dari Pagi Sampai Petang?</h2>
+    <p>Kotoran degil macam kesan sambal, minyak dan dakwat — bukan sekadar susah nak hilang, ia buat kita <strong>sental berjam-jam, guna banyak sabun, tapi kesan tetap ada</strong>. Lama-lama fabrik pun rosak sebab digosok terlalu kuat.</p>
+    <blockquote>"Kalau nak sental cara biasa, memang makan hari-hari. Sakit pinggang, penat, tapi kesan kotoran degil tu still ada."</blockquote>
+    <p>Sabun Badang Makeover ubah cara kerja — bukan sental lebih kuat, tapi rendam dengan formula yang break down kotoran degil dari akar. Hasilnya nampak selepas rendaman pertama.</p>
+  </section>
+
+  <!-- WHAT IT REMOVES -->
+  <section>
+    <h2>Apa Yang Sabun Badang Makeover Boleh Hilangkan</h2>
+    <div class="result-grid">
+      <div class="result-card">
+        <span class="tag">Kesan Degil</span>
+        <h3>Sambal & Kunyit</h3>
+        <p>Kesan warna kuning/merah dari masakan hilang walau dah lama melekat pada fabrik.</p>
+      </div>
+      <div class="result-card">
+        <span class="tag">Kesan Degil</span>
+        <h3>Minyak & Gris</h3>
+        <p>Kesan minyak masak atau gris enjin luntur dari serat kain tanpa tinggal kesan kelabu.</p>
+      </div>
+      <div class="result-card">
+        <span class="tag">Kesan Degil</span>
+        <h3>Dakwat Pen</h3>
+        <p>Kesan tinta pen yang biasanya kekal selamanya, hilang selepas beberapa kali rendaman.</p>
+      </div>
+      <div class="result-card">
+        <span class="tag">Kesan Degil</span>
+        <h3>Tahi Lalat / Lumpur</h3>
+        <p>Kotoran organik degil terangkat bersih tanpa perlu sental kuat yang rosakkan fabrik.</p>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <img src="https://img.shoppegram.com/2_thomvje1k2febn8xl5wv_1080x.jpeg" alt="Sabun Badang Makeover kesan penggunaan">
+      <img src="https://img.shoppegram.com/3_swuyfylpflwbkn8kvi6j_1080x.jpeg" alt="Sabun Badang Makeover hasil">
+      <img src="https://img.shoppegram.com/4_a8q4gjzdcjwhpekghesp_1080x.jpeg" alt="Sabun Badang Makeover fabrik bersih">
+    </div>
+  </section>
+
+  <!-- HOW TO USE -->
+  <section>
+    <h2>Senang Je Nak Guna</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <p><strong>Lumur sabun</strong> terus pada bahagian kotoran pada fabrik.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <p><strong>Tambah 1-3 scoop</strong> sabun dalam air rendaman (guna air panas untuk kotoran lebih degil).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <p><strong>Rendam pakaian</strong> dalam air basuhan dan biarkan seketika.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <p><strong>Ulangi</strong> jika perlu sehingga kotoran benar-benar hilang, kemudian bilas sehingga bersih.</p>
+      </div>
+    </div>
+    <div class="warning">⚠️ <strong>Peringatan:</strong> Tutup penutup bekas dengan ketat selepas setiap kali penggunaan.</div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section>
+    <h2>Sabun Badang Makeover vs. Sental Biasa</h2>
+    <table>
+      <tr><th></th><th>Sabun Badang Makeover</th><th>Sabun Basuh Biasa</th></tr>
+      <tr><td>Hilangkan kotoran degil sekali rendam</td><td class="yes">✓</td><td class="no">✗</td></tr>
+      <tr><td>Tak perlu sental kuat</td><td class="yes">✓</td><td class="no">✗</td></tr>
+      <tr><td>Sesuai semua jenis fabrik</td><td class="yes">✓</td><td class="no">Kadang-kadang</td></tr>
+      <tr><td>Wangian dobi tahan lama</td><td class="yes">✓</td><td class="no">Jarang</td></tr>
+      <tr><td>Tak pudarkan warna fabrik</td><td class="yes">✓</td><td class="no">✗</td></tr>
+    </table>
+  </section>
+
+  <!-- PRICE -->
+  <section id="beli">
+    <h2 style="text-align:center;">Dapatkan Sabun Badang Makeover</h2>
+    <div class="price-card">
+      <h3>500g / BOTOL</h3>
+      <div class="price-new">RM33.00</div>
+      <div class="price-unit">Same-day shipping</div>
+      <a href="#" class="price-cta">Beli Sekarang</a>
+    </div>
+    <div class="trust-row">
+      <span>🔒 256-bit SSL</span>
+      <span>🚚 Same-day shipping</span>
+      <span>↩️ 14 hari easy return</span>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <h2>Apa Kata Mereka Yang Dah Cuba</h2>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Kesan sambal dekat baju anak dah setahun tak hilang, sekali rendam dengan ni terus hilang. Confirm beli lagi."</p>
+        <div class="who">— Siti, Ipoh</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p>"Dulu asyik sental sampai sakit pinggang. Sekarang rendam je, tunggu, bilas. Jimat masa banyak."</p>
+        <div class="who">— Mariam, Kuantan</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★☆</div>
+        <p>"Berkesan untuk kebanyakan kesan, cuma kesan dakwat lama kena rendam 2-3 kali baru hilang total. Overall okay."</p>
+        <div class="who">— Rosnah, Kuala Terengganu</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RISK REVERSAL -->
+  <section>
+    <div class="risk">
+      <div class="shield">🛡️</div>
+      <h2>Kotoran Tak Hilang — Kami Bayar Balik</h2>
+      <p>Cuba Sabun Badang Makeover. Jika kesan kotoran degil anda tak hilang selepas mengikut cara penggunaan yang betul, hubungi kami dalam tempoh 14 hari untuk bayaran balik. Itulah keyakinan kami terhadap keberkesanan produk ini.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <h2>Soalan Lazim</h2>
+
+    <div class="faq-item">
+      <h3>Selamat untuk fabrik berwarna?</h3>
+      <p>Ya — diformulasi untuk hilangkan kotoran tanpa memudarkan warna asal fabrik. Sila rujuk label pakaian sebelum guna untuk fabrik sensitif.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Berapa lama masa rendaman?</h3>
+      <p>Bergantung tahap kedegilan kotoran — kotoran ringan hilang dalam masa singkat, kotoran lebih degil mungkin perlukan beberapa kali ulangan rendaman.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Boleh guna untuk semua jenis kain?</h3>
+      <p>Ya, sesuai untuk pelbagai jenis fabrik. Kami tetap sarankan semak label pakaian dahulu untuk fabrik istimewa seperti sutera atau wool.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Berapa lama sampai order saya?</h3>
+      <p>Pesanan diproses dengan same-day shipping.</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2>Berhenti Sental. Mula Rendam.</h2>
+    <p>Sertai ribuan pengguna yang dah tak perlu sakit pinggang sental setiap hari untuk kotoran yang tak pernah betul-betul hilang.</p>
+    <a href="#beli" class="cta">BELI SEKARANG — RM33</a>
+    <div class="cta-sub">🔒 256-bit SSL checkout · 14 hari easy return</div>
+  </section>
+
+</div>
+
+<footer>© 2026 Sabun Badang HQ. Hak cipta terpelihara.</footer>
+
+</body>
+</html>
