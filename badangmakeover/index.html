@@ -185,34 +185,48 @@
   .no{color:#C4A5A0;}
 
   /* PRICE CARD */
+  .price-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+    margin-top:22px;
+  }
+  @media(max-width:600px){.price-grid{grid-template-columns:1fr;}}
   .price-card{
     background:var(--white);
-    border:2px solid var(--accent);
+    border:2px solid var(--line);
     border-radius:14px;
-    padding:28px 24px;
+    padding:24px 18px;
     text-align:center;
-    max-width:300px;
-    margin:24px auto 0;
+    position:relative;
   }
-  .price-card h3{font-size:15px;font-family:'Inter',sans-serif;font-weight:600;color:var(--ink-soft);margin-bottom:10px;}
+  .price-card.popular{border-color:var(--accent);}
+  .popular-tag{
+    position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+    background:var(--accent);color:var(--white);
+    font-size:11px;font-weight:700;letter-spacing:0.05em;
+    padding:4px 12px;border-radius:100px;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .price-card h3{font-size:14px;font-family:'Inter',sans-serif;font-weight:600;color:var(--ink-soft);margin-bottom:10px;}
   .price-new{
     font-family:'Fraunces',serif;
-    font-size:36px;font-weight:700;
+    font-size:32px;font-weight:700;
     color:var(--accent);
     margin:4px 0 6px;
   }
   .price-unit{font-size:13px;color:var(--ink-soft);margin-bottom:16px;}
   .price-cta{
     display:block;
-    background:var(--accent);
-    color:var(--white);
-    font-weight:600;font-size:15px;
-    padding:13px;border-radius:8px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    font-weight:600;font-size:14px;
+    padding:11px;border-radius:7px;
     text-decoration:none;
   }
+  .price-card.popular .price-cta{background:var(--accent);color:var(--white);}
   .trust-row{
     display:flex;justify-content:center;gap:16px;flex-wrap:wrap;
-    margin-top:14px;font-size:12.5px;color:var(--ink-soft);
+    margin-top:20px;font-size:12.5px;color:var(--ink-soft);
   }
 
   /* TESTIMONIALS */
@@ -261,7 +275,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="badge-row">
-      <span class="badge">RM33.00 / 500g</span>
+      <span class="badge">Dari RM33 / botol</span>
       <span class="badge clean">Same-Day Shipping</span>
     </div>
     <h1>Akhirnya… Kesan Kotoran Degil Hilang Tanpa Sental</h1>
@@ -279,7 +293,7 @@
       <img src="https://img.shoppegram.com/ah_1830_new_sku_prod_i3gicthalyx38uqccbd6_1080x.webp" alt="Sabun Badang Makeover">
     </div>
 
-    <a href="#beli" class="cta">BELI SEKARANG — RM33</a>
+    <a href="#beli" class="cta">BELI SEKARANG — Dari RM33</a>
     <div class="cta-sub">🔒 256-bit SSL checkout · Same-day shipping · 14 hari easy return</div>
   </section>
 
@@ -363,12 +377,27 @@
 
   <!-- PRICE -->
   <section id="beli">
-    <h2 style="text-align:center;">Dapatkan Sabun Badang Makeover</h2>
-    <div class="price-card">
-      <h3>500g / BOTOL</h3>
-      <div class="price-new">RM33.00</div>
-      <div class="price-unit">Same-day shipping</div>
-      <a href="#" class="price-cta">Beli Sekarang</a>
+    <h2 style="text-align:center;">Pilih Pakej Anda</h2>
+    <div class="price-grid">
+      <div class="price-card">
+        <h3>1 BOTOL</h3>
+        <div class="price-new">RM33</div>
+        <div class="price-unit">500g</div>
+        <a href="#" class="price-cta">Beli Sekarang</a>
+      </div>
+      <div class="price-card popular">
+        <div class="popular-tag">Jimat Lebih</div>
+        <h3>COMBO 2 BOTOL</h3>
+        <div class="price-new">RM63</div>
+        <div class="price-unit">2 x 500g</div>
+        <a href="#" class="price-cta">Beli Sekarang</a>
+      </div>
+      <div class="price-card">
+        <h3>COMBO 4 BOTOL</h3>
+        <div class="price-new">RM125</div>
+        <div class="price-unit">4 x 500g</div>
+        <a href="#" class="price-cta">Beli Sekarang</a>
+      </div>
     </div>
     <div class="trust-row">
       <span>🔒 256-bit SSL</span>
@@ -434,7 +463,7 @@
   <section class="final-cta">
     <h2>Berhenti Sental. Mula Rendam.</h2>
     <p>Sertai ribuan pengguna yang dah tak perlu sakit pinggang sental setiap hari untuk kotoran yang tak pernah betul-betul hilang.</p>
-    <a href="#beli" class="cta">BELI SEKARANG — RM33</a>
+    <a href="#beli" class="cta">BELI SEKARANG — Dari RM33</a>
     <div class="cta-sub">🔒 256-bit SSL checkout · 14 hari easy return</div>
   </section>
 
