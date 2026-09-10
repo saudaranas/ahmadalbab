@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Ahmad Albab Store</title>
+<style>
+:root{
+  --primary:#ee4d2d; --primary-dim:#d6431f; --tiktok:#010101; --tiktok-accent:#25f4ee;
+  --bg:#fff; --surface:#f6f6f8; --ink:rgba(0,0,0,.87); --muted:rgba(0,0,0,.55); --line:#ebebeb;
+  --ok:#1f9d55; --err:#d64545;
+  --font:-apple-system,'HelveticaNeue','Helvetica Neue','Roboto','Droid Sans',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased}
+.wrap{max-width:520px;margin:0 auto;min-height:100dvh;padding-bottom:40px}
+
+/* ---------- Header ---------- */
+.store-header{padding:22px 16px 16px;background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:#fff}
+.store-name{font-size:1.3rem;font-weight:700}
+.store-desc{font-size:.8rem;opacity:.9;margin-top:4px;line-height:1.4}
+
+/* ---------- Category tabs ---------- */
+.cat-tabs{display:flex;gap:8px;overflow-x:auto;padding:12px 16px;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-chip{flex-shrink:0;padding:7px 14px;border-radius:100px;background:var(--surface);font-size:.8rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;border:1px solid transparent}
+.cat-chip.active{background:var(--primary);color:#fff}
+
+/* ---------- Platform filter ---------- */
+.plat-tabs{display:flex;gap:6px;padding:0 16px 12px}
+.plat-chip{flex:1;text-align:center;padding:8px;border-radius:10px;background:var(--surface);font-size:.75rem;font-weight:700;color:var(--muted);cursor:pointer;border:1.5px solid var(--line)}
+.plat-chip.active[data-p="all"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.plat-chip.active[data-p="shopee"]{background:var(--primary);color:#fff;border-color:var(--primary)}
+.plat-chip.active[data-p="tiktok"]{background:var(--tiktok);color:var(--tiktok-accent);border-color:var(--tiktok)}
+
+/* ---------- Product grid ---------- */
+.grid-wrap{padding:8px 8px 0}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pcard{background:#fff;border-radius:8px;overflow:hidden;border:1px solid var(--line);cursor:pointer;text-decoration:none;color:var(--ink);transition:transform .1s}
+.pcard:active{transform:scale(.97)}
+.pcard-img-wrap{position:relative;width:100%;padding-top:100%;background:var(--surface)}
+.pcard-img-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pcard-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#ccc}
+.plat-badge{position:absolute;top:6px;left:6px;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;color:#fff}
+.plat-badge.shopee{background:var(--primary)}
+.plat-badge.tiktok{background:var(--tiktok);color:var(--tiktok-accent)}
+.pcard-body{padding:8px}
+.pname{font-size:.78rem;line-height:1.35;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.1em}
+.pprice{font-size:.95rem;font-weight:700;color:var(--primary)}
+.pcat{font-size:.65rem;color:var(--muted);margin-top:2px}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted);font-size:.85rem}
+
+/* ---------- Admin trigger ---------- */
+.admin-trigger{text-align:center;padding:24px 16px 8px}
+.admin-trigger button{background:none;border:none;color:var(--muted);font-size:.7rem;text-decoration:underline;cursor:pointer}
+
+/* ---------- Modal ---------- */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal-box{background:#fff;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;border-radius:16px 16px 0 0;padding:20px 16px 32px}
+.modal-title{font-size:1.05rem;font-weight:700;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{background:none;border:none;font-size:1.3rem;color:var(--muted);cursor:pointer;line-height:1}
+label{display:block;font-size:.75rem;font-weight:700;margin:0 0 5px;color:var(--ink)}
+.field{margin-bottom:14px}
+input[type=text],input[type=password],input[type=number],textarea,select{
+  width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font);font-size:.85rem;color:var(--ink);background:#fff
+}
+textarea{resize:vertical;min-height:60px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary)}
+button.primary{width:100%;background:var(--primary);color:#fff;border:none;font-weight:700;font-size:.9rem;padding:13px;border-radius:10px;cursor:pointer}
+button.primary:hover{background:var(--primary-dim)}
+button.secondary{width:100%;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);font-weight:700;font-size:.85rem;padding:11px;border-radius:10px;cursor:pointer;margin-top:8px}
+button.danger{background:none;border:none;color:var(--err);font-size:.75rem;font-weight:700;cursor:pointer}
+.err-text{color:var(--err);font-size:.78rem;margin-top:6px}
+
+/* ---------- Admin panel ---------- */
+.admin-tabs{display:flex;gap:6px;margin-bottom:16px;background:var(--surface);border-radius:10px;padding:4px}
+.admin-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:.78rem;font-weight:700;color:var(--muted);cursor:pointer}
+.admin-tab.active{background:#fff;color:var(--primary)}
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.list-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.list-item img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:var(--surface);flex-shrink:0}
+.list-item-info{flex:1;min-width:0}
+.list-item-title{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-item-sub{font-size:.7rem;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8rem;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.divider{height:1px;background:var(--line);margin:18px 0}
+.section-label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- HEADER -->
+  <div class="store-header">
+    <div class="store-name" id="storeName">Ahmad Albab Store</div>
+    <div class="store-desc" id="storeDesc">Produk pilihan — klik terus ke Shopee/TikTok</div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div class="cat-tabs" id="catTabs"></div>
+
+  <!-- PLATFORM FILTER -->
+  <div class="plat-tabs">
+    <div class="plat-chip active" data-p="all" onclick="setPlatform('all')">Semua</div>
+    <div class="plat-chip" data-p="shopee" onclick="setPlatform('shopee')">🛒 Shopee</div>
+    <div class="plat-chip" data-p="tiktok" onclick="setPlatform('tiktok')">🎵 TikTok</div>
+  </div>
+
+  <!-- PRODUCT GRID -->
+  <div class="grid-wrap">
+    <div class="pgrid" id="productGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">Tiada produk lagi.</div>
+  </div>
+
+  <!-- ADMIN TRIGGER -->
+  <div class="admin-trigger"><button onclick="openLogin()">Admin</button></div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box">
+    <div class="modal-title">Admin Login <button class="modal-close" onclick="closeModal('loginModal')">✕</button></div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPw" placeholder="Masukkan password">
+    </div>
+    <button class="primary" onclick="doLogin()">Login</button>
+    <p class="err-text" id="loginErr" style="display:none"></p>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-box">
+    <div class="modal-title">Admin Panel <button class="modal-close" onclick="closeModal('adminModal')">✕</button></div>
+
+    <div class="admin-tabs">
+      <div class="admin-tab active" id="tabProdBtn" onclick="switchAdminTab('prod')">Produk</div>
+      <div class="admin-tab" id="tabCatBtn" onclick="switchAdminTab('cat')">Kategori</div>
+      <div class="admin-tab" id="tabSetBtn" onclick="switchAdminTab('set')">Tetapan</div>
+    </div>
+
+    <!-- PRODUK PANEL -->
+    <div class="admin-panel active" id="panelProd">
+      <div class="section-label">Tambah / Edit Produk</div>
+      <input type="hidden" id="pId">
+      <div class="field"><label>Tajuk Produk *</label><input type="text" id="pTitle" placeholder="Contoh: Kemeja Batik Lelaki"></div>
+      <div class="field"><label>URL Gambar</label><input type="text" id="pImage" placeholder="https://..."></div>
+      <div class="field"><label>Harga (RM)</label><input type="text" id="pPrice" placeholder="Contoh: 29.90"></div>
+      <div class="field"><label>Link Affiliate *</label><input type="text" id="pLink" placeholder="https://shopee.com.my/... atau tiktok"></div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="pPlatform">
+          <option value="shopee">Shopee</option>
+          <option value="tiktok">TikTok</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Kategori</label>
+        <select id="pCategory"></select>
+      </div>
+      <button class="primary" onclick="saveProduct()">Simpan Produk</button>
+      <button class="secondary" id="cancelEditBtn" onclick="resetProductForm()" style="display:none">Batal Edit</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Senarai Produk</div>
+      <div id="adminProdList"></div>
+    </div>
+
+    <!-- KATEGORI PANEL -->
+    <div class="admin-panel" id="panelCat">
+      <div class="section-label">Tambah / Edit Kategori</div>
+      <input type="hidden" id="cEditKey">
+      <div class="field"><label>Key (unik, huruf kecil, tiada spasi) *</label><input type="text" id="cKey" placeholder="contoh: fesyen"></div>
+      <div class="field"><label>Nama Paparan *</label><input type="text" id="cName" placeholder="Contoh: Fesyen"></div>
+      <div class="field"><label>Emoji Icon</label><input type="text" id="cIcon" placeholder="👗"></div>
+      <button class="primary" onclick="saveCategory()">Simpan Kategori</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Senarai Kategori</div>
+      <div id="adminCatList"></div>
+    </div>
+
+    <!-- SETTINGS PANEL -->
+    <div class="admin-panel" id="panelSet">
+      <div class="section-label">Tetapan Store</div>
+      <div class="field"><label>Nama Store</label><input type="text" id="sName"></div>
+      <div class="field"><label>Deskripsi</label><textarea id="sDesc"></textarea></div>
+      <div class="field"><label>Domain</label><input type="text" id="sDomain"></div>
+      <button class="primary" onclick="saveSettings()">Simpan Tetapan</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Tukar Password</div>
+      <div class="field"><label>Password Baru</label><input type="password" id="newPw"></div>
+      <button class="secondary" onclick="changePw()">Tukar Password</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIG
+// ============================================================
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxtv0fOrTanhBl12pDzz6mBJDY07bikX-0PwUhAuEWPMqGTLSz-swuYsP7MRyg3LHsRkw/exec';
+
+let S = { products: [], categories: [], settings: {} };
+let activeCat = 'all';
+let activePlatform = 'all';
+let adminPw = '';
+
+// ============================================================
+// LOAD DATA
+// ============================================================
+async function loadData() {
+  try {
+    const res = await fetch(GAS_API_URL + '?action=getData');
+    const data = await res.json();
+    if (data.success) {
+      S.products = data.products || [];
+      S.categories = data.categories || [];
+      S.settings = data.settings || {};
+      applySettings();
+      renderCatTabs();
+      renderGrid();
+      populateCatSelect();
+      renderAdminLists();
+    }
+  } catch (err) {
+    console.error('Load error', err);
+  }
+}
+
+function applySettings() {
+  document.getElementById('storeName').textContent = S.settings.name || 'Ahmad Albab Store';
+  document.getElementById('storeDesc').textContent = S.settings.desc || '';
+  document.getElementById('sName').value = S.settings.name || '';
+  document.getElementById('sDesc').value = S.settings.desc || '';
+  document.getElementById('sDomain').value = S.settings.domain || 'ahmadalbab.store';
+}
+
+// ============================================================
+// CATEGORY TABS + FILTER
+// ============================================================
+function renderCatTabs() {
+  const wrap = document.getElementById('catTabs');
+  let html = `<div class="cat-chip ${activeCat === 'all' ? 'active' : ''}" onclick="setCategory('all')">Semua</div>`;
+  S.categories.forEach(c => {
+    html += `<div class="cat-chip ${activeCat === c.key ? 'active' : ''}" onclick="setCategory('${c.key}')">${c.icon || ''} ${escapeHtml(c.name)}</div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+function setCategory(key) {
+  activeCat = key;
+  renderCatTabs();
+  renderGrid();
+}
+
+function setPlatform(p) {
+  activePlatform = p;
+  document.querySelectorAll('.plat-chip').forEach(el => el.classList.toggle('active', el.dataset.p === p));
+  renderGrid();
+}
+
+// ============================================================
+// PRODUCT GRID (public)
+// ============================================================
+function renderGrid() {
+  const grid = document.getElementById('productGrid');
+  const empty = document.getElementById('emptyState');
+  let list = S.products.slice();
+  if (activeCat !== 'all') list = list.filter(p => p.category === activeCat);
+  if (activePlatform !== 'all') list = list.filter(p => p.platform === activePlatform);
+
+  if (list.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  grid.innerHTML = list.map(p => {
+    const catName = (S.categories.find(c => c.key === p.category) || {}).name || '';
+    const img = p.imageUrl
+      ? `<img src="${escapeHtml(p.imageUrl)}" alt="">`
+      : `<div class="pcard-ph">📦</div>`;
+    const badge = p.platform === 'tiktok'
+      ? `<span class="plat-badge tiktok">TikTok</span>`
+      : `<span class="plat-badge shopee">Shopee</span>`;
+    const price = p.price ? `<div class="pprice">RM${escapeHtml(String(p.price))}</div>` : '';
+    return `
+      <a class="pcard" href="${escapeHtml(p.affiliateLink)}" target="_blank" rel="noopener nofollow sponsored">
+        <div class="pcard-img-wrap">${img}${badge}</div>
+        <div class="pcard-body">
+          <div class="pname">${escapeHtml(p.title)}</div>
+          ${price}
+          <div class="pcat">${escapeHtml(catName)}</div>
+        </div>
+      </a>`;
+  }).join('');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : str;
+  return div.innerHTML;
+}
+
+// ============================================================
+// MODALS
+// ============================================================
+function openLogin() { document.getElementById('loginModal').classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+async function doLogin() {
+  const pw = document.getElementById('loginPw').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+  // Try a lightweight call to verify password (saveSettings with current settings)
+  try {
+    const res = await gasPost({ action: 'saveSettings', password: pw, settings: S.settings });
+    if (res.success) {
+      adminPw = pw;
+      closeModal('loginModal');
+      document.getElementById('loginPw').value = '';
+      document.getElementById('adminModal').classList.add('show');
+    } else {
+      errEl.textContent = res.error || 'Password salah';
+      errEl.style.display = 'block';
+    }
+  } catch (err) {
+    errEl.textContent = 'Ralat sambungan';
+    errEl.style.display = 'block';
+  }
+}
+
+async function gasPost(body) {
+  const res = await fetch(GAS_API_URL, {
+    method: 'POST',
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+
+// ============================================================
+// ADMIN TABS
+// ============================================================
+function switchAdminTab(tab) {
+  document.getElementById('panelProd').classList.toggle('active', tab === 'prod');
+  document.getElementById('panelCat').classList.toggle('active', tab === 'cat');
+  document.getElementById('panelSet').classList.toggle('active', tab === 'set');
+  document.getElementById('tabProdBtn').classList.toggle('active', tab === 'prod');
+  document.getElementById('tabCatBtn').classList.toggle('active', tab === 'cat');
+  document.getElementById('tabSetBtn').classList.toggle('active', tab === 'set');
+}
+
+// ============================================================
+// ADMIN: PRODUCTS
+// ============================================================
+function populateCatSelect() {
+  const sel = document.getElementById('pCategory');
+  sel.innerHTML = S.categories.map(c => `<option value="${c.key}">${escapeHtml(c.name)}</option>`).join('');
+}
+
+async function saveProduct() {
+  const product = {
+    id: document.getElementById('pId').value || null,
+    title: document.getElementById('pTitle').value.trim(),
+    imageUrl: document.getElementById('pImage').value.trim(),
+    price: document.getElementById('pPrice').value.trim(),
+    affiliateLink: document.getElementById('pLink').value.trim(),
+    platform: document.getElementById('pPlatform').value,
+    category: document.getElementById('pCategory').value
+  };
+  if (!product.title || !product.affiliateLink) {
+    showToast('⚠️ Tajuk & link affiliate wajib diisi');
+    return;
+  }
+  try {
+    const res = await gasPost({ action: 'saveProduct', password: adminPw, product });
+    if (res.success) {
+      showToast('✅ Produk disimpan!');
+      resetProductForm();
+      await loadData();
+    } else {
+      showToast('❌ ' + res.error);
+    }
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+function editProduct(id) {
+  const p = S.products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('pId').value = p.id;
+  document.getElementById('pTitle').value = p.title;
+  document.getElementById('pImage').value = p.imageUrl;
+  document.getElementById('pPrice').value = p.price;
+  document.getElementById('pLink').value = p.affiliateLink;
+  document.getElementById('pPlatform').value = p.platform || 'shopee';
+  document.getElementById('pCategory').value = p.category || '';
+  document.getElementById('cancelEditBtn').style.display = 'block';
+  switchAdminTab('prod');
+}
+
+function resetProductForm() {
+  document.getElementById('pId').value = '';
+  document.getElementById('pTitle').value = '';
+  document.getElementById('pImage').value = '';
+  document.getElementById('pPrice').value = '';
+  document.getElementById('pLink').value = '';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+async function deleteProductConfirm(id) {
+  if (!confirm('Padam produk ini?')) return;
+  try {
+    const res = await gasPost({ action: 'deleteProduct', password: adminPw, id });
+    if (res.success) { showToast('🗑️ Produk dipadam'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+// ============================================================
+// ADMIN: CATEGORIES
+// ============================================================
+async function saveCategory() {
+  const key = document.getElementById('cKey').value.trim().toLowerCase().replace(/\s+/g, '');
+  const name = document.getElementById('cName').value.trim();
+  const icon = document.getElementById('cIcon').value.trim();
+  if (!key || !name) { showToast('⚠️ Key & nama wajib diisi'); return; }
+  try {
+    const res = await gasPost({ action: 'saveCategory', password: adminPw, category: { key, name, icon } });
+    if (res.success) {
+      showToast('✅ Kategori disimpan!');
+      document.getElementById('cKey').value = '';
+      document.getElementById('cName').value = '';
+      document.getElementById('cIcon').value = '';
+      await loadData();
+    } else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function deleteCategoryConfirm(key) {
+  if (!confirm('Padam kategori ini?')) return;
+  try {
+    const res = await gasPost({ action: 'deleteCategory', password: adminPw, key });
+    if (res.success) { showToast('🗑️ Kategori dipadam'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+// ============================================================
+// ADMIN: SETTINGS
+// ============================================================
+async function saveSettings() {
+  const settings = {
+    name: document.getElementById('sName').value.trim() || 'Ahmad Albab Store',
+    desc: document.getElementById('sDesc').value.trim(),
+    domain: document.getElementById('sDomain').value.trim() || 'ahmadalbab.store'
+  };
+  try {
+    const res = await gasPost({ action: 'saveSettings', password: adminPw, settings });
+    if (res.success) { showToast('✅ Tetapan disimpan!'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function changePw() {
+  const newPw = document.getElementById('newPw').value;
+  if (!newPw || newPw.length < 4) { showToast('⚠️ Password minimum 4 aksara'); return; }
+  try {
+    const res = await gasPost({ action: 'changePassword', password: adminPw, newPassword: newPw });
+    if (res.success) {
+      adminPw = newPw;
+      document.getElementById('newPw').value = '';
+      showToast('🔑 Password ditukar!');
+    } else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+// ============================================================
+// ADMIN LISTS
+// ============================================================
+function renderAdminLists() {
+  const prodList = document.getElementById('adminProdList');
+  prodList.innerHTML = S.products.map(p => `
+    <div class="list-item">
+      <img src="${escapeHtml(p.imageUrl)}" onerror="this.style.display='none'">
+      <div class="list-item-info">
+        <div class="list-item-title">${escapeHtml(p.title)}</div>
+        <div class="list-item-sub">${p.platform} · ${p.price ? 'RM' + escapeHtml(String(p.price)) : ''}</div>
+      </div>
+      <button class="danger" onclick="editProduct('${p.id}')">Edit</button>
+      <button class="danger" onclick="deleteProductConfirm('${p.id}')">Padam</button>
+    </div>`).join('') || '<p class="pcat">Belum ada produk.</p>';
+
+  const catList = document.getElementById('adminCatList');
+  catList.innerHTML = S.categories.map(c => `
+    <div class="list-item">
+      <div class="list-item-info">
+        <div class="list-item-title">${c.icon || ''} ${escapeHtml(c.name)}</div>
+        <div class="list-item-sub">key: ${escapeHtml(c.key)}</div>
+      </div>
+      <button class="danger" onclick="deleteCategoryConfirm('${c.key}')">Padam</button>
+    </div>`).join('') || '<p class="pcat">Belum ada kategori.</p>';
+}
+
+// ============================================================
+// TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadData();
+</script>
+</body>
+</html>
