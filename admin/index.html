@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Admin — Ahmad Albab Store</title>
+<style>
+:root{
+  --primary:#ee4d2d; --primary-dim:#d6431f;
+  --bg:#fff; --surface:#f6f6f8; --ink:rgba(0,0,0,.87); --muted:rgba(0,0,0,.55); --line:#ebebeb; --err:#d64545;
+  --font:-apple-system,'HelveticaNeue','Helvetica Neue','Roboto','Droid Sans',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);font-family:var(--font);color:var(--ink)}
+.wrap{max-width:520px;margin:0 auto;min-height:100dvh;padding:0 0 40px}
+.top{padding:18px 16px;background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:#fff;display:flex;justify-content:space-between;align-items:center}
+.top a{color:#fff;font-size:.8rem;text-decoration:underline}
+.content{padding:16px}
+label{display:block;font-size:.75rem;font-weight:700;margin:0 0 5px}
+.field{margin-bottom:14px}
+input[type=text],input[type=password],textarea,select{
+  width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font);font-size:.85rem;background:#fff
+}
+textarea{resize:vertical;min-height:60px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary)}
+button.primary{width:100%;background:var(--primary);color:#fff;border:none;font-weight:700;font-size:.9rem;padding:13px;border-radius:10px;cursor:pointer}
+button.secondary{width:100%;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);font-weight:700;font-size:.85rem;padding:11px;border-radius:10px;cursor:pointer;margin-top:8px}
+button.danger{background:none;border:none;color:var(--err);font-size:.75rem;font-weight:700;cursor:pointer}
+.err-text{color:var(--err);font-size:.78rem;margin-top:6px}
+.admin-tabs{display:flex;gap:6px;margin-bottom:16px;background:var(--surface);border-radius:10px;padding:4px}
+.admin-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:.78rem;font-weight:700;color:var(--muted);cursor:pointer}
+.admin-tab.active{background:#fff;color:var(--primary)}
+.admin-panel{display:none}
+.admin-panel.active{display:block}
+.list-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
+.list-item img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:var(--surface);flex-shrink:0}
+.list-item-info{flex:1;min-width:0}
+.list-item-title{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.list-item-sub{font-size:.7rem;color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8rem;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.on{opacity:1}
+.divider{height:1px;background:var(--line);margin:18px 0}
+.section-label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
+.login-box{max-width:340px;margin:60px auto;padding:0 16px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <strong>Admin Panel</strong>
+    <a href="index.html">← Balik ke Store</a>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="loginView" class="login-box">
+    <div class="field">
+      <label>Password</label>
+      <input type="password" id="loginPw" placeholder="Masukkan password">
+    </div>
+    <button class="primary" onclick="doLogin()">Login</button>
+    <p class="err-text" id="loginErr" style="display:none"></p>
+  </div>
+
+  <!-- ADMIN CONTENT -->
+  <div id="adminView" class="content" style="display:none">
+    <div class="admin-tabs">
+      <div class="admin-tab active" id="tabProdBtn" onclick="switchAdminTab('prod')">Produk</div>
+      <div class="admin-tab" id="tabCatBtn" onclick="switchAdminTab('cat')">Kategori</div>
+      <div class="admin-tab" id="tabSetBtn" onclick="switchAdminTab('set')">Tetapan</div>
+    </div>
+
+    <div class="admin-panel active" id="panelProd">
+      <div class="section-label">Tambah / Edit Produk</div>
+      <input type="hidden" id="pId">
+      <div class="field"><label>Tajuk Produk *</label><input type="text" id="pTitle" placeholder="Contoh: Kemeja Batik Lelaki"></div>
+      <div class="field"><label>URL Gambar</label><input type="text" id="pImage" placeholder="https://..."></div>
+      <div class="field"><label>Harga (RM)</label><input type="text" id="pPrice" placeholder="Contoh: 29.90"></div>
+      <div class="field"><label>Link Affiliate *</label><input type="text" id="pLink" placeholder="https://shopee.com.my/... atau tiktok"></div>
+      <div class="field">
+        <label>Platform</label>
+        <select id="pPlatform">
+          <option value="shopee">Shopee</option>
+          <option value="tiktok">TikTok</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Kategori</label>
+        <select id="pCategory"></select>
+      </div>
+      <button class="primary" onclick="saveProduct()">Simpan Produk</button>
+      <button class="secondary" id="cancelEditBtn" onclick="resetProductForm()" style="display:none">Batal Edit</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Senarai Produk</div>
+      <div id="adminProdList"></div>
+    </div>
+
+    <div class="admin-panel" id="panelCat">
+      <div class="section-label">Tambah / Edit Kategori</div>
+      <div class="field"><label>Key (unik, huruf kecil, tiada spasi) *</label><input type="text" id="cKey" placeholder="contoh: fesyen"></div>
+      <div class="field"><label>Nama Paparan *</label><input type="text" id="cName" placeholder="Contoh: Fesyen"></div>
+      <div class="field"><label>Emoji Icon</label><input type="text" id="cIcon" placeholder="👗"></div>
+      <button class="primary" onclick="saveCategory()">Simpan Kategori</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Senarai Kategori</div>
+      <div id="adminCatList"></div>
+    </div>
+
+    <div class="admin-panel" id="panelSet">
+      <div class="section-label">Tetapan Store</div>
+      <div class="field"><label>Nama Store</label><input type="text" id="sName"></div>
+      <div class="field"><label>Deskripsi</label><textarea id="sDesc"></textarea></div>
+      <div class="field"><label>Domain</label><input type="text" id="sDomain"></div>
+      <button class="primary" onclick="saveSettings()">Simpan Tetapan</button>
+
+      <div class="divider"></div>
+      <div class="section-label">Tukar Password</div>
+      <div class="field"><label>Password Baru</label><input type="password" id="newPw"></div>
+      <button class="secondary" onclick="changePw()">Tukar Password</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxtv0fOrTanhBl12pDzz6mBJDY07bikX-0PwUhAuEWPMqGTLSz-swuYsP7MRyg3LHsRkw/exec';
+
+let S = { products: [], categories: [], settings: {} };
+let adminPw = '';
+
+async function gasPost(body) {
+  const res = await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(body) });
+  return res.json();
+}
+
+async function loadData() {
+  const res = await fetch(GAS_API_URL + '?action=getData');
+  const data = await res.json();
+  if (data.success) {
+    S.products = data.products || [];
+    S.categories = data.categories || [];
+    S.settings = data.settings || {};
+    document.getElementById('sName').value = S.settings.name || '';
+    document.getElementById('sDesc').value = S.settings.desc || '';
+    document.getElementById('sDomain').value = S.settings.domain || 'ahmadalbab.store';
+    populateCatSelect();
+    renderAdminLists();
+  }
+}
+
+async function doLogin() {
+  const pw = document.getElementById('loginPw').value;
+  const errEl = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+  try {
+    const res = await gasPost({ action: 'saveSettings', password: pw, settings: S.settings });
+    if (res.success) {
+      adminPw = pw;
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('adminView').style.display = 'block';
+      await loadData();
+    } else {
+      errEl.textContent = res.error || 'Password salah';
+      errEl.style.display = 'block';
+    }
+  } catch (err) {
+    errEl.textContent = 'Ralat sambungan';
+    errEl.style.display = 'block';
+  }
+}
+
+function switchAdminTab(tab) {
+  document.getElementById('panelProd').classList.toggle('active', tab === 'prod');
+  document.getElementById('panelCat').classList.toggle('active', tab === 'cat');
+  document.getElementById('panelSet').classList.toggle('active', tab === 'set');
+  document.getElementById('tabProdBtn').classList.toggle('active', tab === 'prod');
+  document.getElementById('tabCatBtn').classList.toggle('active', tab === 'cat');
+  document.getElementById('tabSetBtn').classList.toggle('active', tab === 'set');
+}
+
+function populateCatSelect() {
+  const sel = document.getElementById('pCategory');
+  sel.innerHTML = S.categories.map(c => `<option value="${c.key}">${escapeHtml(c.name)}</option>`).join('');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : str;
+  return div.innerHTML;
+}
+
+async function saveProduct() {
+  const product = {
+    id: document.getElementById('pId').value || null,
+    title: document.getElementById('pTitle').value.trim(),
+    imageUrl: document.getElementById('pImage').value.trim(),
+    price: document.getElementById('pPrice').value.trim(),
+    affiliateLink: document.getElementById('pLink').value.trim(),
+    platform: document.getElementById('pPlatform').value,
+    category: document.getElementById('pCategory').value
+  };
+  if (!product.title || !product.affiliateLink) { showToast('⚠️ Tajuk & link affiliate wajib diisi'); return; }
+  try {
+    const res = await gasPost({ action: 'saveProduct', password: adminPw, product });
+    if (res.success) { showToast('✅ Produk disimpan!'); resetProductForm(); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+function editProduct(id) {
+  const p = S.products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('pId').value = p.id;
+  document.getElementById('pTitle').value = p.title;
+  document.getElementById('pImage').value = p.imageUrl;
+  document.getElementById('pPrice').value = p.price;
+  document.getElementById('pLink').value = p.affiliateLink;
+  document.getElementById('pPlatform').value = p.platform || 'shopee';
+  document.getElementById('pCategory').value = p.category || '';
+  document.getElementById('cancelEditBtn').style.display = 'block';
+  switchAdminTab('prod');
+}
+
+function resetProductForm() {
+  document.getElementById('pId').value = '';
+  document.getElementById('pTitle').value = '';
+  document.getElementById('pImage').value = '';
+  document.getElementById('pPrice').value = '';
+  document.getElementById('pLink').value = '';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+async function deleteProductConfirm(id) {
+  if (!confirm('Padam produk ini?')) return;
+  try {
+    const res = await gasPost({ action: 'deleteProduct', password: adminPw, id });
+    if (res.success) { showToast('🗑️ Produk dipadam'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function saveCategory() {
+  const key = document.getElementById('cKey').value.trim().toLowerCase().replace(/\s+/g, '');
+  const name = document.getElementById('cName').value.trim();
+  const icon = document.getElementById('cIcon').value.trim();
+  if (!key || !name) { showToast('⚠️ Key & nama wajib diisi'); return; }
+  try {
+    const res = await gasPost({ action: 'saveCategory', password: adminPw, category: { key, name, icon } });
+    if (res.success) {
+      showToast('✅ Kategori disimpan!');
+      document.getElementById('cKey').value = '';
+      document.getElementById('cName').value = '';
+      document.getElementById('cIcon').value = '';
+      await loadData();
+    } else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function deleteCategoryConfirm(key) {
+  if (!confirm('Padam kategori ini?')) return;
+  try {
+    const res = await gasPost({ action: 'deleteCategory', password: adminPw, key });
+    if (res.success) { showToast('🗑️ Kategori dipadam'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function saveSettings() {
+  const settings = {
+    name: document.getElementById('sName').value.trim() || 'Ahmad Albab Store',
+    desc: document.getElementById('sDesc').value.trim(),
+    domain: document.getElementById('sDomain').value.trim() || 'ahmadalbab.store'
+  };
+  try {
+    const res = await gasPost({ action: 'saveSettings', password: adminPw, settings });
+    if (res.success) { showToast('✅ Tetapan disimpan!'); await loadData(); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+async function changePw() {
+  const newPw = document.getElementById('newPw').value;
+  if (!newPw || newPw.length < 4) { showToast('⚠️ Password minimum 4 aksara'); return; }
+  try {
+    const res = await gasPost({ action: 'changePassword', password: adminPw, newPassword: newPw });
+    if (res.success) { adminPw = newPw; document.getElementById('newPw').value = ''; showToast('🔑 Password ditukar!'); }
+    else showToast('❌ ' + res.error);
+  } catch (err) { showToast('❌ Ralat sambungan'); }
+}
+
+function renderAdminLists() {
+  const prodList = document.getElementById('adminProdList');
+  prodList.innerHTML = S.products.map(p => `
+    <div class="list-item">
+      <img src="${escapeHtml(p.imageUrl)}" onerror="this.style.display='none'">
+      <div class="list-item-info">
+        <div class="list-item-title">${escapeHtml(p.title)}</div>
+        <div class="list-item-sub">${p.platform} · ${p.price ? 'RM' + escapeHtml(String(p.price)) : ''}</div>
+      </div>
+      <button class="danger" onclick="editProduct('${p.id}')">Edit</button>
+      <button class="danger" onclick="deleteProductConfirm('${p.id}')">Padam</button>
+    </div>`).join('') || '<p class="list-item-sub">Belum ada produk.</p>';
+
+  const catList = document.getElementById('adminCatList');
+  catList.innerHTML = S.categories.map(c => `
+    <div class="list-item">
+      <div class="list-item-info">
+        <div class="list-item-title">${c.icon || ''} ${escapeHtml(c.name)}</div>
+        <div class="list-item-sub">key: ${escapeHtml(c.key)}</div>
+      </div>
+      <button class="danger" onclick="deleteCategoryConfirm('${c.key}')">Padam</button>
+    </div>`).join('') || '<p class="list-item-sub">Belum ada kategori.</p>';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  setTimeout(() => t.classList.remove('on'), 2500);
+}
+
+loadData();
+</script>
+</body>
+</html>
