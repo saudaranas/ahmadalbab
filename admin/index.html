@@ -2,327 +2,569 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Admin — Ahmad Albab Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin — Ahmad Albab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{
-  --primary:#ee4d2d; --primary-dim:#d6431f;
-  --bg:#fff; --surface:#f6f6f8; --ink:rgba(0,0,0,.87); --muted:rgba(0,0,0,.55); --line:#ebebeb; --err:#d64545;
-  --font:-apple-system,'HelveticaNeue','Helvetica Neue','Roboto','Droid Sans',Arial,sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);font-family:var(--font);color:var(--ink)}
-.wrap{max-width:520px;margin:0 auto;min-height:100dvh;padding:0 0 40px}
-.top{padding:18px 16px;background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:#fff;display:flex;justify-content:space-between;align-items:center}
-.top a{color:#fff;font-size:.8rem;text-decoration:underline}
-.content{padding:16px}
-label{display:block;font-size:.75rem;font-weight:700;margin:0 0 5px}
-.field{margin-bottom:14px}
-input[type=text],input[type=password],textarea,select{
-  width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--font);font-size:.85rem;background:#fff
-}
-textarea{resize:vertical;min-height:60px}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary)}
-button.primary{width:100%;background:var(--primary);color:#fff;border:none;font-weight:700;font-size:.9rem;padding:13px;border-radius:10px;cursor:pointer}
-button.secondary{width:100%;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);font-weight:700;font-size:.85rem;padding:11px;border-radius:10px;cursor:pointer;margin-top:8px}
-button.danger{background:none;border:none;color:var(--err);font-size:.75rem;font-weight:700;cursor:pointer}
-.err-text{color:var(--err);font-size:.78rem;margin-top:6px}
-.admin-tabs{display:flex;gap:6px;margin-bottom:16px;background:var(--surface);border-radius:10px;padding:4px}
-.admin-tab{flex:1;text-align:center;padding:9px;border-radius:8px;font-size:.78rem;font-weight:700;color:var(--muted);cursor:pointer}
-.admin-tab.active{background:#fff;color:var(--primary)}
-.admin-panel{display:none}
-.admin-panel.active{display:block}
-.list-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px}
-.list-item img{width:44px;height:44px;border-radius:6px;object-fit:cover;background:var(--surface);flex-shrink:0}
-.list-item-info{flex:1;min-width:0}
-.list-item-title{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.list-item-sub{font-size:.7rem;color:var(--muted)}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:100px;font-size:.8rem;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s}
-.toast.on{opacity:1}
-.divider{height:1px;background:var(--line);margin:18px 0}
-.section-label{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
-.login-box{max-width:340px;margin:60px auto;padding:0 16px}
+  :root{
+    --bg:#f3f2f2; --white:#ffffff; --text:#201e1d;
+    --accent:#ec3013; --accent-600:#d02a10; --accent-700:#b8250e; --accent-800:#8f1c0b;
+    --accent-100:#fce2dc; --accent-200:#f9c7ba;
+    --n100:#f6f5f5; --n200:#eceaea; --n300:#d6d4d4; --n400:#b7b4b4;
+    --n600:#8a8686; --n700:#6b6767; --n800:#4a4746; --n900:#1c1a19;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;}
+  button,input,select,textarea{font-family:inherit;}
+  a{color:var(--accent-700);text-decoration:none;}
+  h1,h2{margin:0;font-family:'Archivo',sans-serif;}
+  *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .login-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:32px;max-width:360px;width:100%;}
+  .login-card h1{font-weight:800;font-size:22px;margin-bottom:8px;}
+  .login-card p{font-size:13.5px;color:var(--n700);margin:0 0 20px;}
+  .login-card input{width:100%;height:48px;border:1px solid var(--n300);border-radius:12px;padding:0 14px;font-size:15px;margin-bottom:12px;background:var(--bg);}
+  .login-card button{width:100%;height:48px;border:0;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;cursor:pointer;}
+  .login-card button:hover{background:var(--accent-600);}
+  .login-msg{font-size:13px;color:var(--accent-700);font-weight:600;margin-top:10px;min-height:18px;}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
+  .header-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:11px;}
+  .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;}
+  .brand-name{font-weight:700;font-size:16px;}
+  .brand-sub{font-size:11.5px;color:var(--n700);}
+  .range-seg{display:flex;gap:4px;padding:4px;border:1px solid var(--n300);border-radius:999px;background:#fff;}
+  .range-seg button{height:34px;padding:0 13px;border-radius:999px;border:0;background:transparent;font-size:12.5px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .range-seg button.active{background:var(--accent);color:#fff;}
+  .view-store{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
+
+  .layout{max-width:1320px;margin:0 auto;padding:24px 20px 56px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;}
+  nav{width:232px;flex:none;display:flex;flex-direction:column;gap:2px;}
+  @media(max-width:720px){ nav{width:100%;flex-direction:row;flex-wrap:wrap;} }
+  nav button.navlink{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--n800);}
+  nav button.navlink.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  nav button.navlink .ic{width:26px;height:26px;border-radius:8px;background:var(--n200);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none;}
+  nav .navgroup{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);margin:14px 0 4px 12px;}
+  nav .navgroup:first-child{margin-top:0;}
+
+  main{flex:1 1 520px;min-width:min(100%,320px);}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;}
+  .kpi-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;}
+  .kpi-label{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);}
+  .kpi-value{margin:0;font-weight:800;font-size:30px;letter-spacing:-.02em;}
+
+  .panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px;}
+  .panel{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:20px;}
+  .panel h2{font-weight:700;font-size:16px;letter-spacing:-.01em;}
+  .bars{margin-top:18px;display:flex;align-items:flex-end;gap:6px;height:160px;}
+  .bar-col{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;height:100%;}
+  .bar-val{font-size:10.5px;font-weight:700;color:var(--n700);}
+  .bar-fill{width:100%;border-radius:6px 6px 0 0;background:var(--accent);min-height:2px;}
+  .bar-day{font-size:11px;font-weight:600;color:var(--n700);}
+
+  .channel-row{display:flex;flex-direction:column;gap:8px;}
+  .channel-top{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;}
+  .channel-name{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none;}
+  .track{height:10px;border-radius:999px;background:var(--n200);overflow:hidden;}
+  .track-fill{height:100%;border-radius:999px;}
+  .channel-note{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--n200);font-size:13px;color:var(--n700);}
+
+  .table-panel{margin-top:16px;background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;}
+  .table-head{padding:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--n200);}
+  .table-head p{margin:6px 0 0;font-size:13px;color:var(--n700);}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px;}
+  th{background:var(--n100);font-size:11.5px;font-weight:700;text-transform:uppercase;text-align:left;padding:12px 20px;border-bottom:1px solid var(--n300);}
+  td{padding:14px 20px;border-bottom:1px solid var(--n200);}
+  .kind-pill{border-radius:999px;font-size:11px;font-weight:700;padding:4px 10px;color:#fff;}
+
+  .help-panel{margin-top:16px;background:var(--n100);border:1px solid var(--n300);border-radius:16px;padding:20px;}
+  .help-panel p{margin:8px 0 0;font-size:13px;line-height:1.6;color:var(--n800);max-width:76ch;}
+
+  .form-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:24px;}
+  .form-card h2{font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;}
+  .form-card > p.note{margin:8px 0 0;font-size:13.5px;color:var(--n700);max-width:70ch;}
+  .field-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.wide{grid-column:1/-1;}
+  .field label{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);}
+  .field input[type=text], .field input[type=url], .field input[type=number]{height:46px;border:1px solid var(--n300);border-radius:12px;padding:0 14px;font-size:14.5px;background:var(--bg);outline:none;}
+  .field textarea{border:1px solid var(--n300);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.55;background:var(--bg);outline:none;resize:vertical;}
+  .field select{height:46px;border:1px solid var(--n300);border-radius:12px;padding:0 12px;font-size:14.5px;font-weight:600;background:var(--bg);}
+  .toggle-btn{height:46px;border-radius:999px;border:1px solid var(--n300);background:#fff;display:flex;align-items:center;gap:10px;padding:0 14px;cursor:pointer;width:fit-content;}
+  .toggle-track{width:34px;height:20px;border-radius:999px;background:var(--n300);position:relative;transition:.16s;flex:none;}
+  .toggle-track .knob{width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:.16s;}
+  .toggle-btn.on{border-color:var(--accent);background:var(--accent-100);}
+  .toggle-btn.on .toggle-track{background:var(--accent);}
+  .toggle-btn.on .toggle-track .knob{left:17px;}
+  .slug-row{display:flex;align-items:center;border:1px solid var(--n300);border-radius:12px;background:var(--bg);overflow:hidden;height:46px;}
+  .slug-prefix{padding:0 10px;font-size:12.5px;color:var(--n700);white-space:nowrap;}
+  .slug-row input{border:0;background:transparent;flex:1;min-width:0;padding:0 10px 0 0;font-size:14px;outline:none;}
+  .img-row{display:flex;align-items:center;gap:10px;}
+  .img-thumb{width:88px;height:56px;border-radius:8px;background:var(--n200);flex:none;background-size:cover;background-position:center;}
+  .upload-pill{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
+
+  .form-footer{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .btn-save{height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+  .btn-save:hover{background:var(--accent-600);}
+  .btn-clear{height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:14px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .form-status{font-size:13px;font-weight:600;color:var(--accent-700);}
+
+  .entries-list{margin-top:16px;background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;}
+  .entry-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;border-bottom:1px solid var(--n200);}
+  .entry-row:last-child{border-bottom:0;}
+  .entry-title{font-weight:700;font-size:14px;}
+  .entry-meta{font-size:12.5px;color:var(--n700);margin-top:3px;}
+  .btn-delete{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;color:var(--n800);cursor:pointer;flex:none;}
+  .btn-delete:hover{background:var(--accent-100);border-color:var(--accent);color:var(--accent-700);}
+  .entries-empty{padding:32px;text-align:center;font-size:13.5px;color:var(--n700);}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <div class="top">
-    <strong>Admin Panel</strong>
-    <a href="index.html">← Balik ke Store</a>
-  </div>
-
-  <!-- LOGIN -->
-  <div id="loginView" class="login-box">
-    <div class="field">
-      <label>Password</label>
-      <input type="password" id="loginPw" placeholder="Masukkan password">
-    </div>
-    <button class="primary" onclick="doLogin()">Login</button>
-    <p class="err-text" id="loginErr" style="display:none"></p>
-  </div>
-
-  <!-- ADMIN CONTENT -->
-  <div id="adminView" class="content" style="display:none">
-    <div class="admin-tabs">
-      <div class="admin-tab active" id="tabProdBtn" onclick="switchAdminTab('prod')">Produk</div>
-      <div class="admin-tab" id="tabCatBtn" onclick="switchAdminTab('cat')">Kategori</div>
-      <div class="admin-tab" id="tabSetBtn" onclick="switchAdminTab('set')">Tetapan</div>
-    </div>
-
-    <div class="admin-panel active" id="panelProd">
-      <div class="section-label">Tambah / Edit Produk</div>
-      <input type="hidden" id="pId">
-      <div class="field"><label>Tajuk Produk *</label><input type="text" id="pTitle" placeholder="Contoh: Kemeja Batik Lelaki"></div>
-      <div class="field"><label>URL Gambar</label><input type="text" id="pImage" placeholder="https://..."></div>
-      <div class="field"><label>Harga (RM)</label><input type="text" id="pPrice" placeholder="Contoh: 29.90"></div>
-      <div class="field"><label>Link Affiliate *</label><input type="text" id="pLink" placeholder="https://shopee.com.my/... atau tiktok"></div>
-      <div class="field">
-        <label>Platform</label>
-        <select id="pPlatform">
-          <option value="shopee">Shopee</option>
-          <option value="tiktok">TikTok</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Kategori</label>
-        <select id="pCategory"></select>
-      </div>
-      <button class="primary" onclick="saveProduct()">Simpan Produk</button>
-      <button class="secondary" id="cancelEditBtn" onclick="resetProductForm()" style="display:none">Batal Edit</button>
-
-      <div class="divider"></div>
-      <div class="section-label">Senarai Produk</div>
-      <div id="adminProdList"></div>
-    </div>
-
-    <div class="admin-panel" id="panelCat">
-      <div class="section-label">Tambah / Edit Kategori</div>
-      <div class="field"><label>Key (unik, huruf kecil, tiada spasi) *</label><input type="text" id="cKey" placeholder="contoh: fesyen"></div>
-      <div class="field"><label>Nama Paparan *</label><input type="text" id="cName" placeholder="Contoh: Fesyen"></div>
-      <div class="field"><label>Emoji Icon</label><input type="text" id="cIcon" placeholder="👗"></div>
-      <button class="primary" onclick="saveCategory()">Simpan Kategori</button>
-
-      <div class="divider"></div>
-      <div class="section-label">Senarai Kategori</div>
-      <div id="adminCatList"></div>
-    </div>
-
-    <div class="admin-panel" id="panelSet">
-      <div class="section-label">Tetapan Store</div>
-      <div class="field"><label>Nama Store</label><input type="text" id="sName"></div>
-      <div class="field"><label>Deskripsi</label><textarea id="sDesc"></textarea></div>
-      <div class="field"><label>Domain</label><input type="text" id="sDomain"></div>
-      <button class="primary" onclick="saveSettings()">Simpan Tetapan</button>
-
-      <div class="divider"></div>
-      <div class="section-label">Tukar Password</div>
-      <div class="field"><label>Password Baru</label><input type="password" id="newPw"></div>
-      <button class="secondary" onclick="changePw()">Tukar Password</button>
-    </div>
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>Panel Admin</h1>
+    <p>Ahmad Albab · masukkan password untuk urus kandungan store.</p>
+    <input type="password" id="loginPassword" placeholder="Password admin">
+    <button type="button" id="loginBtn">Log masuk</button>
+    <p class="login-msg" id="loginMsg"></p>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="adminApp" style="display:none;">
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div>
+          <div class="brand-name">Panel Admin</div>
+          <div class="brand-sub">Ahmad Albab · tracking klik affiliate</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
+        <div class="range-seg" id="rangeSeg"></div>
+        <a href="index.html" target="_blank" class="view-store">Lihat store</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="navList"></nav>
+    <main id="mainArea"></main>
+  </div>
+</div>
 
 <script>
-const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbxtv0fOrTanhBl12pDzz6mBJDY07bikX-0PwUhAuEWPMqGTLSz-swuYsP7MRyg3LHsRkw/exec';
+// ====== CONFIG ======
+const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
 
-let S = { products: [], categories: [], settings: {} };
-let adminPw = '';
+let TOKEN = sessionStorage.getItem("aab_admin_token") || "";
+let currentView = "dashboard";
+let rangeDays = 7;
+let contentCache = {}; // type -> items[]
+let settingsCache = { game:{}, site:{} };
 
-async function gasPost(body) {
-  const res = await fetch(GAS_API_URL, { method: 'POST', body: JSON.stringify(body) });
-  return res.json();
+const NAV = [
+  { group: "Papan Pemuka", items: [{ key:"dashboard", label:"Dashboard", initial:"D", hint:"Klik & prestasi" }] },
+  { group: "Kandungan", items: [
+    { key:"review", label:"Post Review", initial:"R", hint:"Artikel & ulasan" },
+    { key:"hero", label:"1 · Hero Slider", initial:"1", hint:"Slaid muka depan" },
+    { key:"product", label:"2 · Add Product", initial:"2", hint:"Produk Shopee/TikTok" },
+    { key:"game", label:"3 · Teka Harga", initial:"3", hint:"Tetapan game" },
+    { key:"site", label:"4 · Langgan Review", initial:"4", hint:"Gambar muka" },
+    { key:"digital", label:"5 · Other Product", initial:"5", hint:"Produk digital" }
+  ]}
+];
+
+const FIELD_DEFS = {
+  review: [
+    { key:"title", label:"Tajuk review", type:"text", required:true },
+    { key:"tag", label:"Kategori", type:"select", options:["Panduan","Ulasan","Tips jimat"] },
+    { key:"readTime", label:"Masa bacaan", type:"text", placeholder:"5 min bacaan" },
+    { key:"excerpt", label:"Ringkasan", type:"area", wide:true },
+    { key:"slug", label:"Slug", type:"slug" }
+  ],
+  hero: [
+    { key:"kicker", label:"Kicker", type:"text" },
+    { key:"readTime", label:"Label kecil", type:"text" },
+    { key:"title", label:"Tajuk slaid", type:"text", required:true },
+    { key:"excerpt", label:"Ringkasan", type:"area", wide:true },
+    { key:"cta", label:"Teks butang CTA", type:"text", placeholder:"Baca sebelum beli" },
+    { key:"href", label:"Link slaid", type:"text" },
+    { key:"image", label:"Gambar latar 1600×900", type:"image", wide:true }
+  ],
+  product: [
+    { key:"title", label:"Nama produk", type:"text", required:true },
+    { key:"platform", label:"Platform", type:"select", options:["Shopee","TikTok"] },
+    { key:"category", label:"Kategori", type:"select", options:["Makanan","Baju Muslimah","Barang Rumah"] },
+    { key:"price", label:"Harga", type:"text", placeholder:"24.90" },
+    { key:"old", label:"Harga asal", type:"text", placeholder:"32.00" },
+    { key:"why", label:"Kenapa kami pilih", type:"area", wide:true },
+    { key:"link", label:"Link affiliate", type:"text", wide:true },
+    { key:"image", label:"Gambar 1:1", type:"image", wide:true },
+    { key:"hot", label:"Tanda terlaris", type:"toggle" }
+  ],
+  digital: [
+    { key:"brand", label:"Nama brand", type:"text", required:true },
+    { key:"kicker", label:"Badge", type:"text" },
+    { key:"title", label:"Tajuk tawaran", type:"text" },
+    { key:"desc", label:"Penerangan", type:"area", wide:true },
+    { key:"price", label:"Harga", type:"text", placeholder:"RM59" },
+    { key:"old", label:"Harga asal", type:"text", placeholder:"RM99" },
+    { key:"badge", label:"Label jimat", type:"text", placeholder:"Jimat 40%" },
+    { key:"cta", label:"Teks butang", type:"text" },
+    { key:"points", label:"Poin jualan (satu setiap baris)", type:"area", wide:true },
+    { key:"link", label:"Link affiliate", type:"text", wide:true },
+    { key:"image", label:"Poster", type:"image", wide:true }
+  ]
+};
+
+// ====== API HELPERS ======
+function apiGet(params){
+  return fetch(API_URL + "?" + new URLSearchParams(params).toString()).then(r=>r.json());
+}
+function apiPost(body){
+  return fetch(API_URL, { method:"POST", body: JSON.stringify(body) }).then(r=>r.json());
 }
 
-async function loadData() {
-  const res = await fetch(GAS_API_URL + '?action=getData');
-  const data = await res.json();
-  if (data.success) {
-    S.products = data.products || [];
-    S.categories = data.categories || [];
-    S.settings = data.settings || {};
-    document.getElementById('sName').value = S.settings.name || '';
-    document.getElementById('sDesc').value = S.settings.desc || '';
-    document.getElementById('sDomain').value = S.settings.domain || 'ahmadalbab.store';
-    populateCatSelect();
-    renderAdminLists();
-  }
-}
-
-async function doLogin() {
-  const pw = document.getElementById('loginPw').value;
-  const errEl = document.getElementById('loginErr');
-  errEl.style.display = 'none';
-  try {
-    const res = await gasPost({ action: 'saveSettings', password: pw, settings: S.settings });
-    if (res.success) {
-      adminPw = pw;
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('adminView').style.display = 'block';
-      await loadData();
+// ====== LOGIN ======
+document.getElementById("loginBtn").addEventListener("click", doLogin);
+document.getElementById("loginPassword").addEventListener("keydown", e=>{ if(e.key==="Enter") doLogin(); });
+function doLogin(){
+  const pw = document.getElementById("loginPassword").value;
+  const msg = document.getElementById("loginMsg");
+  if(!API_URL){ msg.textContent = "API_URL belum diisi dalam admin.html."; return; }
+  msg.textContent = "Menyemak…";
+  apiPost({ action:"login", password: pw }).then(d=>{
+    if(d && d.success){
+      TOKEN = d.token;
+      sessionStorage.setItem("aab_admin_token", TOKEN);
+      showApp();
     } else {
-      errEl.textContent = res.error || 'Password salah';
-      errEl.style.display = 'block';
+      msg.textContent = (d && d.message) || "Log masuk gagal.";
     }
-  } catch (err) {
-    errEl.textContent = 'Ralat sambungan';
-    errEl.style.display = 'block';
+  }).catch(()=>{ msg.textContent = "Ralat sambungan ke server."; });
+}
+
+function showApp(){
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminApp").style.display = "block";
+  renderNav();
+  renderRangeSeg();
+  loadAllSettingsAndContent().then(()=>renderView());
+}
+
+if(TOKEN && API_URL) showApp();
+else if(!API_URL) document.getElementById("loginMsg").textContent = "Isi API_URL dalam fail admin.html dahulu.";
+
+// ====== NAV ======
+function renderNav(){
+  const nav = document.getElementById("navList");
+  let html = "";
+  NAV.forEach(group=>{
+    html += `<div class="navgroup">${group.group}</div>`;
+    group.items.forEach(it=>{
+      html += `<button class="navlink ${currentView===it.key?'active':''}" onclick="setView('${it.key}')">
+        <span class="ic">${it.initial}</span>
+        <span><span style="display:block;">${it.label}</span><span style="display:block;font-size:11px;font-weight:500;color:var(--n600);">${it.hint}</span></span>
+      </button>`;
+    });
+  });
+  nav.innerHTML = html;
+}
+function setView(key){ currentView = key; renderNav(); renderView(); }
+
+function renderRangeSeg(){
+  document.getElementById("rangeSeg").innerHTML = [7,14,30].map(d=>
+    `<button class="${rangeDays===d?'active':''}" onclick="setRange(${d})">${d} hari</button>`).join("");
+}
+function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboard") loadDashboard(); }
+
+// ====== LOAD DATA ======
+function loadAllSettingsAndContent(){
+  const types = ["review","hero","product","digital"];
+  const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
+  const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; } });
+  return Promise.all(contentCalls.concat([settingsCall])).catch(()=>{});
+}
+
+// ====== VIEW ROUTER ======
+function renderView(){
+  const main = document.getElementById("mainArea");
+  if(currentView === "dashboard"){ main.innerHTML = dashboardSkeleton(); loadDashboard(); return; }
+  if(currentView === "game"){ renderSettingsForm(main, "game", [
+    { key:"enabled", label:"Tunjuk game", type:"toggle" },
+    { key:"heading", label:"Tajuk section", type:"text" },
+    { key:"rounds", label:"Bilangan soalan", type:"select", options:["3","5","8"] },
+    { key:"choices", label:"Pilihan harga per soalan", type:"select", options:["3","4"] },
+    { key:"pool", label:"Ambil produk dari", type:"select", options:["Semua produk","Terlaris sahaja","Ada diskaun sahaja"] },
+    { key:"showBuy", label:"Tunjuk butang beli", type:"toggle" },
+    { key:"endNote", label:"Ayat penutup", type:"area", wide:true }
+  ]); return; }
+  if(currentView === "site"){ renderSettingsForm(main, "site", [
+    { key:"faceImage", label:"Gambar muka", type:"image", wide:true }
+  ]); return; }
+  // list types: review, hero, product, digital
+  renderListForm(main, currentView);
+}
+
+// ====== DASHBOARD ======
+function dashboardSkeleton(){
+  return `
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="panel-grid">
+      <section class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <h2>Klik ikut hari</h2><p style="margin:0;font-size:12.5px;color:var(--n700);">${rangeDays} hari lepas</p>
+        </div>
+        <div class="bars" id="barsArea"></div>
+      </section>
+      <section class="panel">
+        <h2>Pecahan platform</h2>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:16px;" id="channelArea"></div>
+        <p class="channel-note" id="channelNote"></p>
+      </section>
+    </div>
+    <section class="table-panel">
+      <div class="table-head">
+        <div><h2 style="font-weight:700;font-size:16px;">Klik ikut produk</h2><p>Susun ikut jumlah klik tertinggi.</p></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Produk</th><th>Sumber</th><th style="text-align:right;">Klik</th><th style="text-align:right;">Bahagian</th></tr></thead>
+          <tbody id="clicksTbody"></tbody>
+        </table>
+      </div>
+      <div id="clicksEmpty" class="entries-empty" style="display:none;">Belum ada klik untuk kategori ini.</div>
+    </section>
+    <section class="help-panel">
+      <h2 style="font-weight:700;font-size:15px;">Cara data ni berfungsi</h2>
+      <p>Setiap klik butang "Beli" di store dihantar ke backend sebagai <strong>?action=trackClick</strong> dan disimpan dalam sheet <strong>Clicks</strong>. Dashboard ini baca terus daripada sheet tersebut ikut julat hari yang dipilih di atas.</p>
+    </section>`;
+}
+function loadDashboard(){
+  apiGet({action:"getClicks", range:rangeDays}).then(d=>{
+    if(!d || !d.success) return;
+    const totalClicks = d.days.reduce((s,x)=>s+x.total,0);
+    const kpi = [
+      { label:"Jumlah klik", value: totalClicks },
+      { label:"Shopee", value: d.byKind.shopee||0 },
+      { label:"TikTok", value: d.byKind.tiktok||0 },
+      { label:"Produk digital", value: d.byKind.digital||0 }
+    ];
+    document.getElementById("kpiGrid").innerHTML = kpi.map(k=>`
+      <article class="kpi-card"><p class="kpi-label">${k.label}</p><p class="kpi-value">${k.value}</p></article>`).join("");
+
+    const maxDay = Math.max(1, ...d.days.map(x=>x.total));
+    document.getElementById("barsArea").innerHTML = d.days.map(x=>`
+      <div class="bar-col">
+        <span class="bar-val">${x.total}</span>
+        <div class="bar-fill" style="height:${Math.max(4,(x.total/maxDay)*100)}%;"></div>
+        <span class="bar-day">${x.date.slice(5)}</span>
+      </div>`).join("");
+
+    const kinds = [["shopee","Shopee","#ec3013"],["tiktok","TikTok","#1c1a19"],["digital","Digital","#b8250e"]];
+    const kindTotal = Math.max(1, (d.byKind.shopee||0)+(d.byKind.tiktok||0)+(d.byKind.digital||0));
+    document.getElementById("channelArea").innerHTML = kinds.map(([k,label,color])=>{
+      const v = d.byKind[k]||0;
+      const pct = Math.round((v/kindTotal)*100);
+      return `<div class="channel-row">
+        <div class="channel-top"><span class="channel-name"><span class="dot" style="background:${color};"></span>${label}</span><span style="font-size:13px;color:var(--n700);">${v} klik · ${pct}%</span></div>
+        <div class="track"><div class="track-fill" style="width:${pct}%;background:${color};"></div></div>
+      </div>`;
+    }).join("");
+    const top = kinds.map(([k,l])=>({k:l,v:d.byKind[k]||0})).sort((a,b)=>b.v-a.v)[0];
+    document.getElementById("channelNote").textContent = top && top.v ? top.k + " memimpin klik dalam tempoh ini." : "Belum cukup data untuk insight.";
+
+    const rows = d.byProduct.slice(0,12);
+    const totalP = rows.reduce((s,r)=>s+r.clicks,0) || 1;
+    document.getElementById("clicksTbody").innerHTML = rows.map(r=>{
+      const color = r.kind==="shopee" ? "#ec3013" : r.kind==="tiktok" ? "#1c1a19" : "#b8250e";
+      return `<tr>
+        <td style="font-weight:600;">${r.label||r.id}</td>
+        <td><span class="kind-pill" style="background:${color};">${r.kind}</span></td>
+        <td style="text-align:right;font-weight:800;">${r.clicks}</td>
+        <td style="text-align:right;color:var(--n700);">${Math.round((r.clicks/totalP)*100)}%</td>
+      </tr>`;
+    }).join("");
+    document.getElementById("clicksEmpty").style.display = rows.length ? "none" : "block";
+  }).catch(()=>{});
+}
+
+// ====== GENERIC SETTINGS FORM (game / site) ======
+function renderSettingsForm(main, key, fields){
+  const data = settingsCache[key] || {};
+  main.innerHTML = `
+    <section class="form-card">
+      <h2>${key==="game" ? "Teka Harga" : "Langgan Review"}</h2>
+      <p class="note">${key==="game" ? "Tetapan permainan teka harga pada storefront." : "Gambar muka yang dipaparkan pada section Langgan Review."}</p>
+      <div class="field-grid" id="fieldGrid"></div>
+      <div class="form-footer">
+        <button class="btn-save" onclick="saveSettingsForm('${key}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          Simpan tetapan
+        </button>
+        <span class="form-status" id="formStatus"></span>
+      </div>
+    </section>`;
+  renderFields(document.getElementById("fieldGrid"), fields, data);
+}
+function saveSettingsForm(key){
+  const data = collectFields(document.getElementById("fieldGrid"));
+  apiPost({ action:"saveSettings", token: TOKEN, key, data }).then(d=>{
+    document.getElementById("formStatus").textContent = d && d.success ? "Tersimpan." : (d&&d.message)||"Gagal simpan.";
+    if(d && d.success) settingsCache[key] = data;
+  });
+}
+
+// ====== GENERIC LIST FORM (review / hero / product / digital) ======
+function renderListForm(main, type){
+  const fields = FIELD_DEFS[type];
+  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product" };
+  main.innerHTML = `
+    <section class="form-card">
+      <h2>${titleMap[type]}</h2>
+      <p class="note">Isi borang di bawah, tekan Simpan untuk tambah item baru ke senarai.</p>
+      <div class="field-grid" id="fieldGrid"></div>
+      <div class="form-footer">
+        <button class="btn-save" onclick="saveListItem('${type}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          Simpan ${titleMap[type]}
+        </button>
+        <button class="btn-clear" onclick="renderListForm(document.getElementById('mainArea'),'${type}')">Kosongkan borang</button>
+        <span class="form-status" id="formStatus"></span>
+      </div>
+    </section>
+    <section class="entries-list" id="entriesList"></section>`;
+  renderFields(document.getElementById("fieldGrid"), fields, {});
+  renderEntries(type);
+}
+
+function renderEntries(type){
+  const items = contentCache[type] || [];
+  const wrap = document.getElementById("entriesList");
+  if(!items.length){ wrap.innerHTML = `<div class="entries-empty">Belum ada item.</div>`; return; }
+  wrap.innerHTML = items.map(it=>{
+    const title = it.title || it.brand || "(tiada tajuk)";
+    const meta = it.category || it.platform || it.tag || "";
+    return `<div class="entry-row">
+      <div><div class="entry-title">${title}</div><div class="entry-meta">${meta}</div></div>
+      <button class="btn-delete" onclick="deleteListItem('${type}','${it.id}')">Buang</button>
+    </div>`;
+  }).join("");
+}
+
+function deleteListItem(type, id){
+  apiPost({ action:"deleteItem", token: TOKEN, type, id }).then(d=>{
+    if(d && d.success){
+      contentCache[type] = (contentCache[type]||[]).filter(x=>x.id!==id);
+      renderEntries(type);
+    }
+  });
+}
+
+function saveListItem(type){
+  const item = collectFields(document.getElementById("fieldGrid"));
+  if(FIELD_DEFS[type].some(f=>f.required) && !item[FIELD_DEFS[type].find(f=>f.required).key]){
+    document.getElementById("formStatus").textContent = "Isi tajuk dulu sebelum simpan.";
+    return;
   }
+  if(type === "review" && !item.slug){
+    item.slug = slugify(item.title||"");
+  }
+  apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
+    if(d && d.success){
+      contentCache[type] = contentCache[type] || [];
+      contentCache[type].unshift(d.item);
+      document.getElementById("formStatus").textContent = "Tersimpan.";
+      renderEntries(type);
+      renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], {});
+    } else {
+      document.getElementById("formStatus").textContent = (d&&d.message)||"Gagal simpan.";
+    }
+  });
 }
 
-function switchAdminTab(tab) {
-  document.getElementById('panelProd').classList.toggle('active', tab === 'prod');
-  document.getElementById('panelCat').classList.toggle('active', tab === 'cat');
-  document.getElementById('panelSet').classList.toggle('active', tab === 'set');
-  document.getElementById('tabProdBtn').classList.toggle('active', tab === 'prod');
-  document.getElementById('tabCatBtn').classList.toggle('active', tab === 'cat');
-  document.getElementById('tabSetBtn').classList.toggle('active', tab === 'set');
+function slugify(s){
+  return String(s).toLowerCase().replace(/[^a-z0-9\s-]/g,"").trim().replace(/\s+/g,"-").replace(/-+/g,"-").slice(0,60);
 }
 
-function populateCatSelect() {
-  const sel = document.getElementById('pCategory');
-  sel.innerHTML = S.categories.map(c => `<option value="${c.key}">${escapeHtml(c.name)}</option>`).join('');
+// ====== FIELD RENDERING ======
+function renderFields(container, fields, data){
+  container.innerHTML = fields.map(f=>{
+    const val = data[f.key] !== undefined ? data[f.key] : (f.type==="toggle" ? (f.key==="enabled"||f.key==="showBuy") : "");
+    const wide = f.wide ? "wide" : "";
+    if(f.type === "text"){
+      return `<div class="field ${wide}"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="${f.placeholder||''}"></div>`;
+    }
+    if(f.type === "area"){
+      return `<div class="field ${wide}"><label>${f.label}</label><textarea data-key="${f.key}" rows="3">${escapeHtml(val)}</textarea></div>`;
+    }
+    if(f.type === "select"){
+      return `<div class="field ${wide}"><label>${f.label}</label><select data-key="${f.key}">${f.options.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join("")}</select></div>`;
+    }
+    if(f.type === "toggle"){
+      const on = val === true || val === "true";
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <button type="button" class="toggle-btn ${on?'on':''}" data-key="${f.key}" data-toggle="${on}" onclick="flipToggle(this)">
+          <span class="toggle-track"><span class="knob"></span></span><span>${on?'Hidup':'Mati'}</span>
+        </button></div>`;
+    }
+    if(f.type === "image"){
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <div class="img-row">
+          <div class="img-thumb" data-preview style="${val?`background-image:url('${val}')`:''}"></div>
+          <input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="URL gambar" style="flex:1;height:38px;border:1px solid var(--n300);border-radius:8px;padding:0 10px;font-size:13px;" oninput="updateImgPreview(this)">
+          <label class="upload-pill">Muat naik gambar<input type="file" accept="image/*" style="display:none;" onchange="handleUpload(this)"></label>
+        </div></div>`;
+    }
+    if(f.type === "slug"){
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <div class="slug-row"><span class="slug-prefix">ahmadalbab.store/review/</span><input type="text" data-key="${f.key}" value="${escapeAttr(val)}"></div></div>`;
+    }
+    return "";
+  }).join("");
 }
 
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str == null ? '' : str;
-  return div.innerHTML;
+function collectFields(container){
+  const out = {};
+  container.querySelectorAll("[data-key]").forEach(el=>{
+    const key = el.dataset.key;
+    if(el.classList.contains("toggle-btn")) out[key] = el.dataset.toggle === "true";
+    else out[key] = el.value;
+  });
+  return out;
 }
-
-async function saveProduct() {
-  const product = {
-    id: document.getElementById('pId').value || null,
-    title: document.getElementById('pTitle').value.trim(),
-    imageUrl: document.getElementById('pImage').value.trim(),
-    price: document.getElementById('pPrice').value.trim(),
-    affiliateLink: document.getElementById('pLink').value.trim(),
-    platform: document.getElementById('pPlatform').value,
-    category: document.getElementById('pCategory').value
+function flipToggle(btn){
+  const on = btn.dataset.toggle !== "true";
+  btn.dataset.toggle = on;
+  btn.classList.toggle("on", on);
+  btn.querySelector("span:last-child").textContent = on ? "Hidup" : "Mati";
+}
+function updateImgPreview(input){
+  const row = input.closest(".img-row");
+  row.querySelector("[data-preview]").style.backgroundImage = `url('${input.value}')`;
+}
+function handleUpload(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(){
+    const row = input.closest(".img-row");
+    const textInput = row.querySelector("input[type=text]");
+    textInput.value = reader.result; // data URL (ganti dengan storan sebenar bila ada)
+    row.querySelector("[data-preview]").style.backgroundImage = `url('${reader.result}')`;
   };
-  if (!product.title || !product.affiliateLink) { showToast('⚠️ Tajuk & link affiliate wajib diisi'); return; }
-  try {
-    const res = await gasPost({ action: 'saveProduct', password: adminPw, product });
-    if (res.success) { showToast('✅ Produk disimpan!'); resetProductForm(); await loadData(); }
-    else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
+  reader.readAsDataURL(file);
 }
-
-function editProduct(id) {
-  const p = S.products.find(x => x.id === id);
-  if (!p) return;
-  document.getElementById('pId').value = p.id;
-  document.getElementById('pTitle').value = p.title;
-  document.getElementById('pImage').value = p.imageUrl;
-  document.getElementById('pPrice').value = p.price;
-  document.getElementById('pLink').value = p.affiliateLink;
-  document.getElementById('pPlatform').value = p.platform || 'shopee';
-  document.getElementById('pCategory').value = p.category || '';
-  document.getElementById('cancelEditBtn').style.display = 'block';
-  switchAdminTab('prod');
-}
-
-function resetProductForm() {
-  document.getElementById('pId').value = '';
-  document.getElementById('pTitle').value = '';
-  document.getElementById('pImage').value = '';
-  document.getElementById('pPrice').value = '';
-  document.getElementById('pLink').value = '';
-  document.getElementById('cancelEditBtn').style.display = 'none';
-}
-
-async function deleteProductConfirm(id) {
-  if (!confirm('Padam produk ini?')) return;
-  try {
-    const res = await gasPost({ action: 'deleteProduct', password: adminPw, id });
-    if (res.success) { showToast('🗑️ Produk dipadam'); await loadData(); }
-    else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
-}
-
-async function saveCategory() {
-  const key = document.getElementById('cKey').value.trim().toLowerCase().replace(/\s+/g, '');
-  const name = document.getElementById('cName').value.trim();
-  const icon = document.getElementById('cIcon').value.trim();
-  if (!key || !name) { showToast('⚠️ Key & nama wajib diisi'); return; }
-  try {
-    const res = await gasPost({ action: 'saveCategory', password: adminPw, category: { key, name, icon } });
-    if (res.success) {
-      showToast('✅ Kategori disimpan!');
-      document.getElementById('cKey').value = '';
-      document.getElementById('cName').value = '';
-      document.getElementById('cIcon').value = '';
-      await loadData();
-    } else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
-}
-
-async function deleteCategoryConfirm(key) {
-  if (!confirm('Padam kategori ini?')) return;
-  try {
-    const res = await gasPost({ action: 'deleteCategory', password: adminPw, key });
-    if (res.success) { showToast('🗑️ Kategori dipadam'); await loadData(); }
-    else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
-}
-
-async function saveSettings() {
-  const settings = {
-    name: document.getElementById('sName').value.trim() || 'Ahmad Albab Store',
-    desc: document.getElementById('sDesc').value.trim(),
-    domain: document.getElementById('sDomain').value.trim() || 'ahmadalbab.store'
-  };
-  try {
-    const res = await gasPost({ action: 'saveSettings', password: adminPw, settings });
-    if (res.success) { showToast('✅ Tetapan disimpan!'); await loadData(); }
-    else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
-}
-
-async function changePw() {
-  const newPw = document.getElementById('newPw').value;
-  if (!newPw || newPw.length < 4) { showToast('⚠️ Password minimum 4 aksara'); return; }
-  try {
-    const res = await gasPost({ action: 'changePassword', password: adminPw, newPassword: newPw });
-    if (res.success) { adminPw = newPw; document.getElementById('newPw').value = ''; showToast('🔑 Password ditukar!'); }
-    else showToast('❌ ' + res.error);
-  } catch (err) { showToast('❌ Ralat sambungan'); }
-}
-
-function renderAdminLists() {
-  const prodList = document.getElementById('adminProdList');
-  prodList.innerHTML = S.products.map(p => `
-    <div class="list-item">
-      <img src="${escapeHtml(p.imageUrl)}" onerror="this.style.display='none'">
-      <div class="list-item-info">
-        <div class="list-item-title">${escapeHtml(p.title)}</div>
-        <div class="list-item-sub">${p.platform} · ${p.price ? 'RM' + escapeHtml(String(p.price)) : ''}</div>
-      </div>
-      <button class="danger" onclick="editProduct('${p.id}')">Edit</button>
-      <button class="danger" onclick="deleteProductConfirm('${p.id}')">Padam</button>
-    </div>`).join('') || '<p class="list-item-sub">Belum ada produk.</p>';
-
-  const catList = document.getElementById('adminCatList');
-  catList.innerHTML = S.categories.map(c => `
-    <div class="list-item">
-      <div class="list-item-info">
-        <div class="list-item-title">${c.icon || ''} ${escapeHtml(c.name)}</div>
-        <div class="list-item-sub">key: ${escapeHtml(c.key)}</div>
-      </div>
-      <button class="danger" onclick="deleteCategoryConfirm('${c.key}')">Padam</button>
-    </div>`).join('') || '<p class="list-item-sub">Belum ada kategori.</p>';
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('on');
-  setTimeout(() => t.classList.remove('on'), 2500);
-}
-
-loadData();
+function escapeAttr(s){ return String(s==null?"":s).replace(/"/g,"&quot;"); }
+function escapeHtml(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
 </script>
 </body>
 </html>
