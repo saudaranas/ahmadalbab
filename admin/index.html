@@ -44,7 +44,13 @@
 
   .layout{max-width:1320px;margin:0 auto;padding:24px 20px 56px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;}
   nav{width:232px;flex:none;display:flex;flex-direction:column;gap:2px;}
-  @media(max-width:720px){ nav{width:100%;flex-direction:row;flex-wrap:wrap;} }
+  .nav-toggle{display:none;width:100%;height:46px;border-radius:12px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:space-between;padding:0 16px;font-size:13.5px;font-weight:700;margin-bottom:10px;}
+  @media(max-width:880px){
+    nav{width:100%;}
+    .nav-toggle{display:flex;}
+    #navList{display:none;background:#fff;border:1px solid var(--n300);border-radius:12px;padding:8px;}
+    #navList.open{display:flex;flex-direction:column;}
+  }
   nav button.navlink{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--n800);}
   nav button.navlink.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.06);}
   nav button.navlink .ic{width:26px;height:26px;border-radius:8px;background:var(--n200);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none;}
@@ -156,7 +162,13 @@
   </header>
 
   <div class="layout">
-    <nav id="navList"></nav>
+    <nav>
+      <button type="button" class="nav-toggle" id="navToggle">
+        <span id="navToggleLabel">Menu</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+      <div id="navList"></div>
+    </nav>
     <main id="mainArea"></main>
   </div>
 </div>
@@ -227,7 +239,8 @@ const FIELD_DEFS = {
     { key:"title", label:"Tajuk review", type:"text", required:true },
     { key:"tag", label:"Kategori", type:"select", options:["Panduan","Ulasan","Tips jimat"] },
     { key:"readTime", label:"Masa bacaan", type:"text", placeholder:"5 min bacaan" },
-    { key:"excerpt", label:"Ringkasan", type:"area", wide:true },
+    { key:"excerpt", label:"Ringkasan (dipaparkan sebagai kad)", type:"area", wide:true },
+    { key:"body", label:"Kandungan penuh artikel", type:"area", wide:true },
     { key:"slug", label:"Slug", type:"slug" }
   ],
   hero: [
@@ -274,7 +287,15 @@ function apiGet(params){
   return fetch(API_URL + "?" + new URLSearchParams(params).toString()).then(r=>r.json());
 }
 function apiPost(body){
-  return fetch(API_URL, { method:"POST", body: JSON.stringify(body) }).then(r=>r.json());
+  return fetch(API_URL, { method:"POST", body: JSON.stringify(body) }).then(r=>r.json()).then(d=>{
+    if(d && d.success===false && /sesi tamat/i.test(d.message||"")){
+      TOKEN = ""; sessionStorage.removeItem("aab_admin_token");
+      document.getElementById("adminApp").style.display = "none";
+      document.getElementById("loginScreen").style.display = "flex";
+      document.getElementById("loginMsg").textContent = "Sesi tamat, sila log masuk semula.";
+    }
+    return d;
+  });
 }
 
 // ====== LOGIN ======
@@ -299,12 +320,18 @@ function doLogin(){
 function showApp(){
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("adminApp").style.display = "block";
+  document.getElementById("navToggleLabel").textContent = "Dashboard";
   renderNav();
   renderRangeSeg();
   loadAllSettingsAndContent().then(()=>renderView());
 }
 
-if(TOKEN && API_URL) showApp();
+if(TOKEN && API_URL){
+  apiPost({ action:"checkToken", token: TOKEN }).then(d=>{
+    if(d && d.success) showApp();
+    else { TOKEN=""; sessionStorage.removeItem("aab_admin_token"); }
+  }).catch(()=>{ TOKEN=""; sessionStorage.removeItem("aab_admin_token"); });
+}
 else if(!API_URL) document.getElementById("loginMsg").textContent = "Isi API_URL dalam fail admin.html dahulu.";
 
 // ====== NAV ======
@@ -322,7 +349,15 @@ function renderNav(){
   });
   nav.innerHTML = html;
 }
-function setView(key){ currentView = key; renderNav(); renderView(); }
+function setView(key){
+  currentView = key; renderNav(); renderView();
+  document.getElementById("navList").classList.remove("open");
+  const active = NAV.flatMap(g=>g.items).find(i=>i.key===key);
+  if(active) document.getElementById("navToggleLabel").textContent = active.label;
+}
+document.getElementById("navToggle").addEventListener("click", ()=>{
+  document.getElementById("navList").classList.toggle("open");
+});
 
 function renderRangeSeg(){
   document.getElementById("rangeSeg").innerHTML = [7,14,30].map(d=>
