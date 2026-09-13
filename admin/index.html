@@ -33,7 +33,7 @@
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
   .header-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
-  .brand{display:flex;align-items:center;gap:11px;}
+  .brand{display:flex;align-items:center;gap:14px;}
   .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;}
   .brand-name{font-weight:700;font-size:16px;}
   .brand-sub{font-size:11.5px;color:var(--n700);}
@@ -141,10 +141,11 @@
   <header>
     <div class="header-inner">
       <div class="brand">
-        <span class="brand-mark">A</span>
+        <span style="font-weight:800;font-size:20px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;">ahmadalbab<span style="color:var(--accent);">.</span></span>
+        <span style="flex:none;width:1px;height:26px;background:var(--n300);"></span>
         <div>
-          <div class="brand-name">Panel Admin</div>
-          <div class="brand-sub">Ahmad Albab · tracking klik affiliate</div>
+          <div class="brand-name" style="font-size:15px;">Panel Admin</div>
+          <div class="brand-sub">Tracking klik affiliate</div>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
@@ -168,7 +169,27 @@ let TOKEN = sessionStorage.getItem("aab_admin_token") || "";
 let currentView = "dashboard";
 let rangeDays = 7;
 let contentCache = {}; // type -> items[]
-let settingsCache = { game:{}, site:{} };
+let settingsCache = { game:{}, site:{}, connect:{} };
+let editingType = null;
+let editingId = null;
+
+const SEED = {
+  product: [
+    { title:"Sambal Ikan Bilis Pedas Gila", platform:"TikTok", category:"Makanan", price:"15.90", old:"19.90", why:"Kering, tak berair — tahan sebulan dalam peti.", sold:"3100", link:"", image:"", hot:true },
+    { title:"Kopi Tongkat Ali Pracampuran", platform:"TikTok", category:"Makanan", price:"22.50", old:"", why:"Sachet mudah bawa, rasa tak pahit macam jenama lain.", sold:"2200", link:"", image:"", hot:true },
+    { title:"Khimar Instant Labuh Dua Lapis", platform:"TikTok", category:"Baju Muslimah", price:"29.90", old:"", why:"Fabrik sejuk, tak jarang walaupun labuh.", sold:"2000", link:"", image:"", hot:true },
+    { title:"Serunding Daging Kampung 200g", platform:"Shopee", category:"Makanan", price:"24.90", old:"32.00", why:"Rangup, bukan serbuk — guna daging kampung sebenar.", sold:"1800", link:"", image:"", hot:true },
+    { title:"Jubah Nida Ironless Lengan Puff", platform:"Shopee", category:"Baju Muslimah", price:"89.00", old:"129.00", why:"Tak payah seterika, senang basuh dan cepat kering.", sold:"1500", link:"", image:"", hot:true },
+    { title:"Telekung Travel Lipat Ringkas", platform:"Shopee", category:"Baju Muslimah", price:"45.00", old:"59.00", why:"Muat dalam beg tangan, ringan untuk dibawa travel.", sold:"1100", link:"", image:"", hot:false },
+    { title:"Biskut Tart Nenas Rangup 500g", platform:"TikTok", category:"Makanan", price:"28.00", old:"35.00", why:"Kulit rangup, isi tak terlalu manis.", sold:"940", link:"", image:"", hot:false },
+    { title:"Tudung Bawal Cotton Voile Bidang 45", platform:"TikTok", category:"Baju Muslimah", price:"19.90", old:"", why:"Cotton voile sejuk dipakai, tak telus.", sold:"870", link:"", image:"", hot:false },
+    { title:"Sejadah Travel Tebal Lipat Poket", platform:"TikTok", category:"Barang Rumah", price:"32.00", old:"42.00", why:"Padding tebal tapi muat dalam poket beg.", sold:"780", link:"", image:"", hot:false },
+    { title:"Kurma Ajwa Premium 500g", platform:"Shopee", category:"Makanan", price:"39.00", old:"", why:"Biji kecil, daging tebal, tak terlalu manis.", sold:"620", link:"", image:"", hot:false },
+    { title:"Bekas Simpan Beras 10kg Bertutup", platform:"Shopee", category:"Barang Rumah", price:"35.00", old:"", why:"Penutup ketat — semut tak boleh masuk.", sold:"560", link:"", image:"", hot:false },
+    { title:"Set Baju Kurung Moden Ibu & Anak", platform:"Shopee", category:"Baju Muslimah", price:"149.00", old:"189.00", why:"Fabrik sama untuk ibu & anak, jahitan kemas.", sold:"430", link:"", image:"", hot:false }
+  ],
+  category: [ { title:"Makanan" }, { title:"Baju Muslimah" }, { title:"Barang Rumah" } ]
+};
 
 const NAV = [
   { group: "Papan Pemuka", items: [{ key:"dashboard", label:"Dashboard", initial:"D", hint:"Klik & prestasi" }] },
@@ -179,6 +200,10 @@ const NAV = [
     { key:"game", label:"3 · Teka Harga", initial:"3", hint:"Tetapan game" },
     { key:"site", label:"4 · Langgan Review", initial:"4", hint:"Gambar muka" },
     { key:"digital", label:"5 · Other Product", initial:"5", hint:"Produk digital" }
+  ]},
+  { group: "Tetapan", items: [
+    { key:"category", label:"Kategori Produk", initial:"K", hint:"Tambah / buang" },
+    { key:"connect", label:"Sambungan", initial:"S", hint:"Brevo, Telegram, data" }
   ]}
 ];
 
@@ -202,13 +227,17 @@ const FIELD_DEFS = {
   product: [
     { key:"title", label:"Nama produk", type:"text", required:true },
     { key:"platform", label:"Platform", type:"select", options:["Shopee","TikTok"] },
-    { key:"category", label:"Kategori", type:"select", options:["Makanan","Baju Muslimah","Barang Rumah"] },
+    { key:"category", label:"Kategori", type:"select", options:["Makanan","Baju Muslimah","Barang Rumah"], dynamic:"category" },
     { key:"price", label:"Harga", type:"text", placeholder:"24.90" },
     { key:"old", label:"Harga asal", type:"text", placeholder:"32.00" },
     { key:"why", label:"Kenapa kami pilih", type:"area", wide:true },
+    { key:"sold", label:"Jumlah terjual", type:"text", placeholder:"1800" },
     { key:"link", label:"Link affiliate", type:"text", wide:true },
     { key:"image", label:"Gambar 1:1", type:"image", wide:true },
     { key:"hot", label:"Tanda terlaris", type:"toggle" }
+  ],
+  category: [
+    { key:"title", label:"Nama kategori", type:"text", required:true }
   ],
   digital: [
     { key:"brand", label:"Nama brand", type:"text", required:true },
@@ -288,10 +317,24 @@ function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboa
 
 // ====== LOAD DATA ======
 function loadAllSettingsAndContent(){
-  const types = ["review","hero","product","digital"];
+  const types = ["review","hero","product","digital","category"];
   const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
-  const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; } });
-  return Promise.all(contentCalls.concat([settingsCall])).catch(()=>{});
+  const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; settingsCache.connect=d.connect||{}; } });
+  return Promise.all(contentCalls.concat([settingsCall])).then(seedIfEmpty).catch(()=>{});
+}
+
+function seedIfEmpty(){
+  const jobs = [];
+  Object.keys(SEED).forEach(type=>{
+    if(!(contentCache[type]||[]).length){
+      SEED[type].forEach(item=>{
+        jobs.push(apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
+          if(d && d.success){ contentCache[type] = contentCache[type] || []; contentCache[type].push(d.item); }
+        }));
+      });
+    }
+  });
+  return Promise.all(jobs).catch(()=>{});
 }
 
 // ====== VIEW ROUTER ======
@@ -308,9 +351,22 @@ function renderView(){
     { key:"endNote", label:"Ayat penutup", type:"area", wide:true }
   ]); return; }
   if(currentView === "site"){ renderSettingsForm(main, "site", [
-    { key:"faceImage", label:"Gambar muka", type:"image", wide:true }
+    { key:"faceImage", label:"Gambar muka", type:"image", wide:true },
+    { key:"thanksTitle", label:"Tajuk selepas subscribe", type:"text", placeholder:"Terima kasih!" },
+    { key:"thanksBody", label:"Ayat selepas subscribe", type:"area", wide:true },
+    { key:"thanksCta", label:"Teks butang CTA", type:"text", placeholder:"Lihat produk digital pilihan" },
+    { key:"thanksHref", label:"CTA pergi ke", type:"select", options:["Produk digital (#digital)","Produk terlaris (#produk)","Teka harga (#teka)"] }
   ]); return; }
-  // list types: review, hero, product, digital
+  if(currentView === "connect"){ renderSettingsForm(main, "connect", [
+    { key:"apiUrl", label:"Endpoint data utama", type:"text", wide:true, placeholder:"URL Web App GAS" },
+    { key:"brevoEndpoint", label:"Endpoint langganan", type:"text", wide:true, placeholder:"Kosongkan untuk guna endpoint data utama" },
+    { key:"brevoList", label:"Brevo List ID", type:"text" },
+    { key:"tgChatId", label:"Telegram Chat ID", type:"text" },
+    { key:"tgReport", label:"Hantar laporan ke Telegram", type:"toggle" },
+    { key:"tgEvery", label:"Kekerapan laporan", type:"select", options:["Harian 9 pagi","Mingguan (Isnin)","Bulanan"] },
+    { key:"tgInclude", label:"Isi laporan", type:"select", options:["Subscriber + Top 10 klik","Subscriber sahaja","Top 10 klik sahaja"] }
+  ]); return; }
+  // list types: review, hero, product, digital, category
   renderListForm(main, currentView);
 }
 
@@ -344,8 +400,8 @@ function dashboardSkeleton(){
       <div id="clicksEmpty" class="entries-empty" style="display:none;">Belum ada klik untuk kategori ini.</div>
     </section>
     <section class="help-panel">
-      <h2 style="font-weight:700;font-size:15px;">Cara data ni berfungsi</h2>
-      <p>Setiap klik butang "Beli" di store dihantar ke backend sebagai <strong>?action=trackClick</strong> dan disimpan dalam sheet <strong>Clicks</strong>. Dashboard ini baca terus daripada sheet tersebut ikut julat hari yang dipilih di atas.</p>
+      <h2 style="font-weight:700;font-size:15px;">Angka ini sudah data sebenar</h2>
+      <p>Setiap klik butang "Shop" di store dihantar ke backend sebagai <strong>?action=trackClick</strong> dan disimpan dalam sheet <strong>Clicks</strong>. Dashboard ini baca terus daripada sheet tersebut ikut julat hari yang dipilih di atas — bukan gabungan dengan data contoh.</p>
     </section>`;
 }
 function loadDashboard(){
@@ -426,17 +482,20 @@ function saveSettingsForm(key){
 // ====== GENERIC LIST FORM (review / hero / product / digital) ======
 function renderListForm(main, type){
   const fields = FIELD_DEFS[type];
-  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product" };
+  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product", category:"Kategori Produk" };
+  editingType = null; editingId = null;
   main.innerHTML = `
     <section class="form-card">
       <h2>${titleMap[type]}</h2>
       <p class="note">Isi borang di bawah, tekan Simpan untuk tambah item baru ke senarai.</p>
+      <div id="editingBanner"></div>
       <div class="field-grid" id="fieldGrid"></div>
       <div class="form-footer">
-        <button class="btn-save" onclick="saveListItem('${type}')">
+        <button class="btn-save" id="saveBtn" onclick="saveListItem('${type}')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
-          Simpan ${titleMap[type]}
+          <span id="saveBtnLabel">Simpan ${titleMap[type]}</span>
         </button>
+        <button class="btn-clear" id="cancelEditBtn" style="display:none;" onclick="cancelEdit('${type}')">Batal edit</button>
         <button class="btn-clear" onclick="renderListForm(document.getElementById('mainArea'),'${type}')">Kosongkan borang</button>
         <span class="form-status" id="formStatus"></span>
       </div>
@@ -453,18 +512,44 @@ function renderEntries(type){
   wrap.innerHTML = items.map(it=>{
     const title = it.title || it.brand || "(tiada tajuk)";
     const meta = it.category || it.platform || it.tag || "";
-    return `<div class="entry-row">
+    const isEditingRow = editingType===type && editingId===it.id;
+    return `<div class="entry-row" style="${isEditingRow?'background:var(--accent-100);':''}">
       <div><div class="entry-title">${title}</div><div class="entry-meta">${meta}</div></div>
-      <button class="btn-delete" onclick="deleteListItem('${type}','${it.id}')">Buang</button>
+      <div style="display:flex;gap:8px;flex:none;">
+        <button class="btn-delete" onclick="editListItem('${type}','${it.id}')">Edit</button>
+        <button class="btn-delete" onclick="deleteListItem('${type}','${it.id}')">Buang</button>
+      </div>
     </div>`;
   }).join("");
+}
+
+function editListItem(type, id){
+  const item = (contentCache[type]||[]).find(x=>x.id===id);
+  if(!item) return;
+  editingType = type; editingId = id;
+  renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], item);
+  document.getElementById("saveBtnLabel").textContent = "Kemaskini";
+  document.getElementById("cancelEditBtn").style.display = "inline-flex";
+  document.getElementById("editingBanner").innerHTML = `<p style="margin:12px 0 0;border-radius:12px;background:var(--accent-100);border:1px solid var(--accent-200);padding:10px 14px;font-size:13px;font-weight:600;color:var(--accent-800);">Sedang edit: ${item.title||item.brand||"item ini"}</p>`;
+  renderEntries(type);
+  document.getElementById("fieldGrid").scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function cancelEdit(type){
+  editingType = null; editingId = null;
+  document.getElementById("saveBtnLabel").textContent = "Simpan";
+  document.getElementById("cancelEditBtn").style.display = "none";
+  document.getElementById("editingBanner").innerHTML = "";
+  renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], {});
+  renderEntries(type);
 }
 
 function deleteListItem(type, id){
   apiPost({ action:"deleteItem", token: TOKEN, type, id }).then(d=>{
     if(d && d.success){
       contentCache[type] = (contentCache[type]||[]).filter(x=>x.id!==id);
-      renderEntries(type);
+      if(editingType===type && editingId===id) cancelEdit(type);
+      else renderEntries(type);
     }
   });
 }
@@ -478,13 +563,14 @@ function saveListItem(type){
   if(type === "review" && !item.slug){
     item.slug = slugify(item.title||"");
   }
+  if(editingType===type && editingId){ item.id = editingId; }
   apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
     if(d && d.success){
       contentCache[type] = contentCache[type] || [];
-      contentCache[type].unshift(d.item);
+      const idx = contentCache[type].findIndex(x=>x.id===d.item.id);
+      if(idx>-1) contentCache[type][idx] = d.item; else contentCache[type].unshift(d.item);
       document.getElementById("formStatus").textContent = "Tersimpan.";
-      renderEntries(type);
-      renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], {});
+      cancelEdit(type);
     } else {
       document.getElementById("formStatus").textContent = (d&&d.message)||"Gagal simpan.";
     }
@@ -507,7 +593,11 @@ function renderFields(container, fields, data){
       return `<div class="field ${wide}"><label>${f.label}</label><textarea data-key="${f.key}" rows="3">${escapeHtml(val)}</textarea></div>`;
     }
     if(f.type === "select"){
-      return `<div class="field ${wide}"><label>${f.label}</label><select data-key="${f.key}">${f.options.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join("")}</select></div>`;
+      let opts = f.options;
+      if(f.dynamic === "category" && (contentCache.category||[]).length){
+        opts = contentCache.category.map(c=>c.title);
+      }
+      return `<div class="field ${wide}"><label>${f.label}</label><select data-key="${f.key}">${opts.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join("")}</select></div>`;
     }
     if(f.type === "toggle"){
       const on = val === true || val === "true";
