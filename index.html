@@ -145,6 +145,14 @@
 
   section.block{margin-top:44px;padding-top:24px;border-top:1px solid var(--n300);}
 
+  .article-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .article-card{background:#fff;border:1px solid var(--n200);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:9px;}
+  .article-tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-700);}
+  .article-title{font-weight:700;font-size:15.5px;line-height:1.35;}
+  .article-excerpt{font-size:13.5px;line-height:1.5;color:var(--n700);margin:0;}
+  .article-meta{font-size:12px;color:var(--n700);font-weight:600;}
+  .article-cta{margin-top:auto;padding-top:6px;font-size:13px;font-weight:700;color:var(--accent-700);display:inline-flex;align-items:center;gap:6px;}
+
   .game-score{border-radius:999px;background:var(--n200);color:var(--n800);font-size:12.5px;font-weight:700;padding:7px 14px;flex:none;}
   .game-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
   .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);min-height:280px;background:var(--n200);background-size:cover;background-position:center;}
@@ -263,6 +271,16 @@
     <p class="page-info" id="pageInfo"></p>
     <div class="page-nav" id="pageNav"></div>
   </div>
+
+  <section class="block" id="artikel">
+    <div class="section-head" style="border-bottom:none;margin-bottom:14px;">
+      <div>
+        <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;">Artikel &amp; Ulasan</h2>
+        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:60ch;">Panduan beli-belah dan ulasan jujur sebelum anda checkout.</p>
+      </div>
+    </div>
+    <div class="article-grid" id="articleGrid"></div>
+  </section>
 
   <section class="block" id="teka">
     <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
@@ -383,10 +401,15 @@ let DIGITAL = [
     points:["Pakej affiliate: promote produk yang dah proven","7 bonus termasuk tutorial FB Ads & video iklan","Jaminan pulangan wang 365 hari (Pakej 2)"],
     price:"RM100", old:"RM149", badge:"2 pakej", cta:"Lihat K-Method", link:"https://k-method.tunkhairi.com?ref=1022" }
 ];
-const ARTICLES = [
+let ARTICLES = [
   { kicker:"Ulasan & panduan · Panduan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", readTime:"5 min bacaan", cta:"Baca sebelum beli", href:"#produk" },
   { kicker:"Ulasan & panduan · Ulasan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", readTime:"3 min bacaan", cta:"Baca sebelum beli", href:"#produk" },
   { kicker:"Ulasan & panduan · Tips jimat", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", readTime:"4 min bacaan", cta:"Baca sebelum beli", href:"#produk" }
+];
+let REVIEWS = [
+  { title:"Cara pilih jubah ironless yang tahan lama", tag:"Panduan", readTime:"5 min bacaan", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", slug:"jubah-ironless-tahan-lama" },
+  { title:"Serunding mana paling berbaloi? Kami rasa lima jenama", tag:"Ulasan", readTime:"3 min bacaan", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", slug:"serunding-paling-berbaloi" },
+  { title:"Waktu terbaik checkout untuk dapat voucher paling besar", tag:"Tips jimat", readTime:"4 min bacaan", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", slug:"waktu-checkout-voucher-besar" }
 ];
 
 // ====== STATE ======
@@ -475,6 +498,20 @@ function shiftDigital(d){ state.art += d; renderDigital(); }
 function pauseDigital(){ state.artPaused = true; }
 function resumeDigital(){ state.artPaused = false; }
 setInterval(()=>{ if(!state.artPaused){ state.art++; renderDigital(); } }, 6000);
+
+// ====== ARTIKEL & ULASAN ======
+function renderReviews(){
+  document.getElementById("articleGrid").innerHTML = REVIEWS.map(r=>`
+    <article class="article-card">
+      <span class="article-tag">${r.tag||"Panduan"}</span>
+      <h3 class="article-title">${r.title}</h3>
+      <p class="article-excerpt">${r.excerpt||""}</p>
+      <span class="article-meta">${r.readTime||""}</span>
+      <a href="#produk" class="article-cta"><span>Baca sebelum beli</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+      </a>
+    </article>`).join("");
+}
 
 // ====== FILTERS + GRID ======
 function renderControls(){
@@ -793,12 +830,40 @@ function loadFromApi(){
       renderGame();
     }
   }).catch(()=>{});
+
+  fetch(API_URL + "?action=getContent&type=hero").then(r=>r.json()).then(d=>{
+    if(d && d.success && (d.items||[]).length){
+      ARTICLES = d.items.map(h=>({ kicker:h.kicker||"", title:h.title||"", excerpt:h.excerpt||"", readTime:h.readTime||"", cta:h.cta||"Baca sebelum beli", href:h.href||"#produk" }));
+      state.slide = 0;
+      const track = document.getElementById("heroTrack");
+      delete track.dataset.built;
+      renderHero();
+    }
+  }).catch(()=>{});
+
+  fetch(API_URL + "?action=getContent&type=digital").then(r=>r.json()).then(d=>{
+    if(d && d.success && (d.items||[]).length){
+      DIGITAL = d.items.map(g=>({ brand:g.brand||"", kicker:g.kicker||"", title:g.title||"", desc:g.desc||"", price:g.price||"", old:g.old||"", badge:g.badge||"", cta:g.cta||"Lihat tawaran", points:(g.points||"").split("\n").filter(Boolean), link:g.link||"#" }));
+      state.art = 0;
+      const track = document.getElementById("digitalTrack");
+      delete track.dataset.built;
+      renderDigital();
+    }
+  }).catch(()=>{});
+
+  fetch(API_URL + "?action=getContent&type=review").then(r=>r.json()).then(d=>{
+    if(d && d.success && (d.items||[]).length){
+      REVIEWS = d.items.map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", slug:r.slug||"" }));
+      renderReviews();
+    }
+  }).catch(()=>{});
 }
 
 // ====== INIT ======
 document.getElementById("year").textContent = new Date().getFullYear();
 renderHero();
 renderDigital();
+renderReviews();
 renderAll();
 renderGame();
 loadFromApi();
