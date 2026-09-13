@@ -50,7 +50,7 @@
   *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
-  .header-inner{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+  .header-inner{position:relative;max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
   .brand{display:flex;flex-direction:column;gap:3px;min-width:0;color:var(--text);}
   .wordmark{font-weight:800;font-size:22px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;}
   .wordmark-footer{font-weight:800;font-size:17px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
@@ -60,6 +60,13 @@
   .pill-outline.active{border-color:var(--text);background:var(--text);color:var(--bg);}
   .pill-solid{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;border:0;}
   .pill-solid:hover{background:var(--accent-600);color:#fff;}
+  .hamburger-btn{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:center;flex:none;}
+  @media(max-width:640px){
+    .header-actions{display:none;position:absolute;top:100%;right:20px;left:20px;background:#fff;border:1px solid var(--n300);border-radius:14px;padding:12px;flex-direction:column;gap:8px;box-shadow:var(--shadow-md);z-index:30;}
+    .header-actions.open{display:flex;}
+    .header-actions .pill-outline, .header-actions .pill-solid{width:100%;justify-content:center;height:44px;}
+    .hamburger-btn{display:flex;}
+  }
 
   .hero{margin:22px 0 0;border-radius:18px;background:var(--accent);color:#fff;box-shadow:var(--shadow-sm);overflow:hidden;position:relative;}
   .hero-track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);}
@@ -145,14 +152,6 @@
 
   section.block{margin-top:44px;padding-top:24px;border-top:1px solid var(--n300);}
 
-  .article-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-  .article-card{background:#fff;border:1px solid var(--n200);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:9px;}
-  .article-tag{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--accent-700);}
-  .article-title{font-weight:700;font-size:15.5px;line-height:1.35;}
-  .article-excerpt{font-size:13.5px;line-height:1.5;color:var(--n700);margin:0;}
-  .article-meta{font-size:12px;color:var(--n700);font-weight:600;}
-  .article-cta{margin-top:auto;padding-top:6px;font-size:13px;font-weight:700;color:var(--accent-700);display:inline-flex;align-items:center;gap:6px;}
-
   .game-score{border-radius:999px;background:var(--n200);color:var(--n800);font-size:12.5px;font-weight:700;padding:7px 14px;flex:none;}
   .game-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
   .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);min-height:280px;background:var(--n200);background-size:cover;background-position:center;}
@@ -214,7 +213,10 @@
         <span class="brand-tag">Review Produk Terbaik Shopee &amp; TikTok!</span>
       </a>
     </h1>
-    <div class="header-actions">
+    <button type="button" class="hamburger-btn" id="menuToggle" aria-label="Buka menu">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+    <div class="header-actions" id="headerActions">
       <button type="button" class="pill-outline" id="savedBtn">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
         <span id="savedLabel">Bookmark</span>
@@ -271,16 +273,6 @@
     <p class="page-info" id="pageInfo"></p>
     <div class="page-nav" id="pageNav"></div>
   </div>
-
-  <section class="block" id="artikel">
-    <div class="section-head" style="border-bottom:none;margin-bottom:14px;">
-      <div>
-        <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;">Artikel &amp; Ulasan</h2>
-        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:60ch;">Panduan beli-belah dan ulasan jujur sebelum anda checkout.</p>
-      </div>
-    </div>
-    <div class="article-grid" id="articleGrid"></div>
-  </section>
 
   <section class="block" id="teka">
     <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
@@ -354,6 +346,7 @@
         <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
       </div>
       <div class="footer-links">
+        <a href="artikel/">Artikel</a>
         <a href="#produk">Produk terlaris</a>
         <a href="#digital">Produk digital</a>
         <a href="#teka">Teka harga</a>
@@ -402,14 +395,9 @@ let DIGITAL = [
     price:"RM100", old:"RM149", badge:"2 pakej", cta:"Lihat K-Method", link:"https://k-method.tunkhairi.com?ref=1022" }
 ];
 let ARTICLES = [
-  { kicker:"Ulasan & panduan · Panduan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", readTime:"5 min bacaan", cta:"Baca sebelum beli", href:"#produk" },
-  { kicker:"Ulasan & panduan · Ulasan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", readTime:"3 min bacaan", cta:"Baca sebelum beli", href:"#produk" },
-  { kicker:"Ulasan & panduan · Tips jimat", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", readTime:"4 min bacaan", cta:"Baca sebelum beli", href:"#produk" }
-];
-let REVIEWS = [
-  { title:"Cara pilih jubah ironless yang tahan lama", tag:"Panduan", readTime:"5 min bacaan", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", slug:"jubah-ironless-tahan-lama" },
-  { title:"Serunding mana paling berbaloi? Kami rasa lima jenama", tag:"Ulasan", readTime:"3 min bacaan", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", slug:"serunding-paling-berbaloi" },
-  { title:"Waktu terbaik checkout untuk dapat voucher paling besar", tag:"Tips jimat", readTime:"4 min bacaan", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", slug:"waktu-checkout-voucher-besar" }
+  { kicker:"Ulasan & panduan · Panduan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", readTime:"5 min bacaan", cta:"Baca sebelum beli", href:"artikel/?review=jubah-ironless-tahan-lama" },
+  { kicker:"Ulasan & panduan · Ulasan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", readTime:"3 min bacaan", cta:"Baca sebelum beli", href:"artikel/?review=serunding-paling-berbaloi" },
+  { kicker:"Ulasan & panduan · Tips jimat", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", readTime:"4 min bacaan", cta:"Baca sebelum beli", href:"artikel/?review=waktu-checkout-voucher-besar" }
 ];
 
 // ====== STATE ======
@@ -498,20 +486,6 @@ function shiftDigital(d){ state.art += d; renderDigital(); }
 function pauseDigital(){ state.artPaused = true; }
 function resumeDigital(){ state.artPaused = false; }
 setInterval(()=>{ if(!state.artPaused){ state.art++; renderDigital(); } }, 6000);
-
-// ====== ARTIKEL & ULASAN ======
-function renderReviews(){
-  document.getElementById("articleGrid").innerHTML = REVIEWS.map(r=>`
-    <article class="article-card">
-      <span class="article-tag">${r.tag||"Panduan"}</span>
-      <h3 class="article-title">${r.title}</h3>
-      <p class="article-excerpt">${r.excerpt||""}</p>
-      <span class="article-meta">${r.readTime||""}</span>
-      <a href="#produk" class="article-cta"><span>Baca sebelum beli</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-      </a>
-    </article>`).join("");
-}
 
 // ====== FILTERS + GRID ======
 function renderControls(){
@@ -791,6 +765,13 @@ document.getElementById("sortSelect").addEventListener("change", e=>{ state.sort
 document.getElementById("savedBtn").addEventListener("click", ()=>{ state.savedOnly = !state.savedOnly; renderAll(); });
 document.getElementById("resetBtn").addEventListener("click", resetFilters);
 
+document.getElementById("menuToggle").addEventListener("click", ()=>{
+  document.getElementById("headerActions").classList.toggle("open");
+});
+document.getElementById("headerActions").addEventListener("click", e=>{
+  if(e.target.closest("a,button")) document.getElementById("headerActions").classList.remove("open");
+});
+
 function renderAll(){ renderControls(); renderGrid(); }
 
 // ====== LOAD FROM BACKEND ======
@@ -850,20 +831,12 @@ function loadFromApi(){
       renderDigital();
     }
   }).catch(()=>{});
-
-  fetch(API_URL + "?action=getContent&type=review").then(r=>r.json()).then(d=>{
-    if(d && d.success && (d.items||[]).length){
-      REVIEWS = d.items.map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", slug:r.slug||"" }));
-      renderReviews();
-    }
-  }).catch(()=>{});
 }
 
 // ====== INIT ======
 document.getElementById("year").textContent = new Date().getFullYear();
 renderHero();
 renderDigital();
-renderReviews();
 renderAll();
 renderGame();
 loadFromApi();
