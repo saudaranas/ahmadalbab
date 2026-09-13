@@ -3,7 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ahmad Albab — Review Produk Terbaik Shopee & TikTok</title>
+<title>Ahmad Albab — Review Produk Terbaik Shopee &amp; TikTok Shop</title>
+<meta name="description" content="Review dan senarai produk pilihan dari Shopee dan TikTok Shop — ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. Makanan, baju muslimah, barang rumah dan produk digital.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://ahmadalbab.store/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ahmad Albab">
+<meta property="og:locale" content="ms_MY">
+<meta property="og:url" content="https://ahmadalbab.store/">
+<meta property="og:title" content="Ahmad Albab — Review Produk Terbaik Shopee &amp; TikTok Shop">
+<meta property="og:description" content="Ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. Jangan beli dulu sebelum baca review kami.">
+<meta property="og:image" content="https://ahmadalbab.store/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ahmad Albab — review produk terbaik Shopee &amp; TikTok Shop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ahmadalbab.store/og-cover.png">
+<meta name="theme-color" content="#ec3013">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://ahmadalbab.store/#website","url":"https://ahmadalbab.store/","name":"Ahmad Albab","inLanguage":"ms-MY","description":"Review produk terbaik Shopee & TikTok Shop.","publisher":{"@id":"https://ahmadalbab.store/#org"}},
+{"@type":"Organization","@id":"https://ahmadalbab.store/#org","name":"Ahmad Albab","url":"https://ahmadalbab.store/","description":"Portal review produk affiliate Shopee dan TikTok Shop di Malaysia.","identifier":"SSM 202603001066 (CT0159040-U)"},
+{"@type":"CollectionPage","@id":"https://ahmadalbab.store/#pilihan","url":"https://ahmadalbab.store/#produk","name":"Pilihan Kami","isPartOf":{"@id":"https://ahmadalbab.store/#website"},"about":"Produk pilihan Shopee dan TikTok Shop yang ditapis ikut rating, jumlah jualan dan ulasan pembeli."}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -28,9 +51,9 @@
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
   .header-inner{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
-  .brand{display:flex;align-items:center;gap:11px;min-width:0;}
-  .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;}
-  .brand-name{font-weight:700;font-size:16px;letter-spacing:-.01em;}
+  .brand{display:flex;flex-direction:column;gap:3px;min-width:0;color:var(--text);}
+  .wordmark{font-weight:800;font-size:22px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;}
+  .wordmark-footer{font-weight:800;font-size:17px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
   .brand-tag{font-size:11.5px;font-weight:500;color:var(--n700);}
   .header-actions{display:flex;align-items:center;gap:8px;}
   .pill-outline{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);transition:.16s;}
@@ -71,33 +94,44 @@
   .section-head p{margin:7px 0 0;font-size:13.5px;font-weight:500;color:var(--n700);max-width:60ch;}
   .reset-link{border:0;background:transparent;padding:0;font-size:13px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px;color:var(--accent-700);}
 
-  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
-  @media(min-width:640px){ .grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
-  @media(min-width:980px){ .grid{grid-template-columns:repeat(4,minmax(0,1fr));} }
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.2vw,16px);}
+  @media(max-width:880px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;} }
+  @media(max-width:420px){ .grid{grid-template-columns:minmax(0,1fr) !important;} }
 
-  .card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;}
-  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--n400);}
-  .card-media{position:relative;aspect-ratio:1/1;background:var(--n200);background-size:cover;background-position:center;}
-  .card-noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--n600);font-size:12px;font-weight:600;}
-  .plat-badge{position:absolute;top:12px;left:12px;border-radius:999px;font-size:11px;font-weight:700;padding:5px 11px;color:#fff;box-shadow:var(--shadow-sm);}
-  .plat-badge.shopee{background:var(--accent);}
-  .plat-badge.tiktok{background:var(--n900);}
-  .sold-badge{position:absolute;left:12px;bottom:12px;border-radius:999px;background:rgba(32,30,29,.88);color:#fff;font-size:11px;font-weight:700;padding:5px 11px;}
-  .save-btn{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-sm);border:1px solid var(--n300);background:#fff;color:var(--n800);}
-  .save-btn.saved{border-color:var(--accent);background:var(--accent);color:#fff;}
-  .share-btn{position:absolute;top:52px;right:10px;width:34px;height:34px;border-radius:999px;display:flex;align-items:center;justify-content:center;border:1px solid var(--n300);box-shadow:var(--shadow-sm);background:#fff;color:var(--n800);}
-  .card-body{padding:14px;display:flex;flex-direction:column;gap:8px;flex:1;}
-  .card-cat{margin:0;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--n600);}
-  .card-title{font-weight:700;font-size:15px;line-height:1.35;letter-spacing:-.005em;}
-  .card-why{margin:0;border-radius:10px;background:var(--n100);border:1px solid var(--n200);padding:8px 10px;font-size:12px;line-height:1.45;color:var(--n800);}
-  .card-price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;margin-top:auto;padding-top:4px;}
-  .price-now{font-weight:800;font-size:19px;letter-spacing:-.02em;}
-  .price-old{font-size:12.5px;font-weight:500;color:var(--n600);text-decoration:line-through;}
-  .discount-pill{border-radius:999px;background:var(--accent-200);color:var(--accent-800);font-size:11.5px;font-weight:700;padding:3px 9px;}
-  .buy-btn{margin-top:6px;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 12px;border-radius:999px;color:#fff;font-size:13.5px;font-weight:700;}
-  .buy-btn.shopee{background:var(--accent);}
-  .buy-btn.tiktok{background:var(--n900);}
-  .buy-btn:hover{opacity:.88;color:#fff;}
+  .card{background:#fff;border:1px solid var(--n200);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;}
+  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+  .card-media{position:relative;aspect-ratio:1/1;background:#fff;background-size:cover;background-position:center;}
+  .card-noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--n700);font-size:12px;font-weight:600;background:var(--n100);}
+  .save-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--n200);background:rgba(255,255,255,.92);color:var(--n800);}
+  .save-btn.saved{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .card-body{padding:14px 14px 0;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .card-title{font-weight:700;font-size:14.5px;line-height:1.4;letter-spacing:-.005em;}
+  .card-price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;}
+  .price-now{font-weight:800;font-size:18px;letter-spacing:-.02em;}
+  .price-old{font-size:12.5px;font-weight:500;color:var(--n700);text-decoration:line-through;}
+  .discount-pill{border-radius:999px;background:var(--accent-200);color:var(--accent-800);font-size:11px;font-weight:700;padding:3px 8px;}
+  .card-source{margin:0;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--n700);min-width:0;}
+  .src-dot{width:9px;height:9px;border-radius:50%;flex:none;}
+  .src-dot.shopee{background:var(--accent);}
+  .src-dot.tiktok{background:var(--n900);}
+  .src-domain{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
+  .src-sold{flex:none;white-space:nowrap;}
+  .action-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding:12px 14px 14px;}
+  .share-pill{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);color:var(--n800);font-size:13.5px;font-weight:600;}
+  .share-pill:hover{background:var(--n100);color:var(--text);}
+  .shop-btn{flex:1 0 auto;min-width:82px;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 12px;border-radius:999px;color:#fff;font-size:13.5px;font-weight:700;}
+  .shop-btn.shopee{background:var(--accent);}
+  .shop-btn.tiktok{background:var(--n900);}
+  .shop-btn:hover{opacity:.88;color:#fff;}
+
+  .page-row{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+  .page-info{margin:0;font-size:13px;font-weight:600;color:var(--n700);}
+  .page-nav{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
+  .page-arrow{width:42px;height:42px;border-radius:999px;border:1px solid var(--n300);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--n800);}
+  .page-arrow:disabled{color:var(--n400);cursor:default;}
+  .page-arrow:not(:disabled):hover{background:var(--n100);border-color:var(--n400);}
+  .page-pill{width:42px;height:42px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13.5px;font-weight:700;color:var(--n800);}
+  .page-pill.active{background:var(--accent);border-color:var(--accent);color:#fff;}
 
   .empty-card, .more-wrap{margin-top:20px;}
   .empty-card{border:1px solid var(--n300);border-radius:16px;background:#fff;padding:44px 28px;}
@@ -166,21 +200,20 @@
 
 <header>
   <div class="header-inner">
-    <div class="brand">
-      <span class="brand-mark">A</span>
-      <span style="display:flex;flex-direction:column;min-width:0;">
-        <span class="brand-name" id="storeName">Ahmad Albab</span>
+    <h1 style="margin:0;min-width:0;font-size:inherit;font-weight:400;">
+      <a href="#produk" class="brand">
+        <span class="wordmark" id="storeName">ahmadalbab<span style="color:var(--accent);">.</span></span>
         <span class="brand-tag">Review Produk Terbaik Shopee &amp; TikTok!</span>
-      </span>
-    </div>
+      </a>
+    </h1>
     <div class="header-actions">
       <button type="button" class="pill-outline" id="savedBtn">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-        <span id="savedLabel">Simpanan</span>
+        <span id="savedLabel">Bookmark</span>
       </button>
       <a href="#langgan" class="pill-solid">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
-        <span>Langgan Review</span>
+        <span>Dapatkan Review Terkini</span>
       </a>
     </div>
   </div>
@@ -205,6 +238,7 @@
     <div class="seg" id="platformSeg"></div>
     <select class="sort-select" id="sortSelect">
       <option value="popular">Paling laris</option>
+      <option value="new">Terbaru dahulu</option>
       <option value="low">Harga rendah → tinggi</option>
       <option value="high">Harga tinggi → rendah</option>
     </select>
@@ -213,8 +247,8 @@
 
   <div id="produk" class="section-head">
     <div>
-      <h2>Pilihan Terlaris Dipercayai Ramai</h2>
-      <p>Ditapis ikut jualan, rating dan sebab kami pilih — bukan sekadar senarai produk. <span id="resultLabel"></span></p>
+      <h2>Pilihan Kami</h2>
+      <p>Ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. <span id="resultLabel"></span></p>
     </div>
     <button class="reset-link" id="resetBtn">Reset filter</button>
   </div>
@@ -222,11 +256,12 @@
   <div class="grid" id="productGrid"></div>
   <div id="emptyState" class="empty-card" style="display:none;">
     <h2>Tiada padanan</h2>
-    <p>Cuba tukar kategori, platform, atau padam perkataan carian. Produk baru masuk setiap minggu.</p>
+    <p id="emptyMsg">Cuba tukar kategori, platform, atau padam perkataan carian. Produk baru masuk setiap minggu.</p>
     <button class="btn-primary" onclick="resetFilters()">Tunjuk semua produk</button>
   </div>
-  <div class="more-wrap" id="moreWrap" style="display:none;">
-    <button class="btn-outline" id="moreBtn"></button>
+  <div class="page-row" id="pageRow" style="display:none;">
+    <p class="page-info" id="pageInfo"></p>
+    <div class="page-nav" id="pageNav"></div>
   </div>
 
   <section class="block" id="teka">
@@ -243,25 +278,36 @@
   <section class="block" id="langgan">
     <div class="langgan-card">
       <div style="flex:1 1 300px;min-width:min(100%,280px);">
-        <h2 style="font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;">Jadi orang pertama dapat review produk terkini daripada kami</h2>
-        <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:48ch;">Kami hantar ulasan produk baru, harga jatuh dan barang yang berbaloi — terus ke inbox anda. Tiada spam, boleh berhenti bila-bila masa.</p>
+        <h2 style="font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;">Jangan beli dulu sebelum baca review kami</h2>
+        <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:48ch;">Kami hantar review produk baru dan harga promo terkini terus ke inbox anda — sebelum anda terlepas. Tiada spam, boleh berhenti bila-bila masa.</p>
         <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--n200);display:flex;align-items:center;gap:13px;">
           <div class="langgan-face" id="langganFace">A</div>
           <div>
-            <p style="margin:0;font-size:13.5px;font-weight:700;">Ditulis sendiri oleh <span id="storeName2">Ahmad Albab</span></p>
-            <p style="margin:3px 0 0;font-size:13px;color:var(--n700);">Saya beli, saya cuba, baru saya tulis. Bukan salin ayat penjual.</p>
+            <p style="margin:0;font-size:13.5px;font-weight:700;">Ditapis sendiri oleh <span id="storeName2">Ahmad Albab</span></p>
+            <p style="margin:3px 0 0;font-size:13px;color:var(--n700);">Saya baca ulasan pembeli, banding harga, baru saya senaraikan.</p>
           </div>
         </div>
       </div>
       <form class="langgan-form" id="subscribeForm">
         <label><span>Nama</span><input type="text" id="subName" placeholder="Nama anda"></label>
         <label><span>Email</span><input type="email" id="subEmail" placeholder="nama@email.com"></label>
-        <button type="submit" class="langgan-submit">
+        <button type="submit" class="langgan-submit" id="subSubmitBtn">
           <span>Ya, hantar review produk terus ke email saya</span>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
         </button>
         <p class="langgan-msg" id="subMsg" style="display:none;"></p>
       </form>
+      <div id="subThanks" style="display:none;flex:1 1 320px;min-width:min(100%,280px);border:1px solid var(--accent-200);background:var(--accent-100);border-radius:14px;padding:24px;flex-direction:column;gap:11px;align-items:flex-start;">
+        <span style="width:44px;height:44px;border-radius:999px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+        </span>
+        <p style="margin:0;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--accent-800);" id="thanksTitle">Terima kasih!</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--accent-800);max-width:42ch;" id="thanksBody">Mohon semak inbox atau folder SPAM untuk emel pengesahan.</p>
+        <a href="#digital" id="thanksCtaLink" style="margin-top:4px;display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 20px;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;">
+          <span id="thanksCtaText">Lihat produk digital pilihan</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -284,8 +330,9 @@
 
   <footer>
     <div class="footer-row">
-      <div class="footer-meta">
-        <p style="margin:0;">© <span id="year"></span> <a href="https://ahmadalbab.store/" style="color:var(--accent-700);font-weight:600;">Ahmad Albab</a>. Hak Cipta Terpelihara.</p>
+      <div class="footer-meta" style="flex-direction:column;gap:8px;align-items:flex-start;">
+        <a href="https://ahmadalbab.store/" class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></a>
+        <p style="margin:0;">© <span id="year"></span> Ahmad Albab. Hak Cipta Terpelihara.</p>
         <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
       </div>
       <div class="footer-links">
@@ -348,7 +395,9 @@ let state = {
   cats: DEMO_CATS.slice(),
   cat: "all", platform: "all", sort: "popular", query: "",
   saved: JSON.parse(localStorage.getItem("aab_wishlist_v1") || "[]"),
-  savedOnly: false, limit: 12,
+  savedOnly: false, page: 1, perPage: 12,
+  thanks: { title:"Terima kasih!", body:"Mohon semak inbox atau folder SPAM untuk emel pengesahan.", cta:"Lihat produk digital pilihan", href:"#digital" },
+  subscribeUrl: "",
   slide: 0, heroPaused: false,
   art: 0, artPaused: false,
   gRound: 0, gPick: null, gScore: 0, gStreak: 0,
@@ -372,7 +421,7 @@ function renderHero(){
         <div class="hero-scrim"></div>
         <div class="hero-content">
           <p class="hero-kicker">${a.kicker}</p>
-          <h1 class="hero-title">${a.title}</h1>
+          <h2 class="hero-title">${a.title}</h2>
           <p class="hero-excerpt">${a.excerpt}</p>
           <p class="hero-readtime">${a.readTime}</p>
           <a href="${a.href}" class="hero-cta"><span>${a.cta}</span>
@@ -430,10 +479,10 @@ setInterval(()=>{ if(!state.artPaused){ state.art++; renderDigital(); } }, 6000)
 // ====== FILTERS + GRID ======
 function renderControls(){
   document.getElementById("platformSeg").innerHTML = [["all","Semua"],["shopee","Shopee"],["tiktok","TikTok"]]
-    .map(([k,l])=>`<button class="${state.platform===k?'active':''}" onclick="state.platform='${k}';state.limit=12;renderAll();">${l}</button>`).join("");
+    .map(([k,l])=>`<button class="${state.platform===k?'active':''}" onclick="state.platform='${k}';state.page=1;renderAll();">${l}</button>`).join("");
   const cats = [{key:"all",name:"Semua produk"}].concat(state.cats);
   document.getElementById("categoryRow").innerHTML = cats
-    .map(c=>`<button class="chip ${state.cat===c.key?'active':''}" onclick="state.cat='${c.key}';state.limit=12;renderAll();">${c.name}</button>`).join("");
+    .map(c=>`<button class="chip ${state.cat===c.key?'active':''}" onclick="state.cat='${c.key}';state.page=1;renderAll();">${c.name}</button>`).join("");
   document.getElementById("sortSelect").value = state.sort;
   document.getElementById("savedLabel").textContent = "Simpanan" + (state.saved.length ? " (" + state.saved.length + ")" : "");
   document.getElementById("savedBtn").classList.toggle("active", state.savedOnly);
@@ -448,24 +497,43 @@ function filteredProducts(){
   if(q) list = list.filter(p=>(p.title+" "+catName(p.category)).toLowerCase().includes(q));
   if(state.sort==="low") list.sort((a,b)=>a.price-b.price);
   else if(state.sort==="high") list.sort((a,b)=>b.price-a.price);
+  else if(state.sort==="new") list.sort((a,b)=>(b.savedAt||0)-(a.savedAt||0));
   else list.sort((a,b)=>(b.sold||0)-(a.sold||0));
   return list;
 }
 
+function domainFor(platform){ return platform==="tiktok" ? "tiktok.com" : "shopee.com.my"; }
+
 function renderGrid(){
   const all = filteredProducts();
   const total = all.length;
-  const list = all.slice(0, state.limit);
+  const perPage = state.perPage;
+  const pageCount = Math.max(1, Math.ceil(total/perPage));
+  if(state.page > pageCount) state.page = pageCount;
+  if(state.page < 1) state.page = 1;
+  const from = (state.page-1)*perPage;
+  const list = all.slice(from, from+perPage);
   const grid = document.getElementById("productGrid");
   const empty = document.getElementById("emptyState");
-  const moreWrap = document.getElementById("moreWrap");
+  const pageRow = document.getElementById("pageRow");
 
-  document.getElementById("resultLabel").textContent = list.length + " daripada " + total + " produk" + (state.savedOnly ? " disimpan" : "");
+  let resultLabel;
+  if(state.savedOnly && !total) resultLabel = "Belum ada bookmark";
+  else if(total <= perPage) resultLabel = total + " produk";
+  else resultLabel = "Menunjukkan " + (from+1) + "–" + Math.min(from+perPage,total) + " daripada " + total + " produk";
+  document.getElementById("resultLabel").textContent = resultLabel;
+
   const filtersOn = state.cat!=="all" || state.platform!=="all" || state.savedOnly || !!state.query.trim();
   const resetBtn = document.getElementById("resetBtn");
   resetBtn.style.color = filtersOn ? "var(--accent-700)" : "#999";
 
-  if(!list.length){ grid.style.display="none"; empty.style.display="block"; moreWrap.style.display="none"; return; }
+  if(!list.length){
+    grid.style.display="none"; empty.style.display="block"; pageRow.style.display="none";
+    document.getElementById("emptyMsg").textContent = state.savedOnly
+      ? "Cuba klik icon love di listing produk. Ia akan muncul di sini."
+      : "Cuba tukar kategori, platform, atau padam perkataan carian. Produk baru masuk setiap minggu.";
+    return;
+  }
   grid.style.display="grid"; empty.style.display="none";
 
   grid.innerHTML = list.map(p=>{
@@ -473,41 +541,58 @@ function renderGrid(){
     const hasDiscount = !!(p.old && p.old > p.price);
     const link = p.link || (isTikTok ? "https://www.tiktok.com/shop" : "https://shopee.com.my/");
     const isSaved = state.saved.includes(p.id);
-    const sold = p.sold ? ((p.sold>=1000)?(p.sold/1000).toFixed(1)+"k":p.sold) + " terjual" : "Baru masuk";
+    const sold = p.sold ? ((p.sold>=1000)?(p.sold/1000).toFixed(1)+"k":p.sold) + " terjual" : "";
     return `
     <article class="card">
       <div class="card-media" style="${p.imageUrl?`background-image:url('${p.imageUrl}')`:''}">
+        ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${(p.title+' — '+(isTikTok?'TikTok Shop':'Shopee')+(p.price?', '+money(p.price):'')).replace(/"/g,'&quot;')}" loading="lazy" width="400" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">` : ""}
         ${!p.imageUrl ? `<div class="card-noimg"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg><span>Tiada gambar</span></div>` : ""}
-        <span class="plat-badge ${isTikTok?'tiktok':'shopee'}">${isTikTok?'TikTok Shop':'Shopee'}</span>
-        <span class="sold-badge">${sold}</span>
         <button type="button" class="save-btn ${isSaved?'saved':''}" onclick="toggleSave('${p.id}')" title="Simpan produk">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved?'currentColor':'none'}" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
         </button>
-        <a href="https://wa.me/?text=${encodeURIComponent(p.title+' — '+money(p.price)+'\\n'+link)}" target="_blank" rel="noopener" class="share-btn" title="Kongsi di WhatsApp">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
-        </a>
       </div>
       <div class="card-body">
-        <p class="card-cat">${catName(p.category)}</p>
         <h3 class="card-title">${p.title}</h3>
-        <p class="card-why">${p.why || "Kami semak rating, jualan dan ulasan pembeli sebenar sebelum masukkan produk ini."}</p>
         <div class="card-price-row">
           <span class="price-now">${money(p.price)}</span>
           ${hasDiscount ? `<span class="price-old">${money(p.old)}</span><span class="discount-pill">−${Math.round((1-p.price/p.old)*100)}%</span>` : ""}
         </div>
-        <a href="${link}" target="_blank" rel="noopener nofollow sponsored" class="buy-btn ${isTikTok?'tiktok':'shopee'}" onclick="track('${p.id}','${p.platform}','${p.title.replace(/'/g,"")}')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
-          <span>Beli di ${isTikTok?'TikTok':'Shopee'}</span>
+        <p class="card-source">
+          <span class="src-dot ${isTikTok?'tiktok':'shopee'}"></span>
+          <span class="src-domain">${domainFor(p.platform)}</span>
+          ${sold ? `<span class="src-sold">· ${sold}</span>` : ""}
+        </p>
+      </div>
+      <div class="action-row">
+        <a href="https://wa.me/?text=${encodeURIComponent(p.title+' — '+money(p.price)+'\\n'+link)}" target="_blank" rel="noopener" class="share-pill" title="Kongsi produk">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M13 2.4 22.4 11.3c.4.4.4 1 0 1.4L13 21.6v-5.2c-4.3-.3-7.6 1.6-9.8 5.9-1.4-7.2.6-12.6 4.6-15 1.5-.9 3.2-1.3 5.2-1.2Z"></path></svg>
+          <span>Share</span>
+        </a>
+        <a href="${link}" target="_blank" rel="noopener nofollow sponsored" class="shop-btn ${isTikTok?'tiktok':'shopee'}" onclick="track('${p.id}','${p.platform}','${p.title.replace(/'/g,"")}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
+          <span>Shop</span>
         </a>
       </div>
     </article>`;
   }).join("");
 
-  if(total > list.length){
-    moreWrap.style.display="flex";
-    document.getElementById("moreBtn").textContent = "Tunjuk " + Math.min(12, total-list.length) + " produk lagi";
+  if(pageCount > 1){
+    pageRow.style.display="flex";
+    document.getElementById("pageInfo").textContent = "Halaman " + state.page + " daripada " + pageCount;
+    let pills = "";
+    for(let i=1;i<=pageCount;i++){
+      pills += `<button class="page-pill ${i===state.page?'active':''}" onclick="state.page=${i};renderGrid();">${i}</button>`;
+    }
+    document.getElementById("pageNav").innerHTML = `
+      <button class="page-arrow" ${state.page<=1?'disabled':''} onclick="state.page--;renderGrid();">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg>
+      </button>
+      ${pills}
+      <button class="page-arrow" ${state.page>=pageCount?'disabled':''} onclick="state.page++;renderGrid();">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
+      </button>`;
   } else {
-    moreWrap.style.display="none";
+    pageRow.style.display="none";
   }
 }
 
@@ -518,7 +603,7 @@ function toggleSave(id){
   renderControls(); renderGrid();
 }
 function resetFilters(){
-  state.cat="all"; state.platform="all"; state.query=""; state.savedOnly=false; state.limit=12;
+  state.cat="all"; state.platform="all"; state.query=""; state.savedOnly=false; state.page=1;
   document.getElementById("searchInput").value = "";
   renderAll();
 }
@@ -624,16 +709,35 @@ document.getElementById("subscribeForm").addEventListener("submit", function(e){
   const name = document.getElementById("subName").value.trim();
   const email = document.getElementById("subEmail").value.trim();
   const msg = document.getElementById("subMsg");
+  const btn = document.getElementById("subSubmitBtn");
   msg.style.display = "block";
   if(!name){ msg.textContent = "Isi nama anda dulu ya."; msg.style.color="var(--n700)"; return; }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = "Email tu nampak tak lengkap — cuba semak semula."; msg.style.color="var(--n700)"; return; }
-  msg.textContent = "Terima kasih, " + name + "! Review produk terkini akan sampai ke " + email + ".";
-  msg.style.color = "var(--accent-700)";
-  document.getElementById("subName").value = "";
-  document.getElementById("subEmail").value = "";
-  if(API_URL){
-    fetch(API_URL, { method:"POST", body: JSON.stringify({ action:"subscribe", name, email }) }).catch(()=>{});
-  }
+
+  msg.textContent = "Sedang hantar…"; msg.style.color = "var(--n700)"; btn.disabled = true;
+  const target = state.subscribeUrl || API_URL;
+  if(!target){ msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami."; btn.disabled=false; return; }
+
+  fetch(target, { method:"POST", body: JSON.stringify({ action:"subscribe", name, email }) })
+    .then(r=>r.json())
+    .then(d=>{
+      btn.disabled = false;
+      if(d && d.success){
+        document.getElementById("subscribeForm").style.display = "none";
+        const thanks = document.getElementById("subThanks");
+        thanks.style.display = "flex";
+        document.getElementById("thanksTitle").textContent = state.thanks.title;
+        document.getElementById("thanksBody").textContent = state.thanks.body;
+        document.getElementById("thanksCtaText").textContent = state.thanks.cta;
+        document.getElementById("thanksCtaLink").setAttribute("href", state.thanks.href);
+      } else {
+        msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami.";
+      }
+    })
+    .catch(()=>{
+      btn.disabled = false;
+      msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami.";
+    });
 });
 
 // ====== CLICK TRACKING ======
@@ -645,11 +749,10 @@ function track(id, kind, label){
 }
 
 // ====== EVENTS ======
-document.getElementById("searchInput").addEventListener("input", e=>{ state.query = e.target.value; state.limit=12; renderGrid(); renderControls(); });
+document.getElementById("searchInput").addEventListener("input", e=>{ state.query = e.target.value; state.page=1; renderGrid(); renderControls(); });
 document.getElementById("sortSelect").addEventListener("change", e=>{ state.sort = e.target.value; renderGrid(); });
 document.getElementById("savedBtn").addEventListener("click", ()=>{ state.savedOnly = !state.savedOnly; renderAll(); });
 document.getElementById("resetBtn").addEventListener("click", resetFilters);
-document.getElementById("moreBtn").addEventListener("click", ()=>{ state.limit += 12; renderGrid(); });
 
 function renderAll(){ renderControls(); renderGrid(); }
 
@@ -675,6 +778,17 @@ function loadFromApi(){
         document.getElementById("langganFace").style.backgroundImage = "url('" + d.site.faceImage + "')";
         document.getElementById("langganFace").style.backgroundSize = "cover";
         document.getElementById("langganFace").textContent = "";
+      }
+      if(d.site){
+        state.thanks = {
+          title: d.site.thanksTitle || state.thanks.title,
+          body: d.site.thanksBody || state.thanks.body,
+          cta: d.site.thanksCta || state.thanks.cta,
+          href: (d.site.thanksHref && d.site.thanksHref.match(/#\w+/)) ? d.site.thanksHref.match(/#\w+/)[0] : state.thanks.href
+        };
+      }
+      if(d.connect){
+        state.subscribeUrl = d.connect.brevoEndpoint || d.connect.apiUrl || "";
       }
       renderGame();
     }
