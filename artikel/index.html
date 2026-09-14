@@ -141,7 +141,10 @@
 <header>
   <div class="header-inner">
     <a href="../index.html" class="wordmark">ahmadalbab<span style="color:var(--accent);">.</span></a>
-    <a href="../index.html" class="back-store">← Kembali ke Kedai</a>
+    <div style="display:flex;align-items:center;gap:10px;" id="headerNav">
+      <a href="../index.html#produk" class="back-store">Produk pilihan</a>
+      <a href="../index.html#langgan" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;">Dapatkan Review Terkini</a>
+    </div>
   </div>
 </header>
 
@@ -169,6 +172,12 @@ const CATS = ["Semua","Panduan","Ulasan","Tips jimat"];
 let ALL_REVIEWS = [];
 let DIGITAL_LINKS = [];
 let listState = { cat:"Semua", q: new URLSearchParams(location.search).get("q") || "", page:1, perPage:4 };
+
+function setHeaderNav(mode){
+  const link = document.querySelector("#headerNav .back-store");
+  if(mode === "article"){ link.textContent = "Semua artikel"; link.setAttribute("href", "./"); }
+  else { link.textContent = "Produk pilihan"; link.setAttribute("href", "../index.html#produk"); }
+}
 
 function esc(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
 function slugParam(){ return new URLSearchParams(location.search).get("review"); }
@@ -198,6 +207,7 @@ function filteredReviews(){
 }
 
 function renderList(){
+  setHeaderNav("list");
   setMeta({
     title:"Artikel & Ulasan — Ahmad Albab",
     desc:"Panduan beli-belah dan ulasan jujur sebelum anda checkout — dari Ahmad Albab.",
@@ -224,11 +234,13 @@ function renderList(){
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="flex:none;margin-top:2px;"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
     </a></li>`).join("") : `<li style="font-size:13px;color:var(--n700);">Belum ada produk digital.</li>`;
 
+  const emptyTitle = listState.q.trim() ? "Tiada hasil carian" : (listState.cat!=="Semua" ? "Tiada artikel dalam kategori ini" : "Belum ada artikel lagi");
+  const emptyBody = listState.q.trim() ? "Cuba perkataan lain, atau lihat semua artikel yang ada." : (listState.cat!=="Semua" ? "Cuba pilih kategori lain, atau lihat semua artikel yang ada." : "Kami sedang menulis ulasan pertama. Langgan review terkini supaya anda tahu sebaik ia keluar.");
   const listHtml = !pageItems.length ? `
     <div class="empty-card">
       <div class="empty-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
-      <h2>${listState.q.trim() ? "Tiada hasil carian" : (listState.cat!=="Semua" ? "Belum ada artikel dalam kategori ini" : "Belum ada artikel lagi")}</h2>
-      <p>Cuba kategori lain atau padam perkataan carian.</p>
+      <h2>${emptyTitle}</h2>
+      <p>${emptyBody}</p>
       <button class="btn-primary" onclick="resetListFilters()">Tunjuk semua artikel</button>
     </div>` : `
     <ol class="art-list">
@@ -272,24 +284,26 @@ function renderList(){
         <div class="side-card">
           <h2>Cari Artikel</h2>
           <form role="search" class="search-pill" onsubmit="return false;">
-            <input type="text" id="listSearch" placeholder="Cari artikel…" value="${esc(listState.q)}" oninput="onListSearch(this.value)">
-            <button type="button" class="search-clear" id="searchClearBtn" onclick="onListSearch('')">✕</button>
+            <input type="text" id="listSearch" aria-label="Cari artikel" placeholder="Cari tajuk atau topik…" value="${esc(listState.q)}" oninput="onListSearch(this.value)">
+            <button type="button" class="search-clear" id="searchClearBtn" aria-label="Kosongkan carian" onclick="onListSearch('')">✕</button>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
           </form>
         </div>
         <div class="side-card">
           <h2>Tentang ahmadalbab</h2>
-          <p>Kami test, kami pilih, korang jimat masa. Setiap produk disemak dari rating, jualan dan ulasan pembeli sebenar sebelum masuk senarai.</p>
+          <p>Kami tapis produk Shopee dan TikTok Shop ikut rating, jumlah jualan dan ulasan pembeli sebenar — supaya anda tak perlu teka sebelum checkout.</p>
+          <p>Setiap artikel di sini ditulis untuk satu tujuan: bantu anda buat keputusan dalam dua minit.</p>
           <a class="outline-link" href="../index.html#produk">Lihat pilihan kami</a>
         </div>
         <div class="side-card">
           <h2>Pautan Berguna</h2>
+          <p style="margin-bottom:10px;">Kelas dan panduan digital yang kami syorkan.</p>
           <ul class="digital-list">${digitalLinksHtml}</ul>
           <a class="outline-link" href="../index.html#digital">Semua produk digital</a>
         </div>
         <div class="side-card request-card">
           <h2>Request Review Produk</h2>
-          <p>Ada produk Shopee/TikTok yang korang nak kami ulas? Bagitahu kami.</p>
+          <p>Ada produk yang anda teringin tahu berbaloi atau tidak? Beritahu kami — atau hantar ulasan anda sendiri untuk diterbitkan di sini.</p>
           <a class="btn-wa" href="https://wa.me/" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
             Hubungi kami di WhatsApp
@@ -307,6 +321,7 @@ function resetListFilters(){ listState.cat="Semua"; listState.q=""; listState.pa
 
 // ====================== SINGLE ARTICLE VIEW ======================
 function renderArticle(item){
+  setHeaderNav("article");
   setMeta({
     title:item.title + " — Ahmad Albab",
     desc:item.excerpt || item.title,
@@ -342,20 +357,25 @@ function renderArticle(item){
           <span>${esc(item.readTime||"")}</span>
           <span>· Ditulis oleh Ahmad Albab</span>
         </div>
-        ${item.image ? `<figure><img src="${item.image}" alt="${esc(item.title)}" width="1200" height="675"><figcaption>${esc(item.title)}</figcaption></figure>` : ""}
-        ${item.excerpt ? `<p class="lede">${esc(item.excerpt)}</p>` : ""}
+        ${item.image
+          ? `<figure><img src="${item.image}" alt="${esc(item.title)}" width="1200" height="675"><figcaption>${esc(item.title)}</figcaption></figure>`
+          : `<figure><div style="width:100%;aspect-ratio:16/9;border-radius:14px;background:var(--n200);display:flex;align-items:center;justify-content:center;color:var(--n700);font-size:13px;font-weight:600;">Gambar utama artikel (1200×675)</div></figure>`}
+        ${item.excerpt ? `<p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);">Ringkasan</p><p class="lede">${esc(item.excerpt)}</p>` : ""}
         <div class="article-body">${paragraphs(item.body)}</div>
         <div class="inline-cta">
-          <p>Nak lihat produk yang kami sebut dalam artikel ni?</p>
-          <a href="../index.html#produk">Lihat produk pilihan →</a>
+          <div>
+            <p>Nak tengok produk yang kami sebut dalam artikel ni?</p>
+            <p style="font-weight:500;color:var(--accent-800);font-size:13px;margin-top:4px;">Senarai pilihan kami ada di laman utama, lengkap dengan harga terkini.</p>
+          </div>
+          <a href="../index.html#produk">Lihat pilihan kami</a>
         </div>
-        <p class="disclosure">Bukan semua produk dalam artikel ini diuji secara peribadi oleh kami. Sesetengah pautan dalam artikel ini adalah pautan affiliate — kami mungkin dapat komisen kecil tanpa menambah kos pada anda.</p>
+        <p class="disclosure">Nota: kami tidak menguji setiap produk secara peribadi. Ulasan ini berdasarkan spesifikasi penjual, rating dan ulasan pembeli sebenar di Shopee dan TikTok Shop. Sesetengah link adalah link affiliate.</p>
       </article>
       <aside>
         <div class="side-card">
           <h2>Cari Artikel</h2>
           <form action="./" method="get" class="search-pill">
-            <input type="text" name="q" placeholder="Cari artikel…">
+            <input type="text" name="q" aria-label="Cari artikel" placeholder="Cari tajuk atau topik…">
             <button type="submit" style="position:absolute;right:6px;top:6px;width:34px;height:34px;border-radius:999px;background:var(--accent);border:0;color:#fff;display:flex;align-items:center;justify-content:center;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
             </button>
@@ -363,6 +383,7 @@ function renderArticle(item){
         </div>
         <div class="side-card">
           <h2>Artikel Terkini</h2>
+          <p style="margin-bottom:10px;">Ulasan lain yang mungkin berguna.</p>
           <div class="recent-list">
             ${others.length ? others.map(r=>`<a href="?review=${encodeURIComponent(r.slug||'')}">${esc(r.title)}<span>${esc(r.readTime||"")}</span></a>`).join("") : `<span style="font-size:13px;color:var(--n700);">Belum ada artikel lain.</span>`}
           </div>
