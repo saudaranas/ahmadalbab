@@ -210,7 +210,7 @@
     <h1 style="margin:0;min-width:0;font-size:inherit;font-weight:400;">
       <a href="#produk" class="brand">
         <span class="wordmark" id="storeName">ahmadalbab<span style="color:var(--accent);">.</span></span>
-        <span class="brand-tag">Review Produk Terbaik Shopee &amp; TikTok!</span>
+        <span class="brand-tag">Review Produk Shopee &amp; Tiktok Untuk Anda!</span>
       </a>
     </h1>
     <button type="button" class="hamburger-btn" id="menuToggle" aria-label="Buka menu">
@@ -221,6 +221,7 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
         <span id="savedLabel">Bookmark</span>
       </button>
+      <a href="artikel/" class="pill-outline">Artikel</a>
       <a href="#langgan" class="pill-solid">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
         <span>Dapatkan Review Terkini</span>
@@ -258,7 +259,7 @@
   <div id="produk" class="section-head">
     <div>
       <h2>Pilihan Kami</h2>
-      <p>Ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. <span id="resultLabel"></span></p>
+      <p>Kami semak rating, jualan dan ulasan pembeli sebenar sebelum masukkan produk ini. <span id="resultLabel"></span></p>
     </div>
     <button class="reset-link" id="resetBtn">Reset filter</button>
   </div>
@@ -278,7 +279,7 @@
     <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
       <div>
         <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;" id="gameHeading">Teka Harga</h2>
-        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:58ch;">Cuba teka harga sebenar produk viral — sebelum korang scroll ke bawah untuk beli.</p>
+        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:58ch;" id="gameSubline">Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.</p>
       </div>
       <span class="game-score" id="gameScore">0 betul</span>
     </div>
@@ -288,8 +289,9 @@
   <section class="block" id="langgan">
     <div class="langgan-card">
       <div style="flex:1 1 300px;min-width:min(100%,280px);">
-        <h2 style="font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;">Jangan beli dulu sebelum baca review kami</h2>
-        <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:48ch;">Kami hantar review produk baru dan harga promo terkini terus ke inbox anda — sebelum anda terlepas. Tiada spam, boleh berhenti bila-bila masa.</p>
+        <p style="margin:0 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-700);">Dapat review baru ke email</p>
+        <h2 style="font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;">Review produk terkini, terus ke inbox anda</h2>
+        <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:48ch;">Kami hantar review produk dan harga promo terkini terus ke inbox anda — sebelum anda terlepas. Tiada spam, boleh berhenti bila-bila masa.</p>
         <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--n200);display:flex;align-items:center;gap:13px;">
           <div class="langgan-face" id="langganFace">A</div>
           <div>
@@ -341,16 +343,15 @@
   <footer>
     <div class="footer-row">
       <div class="footer-meta" style="flex-direction:column;gap:8px;align-items:flex-start;">
-        <a href="https://ahmadalbab.store/" class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></a>
-        <p style="margin:0;">© <span id="year"></span> Ahmad Albab. Hak Cipta Terpelihara.</p>
+        <p style="margin:0;">© <span id="year"></span> <a href="https://ahmadalbab.store/" class="wordmark-footer" style="display:inline;">ahmadalbab</a>. Hak Cipta Terpelihara.</p>
         <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
       </div>
       <div class="footer-links">
-        <a href="artikel/">Artikel</a>
         <a href="#produk">Produk terlaris</a>
         <a href="#digital">Produk digital</a>
+        <a href="artikel/">Artikel</a>
         <a href="#teka">Teka harga</a>
-        <a href="#langgan">Langgan review</a>
+        <a href="#langgan">Review terkini</a>
       </div>
     </div>
   </footer>
@@ -489,7 +490,7 @@ setInterval(()=>{ if(!state.artPaused){ state.art++; renderDigital(); } }, 6000)
 
 // ====== FILTERS + GRID ======
 function renderControls(){
-  document.getElementById("platformSeg").innerHTML = [["all","Semua"],["shopee","Shopee"],["tiktok","TikTok"]]
+  document.getElementById("platformSeg").innerHTML = [["all","Semua platform"],["shopee","Shopee"],["tiktok","TikTok Shop"]]
     .map(([k,l])=>`<button class="${state.platform===k?'active':''}" onclick="state.platform='${k}';state.page=1;renderAll();">${l}</button>`).join("");
   const cats = [{key:"all",name:"Semua produk"}].concat(state.cats);
   document.getElementById("categoryRow").innerHTML = cats
@@ -575,13 +576,13 @@ function renderGrid(){
         </p>
       </div>
       <div class="action-row">
-        <a href="https://wa.me/?text=${encodeURIComponent(p.title+' — '+money(p.price)+'\\n'+link)}" target="_blank" rel="noopener" class="share-pill" title="Kongsi produk">
+        <a href="https://wa.me/?text=${encodeURIComponent(p.title+' — '+money(p.price)+'\\n'+link)}" target="_blank" rel="noopener" class="share-pill" aria-label="Kongsi produk" title="Kongsi produk">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M13 2.4 22.4 11.3c.4.4.4 1 0 1.4L13 21.6v-5.2c-4.3-.3-7.6 1.6-9.8 5.9-1.4-7.2.6-12.6 4.6-15 1.5-.9 3.2-1.3 5.2-1.2Z"></path></svg>
           <span>Share</span>
         </a>
         <a href="${link}" target="_blank" rel="noopener nofollow sponsored" class="shop-btn ${isTikTok?'tiktok':'shopee'}" onclick="track('${p.id}','${p.platform}','${p.title.replace(/'/g,"")}')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
-          <span>Shop</span>
+          <span>Shop · ${money(p.price)}</span>
         </a>
       </div>
     </article>`;
@@ -595,11 +596,11 @@ function renderGrid(){
       pills += `<button class="page-pill ${i===state.page?'active':''}" onclick="state.page=${i};renderGrid();">${i}</button>`;
     }
     document.getElementById("pageNav").innerHTML = `
-      <button class="page-arrow" ${state.page<=1?'disabled':''} onclick="state.page--;renderGrid();">
+      <button class="page-arrow" aria-label="Halaman sebelum" ${state.page<=1?'disabled':''} onclick="state.page--;renderGrid();">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg>
       </button>
       ${pills}
-      <button class="page-arrow" ${state.page>=pageCount?'disabled':''} onclick="state.page++;renderGrid();">
+      <button class="page-arrow" aria-label="Halaman seterusnya" ${state.page>=pageCount?'disabled':''} onclick="state.page++;renderGrid();">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
       </button>`;
   } else {
@@ -645,6 +646,9 @@ function gameDeck(){
 function renderGame(){
   const area = document.getElementById("gameArea");
   document.getElementById("gameHeading").textContent = state.gameCfg.heading || "Teka Harga";
+  const deckPreview = gameDeck();
+  const choiceCount = deckPreview.length ? deckPreview[0].opts.length : Number(state.gameCfg.choices)||3;
+  document.getElementById("gameSubline").textContent = deckPreview.length + " produk, " + choiceCount + " pilihan harga. Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.";
   document.getElementById("gameScore").textContent = state.gScore + " betul" + (state.gStreak>1 ? " · streak "+state.gStreak : "");
   const deck = gameDeck();
   if(!deck.length){ area.innerHTML=""; return; }
@@ -690,7 +694,7 @@ function renderGame(){
         </div>
         ${picked ? `
         <div class="game-reveal">
-          <p class="game-verdict" style="color:${correct?'var(--accent-700)':'var(--text)'}">${correct ? "Tepat! "+money(cur.p.price) : "Sebenarnya "+money(cur.p.price)}</p>
+          <p class="game-verdict" style="color:${correct?'var(--accent-700)':'var(--text)'}">${correct ? "Tepat!" : "Sebenarnya "+money(cur.p.price)}</p>
           <p class="game-why">${cur.p.why||""}</p>
           <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:2px;">
             ${state.gameCfg.showBuy ? `<a href="${cur.p.link || (isTikTok?'https://www.tiktok.com/shop':'https://shopee.com.my/')}" target="_blank" rel="noopener nofollow sponsored" class="hero-cta" onclick="track('${cur.p.id}','${cur.p.platform}','${cur.p.title.replace(/'/g,"")}')"><span>Beli di ${isTikTok?'TikTok':'Shopee'}</span></a>` : ""}
