@@ -113,3 +113,4 @@
   .footer-links{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;font-weight:600;}
   .footer-links a{color:var(--n800);}
   .state-msg{padding:60px 0;text-align:center;color:var(--n700);font-size:14.5px;}
+button svg, a svg{display:block;flex:none;}
