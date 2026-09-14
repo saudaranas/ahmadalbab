@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel Admin — Ahmad Albab</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -147,6 +151,7 @@
   <header>
     <div class="header-inner">
       <div class="brand">
+        <img src="../favicon.svg" alt="Logo Ahmad Albab" width="34" height="34" style="display:block;width:34px;height:34px;flex:none;border-radius:9px;">
         <span style="font-weight:800;font-size:20px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;">ahmadalbab<span style="color:var(--accent);">.</span></span>
         <span style="flex:none;width:1px;height:26px;background:var(--n300);"></span>
         <div>
@@ -156,7 +161,7 @@
       </div>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
         <div class="range-seg" id="rangeSeg"></div>
-        <a href="https://ahmadalbab.store" class="view-store">Lihat store</a>
+        <a href="../index.html" class="view-store">Lihat store</a>
       </div>
     </div>
   </header>
@@ -241,7 +246,7 @@ const FIELD_DEFS = {
     { key:"readTime", label:"Masa bacaan", type:"text", placeholder:"5 min bacaan" },
     { key:"excerpt", label:"Ringkasan (dipaparkan sebagai kad)", type:"area", wide:true },
     { key:"body", label:"Kandungan penuh artikel", type:"area", wide:true },
-    { key:"image", label:"Gambar artikel (4:3 atau 16:9)", type:"image", wide:true },
+    { key:"image", label:"Gambar utama 1200×675 (16:9, di bawah 300KB)", type:"image", wide:true },
     { key:"slug", label:"Slug", type:"slug" }
   ],
   hero: [
@@ -251,7 +256,7 @@ const FIELD_DEFS = {
     { key:"excerpt", label:"Ringkasan", type:"area", wide:true },
     { key:"cta", label:"Teks butang CTA", type:"text", placeholder:"Baca sebelum beli" },
     { key:"href", label:"Link slaid", type:"text" },
-    { key:"image", label:"Gambar latar 1600×900", type:"image", wide:true }
+    { key:"image", label:"Gambar latar 1600×900 (16:9, di bawah 400KB)", type:"image", wide:true }
   ],
   product: [
     { key:"title", label:"Nama produk", type:"text", required:true },
@@ -262,7 +267,7 @@ const FIELD_DEFS = {
     { key:"why", label:"Kenapa kami pilih", type:"area", wide:true },
     { key:"sold", label:"Jumlah terjual", type:"text", placeholder:"1800" },
     { key:"link", label:"Link affiliate", type:"text", wide:true },
-    { key:"image", label:"Gambar 1:1", type:"image", wide:true },
+    { key:"image", label:"Gambar produk 800×800 (1:1, di bawah 200KB)", type:"image", wide:true },
     { key:"hot", label:"Tanda terlaris", type:"toggle" }
   ],
   category: [
@@ -279,7 +284,7 @@ const FIELD_DEFS = {
     { key:"cta", label:"Teks butang", type:"text" },
     { key:"points", label:"Poin jualan (satu setiap baris)", type:"area", wide:true },
     { key:"link", label:"Link affiliate", type:"text", wide:true },
-    { key:"image", label:"Poster", type:"image", wide:true }
+    { key:"image", label:"Poster produk 1000×1250 (4:5, di bawah 300KB)", type:"image", wide:true }
   ]
 };
 
@@ -404,7 +409,7 @@ function renderView(){
     { key:"endNote", label:"Ayat penutup", type:"area", wide:true }
   ]); return; }
   if(currentView === "site"){ renderSettingsForm(main, "site", [
-    { key:"faceImage", label:"Gambar muka", type:"image", wide:true },
+    { key:"faceImage", label:"Gambar muka 400×400 (1:1, dipaparkan bulat)", type:"image", wide:true },
     { key:"thanksTitle", label:"Tajuk selepas subscribe", type:"text", placeholder:"Terima kasih!" },
     { key:"thanksBody", label:"Ayat selepas subscribe", type:"area", wide:true },
     { key:"thanksCta", label:"Teks butang CTA", type:"text", placeholder:"Lihat produk digital pilihan" },
