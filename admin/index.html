@@ -377,13 +377,15 @@ function loadAllSettingsAndContent(){
 function seedIfEmpty(){
   const jobs = [];
   Object.keys(SEED).forEach(type=>{
-    if(!(contentCache[type]||[]).length){
-      SEED[type].forEach(item=>{
-        jobs.push(apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
-          if(d && d.success){ contentCache[type] = contentCache[type] || []; contentCache[type].push(d.item); }
-        }));
-      });
-    }
+    const existing = contentCache[type] || [];
+    const existingKeys = existing.map(x => (x.title || x.brand || "").trim().toLowerCase());
+    SEED[type].forEach(item=>{
+      const key = (item.title || item.brand || "").trim().toLowerCase();
+      if(existingKeys.includes(key)) return; // dah ada, jangan duplicate
+      jobs.push(apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
+        if(d && d.success){ contentCache[type] = contentCache[type] || []; contentCache[type].push(d.item); }
+      }));
+    });
   });
   return Promise.all(jobs).catch(()=>{});
 }
