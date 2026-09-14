@@ -20,6 +20,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ahmadalbab.store/og-cover.png">
 <meta name="theme-color" content="#ec3013">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
 {"@type":"WebSite","@id":"https://ahmadalbab.store/#website","url":"https://ahmadalbab.store/","name":"Ahmad Albab","inLanguage":"ms-MY","description":"Review produk terbaik Shopee & TikTok Shop.","publisher":{"@id":"https://ahmadalbab.store/#org"}},
@@ -51,7 +55,7 @@
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
   .header-inner{position:relative;max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
-  .brand{display:flex;flex-direction:column;gap:3px;min-width:0;color:var(--text);}
+  .brand{display:flex;flex-direction:row;align-items:center;gap:11px;min-width:0;color:var(--text);}
   .wordmark{font-weight:800;font-size:22px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;}
   .wordmark-footer{font-weight:800;font-size:17px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
   .brand-tag{font-size:11.5px;font-weight:500;color:var(--n700);}
@@ -209,8 +213,11 @@
   <div class="header-inner">
     <h1 style="margin:0;min-width:0;font-size:inherit;font-weight:400;">
       <a href="#produk" class="brand">
-        <span class="wordmark" id="storeName">ahmadalbab<span style="color:var(--accent);">.</span></span>
-        <span class="brand-tag">Review Produk Shopee &amp; Tiktok Untuk Anda!</span>
+        <img src="favicon.svg" alt="Logo Ahmad Albab" width="40" height="40" style="display:block;width:40px;height:40px;flex:none;border-radius:11px;">
+        <span style="display:flex;flex-direction:column;gap:3px;min-width:0;">
+          <span class="wordmark" id="storeName">ahmadalbab<span style="color:var(--accent);">.</span></span>
+          <span class="brand-tag">Review Produk Shopee &amp; Tiktok Untuk Anda!</span>
+        </span>
       </a>
     </h1>
     <button type="button" class="hamburger-btn" id="menuToggle" aria-label="Buka menu">
@@ -296,7 +303,7 @@
           <div class="langgan-face" id="langganFace">A</div>
           <div>
             <p style="margin:0;font-size:13.5px;font-weight:700;">Ditapis sendiri oleh <span id="storeName2">Ahmad Albab</span></p>
-            <p style="margin:3px 0 0;font-size:13px;color:var(--n700);">Saya baca ulasan pembeli, banding harga, baru saya senaraikan.</p>
+            <p style="margin:3px 0 0;font-size:13px;color:var(--n700);">Kami review untuk anda buat keputusan terbaik!</p>
           </div>
         </div>
       </div>
@@ -778,7 +785,7 @@ document.querySelector("header").addEventListener("click", function(e){
   secretTapTimer = setTimeout(()=>{ secretTaps = 0; }, 1500);
   if(secretTaps >= 3){
     secretTaps = 0;
-    window.location.href = "admin.html";
+    window.location.href = "admin/";
   }
 });
 
