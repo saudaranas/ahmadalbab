@@ -769,6 +769,19 @@ document.getElementById("sortSelect").addEventListener("change", e=>{ state.sort
 document.getElementById("savedBtn").addEventListener("click", ()=>{ state.savedOnly = !state.savedOnly; renderAll(); });
 document.getElementById("resetBtn").addEventListener("click", resetFilters);
 
+// ====== SECRET ADMIN ACCESS (3 taps on topbar/logo) ======
+let secretTaps = 0, secretTapTimer;
+document.querySelector("header").addEventListener("click", function(e){
+  if(e.target.closest("#savedBtn, #menuToggle, #headerActions")) return;
+  secretTaps++;
+  clearTimeout(secretTapTimer);
+  secretTapTimer = setTimeout(()=>{ secretTaps = 0; }, 1500);
+  if(secretTaps >= 3){
+    secretTaps = 0;
+    window.location.href = "admin.html";
+  }
+});
+
 document.getElementById("menuToggle").addEventListener("click", ()=>{
   document.getElementById("headerActions").classList.toggle("open");
 });
