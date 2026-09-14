@@ -3,867 +3,716 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ahmad Albab — Review Produk Terbaik Shopee &amp; TikTok Shop</title>
-<meta name="description" content="Review dan senarai produk pilihan dari Shopee dan TikTok Shop — ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. Makanan, baju muslimah, barang rumah dan produk digital.">
-<meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://ahmadalbab.store/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Ahmad Albab">
-<meta property="og:locale" content="ms_MY">
-<meta property="og:url" content="https://ahmadalbab.store/">
-<meta property="og:title" content="Ahmad Albab — Review Produk Terbaik Shopee &amp; TikTok Shop">
-<meta property="og:description" content="Ditapis ikut rating, jumlah jualan dan ulasan pembeli sebenar. Jangan beli dulu sebelum baca review kami.">
-<meta property="og:image" content="https://ahmadalbab.store/og-cover.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Ahmad Albab — review produk terbaik Shopee &amp; TikTok Shop">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://ahmadalbab.store/og-cover.png">
-<meta name="theme-color" content="#ec3013">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon-32.png" sizes="32x32">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/manifest.webmanifest">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"WebSite","@id":"https://ahmadalbab.store/#website","url":"https://ahmadalbab.store/","name":"Ahmad Albab","inLanguage":"ms-MY","description":"Review produk terbaik Shopee & TikTok Shop.","publisher":{"@id":"https://ahmadalbab.store/#org"}},
-{"@type":"Organization","@id":"https://ahmadalbab.store/#org","name":"Ahmad Albab","url":"https://ahmadalbab.store/","description":"Portal review produk affiliate Shopee dan TikTok Shop di Malaysia.","identifier":"SSM 202603001066 (CT0159040-U)"},
-{"@type":"CollectionPage","@id":"https://ahmadalbab.store/#pilihan","url":"https://ahmadalbab.store/#produk","name":"Pilihan Kami","isPartOf":{"@id":"https://ahmadalbab.store/#website"},"about":"Produk pilihan Shopee dan TikTok Shop yang ditapis ikut rating, jumlah jualan dan ulasan pembeli."}
-]}
-</script>
+<title>Panel Admin — Ahmad Albab</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f3f2f2; --surface:#eae9e9; --white:#ffffff; --text:#201e1d;
+    --bg:#f3f2f2; --white:#ffffff; --text:#201e1d;
     --accent:#ec3013; --accent-600:#d02a10; --accent-700:#b8250e; --accent-800:#8f1c0b;
     --accent-100:#fce2dc; --accent-200:#f9c7ba;
     --n100:#f6f5f5; --n200:#eceaea; --n300:#d6d4d4; --n400:#b7b4b4;
     --n600:#8a8686; --n700:#6b6767; --n800:#4a4746; --n900:#1c1a19;
-    --shadow-sm:0 1px 3px rgba(0,0,0,.08); --shadow-md:0 6px 20px rgba(0,0,0,.10);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;line-height:1.5;}
-  h1,h2,h3{font-family:'Archivo',sans-serif;margin:0;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;}
+  button,input,select,textarea{font-family:inherit;}
   a{color:var(--accent-700);text-decoration:none;}
-  a:hover{color:var(--accent);}
-  button{font-family:inherit;cursor:pointer;}
-  img{max-width:100%;display:block;}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 20px;}
+  h1,h2{margin:0;font-family:'Archivo',sans-serif;}
   *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
+  #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+  .login-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:32px;max-width:360px;width:100%;}
+  .login-card h1{font-weight:800;font-size:22px;margin-bottom:8px;}
+  .login-card p{font-size:13.5px;color:var(--n700);margin:0 0 20px;}
+  .login-card input{width:100%;height:48px;border:1px solid var(--n300);border-radius:12px;padding:0 14px;font-size:15px;margin-bottom:12px;background:var(--bg);}
+  .login-card button{width:100%;height:48px;border:0;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;cursor:pointer;}
+  .login-card button:hover{background:var(--accent-600);}
+  .login-msg{font-size:13px;color:var(--accent-700);font-weight:600;margin-top:10px;min-height:18px;}
+
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
-  .header-inner{position:relative;max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
-  .brand{display:flex;flex-direction:row;align-items:center;gap:11px;min-width:0;color:var(--text);}
-  .wordmark{font-weight:800;font-size:22px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;}
-  .wordmark-footer{font-weight:800;font-size:17px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
-  .brand-tag{font-size:11.5px;font-weight:500;color:var(--n700);}
-  .header-actions{display:flex;align-items:center;gap:8px;}
-  .pill-outline{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);transition:.16s;}
-  .pill-outline.active{border-color:var(--text);background:var(--text);color:var(--bg);}
-  .pill-solid{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;border:0;}
-  .pill-solid:hover{background:var(--accent-600);color:#fff;}
-  .hamburger-btn{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:center;flex:none;}
-  @media(max-width:640px){
-    .header-actions{display:none;position:absolute;top:100%;right:20px;left:20px;background:#fff;border:1px solid var(--n300);border-radius:14px;padding:12px;flex-direction:column;gap:8px;box-shadow:var(--shadow-md);z-index:30;}
-    .header-actions.open{display:flex;}
-    .header-actions .pill-outline, .header-actions .pill-solid{width:100%;justify-content:center;height:44px;}
-    .hamburger-btn{display:flex;}
+  .header-inner{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand-mark{width:34px;height:34px;border-radius:11px;background:var(--text);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;}
+  .brand-name{font-weight:700;font-size:16px;}
+  .brand-sub{font-size:11.5px;color:var(--n700);}
+  .range-seg{display:flex;gap:4px;padding:4px;border:1px solid var(--n300);border-radius:999px;background:#fff;}
+  .range-seg button{height:34px;padding:0 13px;border-radius:999px;border:0;background:transparent;font-size:12.5px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .range-seg button.active{background:var(--accent);color:#fff;}
+  .view-store{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
+
+  .layout{max-width:1320px;margin:0 auto;padding:24px 20px 56px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;}
+  nav{width:232px;flex:none;display:flex;flex-direction:column;gap:2px;}
+  .nav-toggle{display:none;width:100%;height:46px;border-radius:12px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:space-between;padding:0 16px;font-size:13.5px;font-weight:700;margin-bottom:10px;}
+  @media(max-width:880px){
+    nav{width:100%;}
+    .nav-toggle{display:flex;}
+    #navList{display:none;background:#fff;border:1px solid var(--n300);border-radius:12px;padding:8px;}
+    #navList.open{display:flex;flex-direction:column;}
   }
+  nav button.navlink{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--n800);}
+  nav button.navlink.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.06);}
+  nav button.navlink .ic{width:26px;height:26px;border-radius:8px;background:var(--n200);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none;}
+  nav .navgroup{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);margin:14px 0 4px 12px;}
+  nav .navgroup:first-child{margin-top:0;}
 
-  .hero{margin:22px 0 0;border-radius:18px;background:var(--accent);color:#fff;box-shadow:var(--shadow-sm);overflow:hidden;position:relative;}
-  .hero-track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1);}
-  .hero-slide{flex:0 0 100%;min-width:100%;position:relative;min-height:clamp(340px,42vw,420px);display:flex;align-items:flex-end;box-sizing:border-box;background-size:cover;background-position:center;}
-  .hero-scrim{position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,rgba(24,22,21,.94) 0%,rgba(24,22,21,.86) 46%,rgba(24,22,21,.44) 74%,rgba(24,22,21,.18) 100%);}
-  .hero-content{position:relative;padding:32px 28px 50px;max-width:640px;}
-  .hero-kicker{margin:0 0 12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
-  .hero-title{font-weight:800;font-size:clamp(26px,3.8vw,40px);line-height:1.06;letter-spacing:-.02em;max-width:22ch;}
-  .hero-excerpt{margin:14px 0 0;font-size:15px;line-height:1.55;font-weight:500;max-width:48ch;}
-  .hero-readtime{margin:12px 0 20px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
-  .hero-cta{display:inline-flex;align-items:center;gap:9px;height:50px;padding:0 22px;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;}
-  .hero-cta:hover{background:var(--accent-600);color:#fff;}
-  .hero-dots{position:absolute;left:28px;bottom:18px;z-index:2;display:flex;gap:7px;}
-  .hero-dots button{border:0;padding:0;height:8px;border-radius:999px;cursor:pointer;transition:.25s;}
-  .hero-arrows{position:absolute;right:20px;bottom:14px;z-index:2;display:flex;gap:8px;}
-  .hero-arrow{width:36px;height:36px;border-radius:999px;border:1px solid rgba(255,255,255,.6);background:transparent;color:#fff;display:flex;align-items:center;justify-content:center;}
-  .hero-arrow:hover{background:rgba(255,255,255,.18);}
+  main{flex:1 1 520px;min-width:min(100%,320px);}
 
-  .controls-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:22px;}
-  .search-box{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0;border:1px solid var(--n300);border-radius:999px;padding:0 16px;height:46px;background:#fff;}
-  .search-box input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-family:inherit;font-size:15px;color:var(--text);height:42px;}
-  .seg{display:flex;gap:4px;padding:4px;border:1px solid var(--n300);border-radius:999px;background:#fff;}
-  .seg button{height:38px;padding:0 15px;border-radius:999px;border:0;background:transparent;font-size:13px;font-weight:600;color:var(--n800);}
-  .seg button.active{background:var(--accent);color:#fff;}
-  select.sort-select{height:46px;border:1px solid var(--n300);border-radius:999px;background:#fff;font-family:inherit;font-size:14px;font-weight:600;color:var(--n800);padding:0 14px;}
-  .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
-  .chip{height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
-  .chip.active{background:var(--n900);border-color:var(--n900);color:#fff;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;}
+  .kpi-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:8px;}
+  .kpi-label{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);}
+  .kpi-value{margin:0;font-weight:800;font-size:30px;letter-spacing:-.02em;}
 
-  .section-head{margin:26px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--n300);display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;}
-  .section-head h2{font-weight:800;font-size:clamp(21px,2.6vw,28px);line-height:1.15;letter-spacing:-.02em;}
-  .section-head p{margin:7px 0 0;font-size:13.5px;font-weight:500;color:var(--n700);max-width:60ch;}
-  .reset-link{border:0;background:transparent;padding:0;font-size:13px;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px;color:var(--accent-700);}
+  .panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px;}
+  .panel{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:20px;}
+  .panel h2{font-weight:700;font-size:16px;letter-spacing:-.01em;}
+  .bars{margin-top:18px;display:flex;align-items:flex-end;gap:6px;height:160px;}
+  .bar-col{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;height:100%;}
+  .bar-val{font-size:10.5px;font-weight:700;color:var(--n700);}
+  .bar-fill{width:100%;border-radius:6px 6px 0 0;background:var(--accent);min-height:2px;}
+  .bar-day{font-size:11px;font-weight:600;color:var(--n700);}
 
-  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(8px,1.2vw,16px);}
-  @media(max-width:880px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;} }
-  @media(max-width:420px){ .grid{grid-template-columns:minmax(0,1fr) !important;} }
+  .channel-row{display:flex;flex-direction:column;gap:8px;}
+  .channel-top{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between;}
+  .channel-name{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:700;}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none;}
+  .track{height:10px;border-radius:999px;background:var(--n200);overflow:hidden;}
+  .track-fill{height:100%;border-radius:999px;}
+  .channel-note{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--n200);font-size:13px;color:var(--n700);}
 
-  .card{background:#fff;border:1px solid var(--n200);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;transition:.2s;}
-  .card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
-  .card-media{position:relative;aspect-ratio:1/1;background:#fff;background-size:cover;background-position:center;}
-  .card-noimg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;color:var(--n700);font-size:12px;font-weight:600;background:var(--n100);}
-  .save-btn{position:absolute;top:10px;right:10px;width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid var(--n200);background:rgba(255,255,255,.92);color:var(--n800);}
-  .save-btn.saved{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .card-body{padding:14px 14px 0;display:flex;flex-direction:column;gap:8px;flex:1;}
-  .card-title{font-weight:700;font-size:14.5px;line-height:1.4;letter-spacing:-.005em;}
-  .card-price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px;}
-  .price-now{font-weight:800;font-size:18px;letter-spacing:-.02em;}
-  .price-old{font-size:12.5px;font-weight:500;color:var(--n700);text-decoration:line-through;}
-  .discount-pill{border-radius:999px;background:var(--accent-200);color:var(--accent-800);font-size:11px;font-weight:700;padding:3px 8px;}
-  .card-source{margin:0;display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:var(--n700);min-width:0;}
-  .src-dot{width:9px;height:9px;border-radius:50%;flex:none;}
-  .src-dot.shopee{background:var(--accent);}
-  .src-dot.tiktok{background:var(--n900);}
-  .src-domain{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;}
-  .src-sold{flex:none;white-space:nowrap;}
-  .action-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding:12px 14px 14px;}
-  .share-pill{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);color:var(--n800);font-size:13.5px;font-weight:600;}
-  .share-pill:hover{background:var(--n100);color:var(--text);}
-  .shop-btn{flex:1 0 auto;min-width:82px;display:flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 12px;border-radius:999px;color:#fff;font-size:13.5px;font-weight:700;}
-  .shop-btn.shopee{background:var(--accent);}
-  .shop-btn.tiktok{background:var(--n900);}
-  .shop-btn:hover{opacity:.88;color:#fff;}
+  .table-panel{margin-top:16px;background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;}
+  .table-head{padding:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--n200);}
+  .table-head p{margin:6px 0 0;font-size:13px;color:var(--n700);}
+  table{border-collapse:collapse;width:100%;min-width:560px;font-size:13.5px;}
+  th{background:var(--n100);font-size:11.5px;font-weight:700;text-transform:uppercase;text-align:left;padding:12px 20px;border-bottom:1px solid var(--n300);}
+  td{padding:14px 20px;border-bottom:1px solid var(--n200);}
+  .kind-pill{border-radius:999px;font-size:11px;font-weight:700;padding:4px 10px;color:#fff;}
 
-  .page-row{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;}
-  .page-info{margin:0;font-size:13px;font-weight:600;color:var(--n700);}
-  .page-nav{display:flex;flex-wrap:wrap;gap:7px;align-items:center;}
-  .page-arrow{width:42px;height:42px;border-radius:999px;border:1px solid var(--n300);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--n800);}
-  .page-arrow:disabled{color:var(--n400);cursor:default;}
-  .page-arrow:not(:disabled):hover{background:var(--n100);border-color:var(--n400);}
-  .page-pill{width:42px;height:42px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13.5px;font-weight:700;color:var(--n800);}
-  .page-pill.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .help-panel{margin-top:16px;background:var(--n100);border:1px solid var(--n300);border-radius:16px;padding:20px;}
+  .help-panel p{margin:8px 0 0;font-size:13px;line-height:1.6;color:var(--n800);max-width:76ch;}
 
-  .empty-card, .more-wrap{margin-top:20px;}
-  .empty-card{border:1px solid var(--n300);border-radius:16px;background:#fff;padding:44px 28px;}
-  .empty-card h2{font-weight:700;font-size:22px;margin-bottom:10px;}
-  .empty-card p{margin:0 0 20px;font-size:15px;color:var(--n700);max-width:46ch;}
-  .btn-primary{height:44px;padding:0 18px;border-radius:999px;background:var(--accent);color:#fff;border:0;font-size:13.5px;font-weight:700;}
-  .btn-primary:hover{background:var(--accent-600);}
-  .more-wrap{display:flex;justify-content:center;}
-  .btn-outline{height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:14px;font-weight:600;color:var(--n800);}
-  .btn-outline:hover{background:var(--n100);border-color:var(--n400);color:var(--text);}
+  .form-card{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:24px;}
+  .form-card h2{font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;}
+  .form-card > p.note{margin:8px 0 0;font-size:13.5px;color:var(--n700);max-width:70ch;}
+  .field-grid{margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.wide{grid-column:1/-1;}
+  .field label{font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);}
+  .field input[type=text], .field input[type=url], .field input[type=number]{height:46px;border:1px solid var(--n300);border-radius:12px;padding:0 14px;font-size:14.5px;background:var(--bg);outline:none;}
+  .field textarea{border:1px solid var(--n300);border-radius:12px;padding:12px 14px;font-size:14.5px;line-height:1.55;background:var(--bg);outline:none;resize:vertical;}
+  .field select{height:46px;border:1px solid var(--n300);border-radius:12px;padding:0 12px;font-size:14.5px;font-weight:600;background:var(--bg);}
+  .toggle-btn{height:46px;border-radius:999px;border:1px solid var(--n300);background:#fff;display:flex;align-items:center;gap:10px;padding:0 14px;cursor:pointer;width:fit-content;}
+  .toggle-track{width:34px;height:20px;border-radius:999px;background:var(--n300);position:relative;transition:.16s;flex:none;}
+  .toggle-track .knob{width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:3px;left:3px;transition:.16s;}
+  .toggle-btn.on{border-color:var(--accent);background:var(--accent-100);}
+  .toggle-btn.on .toggle-track{background:var(--accent);}
+  .toggle-btn.on .toggle-track .knob{left:17px;}
+  .slug-row{display:flex;align-items:center;border:1px solid var(--n300);border-radius:12px;background:var(--bg);overflow:hidden;height:46px;}
+  .slug-prefix{padding:0 10px;font-size:12.5px;color:var(--n700);white-space:nowrap;}
+  .slug-row input{border:0;background:transparent;flex:1;min-width:0;padding:0 10px 0 0;font-size:14px;outline:none;}
+  .img-row{display:flex;align-items:center;gap:10px;}
+  .img-thumb{width:88px;height:56px;border-radius:8px;background:var(--n200);flex:none;background-size:cover;background-position:center;}
+  .upload-pill{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
 
-  section.block{margin-top:44px;padding-top:24px;border-top:1px solid var(--n300);}
+  .form-footer{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .btn-save{height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;}
+  .btn-save:hover{background:var(--accent-600);}
+  .btn-clear{height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:14px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .form-status{font-size:13px;font-weight:600;color:var(--accent-700);}
 
-  .game-score{border-radius:999px;background:var(--n200);color:var(--n800);font-size:12.5px;font-weight:700;padding:7px 14px;flex:none;}
-  .game-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
-  .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);min-height:280px;background:var(--n200);background-size:cover;background-position:center;}
-  .game-body{flex:1 1 320px;min-width:min(100%,300px);padding:24px;display:flex;flex-direction:column;gap:13px;justify-content:center;}
-  .game-round{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);}
-  .game-title{font-weight:700;font-size:clamp(18px,2.2vw,23px);line-height:1.3;letter-spacing:-.01em;}
-  .game-ask{margin:0;font-size:14.5px;font-weight:600;color:var(--n800);}
-  .game-opts{display:flex;flex-wrap:wrap;gap:9px;}
-  .game-opt{flex:1 1 100px;min-width:0;height:52px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;color:var(--text);font-weight:800;font-size:16px;letter-spacing:-.01em;}
-  .game-opt.correct{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .game-opt.wrong-pick{background:var(--n200);border-color:var(--n400);color:var(--n700);}
-  .game-reveal{margin-top:4px;padding-top:15px;border-top:1px solid var(--n200);display:flex;flex-direction:column;gap:10px;}
-  .game-verdict{margin:0;font-weight:800;font-size:19px;letter-spacing:-.01em;}
-  .game-why{margin:0;font-size:13.5px;line-height:1.55;color:var(--n700);max-width:48ch;}
-  .game-final{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;}
-  .game-final-score{margin:0;font-weight:800;font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;}
-
-  .langgan-card{border:1px solid var(--n300);border-radius:18px;background:#fff;padding:28px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;}
-  .langgan-face{position:relative;width:112px;height:112px;flex:none;border-radius:999px;overflow:hidden;background:var(--n200);background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:34px;color:var(--n600);}
-  .langgan-form{flex:1 1 320px;min-width:min(100%,280px);display:flex;flex-direction:column;gap:10px;}
-  .langgan-form label{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--n700);}
-  .langgan-form input{height:48px;border:1px solid var(--n300);border-radius:999px;padding:0 16px;font-family:inherit;font-size:15px;font-weight:500;color:var(--text);background:var(--bg);outline:none;text-transform:none;letter-spacing:normal;}
-  .langgan-submit{margin-top:4px;display:flex;align-items:center;justify-content:center;gap:9px;height:52px;padding:0 20px;border:0;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;}
-  .langgan-submit:hover{background:var(--accent-600);}
-  .langgan-msg{margin:2px 0 0;font-size:13px;font-weight:600;line-height:1.5;}
-
-  .digital-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
-  .digital-media{position:relative;flex:1 1 300px;min-width:min(100%,300px);min-height:280px;background:var(--n200);background-size:cover;background-position:center;}
-  .digital-kicker{position:absolute;top:14px;left:14px;border-radius:999px;background:var(--accent);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:5px 11px;}
-  .digital-body{flex:1 1 320px;min-width:min(100%,300px);padding:24px;display:flex;flex-direction:column;gap:12px;justify-content:center;}
-  .digital-brand{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);}
-  .digital-title{font-weight:700;font-size:clamp(19px,2.4vw,25px);line-height:1.25;letter-spacing:-.01em;}
-  .digital-desc{margin:0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:50ch;}
-  .digital-points{margin:2px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;}
-  .digital-points li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;line-height:1.5;color:var(--n800);}
-  .digital-price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:9px;margin-top:4px;}
-  .digital-price{font-weight:800;font-size:24px;letter-spacing:-.02em;}
-  .digital-old{font-size:14px;font-weight:500;color:var(--n600);text-decoration:line-through;}
-  .digital-cta{margin-top:6px;align-self:flex-start;display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 20px;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;}
-  .digital-cta:hover{background:var(--accent-600);color:#fff;}
-  .digital-dots{display:flex;gap:7px;margin-top:16px;justify-content:center;}
-  .digital-dots button{border:0;padding:0;width:8px;height:8px;border-radius:999px;background:var(--n300);}
-  .digital-dots button.active{background:var(--accent);}
-
-  footer{margin-top:44px;padding:24px 0 56px;border-top:1px solid var(--n300);}
-  .footer-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;justify-content:space-between;}
-  .footer-meta{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;font-size:12.5px;color:var(--n700);}
-  .footer-links{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;font-weight:600;}
-  .footer-links a{color:var(--n800);}
+  .entries-list{margin-top:16px;background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;}
+  .entry-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 20px;border-bottom:1px solid var(--n200);}
+  .entry-row:last-child{border-bottom:0;}
+  .entry-title{font-weight:700;font-size:14px;}
+  .entry-meta{font-size:12.5px;color:var(--n700);margin-top:3px;}
+  .btn-delete{height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;color:var(--n800);cursor:pointer;flex:none;}
+  .btn-delete:hover{background:var(--accent-100);border-color:var(--accent);color:var(--accent-700);}
+  .entries-empty{padding:32px;text-align:center;font-size:13.5px;color:var(--n700);}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <h1 style="margin:0;min-width:0;font-size:inherit;font-weight:400;">
-      <a href="#produk" class="brand">
-        <img src="favicon.svg" alt="Logo Ahmad Albab" width="40" height="40" style="display:block;width:40px;height:40px;flex:none;border-radius:11px;">
-        <span style="display:flex;flex-direction:column;gap:3px;min-width:0;">
-          <span class="wordmark" id="storeName">ahmadalbab<span style="color:var(--accent);">.</span></span>
-          <span class="brand-tag">Review Produk Shopee &amp; Tiktok Untuk Anda!</span>
-        </span>
-      </a>
-    </h1>
-    <button type="button" class="hamburger-btn" id="menuToggle" aria-label="Buka menu">
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-    </button>
-    <div class="header-actions" id="headerActions">
-      <button type="button" class="pill-outline" id="savedBtn">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-        <span id="savedLabel">Bookmark</span>
-      </button>
-      <a href="artikel/" class="pill-outline">Artikel</a>
-      <a href="#langgan" class="pill-solid">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg>
-        <span>Dapatkan Review Terkini</span>
-      </a>
-    </div>
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>Panel Admin</h1>
+    <p>Ahmad Albab · masukkan password untuk urus kandungan store.</p>
+    <input type="password" id="loginPassword" placeholder="Password admin">
+    <button type="button" id="loginBtn">Log masuk</button>
+    <p class="login-msg" id="loginMsg"></p>
   </div>
-</header>
+</div>
 
-<div class="wrap" style="padding-bottom:56px;">
-
-  <section class="hero" id="hero" onmouseenter="pauseHero()" onmouseleave="resumeHero()">
-    <div class="hero-track" id="heroTrack"></div>
-    <div class="hero-dots" id="heroDots"></div>
-    <div class="hero-arrows">
-      <button class="hero-arrow" onclick="shiftHero(-1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
-      <button class="hero-arrow" onclick="shiftHero(1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
-    </div>
-  </section>
-
-  <div class="controls-row">
-    <div class="search-box">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" style="color:var(--n600);flex:none;"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
-      <input type="text" id="searchInput" placeholder="Cari produk… cth: serunding, jubah">
-    </div>
-    <div class="seg" id="platformSeg"></div>
-    <select class="sort-select" id="sortSelect">
-      <option value="popular">Paling laris</option>
-      <option value="new">Terbaru dahulu</option>
-      <option value="low">Harga rendah → tinggi</option>
-      <option value="high">Harga tinggi → rendah</option>
-    </select>
-  </div>
-  <div class="chip-row" id="categoryRow"></div>
-
-  <div id="produk" class="section-head">
-    <div>
-      <h2>Pilihan Kami</h2>
-      <p>Kami semak rating, jualan dan ulasan pembeli sebenar sebelum masukkan produk ini. <span id="resultLabel"></span></p>
-    </div>
-    <button class="reset-link" id="resetBtn">Reset filter</button>
-  </div>
-
-  <div class="grid" id="productGrid"></div>
-  <div id="emptyState" class="empty-card" style="display:none;">
-    <h2>Tiada padanan</h2>
-    <p id="emptyMsg">Cuba tukar kategori, platform, atau padam perkataan carian. Produk baru masuk setiap minggu.</p>
-    <button class="btn-primary" onclick="resetFilters()">Tunjuk semua produk</button>
-  </div>
-  <div class="page-row" id="pageRow" style="display:none;">
-    <p class="page-info" id="pageInfo"></p>
-    <div class="page-nav" id="pageNav"></div>
-  </div>
-
-  <section class="block" id="teka">
-    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
-      <div>
-        <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;" id="gameHeading">Teka Harga</h2>
-        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:58ch;" id="gameSubline">Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.</p>
-      </div>
-      <span class="game-score" id="gameScore">0 betul</span>
-    </div>
-    <div id="gameArea"></div>
-  </section>
-
-  <section class="block" id="langgan">
-    <div class="langgan-card">
-      <div style="flex:1 1 300px;min-width:min(100%,280px);">
-        <p style="margin:0 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-700);">Dapat review baru ke email</p>
-        <h2 style="font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:-.02em;">Review produk terkini, terus ke inbox anda</h2>
-        <p style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:var(--n700);max-width:48ch;">Kami hantar review produk dan harga promo terkini terus ke inbox anda — sebelum anda terlepas. Tiada spam, boleh berhenti bila-bila masa.</p>
-        <div style="margin-top:18px;padding-top:16px;border-top:1px solid var(--n200);display:flex;align-items:center;gap:13px;">
-          <div class="langgan-face" id="langganFace">A</div>
-          <div>
-            <p style="margin:0;font-size:13.5px;font-weight:700;">Ditapis sendiri oleh <span id="storeName2">Ahmad Albab</span></p>
-            <p style="margin:3px 0 0;font-size:13px;color:var(--n700);">Kami review untuk anda buat keputusan terbaik!</p>
-          </div>
+<div id="adminApp" style="display:none;">
+  <header>
+    <div class="header-inner">
+      <div class="brand">
+        <img src="../favicon.svg" alt="Logo Ahmad Albab" width="34" height="34" style="display:block;width:34px;height:34px;flex:none;border-radius:9px;">
+        <span style="font-weight:800;font-size:20px;line-height:1;letter-spacing:-.035em;text-transform:lowercase;white-space:nowrap;">ahmadalbab<span style="color:var(--accent);">.</span></span>
+        <span style="flex:none;width:1px;height:26px;background:var(--n300);"></span>
+        <div>
+          <div class="brand-name" style="font-size:15px;">Panel Admin</div>
+          <div class="brand-sub">Tracking klik affiliate</div>
         </div>
       </div>
-      <form class="langgan-form" id="subscribeForm">
-        <label><span>Nama</span><input type="text" id="subName" placeholder="Nama anda"></label>
-        <label><span>Email</span><input type="email" id="subEmail" placeholder="nama@email.com"></label>
-        <button type="submit" class="langgan-submit" id="subSubmitBtn">
-          <span>Ya, hantar review produk terus ke email saya</span>
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-        </button>
-        <p class="langgan-msg" id="subMsg" style="display:none;"></p>
-      </form>
-      <div id="subThanks" style="display:none;flex:1 1 320px;min-width:min(100%,280px);border:1px solid var(--accent-200);background:var(--accent-100);border-radius:14px;padding:24px;flex-direction:column;gap:11px;align-items:flex-start;">
-        <span style="width:44px;height:44px;border-radius:999px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex:none;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
-        </span>
-        <p style="margin:0;font-weight:800;font-size:20px;letter-spacing:-.01em;color:var(--accent-800);" id="thanksTitle">Terima kasih!</p>
-        <p style="margin:0;font-size:14.5px;line-height:1.6;color:var(--accent-800);max-width:42ch;" id="thanksBody">Mohon semak inbox atau folder SPAM untuk emel pengesahan.</p>
-        <a href="#digital" id="thanksCtaLink" style="margin-top:4px;display:inline-flex;align-items:center;gap:9px;height:48px;padding:0 20px;border-radius:999px;background:var(--accent);color:#fff;font-size:14.5px;font-weight:700;">
-          <span id="thanksCtaText">Lihat produk digital pilihan</span>
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-        </a>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;">
+        <div class="range-seg" id="rangeSeg"></div>
+        <a href="../index.html" class="view-store">Lihat store</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <section class="block" id="digital">
-    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
-      <div>
-        <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;">Produk Digital Terbaik 2026</h2>
-        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:62ch;">Kelas dan panduan digital yang kami syorkan untuk tambah income atau jaga kesihatan — akses terus selepas bayar.</p>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="hero-arrow" style="border-color:var(--n300);color:var(--n800);" onclick="shiftDigital(-1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg></button>
-        <button class="hero-arrow" style="border-color:var(--n300);color:var(--n800);" onclick="shiftDigital(1)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg></button>
-      </div>
-    </div>
-    <div style="overflow:hidden;" onmouseenter="pauseDigital()" onmouseleave="resumeDigital()">
-      <div class="hero-track" id="digitalTrack"></div>
-    </div>
-    <div class="digital-dots" id="digitalDots"></div>
-  </section>
-
-  <footer>
-    <div class="footer-row">
-      <div class="footer-meta" style="flex-direction:column;gap:8px;align-items:flex-start;">
-        <p style="margin:0;">© <span id="year"></span> <a href="https://ahmadalbab.store/" class="wordmark-footer" style="display:inline;">ahmadalbab</a>. Hak Cipta Terpelihara.</p>
-        <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
-      </div>
-      <div class="footer-links">
-        <a href="#produk">Produk terlaris</a>
-        <a href="#digital">Produk digital</a>
-        <a href="artikel/">Artikel</a>
-        <a href="#teka">Teka harga</a>
-        <a href="#langgan">Review terkini</a>
-      </div>
-    </div>
-  </footer>
+  <div class="layout">
+    <nav>
+      <button type="button" class="nav-toggle" id="navToggle">
+        <span id="navToggleLabel">Menu</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+      <div id="navList"></div>
+    </nav>
+    <main id="mainArea"></main>
+  </div>
 </div>
 
 <script>
 // ====== CONFIG ======
 const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
 
-// ====== DEMO DATA (fallback jika API kosong/tak set) ======
-const DEMO = [
-  { id:"d2", title:"Sambal Ikan Bilis Pedas Gila", price:15.9, old:19.9, platform:"tiktok", category:"makanan", sold:3100, hot:true, why:"Kering, tak berair — tahan sebulan dalam peti." },
-  { id:"d5", title:"Kopi Tongkat Ali Pracampuran", price:22.5, platform:"tiktok", category:"makanan", sold:2200, hot:true, why:"Sachet mudah bawa, rasa tak pahit macam jenama lain." },
-  { id:"d10", title:"Khimar Instant Labuh Dua Lapis", price:29.9, platform:"tiktok", category:"muslimah", sold:2000, hot:true, why:"Fabrik sejuk, tak jarang walaupun labuh." },
-  { id:"d1", title:"Serunding Daging Kampung 200g", price:24.9, old:32, platform:"shopee", category:"makanan", sold:1800, hot:true, why:"Rangup, bukan serbuk — guna daging kampung sebenar." },
-  { id:"d6", title:"Jubah Nida Ironless Lengan Puff", price:89, old:129, platform:"shopee", category:"muslimah", sold:1500, hot:true, why:"Tak payah seterika, senang basuh dan cepat kering." },
-  { id:"d9", title:"Telekung Travel Lipat Ringkas", price:45, old:59, platform:"shopee", category:"muslimah", sold:1100, why:"Muat dalam beg tangan, ringan untuk dibawa travel." },
-  { id:"d4", title:"Biskut Tart Nenas Rangup 500g", price:28, old:35, platform:"tiktok", category:"makanan", sold:940, why:"Kulit rangup, isi tak terlalu manis." },
-  { id:"d7", title:"Tudung Bawal Cotton Voile Bidang 45", price:19.9, platform:"tiktok", category:"muslimah", sold:870, why:"Cotton voile sejuk dipakai, tak telus." },
-  { id:"d12", title:"Sejadah Travel Tebal Lipat Poket", price:32, old:42, platform:"tiktok", category:"rumah", sold:780, why:"Padding tebal tapi muat dalam poket beg." },
-  { id:"d3", title:"Kurma Ajwa Premium 500g", price:39, platform:"shopee", category:"makanan", sold:620, why:"Biji kecil, daging tebal, tak terlalu manis." },
-  { id:"d11", title:"Bekas Simpan Beras 10kg Bertutup", price:35, platform:"shopee", category:"rumah", sold:560, why:"Penutup ketat — semut tak boleh masuk." },
-  { id:"d8", title:"Set Baju Kurung Moden Ibu & Anak", price:149, old:189, platform:"shopee", category:"muslimah", sold:430, why:"Fabrik sama untuk ibu & anak, jahitan kemas." }
-];
-const DEMO_CATS = [
-  { key:"makanan", name:"Makanan" },
-  { key:"muslimah", name:"Baju Muslimah" },
-  { key:"rumah", name:"Barang Rumah" }
-];
-let DIGITAL = [
-  { brand:"Bengkel eBay Online 2026", kicker:"Kelas Live Zoom", title:"Bina bisnes eBay untuk side income dalam USD",
-    desc:"2 malam intensif bersama Dr Zulariffin — pensyarah UTHM dan peniaga eBay aktif 10+ tahun. Setup akaun, listing dan shipping dari rumah.",
-    points:["Boleh mula dengan modal RM0 (teknik dropship)","Kelas dalam Bahasa Melayu, sesuai beginner","Jaminan pulangan wang 30 hari"],
-    price:"RM59", old:"RM99", badge:"Jimat 40%", cta:"Daftar bengkel eBay", link:"https://ebay.tunkhairi.com/index-pendek.html?ref=1022" },
-  { brand:"EVOFIT · Program 30 Hari", kicker:"Panduan Kesihatan", title:"Diet Reset Hormon dengan bantuan app CoachAI",
-    desc:"Turunkan berat tanpa diet ketat, tanpa supplement mahal. Termasuk pelan 21 hari, panduan makan luar dan akses CoachAI PRO 30 hari.",
-    points:["Dipercayai 2,400+ peserta Malaysia","Mesra makanan Malaysia — tak perlu masak khas","Jaminan 30 hari kalau berat tak turun"],
-    price:"RM99", old:"RM199", badge:"Jimat 50%", cta:"Dapatkan panduan EVOFIT", link:"https://evofit.tunkhairi.com/?ref=1022" },
-  { brand:"K-Method · Khairi Ariff", kicker:"Produk Digital", title:"Buat duit dengan produk digital tanpa produk sendiri",
-    desc:"Case study penuh bagaimana dia bina jualan produk digital dari RM0 ke RM2,200 sehari dalam 9 hari — research, buat, jual, automate.",
-    points:["Pakej affiliate: promote produk yang dah proven","7 bonus termasuk tutorial FB Ads & video iklan","Jaminan pulangan wang 365 hari (Pakej 2)"],
-    price:"RM100", old:"RM149", badge:"2 pakej", cta:"Lihat K-Method", link:"https://k-method.tunkhairi.com?ref=1022" }
-];
-let ARTICLES = [
-  { kicker:"Ulasan & panduan · Panduan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", readTime:"5 min bacaan", cta:"Baca sebelum beli", href:"artikel/jubah-ironless-tahan-lama/" },
-  { kicker:"Ulasan & panduan · Ulasan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", readTime:"3 min bacaan", cta:"Baca sebelum beli", href:"artikel/serunding-paling-berbaloi/" },
-  { kicker:"Ulasan & panduan · Tips jimat", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", readTime:"4 min bacaan", cta:"Baca sebelum beli", href:"artikel/waktu-checkout-voucher-besar/" }
-];
+let TOKEN = sessionStorage.getItem("aab_admin_token") || "";
+let currentView = "dashboard";
+let rangeDays = 7;
+let contentCache = {}; // type -> items[]
+let settingsCache = { game:{}, site:{}, connect:{} };
+let editingType = null;
+let editingId = null;
 
-// ====== STATE ======
-let state = {
-  products: DEMO.slice(),
-  cats: DEMO_CATS.slice(),
-  cat: "all", platform: "all", sort: "popular", query: "",
-  saved: JSON.parse(localStorage.getItem("aab_wishlist_v1") || "[]"),
-  savedOnly: false, page: 1, perPage: 12,
-  thanks: { title:"Terima kasih!", body:"Mohon semak inbox atau folder SPAM untuk emel pengesahan.", cta:"Lihat produk digital pilihan", href:"#digital" },
-  subscribeUrl: "",
-  slide: 0, heroPaused: false,
-  art: 0, artPaused: false,
-  gRound: 0, gPick: null, gScore: 0, gStreak: 0,
-  gameCfg: { enabled:true, heading:"Teka Harga", rounds:5, choices:3, pool:"Semua produk", showBuy:true, endNote:"" },
-  faceImage: ""
+const SEED = {
+  product: [
+    { title:"Sambal Ikan Bilis Pedas Gila", platform:"TikTok", category:"Makanan", price:"15.90", old:"19.90", why:"Kering, tak berair — tahan sebulan dalam peti.", sold:"3100", link:"", image:"", hot:true },
+    { title:"Kopi Tongkat Ali Pracampuran", platform:"TikTok", category:"Makanan", price:"22.50", old:"", why:"Sachet mudah bawa, rasa tak pahit macam jenama lain.", sold:"2200", link:"", image:"", hot:true },
+    { title:"Khimar Instant Labuh Dua Lapis", platform:"TikTok", category:"Baju Muslimah", price:"29.90", old:"", why:"Fabrik sejuk, tak jarang walaupun labuh.", sold:"2000", link:"", image:"", hot:true },
+    { title:"Serunding Daging Kampung 200g", platform:"Shopee", category:"Makanan", price:"24.90", old:"32.00", why:"Rangup, bukan serbuk — guna daging kampung sebenar.", sold:"1800", link:"", image:"", hot:true },
+    { title:"Jubah Nida Ironless Lengan Puff", platform:"Shopee", category:"Baju Muslimah", price:"89.00", old:"129.00", why:"Tak payah seterika, senang basuh dan cepat kering.", sold:"1500", link:"", image:"", hot:true },
+    { title:"Telekung Travel Lipat Ringkas", platform:"Shopee", category:"Baju Muslimah", price:"45.00", old:"59.00", why:"Muat dalam beg tangan, ringan untuk dibawa travel.", sold:"1100", link:"", image:"", hot:false },
+    { title:"Biskut Tart Nenas Rangup 500g", platform:"TikTok", category:"Makanan", price:"28.00", old:"35.00", why:"Kulit rangup, isi tak terlalu manis.", sold:"940", link:"", image:"", hot:false },
+    { title:"Tudung Bawal Cotton Voile Bidang 45", platform:"TikTok", category:"Baju Muslimah", price:"19.90", old:"", why:"Cotton voile sejuk dipakai, tak telus.", sold:"870", link:"", image:"", hot:false },
+    { title:"Sejadah Travel Tebal Lipat Poket", platform:"TikTok", category:"Barang Rumah", price:"32.00", old:"42.00", why:"Padding tebal tapi muat dalam poket beg.", sold:"780", link:"", image:"", hot:false },
+    { title:"Kurma Ajwa Premium 500g", platform:"Shopee", category:"Makanan", price:"39.00", old:"", why:"Biji kecil, daging tebal, tak terlalu manis.", sold:"620", link:"", image:"", hot:false },
+    { title:"Bekas Simpan Beras 10kg Bertutup", platform:"Shopee", category:"Barang Rumah", price:"35.00", old:"", why:"Penutup ketat — semut tak boleh masuk.", sold:"560", link:"", image:"", hot:false },
+    { title:"Set Baju Kurung Moden Ibu & Anak", platform:"Shopee", category:"Baju Muslimah", price:"149.00", old:"189.00", why:"Fabrik sama untuk ibu & anak, jahitan kemas.", sold:"430", link:"", image:"", hot:false }
+  ],
+  category: [ { title:"Makanan" }, { title:"Baju Muslimah" }, { title:"Barang Rumah" } ],
+  hero: [
+    { kicker:"Ulasan & panduan · Panduan", readTime:"5 min bacaan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", cta:"Baca sebelum beli", href:"#produk", image:"" },
+    { kicker:"Ulasan & panduan · Ulasan", readTime:"3 min bacaan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", cta:"Baca sebelum beli", href:"#produk", image:"" },
+    { kicker:"Ulasan & panduan · Tips jimat", readTime:"4 min bacaan", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", cta:"Baca sebelum beli", href:"#produk", image:"" }
+  ],
+  review: [
+    { title:"Cara pilih jubah ironless yang tahan lama", tag:"Panduan", readTime:"5 min bacaan", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", slug:"jubah-ironless-tahan-lama" },
+    { title:"Serunding mana paling berbaloi? Kami rasa lima jenama", tag:"Ulasan", readTime:"3 min bacaan", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", slug:"serunding-paling-berbaloi" },
+    { title:"Waktu terbaik checkout untuk dapat voucher paling besar", tag:"Tips jimat", readTime:"4 min bacaan", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", slug:"waktu-checkout-voucher-besar" }
+  ],
+  digital: [
+    { brand:"Bengkel eBay Online 2026", kicker:"Kelas Live Zoom", title:"Bina bisnes eBay untuk side income dalam USD", desc:"2 malam intensif bersama Dr Zulariffin — pensyarah UTHM dan peniaga eBay aktif 10+ tahun. Setup akaun, listing dan shipping dari rumah.", price:"RM59", old:"RM99", badge:"Jimat 40%", cta:"Daftar bengkel eBay", points:"Boleh mula dengan modal RM0 (teknik dropship)\nKelas dalam Bahasa Melayu, sesuai beginner\nJaminan pulangan wang 30 hari", link:"https://ebay.tunkhairi.com/index-pendek.html?ref=1022", image:"" },
+    { brand:"EVOFIT · Program 30 Hari", kicker:"Panduan Kesihatan", title:"Diet Reset Hormon dengan bantuan app CoachAI", desc:"Turunkan berat tanpa diet ketat, tanpa supplement mahal. Termasuk pelan 21 hari, panduan makan luar dan akses CoachAI PRO 30 hari.", price:"RM99", old:"RM199", badge:"Jimat 50%", cta:"Dapatkan panduan EVOFIT", points:"Dipercayai 2,400+ peserta Malaysia\nMesra makanan Malaysia — tak perlu masak khas\nJaminan 30 hari kalau berat tak turun", link:"https://evofit.tunkhairi.com/?ref=1022", image:"" },
+    { brand:"K-Method · Khairi Ariff", kicker:"Produk Digital", title:"Buat duit dengan produk digital tanpa produk sendiri", desc:"Case study penuh bagaimana dia bina jualan produk digital dari RM0 ke RM2,200 sehari dalam 9 hari — research, buat, jual, automate.", price:"RM100", old:"RM149", badge:"2 pakej", cta:"Lihat K-Method", points:"Pakej affiliate: promote produk yang dah proven\n7 bonus termasuk tutorial FB Ads & video iklan\nJaminan pulangan wang 365 hari (Pakej 2)", link:"https://k-method.tunkhairi.com?ref=1022", image:"" }
+  ]
 };
 
-function money(n){ return "RM" + Number(n).toFixed(2); }
-function catName(k){ return (state.cats.find(c=>c.key===k)||{}).name || "Produk"; }
+const NAV = [
+  { group: "Papan Pemuka", items: [{ key:"dashboard", label:"Dashboard", initial:"D", hint:"Klik & prestasi" }] },
+  { group: "Kandungan", items: [
+    { key:"review", label:"Post Review", initial:"R", hint:"Artikel & ulasan" },
+    { key:"hero", label:"1 · Hero Slider", initial:"1", hint:"Slaid muka depan" },
+    { key:"product", label:"2 · Add Product", initial:"2", hint:"Produk Shopee/TikTok" },
+    { key:"game", label:"3 · Teka Harga", initial:"3", hint:"Tetapan game" },
+    { key:"site", label:"4 · Langgan Review", initial:"4", hint:"Gambar muka" },
+    { key:"digital", label:"5 · Other Product", initial:"5", hint:"Produk digital" }
+  ]},
+  { group: "Tetapan", items: [
+    { key:"category", label:"Kategori Produk", initial:"K", hint:"Tambah / buang" },
+    { key:"connect", label:"Sambungan", initial:"S", hint:"Brevo, Telegram, data" }
+  ]}
+];
 
-// ====== HERO SLIDER ======
-function renderHero(){
-  const track = document.getElementById("heroTrack");
-  const dots = document.getElementById("heroDots");
-  const n = ARTICLES.length;
-  const idx = ((state.slide % n) + n) % n;
-  track.style.transform = "translateX(-" + (idx*100) + "%)";
-  if(!track.dataset.built){
-    track.innerHTML = ARTICLES.map(a => `
-      <div class="hero-slide" style="background-image:none;">
-        <div class="hero-scrim"></div>
-        <div class="hero-content">
-          <p class="hero-kicker">${a.kicker}</p>
-          <h2 class="hero-title">${a.title}</h2>
-          <p class="hero-excerpt">${a.excerpt}</p>
-          <p class="hero-readtime">${a.readTime}</p>
-          <a href="${a.href}" class="hero-cta"><span>${a.cta}</span>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-          </a>
-        </div>
-      </div>`).join("");
-    track.dataset.built = "1";
-  }
-  dots.innerHTML = ARTICLES.map((a,i)=>`<button style="width:${i===idx?'22px':'8px'};background:${i===idx?'#fff':'rgba(255,255,255,.45)'}" onclick="state.slide=${i};renderHero();"></button>`).join("");
+const FIELD_DEFS = {
+  review: [
+    { key:"title", label:"Tajuk review", type:"text", required:true },
+    { key:"tag", label:"Kategori", type:"select", options:["Panduan","Ulasan","Tips jimat"] },
+    { key:"readTime", label:"Masa bacaan", type:"text", placeholder:"5 min bacaan" },
+    { key:"excerpt", label:"Ringkasan (dipaparkan sebagai kad)", type:"area", wide:true },
+    { key:"body", label:"Kandungan penuh artikel", type:"area", wide:true },
+    { key:"image", label:"Gambar utama 1200×675 (16:9, di bawah 300KB)", type:"image", wide:true },
+    { key:"slug", label:"Slug", type:"slug" }
+  ],
+  hero: [
+    { key:"kicker", label:"Kicker", type:"text" },
+    { key:"readTime", label:"Label kecil", type:"text" },
+    { key:"title", label:"Tajuk slaid", type:"text", required:true },
+    { key:"excerpt", label:"Ringkasan", type:"area", wide:true },
+    { key:"cta", label:"Teks butang CTA", type:"text", placeholder:"Baca sebelum beli" },
+    { key:"href", label:"Link slaid", type:"text" },
+    { key:"image", label:"Gambar latar 1600×900 (16:9, di bawah 400KB)", type:"image", wide:true }
+  ],
+  product: [
+    { key:"title", label:"Nama produk", type:"text", required:true },
+    { key:"platform", label:"Platform", type:"select", options:["Shopee","TikTok"] },
+    { key:"category", label:"Kategori", type:"select", options:["Makanan","Baju Muslimah","Barang Rumah"], dynamic:"category" },
+    { key:"price", label:"Harga", type:"text", placeholder:"24.90" },
+    { key:"old", label:"Harga asal", type:"text", placeholder:"32.00" },
+    { key:"why", label:"Kenapa kami pilih", type:"area", wide:true },
+    { key:"sold", label:"Jumlah terjual", type:"text", placeholder:"1800" },
+    { key:"link", label:"Link affiliate", type:"text", wide:true },
+    { key:"image", label:"Gambar produk 800×800 (1:1, di bawah 200KB)", type:"image", wide:true },
+    { key:"hot", label:"Tanda terlaris", type:"toggle" }
+  ],
+  category: [
+    { key:"title", label:"Nama kategori", type:"text", required:true }
+  ],
+  digital: [
+    { key:"brand", label:"Nama brand", type:"text", required:true },
+    { key:"kicker", label:"Badge", type:"text" },
+    { key:"title", label:"Tajuk tawaran", type:"text" },
+    { key:"desc", label:"Penerangan", type:"area", wide:true },
+    { key:"price", label:"Harga", type:"text", placeholder:"RM59" },
+    { key:"old", label:"Harga asal", type:"text", placeholder:"RM99" },
+    { key:"badge", label:"Label jimat", type:"text", placeholder:"Jimat 40%" },
+    { key:"cta", label:"Teks butang", type:"text" },
+    { key:"points", label:"Poin jualan (satu setiap baris)", type:"area", wide:true },
+    { key:"link", label:"Link affiliate", type:"text", wide:true },
+    { key:"image", label:"Poster produk 1000×1250 (4:5, di bawah 300KB)", type:"image", wide:true }
+  ]
+};
+
+// ====== API HELPERS ======
+function apiGet(params){
+  return fetch(API_URL + "?" + new URLSearchParams(params).toString()).then(r=>r.json());
 }
-function shiftHero(d){ state.slide += d; renderHero(); }
-function pauseHero(){ state.heroPaused = true; }
-function resumeHero(){ state.heroPaused = false; }
-setInterval(()=>{ if(!state.heroPaused){ state.slide++; renderHero(); } }, 5000);
-
-// ====== DIGITAL SLIDER ======
-function renderDigital(){
-  const track = document.getElementById("digitalTrack");
-  const dots = document.getElementById("digitalDots");
-  const n = DIGITAL.length;
-  const idx = ((state.art % n) + n) % n;
-  track.style.transform = "translateX(-" + (idx*100) + "%)";
-  if(!track.dataset.built){
-    track.innerHTML = DIGITAL.map(d => `
-      <div class="hero-slide" style="flex:0 0 100%;min-width:100%;position:relative;">
-        <div class="digital-card" style="width:100%;border:1px solid var(--n300);">
-          <div class="digital-media"><span class="digital-kicker">${d.kicker}</span></div>
-          <div class="digital-body">
-            <p class="digital-brand">${d.brand}</p>
-            <h3 class="digital-title">${d.title}</h3>
-            <p class="digital-desc">${d.desc}</p>
-            <ul class="digital-points">${d.points.map(p=>`<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" style="flex:none;margin-top:3px;"><path d="M20 6 9 17l-5-5"></path></svg><span>${p}</span></li>`).join("")}</ul>
-            <div class="digital-price-row">
-              <span class="digital-price">${d.price}</span>
-              <span class="digital-old">${d.old}</span>
-              <span class="discount-pill">${d.badge}</span>
-            </div>
-            <a href="${d.link}" target="_blank" rel="noopener nofollow sponsored" class="digital-cta" onclick="track('digital-${d.brand}','digital','${d.brand}')">
-              <span>${d.cta}</span>
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
-            </a>
-          </div>
-        </div>
-      </div>`).join("");
-    track.dataset.built = "1";
-  }
-  dots.innerHTML = DIGITAL.map((d,i)=>`<button class="${i===idx?'active':''}" onclick="state.art=${i};renderDigital();"></button>`).join("");
-}
-function shiftDigital(d){ state.art += d; renderDigital(); }
-function pauseDigital(){ state.artPaused = true; }
-function resumeDigital(){ state.artPaused = false; }
-setInterval(()=>{ if(!state.artPaused){ state.art++; renderDigital(); } }, 6000);
-
-// ====== FILTERS + GRID ======
-function renderControls(){
-  document.getElementById("platformSeg").innerHTML = [["all","Semua platform"],["shopee","Shopee"],["tiktok","TikTok Shop"]]
-    .map(([k,l])=>`<button class="${state.platform===k?'active':''}" onclick="state.platform='${k}';state.page=1;renderAll();">${l}</button>`).join("");
-  const cats = [{key:"all",name:"Semua produk"}].concat(state.cats);
-  document.getElementById("categoryRow").innerHTML = cats
-    .map(c=>`<button class="chip ${state.cat===c.key?'active':''}" onclick="state.cat='${c.key}';state.page=1;renderAll();">${c.name}</button>`).join("");
-  document.getElementById("sortSelect").value = state.sort;
-  document.getElementById("savedLabel").textContent = "Simpanan" + (state.saved.length ? " (" + state.saved.length + ")" : "");
-  document.getElementById("savedBtn").classList.toggle("active", state.savedOnly);
-}
-
-function filteredProducts(){
-  let list = state.products.slice();
-  if(state.cat !== "all") list = list.filter(p=>p.category===state.cat);
-  if(state.platform !== "all") list = list.filter(p=>p.platform===state.platform);
-  if(state.savedOnly) list = list.filter(p=>state.saved.includes(p.id));
-  const q = state.query.trim().toLowerCase();
-  if(q) list = list.filter(p=>(p.title+" "+catName(p.category)).toLowerCase().includes(q));
-  if(state.sort==="low") list.sort((a,b)=>a.price-b.price);
-  else if(state.sort==="high") list.sort((a,b)=>b.price-a.price);
-  else if(state.sort==="new") list.sort((a,b)=>(b.savedAt||0)-(a.savedAt||0));
-  else list.sort((a,b)=>(b.sold||0)-(a.sold||0));
-  return list;
-}
-
-function domainFor(platform){ return platform==="tiktok" ? "tiktok.com" : "shopee.com.my"; }
-
-function renderGrid(){
-  const all = filteredProducts();
-  const total = all.length;
-  const perPage = state.perPage;
-  const pageCount = Math.max(1, Math.ceil(total/perPage));
-  if(state.page > pageCount) state.page = pageCount;
-  if(state.page < 1) state.page = 1;
-  const from = (state.page-1)*perPage;
-  const list = all.slice(from, from+perPage);
-  const grid = document.getElementById("productGrid");
-  const empty = document.getElementById("emptyState");
-  const pageRow = document.getElementById("pageRow");
-
-  let resultLabel;
-  if(state.savedOnly && !total) resultLabel = "Belum ada bookmark";
-  else if(total <= perPage) resultLabel = total + " produk";
-  else resultLabel = "Menunjukkan " + (from+1) + "–" + Math.min(from+perPage,total) + " daripada " + total + " produk";
-  document.getElementById("resultLabel").textContent = resultLabel;
-
-  const filtersOn = state.cat!=="all" || state.platform!=="all" || state.savedOnly || !!state.query.trim();
-  const resetBtn = document.getElementById("resetBtn");
-  resetBtn.style.color = filtersOn ? "var(--accent-700)" : "#999";
-
-  if(!list.length){
-    grid.style.display="none"; empty.style.display="block"; pageRow.style.display="none";
-    document.getElementById("emptyMsg").textContent = state.savedOnly
-      ? "Cuba klik icon love di listing produk. Ia akan muncul di sini."
-      : "Cuba tukar kategori, platform, atau padam perkataan carian. Produk baru masuk setiap minggu.";
-    return;
-  }
-  grid.style.display="grid"; empty.style.display="none";
-
-  grid.innerHTML = list.map(p=>{
-    const isTikTok = p.platform === "tiktok";
-    const hasDiscount = !!(p.old && p.old > p.price);
-    const link = p.link || (isTikTok ? "https://www.tiktok.com/shop" : "https://shopee.com.my/");
-    const isSaved = state.saved.includes(p.id);
-    const sold = p.sold ? ((p.sold>=1000)?(p.sold/1000).toFixed(1)+"k":p.sold) + " terjual" : "";
-    return `
-    <article class="card">
-      <div class="card-media" style="${p.imageUrl?`background-image:url('${p.imageUrl}')`:''}">
-        ${p.imageUrl ? `<img src="${p.imageUrl}" alt="${(p.title+' — '+(isTikTok?'TikTok Shop':'Shopee')+(p.price?', '+money(p.price):'')).replace(/"/g,'&quot;')}" loading="lazy" width="400" height="400" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">` : ""}
-        ${!p.imageUrl ? `<div class="card-noimg"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg><span>Tiada gambar</span></div>` : ""}
-        <button type="button" class="save-btn ${isSaved?'saved':''}" onclick="toggleSave('${p.id}')" title="Simpan produk">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="${isSaved?'currentColor':'none'}" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
-        </button>
-      </div>
-      <div class="card-body">
-        <h3 class="card-title">${p.title}</h3>
-        <div class="card-price-row">
-          <span class="price-now">${money(p.price)}</span>
-          ${hasDiscount ? `<span class="price-old">${money(p.old)}</span><span class="discount-pill">−${Math.round((1-p.price/p.old)*100)}%</span>` : ""}
-        </div>
-        <p class="card-source">
-          <span class="src-dot ${isTikTok?'tiktok':'shopee'}"></span>
-          <span class="src-domain">${domainFor(p.platform)}</span>
-          ${sold ? `<span class="src-sold">· ${sold}</span>` : ""}
-        </p>
-      </div>
-      <div class="action-row">
-        <a href="https://wa.me/?text=${encodeURIComponent(p.title+' — '+money(p.price)+'\\n'+link)}" target="_blank" rel="noopener" class="share-pill" aria-label="Kongsi produk" title="Kongsi produk">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M13 2.4 22.4 11.3c.4.4.4 1 0 1.4L13 21.6v-5.2c-4.3-.3-7.6 1.6-9.8 5.9-1.4-7.2.6-12.6 4.6-15 1.5-.9 3.2-1.3 5.2-1.2Z"></path></svg>
-          <span>Share</span>
-        </a>
-        <a href="${link}" target="_blank" rel="noopener nofollow sponsored" class="shop-btn ${isTikTok?'tiktok':'shopee'}" onclick="track('${p.id}','${p.platform}','${p.title.replace(/'/g,"")}')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>
-          <span>Shop · ${money(p.price)}</span>
-        </a>
-      </div>
-    </article>`;
-  }).join("");
-
-  if(pageCount > 1){
-    pageRow.style.display="flex";
-    document.getElementById("pageInfo").textContent = "Halaman " + state.page + " daripada " + pageCount;
-    let pills = "";
-    for(let i=1;i<=pageCount;i++){
-      pills += `<button class="page-pill ${i===state.page?'active':''}" onclick="state.page=${i};renderGrid();">${i}</button>`;
+function apiPost(body){
+  return fetch(API_URL, { method:"POST", body: JSON.stringify(body) }).then(r=>r.json()).then(d=>{
+    if(d && d.success===false && /sesi tamat/i.test(d.message||"")){
+      TOKEN = ""; sessionStorage.removeItem("aab_admin_token");
+      document.getElementById("adminApp").style.display = "none";
+      document.getElementById("loginScreen").style.display = "flex";
+      document.getElementById("loginMsg").textContent = "Sesi tamat, sila log masuk semula.";
     }
-    document.getElementById("pageNav").innerHTML = `
-      <button class="page-arrow" aria-label="Halaman sebelum" ${state.page<=1?'disabled':''} onclick="state.page--;renderGrid();">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg>
-      </button>
-      ${pills}
-      <button class="page-arrow" aria-label="Halaman seterusnya" ${state.page>=pageCount?'disabled':''} onclick="state.page++;renderGrid();">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
-      </button>`;
-  } else {
-    pageRow.style.display="none";
-  }
+    return d;
+  });
 }
 
-function toggleSave(id){
-  const i = state.saved.indexOf(id);
-  if(i>-1) state.saved.splice(i,1); else state.saved.push(id);
-  localStorage.setItem("aab_wishlist_v1", JSON.stringify(state.saved));
-  renderControls(); renderGrid();
-}
-function resetFilters(){
-  state.cat="all"; state.platform="all"; state.query=""; state.savedOnly=false; state.page=1;
-  document.getElementById("searchInput").value = "";
-  renderAll();
-}
-
-// ====== TEKA HARGA GAME ======
-function gameDeck(){
-  const cfg = state.gameCfg;
-  let pool = state.products.filter(p=>p.price>0);
-  if(cfg.pool==="Terlaris sahaja") pool = pool.filter(p=>p.hot);
-  else if(cfg.pool==="Ada diskaun sahaja") pool = pool.filter(p=>p.old && p.old>p.price);
-  if(!pool.length) pool = state.products.filter(p=>p.price>0);
-  const deck = [];
-  const n = Math.min(Number(cfg.rounds)||5, pool.length);
-  for(let i=0;i<n;i++){
-    const p = pool[(i*5+2) % pool.length];
-    const half = x => Math.round(x*2)/2;
-    const set = [p.price, half(p.price*(i%2?0.55:0.68)), half(p.price*(i%2?1.85:1.45))];
-    if((Number(cfg.choices)||3) > 3) set.push(half(p.price*(i%2?1.18:0.85)));
-    const uniq = [];
-    set.forEach(v=>{ if(v>0 && uniq.indexOf(v)===-1) uniq.push(v); });
-    const sorted = uniq.sort((a,b)=>a-b);
-    const shift = (String(p.id).length + i*2) % sorted.length;
-    deck.push({ p, opts: sorted.slice(shift).concat(sorted.slice(0,shift)) });
-  }
-  return deck;
-}
-
-function renderGame(){
-  const area = document.getElementById("gameArea");
-  document.getElementById("gameHeading").textContent = state.gameCfg.heading || "Teka Harga";
-  const deckPreview = gameDeck();
-  const choiceCount = deckPreview.length ? deckPreview[0].opts.length : Number(state.gameCfg.choices)||3;
-  document.getElementById("gameSubline").textContent = deckPreview.length + " produk, " + choiceCount + " pilihan harga. Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.";
-  document.getElementById("gameScore").textContent = state.gScore + " betul" + (state.gStreak>1 ? " · streak "+state.gStreak : "");
-  const deck = gameDeck();
-  if(!deck.length){ area.innerHTML=""; return; }
-
-  if(state.gRound >= deck.length){
-    area.innerHTML = `
-      <div class="game-final">
-        <p class="game-final-score">${state.gScore} / ${deck.length} betul</p>
-        <p style="margin:0;font-size:14.5px;color:var(--n700);max-width:46ch;">${state.gameCfg.endNote || (state.gScore===deck.length ? "Power! Awak memang tahu harga pasaran." : state.gScore >= Math.ceil(deck.length/2) ? "Tak kisah lah — separuh atas tu." : "Harga barang viral ni memang tricky. Cuba lagi!")}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:4px;">
-          <button class="btn-primary" style="height:46px;" onclick="state.gRound=0;state.gPick=null;state.gScore=0;state.gStreak=0;renderGame();">Main lagi</button>
-          <a href="#langgan" class="btn-outline" style="display:inline-flex;align-items:center;">Dapat review baru ke email</a>
-        </div>
-      </div>`;
-    return;
-  }
-
-  const cur = deck[state.gRound];
-  const isTikTok = cur.p.platform === "tiktok";
-  const picked = state.gPick !== null;
-  const correct = picked && state.gPick === cur.p.price;
-
-  area.innerHTML = `
-    <article class="game-card">
-      <div class="game-media" style="${cur.p.imageUrl?`background-image:url('${cur.p.imageUrl}')`:''}">
-        <span style="position:absolute;top:14px;left:14px;">
-          <span class="plat-badge ${isTikTok?'tiktok':'shopee'}" style="position:static;">${isTikTok?'TikTok Shop':'Shopee'}</span>
-        </span>
-      </div>
-      <div class="game-body">
-        <p class="game-round">Soalan ${Math.min(state.gRound+1, deck.length)} / ${deck.length}</p>
-        <h3 class="game-title">${cur.p.title}</h3>
-        <p class="game-ask">Berapa harga sebenar di ${isTikTok?'TikTok Shop':'Shopee'}?</p>
-        <div class="game-opts">
-          ${cur.opts.map(v=>{
-            const isRight = v===cur.p.price;
-            const chosen = state.gPick===v;
-            let cls = "";
-            if(picked && isRight) cls = "correct";
-            else if(picked && chosen) cls = "wrong-pick";
-            return `<button class="game-opt ${cls}" ${picked?'disabled':''} onclick="gamePick(${v})">${money(v)}</button>`;
-          }).join("")}
-        </div>
-        ${picked ? `
-        <div class="game-reveal">
-          <p class="game-verdict" style="color:${correct?'var(--accent-700)':'var(--text)'}">${correct ? "Tepat!" : "Sebenarnya "+money(cur.p.price)}</p>
-          <p class="game-why">${cur.p.why||""}</p>
-          <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:2px;">
-            ${state.gameCfg.showBuy ? `<a href="${cur.p.link || (isTikTok?'https://www.tiktok.com/shop':'https://shopee.com.my/')}" target="_blank" rel="noopener nofollow sponsored" class="hero-cta" onclick="track('${cur.p.id}','${cur.p.platform}','${cur.p.title.replace(/'/g,"")}')"><span>Beli di ${isTikTok?'TikTok':'Shopee'}</span></a>` : ""}
-            <button class="btn-outline" onclick="gameNext(${deck.length})">${state.gRound+1>=deck.length ? "Lihat keputusan" : "Soalan seterusnya"}</button>
-          </div>
-        </div>` : ""}
-      </div>
-    </article>`;
-}
-function gamePick(v){
-  if(state.gPick !== null) return;
-  const deck = gameDeck();
-  const cur = deck[state.gRound];
-  const right = v === cur.p.price;
-  state.gPick = v;
-  state.gScore += right ? 1 : 0;
-  state.gStreak = right ? state.gStreak+1 : 0;
-  renderGame();
-}
-function gameNext(){
-  state.gRound += 1; state.gPick = null; renderGame();
-}
-
-// ====== NEWSLETTER ======
-document.getElementById("subscribeForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  const name = document.getElementById("subName").value.trim();
-  const email = document.getElementById("subEmail").value.trim();
-  const msg = document.getElementById("subMsg");
-  const btn = document.getElementById("subSubmitBtn");
-  msg.style.display = "block";
-  if(!name){ msg.textContent = "Isi nama anda dulu ya."; msg.style.color="var(--n700)"; return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = "Email tu nampak tak lengkap — cuba semak semula."; msg.style.color="var(--n700)"; return; }
-
-  msg.textContent = "Sedang hantar…"; msg.style.color = "var(--n700)"; btn.disabled = true;
-  const target = state.subscribeUrl || API_URL;
-  if(!target){ msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami."; btn.disabled=false; return; }
-
-  fetch(target, { method:"POST", body: JSON.stringify({ action:"subscribe", name, email }) })
-    .then(r=>r.json())
-    .then(d=>{
-      btn.disabled = false;
-      if(d && d.success){
-        document.getElementById("subscribeForm").style.display = "none";
-        const thanks = document.getElementById("subThanks");
-        thanks.style.display = "flex";
-        document.getElementById("thanksTitle").textContent = state.thanks.title;
-        document.getElementById("thanksBody").textContent = state.thanks.body;
-        document.getElementById("thanksCtaText").textContent = state.thanks.cta;
-        document.getElementById("thanksCtaLink").setAttribute("href", state.thanks.href);
-      } else {
-        msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami.";
-      }
-    })
-    .catch(()=>{
-      btn.disabled = false;
-      msg.textContent = "Maaf, ada masalah teknikal. Cuba lagi sebentar atau WhatsApp kami.";
-    });
-});
-
-// ====== CLICK TRACKING ======
-function track(id, kind, label){
-  if(!API_URL) return;
-  try{
-    fetch(API_URL + "?action=trackClick&id=" + encodeURIComponent(id) + "&kind=" + encodeURIComponent(kind) + "&label=" + encodeURIComponent(label||""), { mode:"no-cors" });
-  }catch(e){}
-}
-
-// ====== EVENTS ======
-document.getElementById("searchInput").addEventListener("input", e=>{ state.query = e.target.value; state.page=1; renderGrid(); renderControls(); });
-document.getElementById("sortSelect").addEventListener("change", e=>{ state.sort = e.target.value; renderGrid(); });
-document.getElementById("savedBtn").addEventListener("click", ()=>{ state.savedOnly = !state.savedOnly; renderAll(); });
-document.getElementById("resetBtn").addEventListener("click", resetFilters);
-
-// ====== SECRET ADMIN ACCESS (3 taps on topbar/logo) ======
-let secretTaps = 0, secretTapTimer;
-document.querySelector("header").addEventListener("click", function(e){
-  if(e.target.closest("#savedBtn, #menuToggle, #headerActions")) return;
-  secretTaps++;
-  clearTimeout(secretTapTimer);
-  secretTapTimer = setTimeout(()=>{ secretTaps = 0; }, 1500);
-  if(secretTaps >= 3){
-    secretTaps = 0;
-    window.location.href = "admin/";
-  }
-});
-
-document.getElementById("menuToggle").addEventListener("click", ()=>{
-  document.getElementById("headerActions").classList.toggle("open");
-});
-document.getElementById("headerActions").addEventListener("click", e=>{
-  if(e.target.closest("a,button")) document.getElementById("headerActions").classList.remove("open");
-});
-
-function renderAll(){ renderControls(); renderGrid(); }
-
-// ====== LOAD FROM BACKEND ======
-function loadFromApi(){
-  if(!API_URL) return;
-  fetch(API_URL + "?action=getData").then(r=>r.json()).then(d=>{
-    if(d && d.success && (d.products||[]).length){
-      state.products = d.products.map(p=>({
-        id:p.id, title:p.title, price:parseFloat(p.price)||0, old:parseFloat(p.old)||0,
-        platform:p.platform, category:p.category, imageUrl:p.imageUrl, why:p.why, link:p.affiliateLink,
-        hot:p.hot, sold:p.sold
-      }));
-      if((d.categories||[]).length) state.cats = d.categories;
-      renderAll(); renderGame();
-    }
-  }).catch(()=>{});
-  fetch(API_URL + "?action=getSettings").then(r=>r.json()).then(d=>{
+// ====== LOGIN ======
+document.getElementById("loginBtn").addEventListener("click", doLogin);
+document.getElementById("loginPassword").addEventListener("keydown", e=>{ if(e.key==="Enter") doLogin(); });
+function doLogin(){
+  const pw = document.getElementById("loginPassword").value;
+  const msg = document.getElementById("loginMsg");
+  if(!API_URL){ msg.textContent = "API_URL belum diisi dalam admin.html."; return; }
+  msg.textContent = "Menyemak…";
+  apiPost({ action:"login", password: pw }).then(d=>{
     if(d && d.success){
-      if(d.game) state.gameCfg = Object.assign(state.gameCfg, d.game);
-      if(d.site && d.site.faceImage){
-        state.faceImage = d.site.faceImage;
-        document.getElementById("langganFace").style.backgroundImage = "url('" + d.site.faceImage + "')";
-        document.getElementById("langganFace").style.backgroundSize = "cover";
-        document.getElementById("langganFace").textContent = "";
-      }
-      if(d.site){
-        state.thanks = {
-          title: d.site.thanksTitle || state.thanks.title,
-          body: d.site.thanksBody || state.thanks.body,
-          cta: d.site.thanksCta || state.thanks.cta,
-          href: (d.site.thanksHref && d.site.thanksHref.match(/#\w+/)) ? d.site.thanksHref.match(/#\w+/)[0] : state.thanks.href
-        };
-      }
-      if(d.connect){
-        state.subscribeUrl = d.connect.brevoEndpoint || d.connect.apiUrl || "";
-      }
-      renderGame();
+      TOKEN = d.token;
+      sessionStorage.setItem("aab_admin_token", TOKEN);
+      showApp();
+    } else {
+      msg.textContent = (d && d.message) || "Log masuk gagal.";
     }
-  }).catch(()=>{});
+  }).catch(()=>{ msg.textContent = "Ralat sambungan ke server."; });
+}
 
-  fetch(API_URL + "?action=getContent&type=hero").then(r=>r.json()).then(d=>{
-    if(d && d.success && (d.items||[]).length){
-      ARTICLES = d.items.map(h=>({ kicker:h.kicker||"", title:h.title||"", excerpt:h.excerpt||"", readTime:h.readTime||"", cta:h.cta||"Baca sebelum beli", href:h.href||"#produk" }));
-      state.slide = 0;
-      const track = document.getElementById("heroTrack");
-      delete track.dataset.built;
-      renderHero();
-    }
-  }).catch(()=>{});
+function showApp(){
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminApp").style.display = "block";
+  document.getElementById("navToggleLabel").textContent = "Dashboard";
+  renderNav();
+  renderRangeSeg();
+  loadAllSettingsAndContent().then(()=>renderView());
+}
 
-  fetch(API_URL + "?action=getContent&type=digital").then(r=>r.json()).then(d=>{
-    if(d && d.success && (d.items||[]).length){
-      DIGITAL = d.items.map(g=>({ brand:g.brand||"", kicker:g.kicker||"", title:g.title||"", desc:g.desc||"", price:g.price||"", old:g.old||"", badge:g.badge||"", cta:g.cta||"Lihat tawaran", points:(g.points||"").split("\n").filter(Boolean), link:g.link||"#" }));
-      state.art = 0;
-      const track = document.getElementById("digitalTrack");
-      delete track.dataset.built;
-      renderDigital();
-    }
+if(TOKEN && API_URL){
+  apiPost({ action:"checkToken", token: TOKEN }).then(d=>{
+    if(d && d.success) showApp();
+    else { TOKEN=""; sessionStorage.removeItem("aab_admin_token"); }
+  }).catch(()=>{ TOKEN=""; sessionStorage.removeItem("aab_admin_token"); });
+}
+else if(!API_URL) document.getElementById("loginMsg").textContent = "Isi API_URL dalam fail admin.html dahulu.";
+
+// ====== NAV ======
+function renderNav(){
+  const nav = document.getElementById("navList");
+  let html = "";
+  NAV.forEach(group=>{
+    html += `<div class="navgroup">${group.group}</div>`;
+    group.items.forEach(it=>{
+      html += `<button class="navlink ${currentView===it.key?'active':''}" onclick="setView('${it.key}')">
+        <span class="ic">${it.initial}</span>
+        <span><span style="display:block;">${it.label}</span><span style="display:block;font-size:11px;font-weight:500;color:var(--n600);">${it.hint}</span></span>
+      </button>`;
+    });
+  });
+  nav.innerHTML = html;
+}
+function setView(key){
+  currentView = key; renderNav(); renderView();
+  document.getElementById("navList").classList.remove("open");
+  const active = NAV.flatMap(g=>g.items).find(i=>i.key===key);
+  if(active) document.getElementById("navToggleLabel").textContent = active.label;
+}
+document.getElementById("navToggle").addEventListener("click", ()=>{
+  document.getElementById("navList").classList.toggle("open");
+});
+
+function renderRangeSeg(){
+  document.getElementById("rangeSeg").innerHTML = [7,14,30].map(d=>
+    `<button class="${rangeDays===d?'active':''}" onclick="setRange(${d})">${d} hari</button>`).join("");
+}
+function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboard") loadDashboard(); }
+
+// ====== LOAD DATA ======
+function loadAllSettingsAndContent(){
+  const types = ["review","hero","product","digital","category"];
+  const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
+  const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; settingsCache.connect=d.connect||{}; } });
+  return Promise.all(contentCalls.concat([settingsCall])).then(seedIfEmpty).catch(()=>{});
+}
+
+function seedIfEmpty(){
+  const jobs = [];
+  Object.keys(SEED).forEach(type=>{
+    const existing = contentCache[type] || [];
+    const existingKeys = existing.map(x => (x.title || x.brand || "").trim().toLowerCase());
+    SEED[type].forEach(item=>{
+      const key = (item.title || item.brand || "").trim().toLowerCase();
+      if(existingKeys.includes(key)) return; // dah ada, jangan duplicate
+      jobs.push(apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
+        if(d && d.success){ contentCache[type] = contentCache[type] || []; contentCache[type].push(d.item); }
+      }));
+    });
+  });
+  return Promise.all(jobs).catch(()=>{});
+}
+
+// ====== VIEW ROUTER ======
+function renderView(){
+  const main = document.getElementById("mainArea");
+  if(currentView === "dashboard"){ main.innerHTML = dashboardSkeleton(); loadDashboard(); return; }
+  if(currentView === "game"){ renderSettingsForm(main, "game", [
+    { key:"enabled", label:"Tunjuk game", type:"toggle" },
+    { key:"heading", label:"Tajuk section", type:"text" },
+    { key:"rounds", label:"Bilangan soalan", type:"select", options:["3","5","8"] },
+    { key:"choices", label:"Pilihan harga per soalan", type:"select", options:["3","4"] },
+    { key:"pool", label:"Ambil produk dari", type:"select", options:["Semua produk","Terlaris sahaja","Ada diskaun sahaja"] },
+    { key:"showBuy", label:"Tunjuk butang beli", type:"toggle" },
+    { key:"endNote", label:"Ayat penutup", type:"area", wide:true }
+  ]); return; }
+  if(currentView === "site"){ renderSettingsForm(main, "site", [
+    { key:"faceImage", label:"Gambar muka 400×400 (1:1, dipaparkan bulat)", type:"image", wide:true },
+    { key:"thanksTitle", label:"Tajuk selepas subscribe", type:"text", placeholder:"Terima kasih!" },
+    { key:"thanksBody", label:"Ayat selepas subscribe", type:"area", wide:true },
+    { key:"thanksCta", label:"Teks butang CTA", type:"text", placeholder:"Lihat produk digital pilihan" },
+    { key:"thanksHref", label:"CTA pergi ke", type:"select", options:["Produk digital (#digital)","Produk terlaris (#produk)","Teka harga (#teka)"] }
+  ]); return; }
+  if(currentView === "connect"){ renderSettingsForm(main, "connect", [
+    { key:"apiUrl", label:"Endpoint data utama", type:"text", wide:true, placeholder:"URL Web App GAS" },
+    { key:"brevoEndpoint", label:"Endpoint langganan", type:"text", wide:true, placeholder:"Kosongkan untuk guna endpoint data utama" },
+    { key:"brevoList", label:"Brevo List ID", type:"text" },
+    { key:"tgChatId", label:"Telegram Chat ID", type:"text" },
+    { key:"tgReport", label:"Hantar laporan ke Telegram", type:"toggle" },
+    { key:"tgEvery", label:"Kekerapan laporan", type:"select", options:["Harian 9 pagi","Mingguan (Isnin)","Bulanan"] },
+    { key:"tgInclude", label:"Isi laporan", type:"select", options:["Subscriber + Top 10 klik","Subscriber sahaja","Top 10 klik sahaja"] }
+  ]); return; }
+  // list types: review, hero, product, digital, category
+  renderListForm(main, currentView);
+}
+
+// ====== DASHBOARD ======
+function dashboardSkeleton(){
+  return `
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="panel-grid">
+      <section class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;">
+          <h2>Klik ikut hari</h2><p style="margin:0;font-size:12.5px;color:var(--n700);">${rangeDays} hari lepas</p>
+        </div>
+        <div class="bars" id="barsArea"></div>
+      </section>
+      <section class="panel">
+        <h2>Pecahan platform</h2>
+        <div style="margin-top:18px;display:flex;flex-direction:column;gap:16px;" id="channelArea"></div>
+        <p class="channel-note" id="channelNote"></p>
+      </section>
+    </div>
+    <section class="table-panel">
+      <div class="table-head">
+        <div><h2 style="font-weight:700;font-size:16px;">Klik ikut produk</h2><p>Susun ikut jumlah klik tertinggi.</p></div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead><tr><th>Produk</th><th>Sumber</th><th style="text-align:right;">Klik</th><th style="text-align:right;">Bahagian</th></tr></thead>
+          <tbody id="clicksTbody"></tbody>
+        </table>
+      </div>
+      <div id="clicksEmpty" class="entries-empty" style="display:none;">Belum ada klik untuk kategori ini.</div>
+    </section>
+    <section class="help-panel">
+      <h2 style="font-weight:700;font-size:15px;">Angka ini sudah data sebenar</h2>
+      <p>Setiap klik butang "Shop" di store dihantar ke backend sebagai <strong>?action=trackClick</strong> dan disimpan dalam sheet <strong>Clicks</strong>. Dashboard ini baca terus daripada sheet tersebut ikut julat hari yang dipilih di atas — bukan gabungan dengan data contoh.</p>
+    </section>`;
+}
+function loadDashboard(){
+  apiGet({action:"getClicks", range:rangeDays}).then(d=>{
+    if(!d || !d.success) return;
+    const totalClicks = d.days.reduce((s,x)=>s+x.total,0);
+    const kpi = [
+      { label:"Jumlah klik", value: totalClicks },
+      { label:"Shopee", value: d.byKind.shopee||0 },
+      { label:"TikTok", value: d.byKind.tiktok||0 },
+      { label:"Produk digital", value: d.byKind.digital||0 }
+    ];
+    document.getElementById("kpiGrid").innerHTML = kpi.map(k=>`
+      <article class="kpi-card"><p class="kpi-label">${k.label}</p><p class="kpi-value">${k.value}</p></article>`).join("");
+
+    const maxDay = Math.max(1, ...d.days.map(x=>x.total));
+    document.getElementById("barsArea").innerHTML = d.days.map(x=>`
+      <div class="bar-col">
+        <span class="bar-val">${x.total}</span>
+        <div class="bar-fill" style="height:${Math.max(4,(x.total/maxDay)*100)}%;"></div>
+        <span class="bar-day">${x.date.slice(5)}</span>
+      </div>`).join("");
+
+    const kinds = [["shopee","Shopee","#ec3013"],["tiktok","TikTok","#1c1a19"],["digital","Digital","#b8250e"]];
+    const kindTotal = Math.max(1, (d.byKind.shopee||0)+(d.byKind.tiktok||0)+(d.byKind.digital||0));
+    document.getElementById("channelArea").innerHTML = kinds.map(([k,label,color])=>{
+      const v = d.byKind[k]||0;
+      const pct = Math.round((v/kindTotal)*100);
+      return `<div class="channel-row">
+        <div class="channel-top"><span class="channel-name"><span class="dot" style="background:${color};"></span>${label}</span><span style="font-size:13px;color:var(--n700);">${v} klik · ${pct}%</span></div>
+        <div class="track"><div class="track-fill" style="width:${pct}%;background:${color};"></div></div>
+      </div>`;
+    }).join("");
+    const top = kinds.map(([k,l])=>({k:l,v:d.byKind[k]||0})).sort((a,b)=>b.v-a.v)[0];
+    document.getElementById("channelNote").textContent = top && top.v ? top.k + " memimpin klik dalam tempoh ini." : "Belum cukup data untuk insight.";
+
+    const rows = d.byProduct.slice(0,12);
+    const totalP = rows.reduce((s,r)=>s+r.clicks,0) || 1;
+    document.getElementById("clicksTbody").innerHTML = rows.map(r=>{
+      const color = r.kind==="shopee" ? "#ec3013" : r.kind==="tiktok" ? "#1c1a19" : "#b8250e";
+      return `<tr>
+        <td style="font-weight:600;">${r.label||r.id}</td>
+        <td><span class="kind-pill" style="background:${color};">${r.kind}</span></td>
+        <td style="text-align:right;font-weight:800;">${r.clicks}</td>
+        <td style="text-align:right;color:var(--n700);">${Math.round((r.clicks/totalP)*100)}%</td>
+      </tr>`;
+    }).join("");
+    document.getElementById("clicksEmpty").style.display = rows.length ? "none" : "block";
   }).catch(()=>{});
 }
 
-// ====== INIT ======
-document.getElementById("year").textContent = new Date().getFullYear();
-renderHero();
-renderDigital();
-renderAll();
-renderGame();
-loadFromApi();
+// ====== GENERIC SETTINGS FORM (game / site) ======
+function renderSettingsForm(main, key, fields){
+  const data = settingsCache[key] || {};
+  main.innerHTML = `
+    <section class="form-card">
+      <h2>${key==="game" ? "Teka Harga" : "Langgan Review"}</h2>
+      <p class="note">${key==="game" ? "Tetapan permainan teka harga pada storefront." : "Gambar muka yang dipaparkan pada section Langgan Review."}</p>
+      <div class="field-grid" id="fieldGrid"></div>
+      <div class="form-footer">
+        <button class="btn-save" onclick="saveSettingsForm('${key}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          Simpan tetapan
+        </button>
+        <span class="form-status" id="formStatus"></span>
+      </div>
+    </section>`;
+  renderFields(document.getElementById("fieldGrid"), fields, data);
+}
+function saveSettingsForm(key){
+  const data = collectFields(document.getElementById("fieldGrid"));
+  apiPost({ action:"saveSettings", token: TOKEN, key, data }).then(d=>{
+    document.getElementById("formStatus").textContent = d && d.success ? "Tersimpan." : (d&&d.message)||"Gagal simpan.";
+    if(d && d.success) settingsCache[key] = data;
+  });
+}
+
+// ====== GENERIC LIST FORM (review / hero / product / digital) ======
+function renderListForm(main, type){
+  const fields = FIELD_DEFS[type];
+  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product", category:"Kategori Produk" };
+  editingType = null; editingId = null;
+  main.innerHTML = `
+    <section class="form-card">
+      <h2>${titleMap[type]}</h2>
+      <p class="note">Isi borang di bawah, tekan Simpan untuk tambah item baru ke senarai.</p>
+      <div id="editingBanner"></div>
+      <div class="field-grid" id="fieldGrid"></div>
+      <div class="form-footer">
+        <button class="btn-save" id="saveBtn" onclick="saveListItem('${type}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+          <span id="saveBtnLabel">Simpan ${titleMap[type]}</span>
+        </button>
+        <button class="btn-clear" id="cancelEditBtn" style="display:none;" onclick="cancelEdit('${type}')">Batal edit</button>
+        <button class="btn-clear" onclick="renderListForm(document.getElementById('mainArea'),'${type}')">Kosongkan borang</button>
+        <span class="form-status" id="formStatus"></span>
+      </div>
+    </section>
+    <section class="entries-list" id="entriesList"></section>`;
+  renderFields(document.getElementById("fieldGrid"), fields, {});
+  renderEntries(type);
+}
+
+function renderEntries(type){
+  const items = contentCache[type] || [];
+  const wrap = document.getElementById("entriesList");
+  if(!items.length){ wrap.innerHTML = `<div class="entries-empty">Belum ada item.</div>`; return; }
+  wrap.innerHTML = items.map(it=>{
+    const title = it.title || it.brand || "(tiada tajuk)";
+    const meta = it.category || it.platform || it.tag || "";
+    const isEditingRow = editingType===type && editingId===it.id;
+    return `<div class="entry-row" style="${isEditingRow?'background:var(--accent-100);':''}">
+      <div><div class="entry-title">${title}</div><div class="entry-meta">${meta}</div></div>
+      <div style="display:flex;gap:8px;flex:none;">
+        <button class="btn-delete" onclick="editListItem('${type}','${it.id}')">Edit</button>
+        <button class="btn-delete" onclick="deleteListItem('${type}','${it.id}')">Buang</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function editListItem(type, id){
+  const item = (contentCache[type]||[]).find(x=>x.id===id);
+  if(!item) return;
+  editingType = type; editingId = id;
+  renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], item);
+  document.getElementById("saveBtnLabel").textContent = "Kemaskini";
+  document.getElementById("cancelEditBtn").style.display = "inline-flex";
+  document.getElementById("editingBanner").innerHTML = `<p style="margin:12px 0 0;border-radius:12px;background:var(--accent-100);border:1px solid var(--accent-200);padding:10px 14px;font-size:13px;font-weight:600;color:var(--accent-800);">Sedang edit: ${item.title||item.brand||"item ini"}</p>`;
+  renderEntries(type);
+  document.getElementById("fieldGrid").scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function cancelEdit(type){
+  editingType = null; editingId = null;
+  document.getElementById("saveBtnLabel").textContent = "Simpan";
+  document.getElementById("cancelEditBtn").style.display = "none";
+  document.getElementById("editingBanner").innerHTML = "";
+  renderFields(document.getElementById("fieldGrid"), FIELD_DEFS[type], {});
+  renderEntries(type);
+}
+
+function deleteListItem(type, id){
+  apiPost({ action:"deleteItem", token: TOKEN, type, id }).then(d=>{
+    if(d && d.success){
+      contentCache[type] = (contentCache[type]||[]).filter(x=>x.id!==id);
+      if(editingType===type && editingId===id) cancelEdit(type);
+      else renderEntries(type);
+    }
+  });
+}
+
+function saveListItem(type){
+  const item = collectFields(document.getElementById("fieldGrid"));
+  if(FIELD_DEFS[type].some(f=>f.required) && !item[FIELD_DEFS[type].find(f=>f.required).key]){
+    document.getElementById("formStatus").textContent = "Isi tajuk dulu sebelum simpan.";
+    return;
+  }
+  if(type === "review" && !item.slug){
+    item.slug = slugify(item.title||"");
+  }
+  if(editingType===type && editingId){ item.id = editingId; }
+  apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
+    if(d && d.success){
+      contentCache[type] = contentCache[type] || [];
+      const idx = contentCache[type].findIndex(x=>x.id===d.item.id);
+      if(idx>-1) contentCache[type][idx] = d.item; else contentCache[type].unshift(d.item);
+      document.getElementById("formStatus").textContent = "Tersimpan.";
+      cancelEdit(type);
+    } else {
+      document.getElementById("formStatus").textContent = (d&&d.message)||"Gagal simpan.";
+    }
+  });
+}
+
+function slugify(s){
+  return String(s).toLowerCase().replace(/[^a-z0-9\s-]/g,"").trim().replace(/\s+/g,"-").replace(/-+/g,"-").slice(0,60);
+}
+
+// ====== FIELD RENDERING ======
+function renderFields(container, fields, data){
+  container.innerHTML = fields.map(f=>{
+    const val = data[f.key] !== undefined ? data[f.key] : (f.type==="toggle" ? (f.key==="enabled"||f.key==="showBuy") : "");
+    const wide = f.wide ? "wide" : "";
+    if(f.type === "text"){
+      return `<div class="field ${wide}"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="${f.placeholder||''}"></div>`;
+    }
+    if(f.type === "area"){
+      return `<div class="field ${wide}"><label>${f.label}</label><textarea data-key="${f.key}" rows="3">${escapeHtml(val)}</textarea></div>`;
+    }
+    if(f.type === "select"){
+      let opts = f.options;
+      if(f.dynamic === "category" && (contentCache.category||[]).length){
+        opts = contentCache.category.map(c=>c.title);
+      }
+      return `<div class="field ${wide}"><label>${f.label}</label><select data-key="${f.key}">${opts.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join("")}</select></div>`;
+    }
+    if(f.type === "toggle"){
+      const on = val === true || val === "true";
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <button type="button" class="toggle-btn ${on?'on':''}" data-key="${f.key}" data-toggle="${on}" onclick="flipToggle(this)">
+          <span class="toggle-track"><span class="knob"></span></span><span>${on?'Hidup':'Mati'}</span>
+        </button></div>`;
+    }
+    if(f.type === "image"){
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <div class="img-row">
+          <div class="img-thumb" data-preview style="${val?`background-image:url('${val}')`:''}"></div>
+          <input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="URL gambar" style="flex:1;height:38px;border:1px solid var(--n300);border-radius:8px;padding:0 10px;font-size:13px;" oninput="updateImgPreview(this)">
+          <label class="upload-pill">Muat naik gambar<input type="file" accept="image/*" style="display:none;" onchange="handleUpload(this)"></label>
+        </div></div>`;
+    }
+    if(f.type === "slug"){
+      return `<div class="field ${wide}"><label>${f.label}</label>
+        <div class="slug-row"><span class="slug-prefix">ahmadalbab.store/review/</span><input type="text" data-key="${f.key}" value="${escapeAttr(val)}"></div></div>`;
+    }
+    return "";
+  }).join("");
+}
+
+function collectFields(container){
+  const out = {};
+  container.querySelectorAll("[data-key]").forEach(el=>{
+    const key = el.dataset.key;
+    if(el.classList.contains("toggle-btn")) out[key] = el.dataset.toggle === "true";
+    else out[key] = el.value;
+  });
+  return out;
+}
+function flipToggle(btn){
+  const on = btn.dataset.toggle !== "true";
+  btn.dataset.toggle = on;
+  btn.classList.toggle("on", on);
+  btn.querySelector("span:last-child").textContent = on ? "Hidup" : "Mati";
+}
+function updateImgPreview(input){
+  const row = input.closest(".img-row");
+  row.querySelector("[data-preview]").style.backgroundImage = `url('${input.value}')`;
+}
+function handleUpload(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(){
+    const row = input.closest(".img-row");
+    const textInput = row.querySelector("input[type=text]");
+    textInput.value = reader.result; // data URL (ganti dengan storan sebenar bila ada)
+    row.querySelector("[data-preview]").style.backgroundImage = `url('${reader.result}')`;
+  };
+  reader.readAsDataURL(file);
+}
+function escapeAttr(s){ return String(s==null?"":s).replace(/"/g,"&quot;"); }
+function escapeHtml(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
 </script>
 </body>
 </html>
