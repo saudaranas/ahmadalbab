@@ -154,7 +154,7 @@ function renderArticleHtml(item, others) {
         <form action="../" method="get" class="search-pill">
           <input type="text" name="q" aria-label="Cari artikel" placeholder="Cari tajuk atau topik…">
           <button type="submit" style="position:absolute;right:6px;top:6px;width:34px;height:34px;border-radius:999px;background:var(--accent);border:0;color:#fff;display:flex;align-items:center;justify-content:center;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
           </button>
         </form>
       </div>
