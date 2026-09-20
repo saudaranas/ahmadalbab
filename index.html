@@ -800,9 +800,17 @@ document.getElementById("headerActions").addEventListener("click", e=>{
 function renderAll(){ renderControls(); renderGrid(); }
 
 // ====== LOAD FROM BACKEND ======
+function fetchJsonRetry(url, attempts){
+  return fetch(url).then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+    .catch(err=>{
+      if(attempts <= 1) throw err;
+      return new Promise(resolve=>setTimeout(resolve, 1200)).then(()=>fetchJsonRetry(url, attempts-1));
+    });
+}
+
 function loadFromApi(){
   if(!API_URL) return;
-  fetch(API_URL + "?action=getData").then(r=>r.json()).then(d=>{
+  fetchJsonRetry(API_URL + "?action=getData", 4).then(d=>{
     if(d && d.success && (d.products||[]).length){
       state.products = d.products.map(p=>({
         id:p.id, title:p.title, price:parseFloat(p.price)||0, old:parseFloat(p.old)||0,
