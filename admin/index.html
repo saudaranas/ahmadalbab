@@ -47,7 +47,16 @@
   .view-store{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
 
   .layout{max-width:1320px;margin:0 auto;padding:24px 20px 56px;display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;}
-  nav{width:232px;flex:none;display:flex;flex-direction:column;gap:2px;}
+  nav{width:232px;flex:none;display:flex;flex-direction:column;gap:2px;transition:width .2s ease;}
+  nav.mini{width:64px;}
+  .nav-collapse-btn{display:flex;align-items:center;gap:11px;width:100%;margin-bottom:4px;padding:9px 12px;border:0;border-bottom:1px solid var(--n200);border-radius:10px;background:transparent;color:var(--n700);font-size:12.5px;font-weight:600;cursor:pointer;}
+  .nav-collapse-btn:hover{background:var(--n100);color:var(--text);}
+  nav.mini .nav-collapse-btn{justify-content:center;padding:9px;}
+  nav.mini .nav-collapse-btn .label{display:none;}
+  nav.mini .navgroup{display:none;}
+  nav.mini .navgroup-divider{display:block !important;height:1px;margin:8px 4px 4px;background:var(--n200);}
+  nav.mini button.navlink{justify-content:center;padding:10px;}
+  nav.mini button.navlink .navtext{display:none;}
   .nav-toggle{display:none;width:100%;height:46px;border-radius:12px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:space-between;padding:0 16px;font-size:13.5px;font-weight:700;margin-bottom:10px;}
   @media(max-width:880px){
     nav{width:100%;}
@@ -58,7 +67,7 @@
   nav button.navlink{display:flex;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--n800);}
   nav button.navlink.active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.06);}
   nav button.navlink .ic{width:26px;height:26px;border-radius:8px;background:var(--n200);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex:none;}
-  nav .navgroup{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);margin:14px 0 4px 12px;}
+  nav .navgroup{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);margin:14px 0 4px 12px;}
   nav .navgroup:first-child{margin-top:0;}
 
   main{flex:1 1 520px;min-width:min(100%,320px);}
@@ -117,7 +126,6 @@
   .slug-row input{border:0;background:transparent;flex:1;min-width:0;padding:0 10px 0 0;font-size:14px;outline:none;}
   .img-row{display:flex;align-items:center;gap:10px;}
   .img-thumb{width:88px;height:56px;border-radius:8px;background:var(--n200);flex:none;background-size:cover;background-position:center;}
-  .upload-pill{height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap;}
 
   .form-footer{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
   .btn-save{height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
@@ -140,7 +148,7 @@
 
 <div id="loginScreen">
   <div class="login-card">
-    <h1>Panel Admin</h1>
+    <p style="margin:0 0 8px;font-weight:800;font-size:22px;">Panel Admin</p>
     <p>Ahmad Albab · masukkan password untuk urus kandungan store.</p>
     <input type="password" id="loginPassword" placeholder="Password admin">
     <button type="button" id="loginBtn">Log masuk</button>
@@ -168,10 +176,14 @@
   </header>
 
   <div class="layout">
-    <nav>
+    <nav id="navEl">
       <button type="button" class="nav-toggle" id="navToggle">
         <span id="navToggleLabel">Menu</span>
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+      <button type="button" class="nav-collapse-btn" id="navCollapseBtn" onclick="toggleNavMini()">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="flex:none;"><path id="navCollapseIcon" d="M15 18l-6-6 6-6M4 4v16"></path></svg>
+        <span class="label" id="navCollapseLabel">Kecilkan menu</span>
       </button>
       <div id="navList"></div>
     </nav>
@@ -185,6 +197,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXi
 
 let TOKEN = sessionStorage.getItem("aab_admin_token") || "";
 let currentView = "dashboard";
+let navMini = false;
 let rangeDays = 7;
 let contentCache = {}; // type -> items[]
 let settingsCache = { game:{}, site:{}, connect:{} };
@@ -225,12 +238,14 @@ const SEED = {
 };
 
 const NAV = [
-  { group: "Papan Pemuka", items: [{ key:"dashboard", label:"Dashboard", initial:"D", hint:"Klik & prestasi" }] },
-  { group: "Kandungan", items: [
-    { key:"review", label:"Post Review", initial:"R", hint:"Artikel & ulasan" },
-    { key:"hero", label:"1 · Hero Slider", initial:"1", hint:"Slaid muka depan" },
-    { key:"product", label:"2 · Add Product", initial:"2", hint:"Produk Shopee/TikTok" },
-    { key:"game", label:"3 · Teka Harga", initial:"3", hint:"Tetapan game" },
+  { group: "Umum", items: [
+    { key:"dashboard", label:"Dashboard", initial:"D", hint:"Tracking klik" },
+    { key:"review", label:"Post Review", initial:"P", hint:"Bahan untuk slaid" }
+  ]},
+  { group: "Ikut susunan halaman", items: [
+    { key:"hero", label:"1 · Hero Slider", initial:"1", hint:"Slaid paling atas" },
+    { key:"product", label:"2 · Add Product", initial:"2", hint:"Grid Pilihan Terlaris" },
+    { key:"game", label:"3 · Teka Harga", initial:"3", hint:"Setting game" },
     { key:"site", label:"4 · Langgan Review", initial:"4", hint:"Gambar muka" },
     { key:"digital", label:"5 · Other Product", initial:"5", hint:"Produk digital" }
   ]},
@@ -345,22 +360,31 @@ else if(!API_URL) document.getElementById("loginMsg").textContent = "Isi API_URL
 function renderNav(){
   const nav = document.getElementById("navList");
   let html = "";
-  NAV.forEach(group=>{
+  NAV.forEach((group,gi)=>{
     html += `<div class="navgroup">${group.group}</div>`;
+    if(gi>0) html += `<span class="navgroup-divider" style="display:none;"></span>`;
     group.items.forEach(it=>{
-      html += `<button class="navlink ${currentView===it.key?'active':''}" onclick="setView('${it.key}')">
+      html += `<button class="navlink ${currentView===it.key?'active':''}" title="${it.label}" onclick="setView('${it.key}')">
         <span class="ic">${it.initial}</span>
-        <span><span style="display:block;">${it.label}</span><span style="display:block;font-size:11px;font-weight:500;color:var(--n600);">${it.hint}</span></span>
+        <span class="navtext"><span style="display:block;">${it.label}</span><span style="display:block;font-size:11px;font-weight:500;color:var(--n700);">${it.hint}</span></span>
       </button>`;
     });
   });
   nav.innerHTML = html;
+}
+
+function toggleNavMini(){
+  navMini = !navMini;
+  document.getElementById("navEl").classList.toggle("mini", navMini);
+  document.getElementById("navCollapseLabel").textContent = navMini ? "Besarkan menu" : "Kecilkan menu";
+  document.getElementById("navCollapseIcon").setAttribute("d", navMini ? "M4 6h16M4 12h16M4 18h16" : "M15 18l-6-6 6-6M4 4v16");
 }
 function setView(key){
   currentView = key; renderNav(); renderView();
   document.getElementById("navList").classList.remove("open");
   const active = NAV.flatMap(g=>g.items).find(i=>i.key===key);
   if(active) document.getElementById("navToggleLabel").textContent = active.label;
+  document.getElementById("rangeSeg").style.display = (currentView==="dashboard") ? "flex" : "none";
 }
 document.getElementById("navToggle").addEventListener("click", ()=>{
   document.getElementById("navList").classList.toggle("open");
@@ -369,6 +393,7 @@ document.getElementById("navToggle").addEventListener("click", ()=>{
 function renderRangeSeg(){
   document.getElementById("rangeSeg").innerHTML = [7,14,30].map(d=>
     `<button class="${rangeDays===d?'active':''}" onclick="setRange(${d})">${d} hari</button>`).join("");
+  document.getElementById("rangeSeg").style.display = (currentView==="dashboard") ? "flex" : "none";
 }
 function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboard") loadDashboard(); }
 
@@ -543,12 +568,26 @@ function renderListForm(main, type){
   const fields = FIELD_DEFS[type];
   const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product", category:"Kategori Produk" };
   editingType = null; editingId = null;
+  const showShare = type === "review";
   main.innerHTML = `
     <section class="form-card">
       <h2>${titleMap[type]}</h2>
       <p class="note">Isi borang di bawah, tekan Simpan untuk tambah item baru ke senarai.</p>
       <div id="editingBanner"></div>
       <div class="field-grid" id="fieldGrid"></div>
+      ${showShare ? `
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid var(--n200);">
+        <h3 style="margin:0;font-weight:800;font-size:14px;letter-spacing:-0.01em;">Rupa bila link dikongsi</h3>
+        <p style="margin:7px 0 0;font-size:13px;line-height:1.6;color:var(--n700);max-width:64ch;">Inilah yang WhatsApp, Facebook dan Telegram akan tunjuk. Gambar utama jadi gambar kongsi, tajuk jadi baris tebal, ringkasan jadi baris kelabu.</p>
+        <div style="margin-top:14px;max-width:340px;border:1px solid var(--n300);border-radius:12px;overflow:hidden;background:var(--n100);">
+          <div id="sharePreviewImg" style="aspect-ratio:1200/675;background-size:cover;background-position:center;position:relative;"></div>
+          <div style="padding:11px 13px;background:#fff;display:flex;flex-direction:column;gap:4px;">
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:var(--n700);">ahmadalbab.store</span>
+            <span id="sharePreviewTitle" style="font-size:13.5px;font-weight:700;line-height:1.35;">Tajuk review</span>
+            <span id="sharePreviewExcerpt" style="font-size:12.5px;line-height:1.45;color:var(--n700);">Ringkasan</span>
+          </div>
+        </div>
+      </div>` : ""}
       <div class="form-footer">
         <button class="btn-save" id="saveBtn" onclick="saveListItem('${type}')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
@@ -562,6 +601,7 @@ function renderListForm(main, type){
     <section class="entries-list" id="entriesList"></section>`;
   renderFields(document.getElementById("fieldGrid"), fields, {});
   renderEntries(type);
+  if(showShare){ updateSharePreview(); document.getElementById("fieldGrid").addEventListener("input", updateSharePreview); }
 }
 
 function renderEntries(type){
@@ -591,7 +631,29 @@ function editListItem(type, id){
   document.getElementById("cancelEditBtn").style.display = "inline-flex";
   document.getElementById("editingBanner").innerHTML = `<p style="margin:12px 0 0;border-radius:12px;background:var(--accent-100);border:1px solid var(--accent-200);padding:10px 14px;font-size:13px;font-weight:600;color:var(--accent-800);">Sedang edit: ${item.title||item.brand||"item ini"}</p>`;
   renderEntries(type);
+  if(type === "review") updateSharePreview();
   document.getElementById("fieldGrid").scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+function updateSharePreview(){
+  const grid = document.getElementById("fieldGrid");
+  const imgBox = document.getElementById("sharePreviewImg");
+  const titleEl = document.getElementById("sharePreviewTitle");
+  const excerptEl = document.getElementById("sharePreviewExcerpt");
+  if(!grid || !imgBox) return;
+  const vals = collectFields(grid);
+  titleEl.textContent = vals.title || "Tajuk review";
+  excerptEl.textContent = vals.excerpt || "Ringkasan";
+  if(vals.image){
+    imgBox.style.backgroundImage = `url('${vals.image}')`;
+    imgBox.innerHTML = "";
+  } else {
+    imgBox.style.backgroundImage = "none";
+    imgBox.innerHTML = `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:7px;font-size:12px;font-weight:600;color:var(--n700);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-5-5L5 21"></path></svg>
+      <span>Tiada gambar — link jadi teks sahaja</span>
+    </span>`;
+  }
 }
 
 function cancelEdit(type){
@@ -670,12 +732,11 @@ function renderFields(container, fields, data){
         <div class="img-row">
           <div class="img-thumb" data-preview style="${val?`background-image:url('${val}')`:''}"></div>
           <input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="URL gambar" style="flex:1;height:38px;border:1px solid var(--n300);border-radius:8px;padding:0 10px;font-size:13px;" oninput="updateImgPreview(this)">
-          <label class="upload-pill">Muat naik gambar<input type="file" accept="image/*" style="display:none;" onchange="handleUpload(this)"></label>
         </div></div>`;
     }
     if(f.type === "slug"){
       return `<div class="field ${wide}"><label>${f.label}</label>
-        <div class="slug-row"><span class="slug-prefix">ahmadalbab.store/review/</span><input type="text" data-key="${f.key}" value="${escapeAttr(val)}"></div></div>`;
+        <div class="slug-row"><span class="slug-prefix">ahmadalbab.store/artikel/</span><input type="text" data-key="${f.key}" value="${escapeAttr(val)}"></div></div>`;
     }
     return "";
   }).join("");
@@ -699,18 +760,6 @@ function flipToggle(btn){
 function updateImgPreview(input){
   const row = input.closest(".img-row");
   row.querySelector("[data-preview]").style.backgroundImage = `url('${input.value}')`;
-}
-function handleUpload(input){
-  const file = input.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(){
-    const row = input.closest(".img-row");
-    const textInput = row.querySelector("input[type=text]");
-    textInput.value = reader.result; // data URL (ganti dengan storan sebenar bila ada)
-    row.querySelector("[data-preview]").style.backgroundImage = `url('${reader.result}')`;
-  };
-  reader.readAsDataURL(file);
 }
 function escapeAttr(s){ return String(s==null?"":s).replace(/"/g,"&quot;"); }
 function escapeHtml(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
