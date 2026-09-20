@@ -504,7 +504,7 @@ function renderControls(){
   document.getElementById("categoryRow").innerHTML = cats
     .map(c=>`<button class="chip ${state.cat===c.key?'active':''}" onclick="state.cat='${c.key}';state.page=1;renderAll();">${c.name}</button>`).join("");
   document.getElementById("sortSelect").value = state.sort;
-  document.getElementById("savedLabel").textContent = "Simpanan" + (state.saved.length ? " (" + state.saved.length + ")" : "");
+  document.getElementById("savedLabel").textContent = "Bookmark" + (state.saved.length ? " (" + state.saved.length + ")" : "");
   document.getElementById("savedBtn").classList.toggle("active", state.savedOnly);
 }
 
