@@ -80,9 +80,8 @@
   .request-card{background:var(--accent-100);border:1px solid var(--accent-200);}
   .request-card h2{color:var(--accent-800);}
   .request-card p{color:var(--accent-800);}
-  .btn-wa{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:999px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;margin-bottom:8px;}
-  .btn-wa:hover{background:var(--accent-600);color:#fff;}
-  .btn-email{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:999px;border:1px solid var(--accent-200);color:var(--accent-800);font-size:13.5px;font-weight:700;}
+  .btn-email{display:flex;align-items:center;justify-content:center;gap:8px;height:44px;border-radius:999px;background:var(--accent);color:#fff;font-size:13.5px;font-weight:700;}
+  .btn-email:hover{background:var(--accent-600);color:#fff;}
   .recent-list{display:flex;flex-direction:column;gap:12px;margin-bottom:12px;}
   .recent-list a{display:block;font-size:14.5px;font-weight:700;color:var(--text);}
   .recent-list span{display:block;font-size:12px;font-weight:500;color:var(--n700);margin-top:2px;}
