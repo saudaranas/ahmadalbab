@@ -18,7 +18,7 @@
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
   .header-inner{max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
-  .wordmark{font-weight:800;font-size:20px;letter-spacing:-.035em;text-transform:lowercase;}
+  .wordmark{font-weight:800;font-size:20px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text) !important;}
   .back-store{font-size:13px;font-weight:600;color:var(--n700);}
 
   .page-head{padding:32px 0 18px;}
