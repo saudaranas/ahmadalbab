@@ -40,12 +40,20 @@
         <span style="font-size:11.5px;font-weight:500;color:var(--n700);">Review Produk Shopee &amp; Tiktok Untuk Anda!</span>
       </span>
     </a>
-    <div style="display:flex;align-items:center;gap:10px;">
+    <button type="button" class="hamburger-btn" id="menuToggle" aria-label="Buka menu">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+    <div style="display:flex;align-items:center;gap:10px;" id="headerNav">
       <a href="../" class="back-store">Semua artikel</a>
       <a href="../../index.html#langgan" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;">Dapatkan Review Terkini</a>
     </div>
   </div>
 </header>
+<script>
+document.getElementById("menuToggle").addEventListener("click", function(){
+  document.getElementById("headerNav").classList.toggle("open");
+});
+</script>
 
 <main class="wrap">
   <nav aria-label="breadcrumb" class="breadcrumb wrap" style="padding-left:0;padding-right:0;">
