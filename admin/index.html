@@ -608,12 +608,16 @@ function renderEntries(type){
   const items = contentCache[type] || [];
   const wrap = document.getElementById("entriesList");
   if(!items.length){ wrap.innerHTML = `<div class="entries-empty">Belum ada item.</div>`; return; }
-  wrap.innerHTML = items.map(it=>{
+  const countHeader = `<div style="padding:14px 20px;font-size:12.5px;font-weight:700;color:var(--n700);border-bottom:1px solid var(--n200);">${items.length} produk</div>`;
+  wrap.innerHTML = countHeader + items.map((it,i)=>{
     const title = it.title || it.brand || "(tiada tajuk)";
     const meta = it.category || it.platform || it.tag || "";
     const isEditingRow = editingType===type && editingId===it.id;
     return `<div class="entry-row" style="${isEditingRow?'background:var(--accent-100);':''}">
-      <div><div class="entry-title">${title}</div><div class="entry-meta">${meta}</div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <span style="flex:none;font-size:13px;font-weight:700;color:var(--n700);min-width:20px;">${i+1}.</span>
+        <div><div class="entry-title">${title}</div><div class="entry-meta">${meta}</div></div>
+      </div>
       <div style="display:flex;gap:8px;flex:none;">
         <button class="btn-delete" onclick="editListItem('${type}','${it.id}')">Edit</button>
         <button class="btn-delete" onclick="deleteListItem('${type}','${it.id}')">Buang</button>
