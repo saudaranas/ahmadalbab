@@ -204,39 +204,6 @@ let settingsCache = { game:{}, site:{}, connect:{} };
 let editingType = null;
 let editingId = null;
 
-const SEED = {
-  product: [
-    { title:"Sambal Ikan Bilis Pedas Gila", platform:"TikTok", category:"Makanan", price:"15.90", old:"19.90", why:"Kering, tak berair — tahan sebulan dalam peti.", sold:"3100", link:"", image:"", hot:true },
-    { title:"Kopi Tongkat Ali Pracampuran", platform:"TikTok", category:"Makanan", price:"22.50", old:"", why:"Sachet mudah bawa, rasa tak pahit macam jenama lain.", sold:"2200", link:"", image:"", hot:true },
-    { title:"Khimar Instant Labuh Dua Lapis", platform:"TikTok", category:"Baju Muslimah", price:"29.90", old:"", why:"Fabrik sejuk, tak jarang walaupun labuh.", sold:"2000", link:"", image:"", hot:true },
-    { title:"Serunding Daging Kampung 200g", platform:"Shopee", category:"Makanan", price:"24.90", old:"32.00", why:"Rangup, bukan serbuk — guna daging kampung sebenar.", sold:"1800", link:"", image:"", hot:true },
-    { title:"Jubah Nida Ironless Lengan Puff", platform:"Shopee", category:"Baju Muslimah", price:"89.00", old:"129.00", why:"Tak payah seterika, senang basuh dan cepat kering.", sold:"1500", link:"", image:"", hot:true },
-    { title:"Telekung Travel Lipat Ringkas", platform:"Shopee", category:"Baju Muslimah", price:"45.00", old:"59.00", why:"Muat dalam beg tangan, ringan untuk dibawa travel.", sold:"1100", link:"", image:"", hot:false },
-    { title:"Biskut Tart Nenas Rangup 500g", platform:"TikTok", category:"Makanan", price:"28.00", old:"35.00", why:"Kulit rangup, isi tak terlalu manis.", sold:"940", link:"", image:"", hot:false },
-    { title:"Tudung Bawal Cotton Voile Bidang 45", platform:"TikTok", category:"Baju Muslimah", price:"19.90", old:"", why:"Cotton voile sejuk dipakai, tak telus.", sold:"870", link:"", image:"", hot:false },
-    { title:"Sejadah Travel Tebal Lipat Poket", platform:"TikTok", category:"Barang Rumah", price:"32.00", old:"42.00", why:"Padding tebal tapi muat dalam poket beg.", sold:"780", link:"", image:"", hot:false },
-    { title:"Kurma Ajwa Premium 500g", platform:"Shopee", category:"Makanan", price:"39.00", old:"", why:"Biji kecil, daging tebal, tak terlalu manis.", sold:"620", link:"", image:"", hot:false },
-    { title:"Bekas Simpan Beras 10kg Bertutup", platform:"Shopee", category:"Barang Rumah", price:"35.00", old:"", why:"Penutup ketat — semut tak boleh masuk.", sold:"560", link:"", image:"", hot:false },
-    { title:"Set Baju Kurung Moden Ibu & Anak", platform:"Shopee", category:"Baju Muslimah", price:"149.00", old:"189.00", why:"Fabrik sama untuk ibu & anak, jahitan kemas.", sold:"430", link:"", image:"", hot:false }
-  ],
-  category: [ { title:"Makanan" }, { title:"Baju Muslimah" }, { title:"Barang Rumah" } ],
-  hero: [
-    { kicker:"Ulasan & panduan · Panduan", readTime:"5 min bacaan", title:"Cara pilih jubah ironless yang tahan lama", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", cta:"Baca sebelum beli", href:"#produk", image:"" },
-    { kicker:"Ulasan & panduan · Ulasan", readTime:"3 min bacaan", title:"Serunding mana paling berbaloi? Kami rasa lima jenama", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", cta:"Baca sebelum beli", href:"#produk", image:"" },
-    { kicker:"Ulasan & panduan · Tips jimat", readTime:"4 min bacaan", title:"Waktu terbaik checkout untuk dapat voucher paling besar", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", cta:"Baca sebelum beli", href:"#produk", image:"" }
-  ],
-  review: [
-    { title:"Cara pilih jubah ironless yang tahan lama", tag:"Panduan", readTime:"5 min bacaan", excerpt:"Tiga perkara yang kami semak sebelum masukkan mana-mana jubah ke senarai pilihan — kain, kelim dan cara jaga.", slug:"jubah-ironless-tahan-lama" },
-    { title:"Serunding mana paling berbaloi? Kami rasa lima jenama", tag:"Ulasan", readTime:"3 min bacaan", excerpt:"Perbandingan harga per 100g, kepedasan dan tekstur.", slug:"serunding-paling-berbaloi" },
-    { title:"Waktu terbaik checkout untuk dapat voucher paling besar", tag:"Tips jimat", readTime:"4 min bacaan", excerpt:"Corak kempen Shopee & TikTok sepanjang bulan, dan bila patut tunggu.", slug:"waktu-checkout-voucher-besar" }
-  ],
-  digital: [
-    { brand:"Bengkel eBay Online 2026", kicker:"Kelas Live Zoom", title:"Bina bisnes eBay untuk side income dalam USD", desc:"2 malam intensif bersama Dr Zulariffin — pensyarah UTHM dan peniaga eBay aktif 10+ tahun. Setup akaun, listing dan shipping dari rumah.", price:"RM59", old:"RM99", badge:"Jimat 40%", cta:"Daftar bengkel eBay", points:"Boleh mula dengan modal RM0 (teknik dropship)\nKelas dalam Bahasa Melayu, sesuai beginner\nJaminan pulangan wang 30 hari", link:"https://ebay.tunkhairi.com/index-pendek.html?ref=1022", image:"" },
-    { brand:"EVOFIT · Program 30 Hari", kicker:"Panduan Kesihatan", title:"Diet Reset Hormon dengan bantuan app CoachAI", desc:"Turunkan berat tanpa diet ketat, tanpa supplement mahal. Termasuk pelan 21 hari, panduan makan luar dan akses CoachAI PRO 30 hari.", price:"RM99", old:"RM199", badge:"Jimat 50%", cta:"Dapatkan panduan EVOFIT", points:"Dipercayai 2,400+ peserta Malaysia\nMesra makanan Malaysia — tak perlu masak khas\nJaminan 30 hari kalau berat tak turun", link:"https://evofit.tunkhairi.com/?ref=1022", image:"" },
-    { brand:"K-Method · Khairi Ariff", kicker:"Produk Digital", title:"Buat duit dengan produk digital tanpa produk sendiri", desc:"Case study penuh bagaimana dia bina jualan produk digital dari RM0 ke RM2,200 sehari dalam 9 hari — research, buat, jual, automate.", price:"RM100", old:"RM149", badge:"2 pakej", cta:"Lihat K-Method", points:"Pakej affiliate: promote produk yang dah proven\n7 bonus termasuk tutorial FB Ads & video iklan\nJaminan pulangan wang 365 hari (Pakej 2)", link:"https://k-method.tunkhairi.com?ref=1022", image:"" }
-  ]
-};
-
 const NAV = [
   { group: "Umum", items: [
     { key:"dashboard", label:"Dashboard", initial:"D", hint:"Tracking klik" },
@@ -402,23 +369,7 @@ function loadAllSettingsAndContent(){
   const types = ["review","hero","product","digital","category"];
   const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
   const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; settingsCache.connect=d.connect||{}; } });
-  return Promise.all(contentCalls.concat([settingsCall])).then(seedIfEmpty).catch(()=>{});
-}
-
-function seedIfEmpty(){
-  const jobs = [];
-  Object.keys(SEED).forEach(type=>{
-    const existing = contentCache[type] || [];
-    const existingKeys = existing.map(x => (x.title || x.brand || "").trim().toLowerCase());
-    SEED[type].forEach(item=>{
-      const key = (item.title || item.brand || "").trim().toLowerCase();
-      if(existingKeys.includes(key)) return; // dah ada, jangan duplicate
-      jobs.push(apiPost({ action:"saveItem", token: TOKEN, type, item }).then(d=>{
-        if(d && d.success){ contentCache[type] = contentCache[type] || []; contentCache[type].push(d.item); }
-      }));
-    });
-  });
-  return Promise.all(jobs).catch(()=>{});
+  return Promise.all(contentCalls.concat([settingsCall])).catch(()=>{});
 }
 
 // ====== VIEW ROUTER ======
