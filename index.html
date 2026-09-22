@@ -158,7 +158,7 @@
 
   .game-score{border-radius:999px;background:var(--n200);color:var(--n800);font-size:12.5px;font-weight:700;padding:7px 14px;flex:none;}
   .game-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
-  .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);min-height:280px;background:var(--n200);background-size:cover;background-position:center;}
+  .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);aspect-ratio:1/1;background:var(--n200);background-size:cover;background-position:center;}
   .game-body{flex:1 1 320px;min-width:min(100%,300px);padding:24px;display:flex;flex-direction:column;gap:13px;justify-content:center;}
   .game-round{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);}
   .game-title{font-weight:700;font-size:clamp(18px,2.2vw,23px);line-height:1.3;letter-spacing:-.01em;}
@@ -287,7 +287,7 @@
     <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:16px;">
       <div>
         <h2 style="font-weight:800;font-size:clamp(19px,2.2vw,24px);letter-spacing:-.02em;" id="gameHeading">Teka Harga</h2>
-        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:58ch;" id="gameSubline">Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.</p>
+        <p style="margin:7px 0 0;font-size:13.5px;color:var(--n700);max-width:58ch;" id="gameSubline">5 produk, 3 pilihan harga. Tengok berapa tepat tekaan awak ;)</p>
       </div>
       <span class="game-score" id="gameScore">0 betul</span>
     </div>
@@ -370,6 +370,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
 
 // ====== DEMO DATA (fallback jika API kosong/tak set) ======
+// SEED:PRODUCTS:START — jangan edit manual, dikemas kini automatik oleh GitHub Action
 const DEMO = [
   { id:"d2", title:"Sambal Ikan Bilis Pedas Gila", price:15.9, old:19.9, platform:"tiktok", category:"makanan", sold:3100, hot:true, why:"Kering, tak berair — tahan sebulan dalam peti." },
   { id:"d5", title:"Kopi Tongkat Ali Pracampuran", price:22.5, platform:"tiktok", category:"makanan", sold:2200, hot:true, why:"Sachet mudah bawa, rasa tak pahit macam jenama lain." },
@@ -384,6 +385,7 @@ const DEMO = [
   { id:"d11", title:"Bekas Simpan Beras 10kg Bertutup", price:35, platform:"shopee", category:"rumah", sold:560, why:"Penutup ketat — semut tak boleh masuk." },
   { id:"d8", title:"Set Baju Kurung Moden Ibu & Anak", price:149, old:189, platform:"shopee", category:"muslimah", sold:430, why:"Fabrik sama untuk ibu & anak, jahitan kemas." }
 ];
+// SEED:PRODUCTS:END
 const DEMO_CATS = [
   { key:"makanan", name:"Makanan" },
   { key:"muslimah", name:"Baju Muslimah" },
@@ -656,7 +658,7 @@ function renderGame(){
   document.getElementById("gameHeading").textContent = state.gameCfg.heading || "Teka Harga";
   const deckPreview = gameDeck();
   const choiceCount = deckPreview.length ? deckPreview[0].opts.length : Number(state.gameCfg.choices)||3;
-  document.getElementById("gameSubline").textContent = deckPreview.length + " produk, " + choiceCount + " pilihan harga. Tengok berapa tepat teka awak — jawapan sebenar ada link terus ke produk.";
+  document.getElementById("gameSubline").textContent = deckPreview.length + " produk, " + choiceCount + " pilihan harga. Tengok berapa tepat tekaan awak ;)";
   document.getElementById("gameScore").textContent = state.gScore + " betul" + (state.gStreak>1 ? " · streak "+state.gStreak : "");
   const deck = gameDeck();
   if(!deck.length){ area.innerHTML=""; return; }
@@ -681,11 +683,7 @@ function renderGame(){
 
   area.innerHTML = `
     <article class="game-card">
-      <div class="game-media" style="${cur.p.imageUrl?`background-image:url('${cur.p.imageUrl}')`:''}">
-        <span style="position:absolute;top:14px;left:14px;">
-          <span class="plat-badge ${isTikTok?'tiktok':'shopee'}" style="position:static;">${isTikTok?'TikTok Shop':'Shopee'}</span>
-        </span>
-      </div>
+      <div class="game-media" style="${cur.p.imageUrl?`background-image:url('${cur.p.imageUrl}')`:''}"></div>
       <div class="game-body">
         <p class="game-round">Soalan ${Math.min(state.gRound+1, deck.length)} / ${deck.length}</p>
         <h3 class="game-title">${cur.p.title}</h3>
