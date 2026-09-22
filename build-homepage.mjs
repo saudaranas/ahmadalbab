@@ -1,0 +1,82 @@
+// scripts/build-homepage.mjs
+// Tarik produk terkini dari backend, "bakar" masuk ke dalam array DEMO
+// di index.html — supaya fallback yang pelawat nampak sebelum fetch
+// live siap adalah produk SEBENAR, bukan demo generik lapuk.
+//
+// Jalan: node scripts/build-homepage.mjs
+// Perlukan Node 18+ (guna fetch terbina dalam).
+
+import fs from "node:fs/promises";
+
+const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
+const INDEX_PATH = "index.html";
+const START_MARKER = "// SEED:PRODUCTS:START — jangan edit manual, dikemas kini automatik oleh GitHub Action";
+const END_MARKER = "// SEED:PRODUCTS:END";
+
+function jsStringLiteral(s) {
+  return JSON.stringify(String(s ?? ""));
+}
+
+function productToJs(p) {
+  const fields = [
+    `id:${jsStringLiteral(p.id)}`,
+    `title:${jsStringLiteral(p.title)}`,
+    `price:${Number(p.price) || 0}`,
+  ];
+  if (p.old) fields.push(`old:${Number(p.old) || 0}`);
+  fields.push(`platform:${jsStringLiteral(p.platform)}`);
+  fields.push(`category:${jsStringLiteral(p.category)}`);
+  fields.push(`sold:${Number(p.sold) || 0}`);
+  if (p.hot) fields.push(`hot:true`);
+  fields.push(`why:${jsStringLiteral(p.why)}`);
+  if (p.imageUrl) fields.push(`imageUrl:${jsStringLiteral(p.imageUrl)}`);
+  if (p.affiliateLink) fields.push(`link:${jsStringLiteral(p.affiliateLink)}`);
+  return `  { ${fields.join(", ")} }`;
+}
+
+async function main() {
+  console.log("Fetching products from backend…");
+  const res = await fetch(`${API_URL}?action=getData`, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+      "Accept-Language": "en-US,en;q=0.9,ms;q=0.8",
+      "Referer": "https://ahmadalbab.store/",
+    },
+  });
+  if (!res.ok) {
+    console.error(`Backend returned HTTP ${res.status}. Berhenti tanpa kemas kini index.html.`);
+    process.exit(1);
+  }
+  const data = await res.json();
+  const products = (data.products || []).filter((p) => p.title);
+
+  if (!products.length) {
+    console.log("Tiada produk dijumpai dari backend. Kekalkan index.html macam sedia ada.");
+    return;
+  }
+
+  let html = await fs.readFile(INDEX_PATH, "utf8");
+  const startIdx = html.indexOf(START_MARKER);
+  const endIdx = html.indexOf(END_MARKER);
+  if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
+    console.error("Tidak jumpa penanda SEED:PRODUCTS dalam index.html. Berhenti tanpa ubah apa-apa.");
+    process.exit(1);
+  }
+
+  const newBlock =
+    START_MARKER + "\n" +
+    "const DEMO = [\n" +
+    products.map(productToJs).join(",\n") + "\n" +
+    "];\n";
+
+  html = html.slice(0, startIdx) + newBlock + html.slice(endIdx);
+
+  await fs.writeFile(INDEX_PATH, html, "utf8");
+  console.log(`Selesai — ${products.length} produk dibakar ke dalam index.html.`);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
