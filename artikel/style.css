@@ -17,6 +17,7 @@
   *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
   header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
+  #headerNav{display:flex;align-items:center;gap:10px;}
   .header-inner{position:relative;max-width:1120px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
   .hamburger-btn{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--n300);background:#fff;align-items:center;justify-content:center;flex:none;}
   @media(max-width:640px){
