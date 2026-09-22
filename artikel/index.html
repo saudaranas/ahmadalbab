@@ -28,7 +28,7 @@
 
 <header>
   <div class="header-inner">
-    <a href="../index.html" style="display:flex;align-items:center;gap:10px;">
+    <a href="../" style="display:flex;align-items:center;gap:10px;">
       <img src="../favicon.svg" alt="Logo Ahmad Albab" width="40" height="40" style="display:block;width:40px;height:40px;flex:none;border-radius:11px;">
       <span style="display:flex;flex-direction:column;gap:3px;">
         <span class="wordmark">ahmadalbab<span style="color:var(--accent);">.</span></span>
@@ -39,7 +39,7 @@
       <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
     </button>
     <div id="headerNav">
-      <a href="../index.html#produk" class="back-store">Produk pilihan</a>
+      <a href="../" class="back-store">Produk pilihan</a>
       <a href="../index.html#langgan" style="display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:999px;background:var(--accent);color:#fff;font-size:13px;font-weight:700;">Dapatkan Review Terkini</a>
     </div>
   </div>
@@ -54,7 +54,7 @@
       <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
     </div>
     <nav aria-label="Navigasi footer" class="footer-links">
-      <a href="../index.html#produk">Produk terlaris</a>
+      <a href="../">Produk terlaris</a>
       <a href="../index.html#digital">Produk digital</a>
       <a href="./">Semua artikel</a>
     </nav>
@@ -73,7 +73,7 @@ let listState = { cat:"Semua", q: new URLSearchParams(location.search).get("q") 
 function setHeaderNav(mode){
   const link = document.querySelector("#headerNav .back-store");
   if(mode === "article"){ link.textContent = "Semua artikel"; link.setAttribute("href", "./"); }
-  else { link.textContent = "Produk pilihan"; link.setAttribute("href", "../index.html#produk"); }
+  else { link.textContent = "Produk pilihan"; link.setAttribute("href", "../"); }
 }
 
 function esc(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
@@ -197,7 +197,7 @@ function renderList(){
           <h2>Tentang ahmadalbab</h2>
           <p>Kami tapis produk Shopee dan TikTok Shop ikut rating, jumlah jualan dan ulasan pembeli sebenar — supaya anda tak perlu teka sebelum checkout.</p>
           <p>Setiap artikel di sini ditulis untuk satu tujuan: bantu anda buat keputusan dalam dua minit.</p>
-          <a class="outline-link" href="../index.html#produk">Lihat pilihan kami</a>
+          <a class="outline-link" href="../">Lihat pilihan kami</a>
         </div>
         <div class="side-card">
           <h2>Pautan Berguna</h2>
@@ -242,7 +242,7 @@ function renderArticle(item){
   document.getElementById("app").innerHTML = `
     <nav aria-label="breadcrumb" class="breadcrumb wrap" style="padding-left:0;padding-right:0;">
       <ol style="display:flex;">
-        <li><a href="../index.html">Laman Utama</a></li>
+        <li><a href="../">Laman Utama</a></li>
         <li aria-hidden="true">/</li>
         <li><a href="./">Artikel</a></li>
         <li aria-hidden="true">/</li>
@@ -267,7 +267,7 @@ function renderArticle(item){
             <p>Nak tengok produk yang kami sebut dalam artikel ni?</p>
             <p style="font-weight:500;color:var(--accent-800);font-size:13px;margin-top:4px;">Senarai pilihan kami ada di laman utama, lengkap dengan harga terkini.</p>
           </div>
-          <a href="../index.html#produk">Lihat pilihan kami</a>
+          <a href="../">Lihat pilihan kami</a>
         </div>
         <p class="disclosure">Nota: kami tidak menguji setiap produk secara peribadi. Ulasan ini berdasarkan spesifikasi penjual, rating dan ulasan pembeli sebenar di Shopee dan TikTok Shop. Sesetengah link adalah link affiliate.</p>
       </article>
