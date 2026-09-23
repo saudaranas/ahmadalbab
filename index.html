@@ -98,6 +98,7 @@
   select.sort-select{height:46px;border:1px solid var(--n300);border-radius:999px;background:#fff;font-family:inherit;font-size:14px;font-weight:600;color:var(--n800);padding:0 14px;}
   .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
   .chip{height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
+  @media(max-width:640px){ .chip{height:30px;padding:0 11px;font-size:12px;} }
   .chip.active{background:var(--n900);border-color:var(--n900);color:#fff;}
 
   .section-head{margin:26px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--n300);display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;}
@@ -440,8 +441,9 @@ function catName(k){ return (state.cats.find(c=>c.key===k)||{}).name || "Produk"
 function niceTitle(s){
   s = String(s||"");
   const letters = s.replace(/[^a-zA-Z]/g,"");
-  if(!letters.length) return s;
-  const isShouty = letters === letters.toUpperCase() && letters !== letters.toLowerCase();
+  if(letters.length < 3) return s;
+  const upperCount = (letters.match(/[A-Z]/g)||[]).length;
+  const isShouty = (upperCount / letters.length) >= 0.7;
   if(!isShouty) return s;
   return s.toLowerCase().replace(/(^|[\s([\/-])([a-z])/g, (m,pre,ch)=>pre+ch.toUpperCase());
 }
@@ -619,19 +621,26 @@ function renderGrid(){
     document.getElementById("pageInfo").textContent = "Halaman " + state.page + " daripada " + pageCount;
     let pills = "";
     for(let i=1;i<=pageCount;i++){
-      pills += `<button class="page-pill ${i===state.page?'active':''}" onclick="state.page=${i};renderGrid();">${i}</button>`;
+      pills += `<button class="page-pill ${i===state.page?'active':''}" onclick="goToPage(${i})">${i}</button>`;
     }
     document.getElementById("pageNav").innerHTML = `
-      <button class="page-arrow" aria-label="Halaman sebelum" ${state.page<=1?'disabled':''} onclick="state.page--;renderGrid();">
+      <button class="page-arrow" aria-label="Halaman sebelum" ${state.page<=1?'disabled':''} onclick="goToPage(${state.page-1})">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m15 18-6-6 6-6"></path></svg>
       </button>
       ${pills}
-      <button class="page-arrow" aria-label="Halaman seterusnya" ${state.page>=pageCount?'disabled':''} onclick="state.page++;renderGrid();">
+      <button class="page-arrow" aria-label="Halaman seterusnya" ${state.page>=pageCount?'disabled':''} onclick="goToPage(${state.page+1})">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><path d="m9 18 6-6-6-6"></path></svg>
       </button>`;
   } else {
     pageRow.style.display="none";
   }
+}
+
+function goToPage(n){
+  state.page = n;
+  renderGrid();
+  const el = document.getElementById("produk");
+  if(el) el.scrollIntoView({ behavior:"instant", block:"start" });
 }
 
 function toggleSave(id){
