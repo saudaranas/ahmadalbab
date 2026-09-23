@@ -93,14 +93,21 @@
   .search-box{display:flex;align-items:center;gap:10px;flex:1 1 260px;min-width:0;border:1px solid var(--n300);border-radius:999px;padding:0 16px;height:46px;background:#fff;}
   .search-box input{flex:1;min-width:0;border:0;outline:none;background:transparent;font-family:inherit;font-size:15px;color:var(--text);height:42px;}
   .seg{display:flex;gap:4px;padding:4px;border:1px solid var(--n300);border-radius:999px;background:#fff;}
-  .seg button{height:38px;padding:0 15px;border-radius:999px;border:0;background:transparent;font-size:13px;font-weight:600;color:var(--n800);}
+  .seg button{height:38px;padding:0 15px;border-radius:999px;border:0;background:transparent;font-size:13px;font-weight:600;color:var(--n800);display:flex;align-items:center;justify-content:center;font-family:inherit;line-height:1;}
   @media(max-width:640px){
     .seg{padding:3px;gap:2px;}
     .seg button{height:26px;padding:0 9px;font-size:11px;}
-    select.sort-select{height:26px;font-size:11px;padding:0 9px;}
+    .sort-btn{height:26px;padding:0 9px;font-size:11px;gap:4px;}
+    .sort-menu button{padding:9px 11px;font-size:11px;}
+    .seg-sort-group{gap:6px;flex-wrap:wrap;}
   }
   .seg button.active{background:var(--accent);color:#fff;}
-  select.sort-select{height:38px;border:1px solid var(--n300);border-radius:999px;background:#fff;font-family:inherit;font-size:13px;font-weight:600;color:var(--n800);padding:0 15px;}
+  .sort-btn{height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-family:inherit;font-size:13px;font-weight:600;color:var(--n800);display:flex;align-items:center;gap:6px;cursor:pointer;line-height:1;}
+  .sort-menu{display:none;position:absolute;top:calc(100% + 6px);right:0;background:#fff;border:1px solid var(--n300);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.10);overflow:hidden;z-index:20;min-width:180px;}
+  .sort-menu.open{display:block;}
+  .sort-menu button{display:block;width:100%;text-align:left;padding:11px 14px;border:0;background:#fff;font-family:inherit;font-size:13px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .sort-menu button:hover{background:var(--n100);}
+  .sort-menu button.active{color:var(--accent-700);}
   .chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
   .chip{height:38px;padding:0 15px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
   @media(max-width:640px){ .chip{height:26px;padding:0 9px;font-size:11px;} }
@@ -268,14 +275,18 @@
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" style="color:var(--n600);flex:none;"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
       <input type="text" id="searchInput" placeholder="Cari produk… cth: serunding, jubah">
     </div>
-    <div style="display:flex;gap:10px;align-items:center;flex:none;">
+    <div class="seg-sort-group" style="display:flex;gap:10px;align-items:center;flex:none;position:relative;">
       <div class="seg" id="platformSeg"></div>
-      <select class="sort-select" id="sortSelect">
-      <option value="popular">Paling laris</option>
-      <option value="new">Terbaru dahulu</option>
-      <option value="low">Harga rendah → tinggi</option>
-      <option value="high">Harga tinggi → rendah</option>
-    </select>
+      <button type="button" class="sort-btn" id="sortBtn" aria-haspopup="listbox" aria-expanded="false">
+        <span id="sortBtnLabel">Paling laris</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex:none;"><path d="m6 9 6 6 6-6"></path></svg>
+      </button>
+      <div class="sort-menu" id="sortMenu">
+        <button type="button" data-val="popular">Paling laris</button>
+        <button type="button" data-val="new">Terbaru dahulu</button>
+        <button type="button" data-val="low">Harga rendah → tinggi</button>
+        <button type="button" data-val="high">Harga tinggi → rendah</button>
+      </div>
     </div>
   </div>
   <div class="chip-row" id="categoryRow"></div>
@@ -557,7 +568,9 @@ function renderControls(){
   const cats = [{key:"all",name:"Semua produk"}].concat(state.cats);
   document.getElementById("categoryRow").innerHTML = cats
     .map(c=>`<button class="chip ${state.cat===c.key?'active':''}" onclick="state.cat='${c.key}';state.page=1;renderAll();">${c.name}</button>`).join("");
-  document.getElementById("sortSelect").value = state.sort;
+  const sortLabels = {popular:"Paling laris", new:"Terbaru dahulu", low:"Harga rendah → tinggi", high:"Harga tinggi → rendah"};
+  document.getElementById("sortBtnLabel").textContent = sortLabels[state.sort] || "Paling laris";
+  document.querySelectorAll("#sortMenu button").forEach(b=>b.classList.toggle("active", b.dataset.val===state.sort));
   document.getElementById("savedLabel").textContent = "Bookmark" + (state.saved.length ? " (" + state.saved.length + ")" : "");
   document.getElementById("savedBtn").classList.toggle("active", state.savedOnly);
 }
@@ -857,7 +870,20 @@ function track(id, kind, label){
 
 // ====== EVENTS ======
 document.getElementById("searchInput").addEventListener("input", e=>{ state.query = e.target.value; state.page=1; renderGrid(); renderControls(); });
-document.getElementById("sortSelect").addEventListener("change", e=>{ state.sort = e.target.value; renderGrid(); });
+document.getElementById("sortBtn").addEventListener("click", e=>{
+  e.stopPropagation();
+  document.getElementById("sortMenu").classList.toggle("open");
+});
+document.getElementById("sortMenu").addEventListener("click", e=>{
+  const btn = e.target.closest("button[data-val]");
+  if(!btn) return;
+  state.sort = btn.dataset.val;
+  document.getElementById("sortMenu").classList.remove("open");
+  renderControls(); renderGrid();
+});
+document.addEventListener("click", e=>{
+  if(!e.target.closest(".seg-sort-group")) document.getElementById("sortMenu").classList.remove("open");
+});
 document.getElementById("savedBtn").addEventListener("click", ()=>{ state.savedOnly = !state.savedOnly; renderAll(); });
 document.getElementById("resetBtn").addEventListener("click", resetFilters);
 
