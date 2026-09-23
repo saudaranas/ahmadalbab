@@ -87,7 +87,7 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
 document.getElementById("year").textContent = new Date().getFullYear();
 
-const CATS = ["Semua","Panduan","Ulasan","Tips jimat"];
+let CATS = ["Semua","Panduan","Ulasan","Tips jimat"];
 let ALL_REVIEWS = [];
 let DIGITAL_LINKS = [];
 let listState = { cat:"Semua", q: new URLSearchParams(location.search).get("q") || "", page:1, perPage:4 };
@@ -344,10 +344,13 @@ function fetchWithTimeout(url, ms, attempts){
 
 Promise.all([
   fetchWithTimeout(API_URL + "?action=getContent&type=review", 8000, 3),
-  fetchWithTimeout(API_URL + "?action=getContent&type=digital", 8000, 3)
-]).then(([reviewsRes, digitalRes])=>{
+  fetchWithTimeout(API_URL + "?action=getContent&type=digital", 8000, 3),
+  fetchWithTimeout(API_URL + "?action=getContent&type=articleTag", 8000, 3)
+]).then(([reviewsRes, digitalRes, tagRes])=>{
   ALL_REVIEWS = (reviewsRes.items || []).map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", body:r.body||"", image:r.image||"", slug:r.slug||"", authorName:r.authorName||"", authorImage:r.authorImage||"", authorBio:r.authorBio||"", authorLink:r.authorLink||"" }));
   DIGITAL_LINKS = (digitalRes.items || []).slice(0,3);
+  const liveTags = (tagRes.items || []).map(t=>t.title).filter(Boolean);
+  if(liveTags.length) CATS = ["Semua"].concat(liveTags);
 
   const slug = slugParam();
   if(slug){
