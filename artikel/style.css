@@ -33,10 +33,9 @@
   .page-head h1{font-weight:800;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.03em;margin:0 0 10px;text-wrap:balance;}
   .page-head p{font-size:16px;line-height:1.6;color:var(--n800);margin:0;max-width:70ch;}
   .filter-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:20px;padding-bottom:20px;border-bottom:1px solid var(--n300);}
-  @media(max-width:640px){ .filter-row{justify-content:center;} .cat-pills{justify-content:center;} }
   .cat-pills{display:flex;flex-wrap:wrap;gap:8px;}
   .cat-pill{height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:13px;font-weight:600;color:var(--n800);}
-  @media(max-width:640px){ .cat-pill{height:30px;padding:0 11px;font-size:12px;} }
+  @media(max-width:640px){ .cat-pill{height:26px;padding:0 9px;font-size:11px;} }
   .cat-pill[aria-pressed="true"]{background:var(--text);border-color:var(--text);color:var(--bg);}
   .count-line{font-size:13px;font-weight:600;color:var(--n700);white-space:nowrap;}
 
