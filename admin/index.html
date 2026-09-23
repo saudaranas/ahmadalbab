@@ -131,7 +131,7 @@
   .btn-save{height:48px;padding:0 20px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:14px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;}
   .btn-save svg, .btn-clear svg, .btn-delete svg, button svg, a svg{display:block;flex:none;}
   .btn-save:hover{background:var(--accent-600);}
-  .btn-clear{height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:14px;font-weight:600;color:var(--n800);cursor:pointer;}
+  .btn-clear{height:48px;padding:0 18px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:14px;font-weight:600;color:var(--n800);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-family:inherit;line-height:1;}
   .form-status{font-size:13px;font-weight:600;color:var(--accent-700);}
 
   .entries-list{margin-top:16px;background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;}
@@ -252,7 +252,6 @@ const FIELD_DEFS = {
     { key:"category", label:"Kategori", type:"select", options:["Makanan","Baju Muslimah","Barang Rumah"], dynamic:"category" },
     { key:"price", label:"Harga", type:"text", placeholder:"24.90" },
     { key:"old", label:"Harga asal", type:"text", placeholder:"32.00" },
-    { key:"why", label:"Kenapa kami pilih", type:"area", wide:true },
     { key:"sold", label:"Jumlah terjual", type:"text", placeholder:"1800" },
     { key:"link", label:"Link affiliate", type:"text", wide:true },
     { key:"image", label:"Gambar produk 800×800 (1:1, di bawah 200KB)", type:"image", wide:true },
