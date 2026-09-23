@@ -202,10 +202,11 @@
   .digital-dots button{border:0;padding:0;width:8px;height:8px;border-radius:999px;background:var(--n300);}
   .digital-dots button.active{background:var(--accent);}
 
-  footer{margin-top:44px;padding:24px 0 56px;border-top:1px solid var(--n300);}
-  .footer-row{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:baseline;justify-content:space-between;}
+  footer{margin-top:44px;padding:32px 0 56px;border-top:1px solid var(--n300);}
+  .footer-row{display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-start;justify-content:space-between;}
   .footer-meta{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;font-size:12.5px;color:var(--n700);}
-  .footer-links{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;font-weight:600;}
+  .footer-col-title{margin:0 0 12px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);}
+  .footer-links{display:flex;flex-direction:column;gap:10px;font-size:13px;font-weight:600;}
   .footer-links a{color:var(--n800);}
   button svg, a svg{display:block;flex:none;}
 </style>
@@ -355,16 +356,24 @@
 
   <footer>
     <div class="footer-row">
-      <div class="footer-meta" style="flex-direction:column;gap:8px;align-items:flex-start;">
-        <p style="margin:0;">© <span id="year"></span> <a href="https://ahmadalbab.store/" class="wordmark-footer" style="display:inline;">ahmadalbab</a>. Hak Cipta Terpelihara.</p>
+      <div class="footer-meta" style="flex-direction:column;gap:10px;align-items:flex-start;max-width:280px;">
+        <a href="https://ahmadalbab.store/" style="display:flex;align-items:center;gap:9px;">
+          <img src="favicon.svg" alt="Logo Ahmad Albab" width="30" height="30" style="display:block;width:30px;height:30px;flex:none;border-radius:8px;">
+          <span class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></span>
+        </a>
+        <p style="margin:0;">Review Produk Shopee &amp; Tiktok Untuk Anda!</p>
+        <p style="margin:0;">© <span id="year"></span> ahmadalbab. Hak Cipta Terpelihara.</p>
         <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
       </div>
-      <div class="footer-links">
-        <a href="#produk">Produk terlaris</a>
-        <a href="#digital">Produk digital</a>
-        <a href="artikel/">Artikel</a>
-        <a href="#teka">Teka harga</a>
-        <a href="#langgan">Review terkini</a>
+      <div>
+        <p class="footer-col-title">Store</p>
+        <div class="footer-links">
+          <a href="#produk">Produk terlaris</a>
+          <a href="#digital">Produk digital</a>
+          <a href="artikel/">Artikel</a>
+          <a href="#teka">Teka harga</a>
+          <a href="#langgan">Review terkini</a>
+        </div>
       </div>
     </div>
   </footer>
