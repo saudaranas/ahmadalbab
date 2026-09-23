@@ -383,7 +383,9 @@ function renderView(){
     { key:"choices", label:"Pilihan harga per soalan", type:"select", options:["3","4"] },
     { key:"pool", label:"Ambil produk dari", type:"select", options:["Semua produk","Terlaris sahaja","Ada diskaun sahaja"] },
     { key:"showBuy", label:"Tunjuk butang beli", type:"toggle" },
-    { key:"endNote", label:"Ayat penutup", type:"area", wide:true }
+    { key:"winMessage", label:"Ayat bila menang (semua betul)", type:"area", wide:true, placeholder:"Power! Awak memang tahu harga pasaran — ini bonus misteri untuk awak." },
+    { key:"winLink", label:"Link Bonus Misteri (bila menang)", type:"text", wide:true, placeholder:"https://…" },
+    { key:"endNote", label:"Ayat bila tak menang (cuba lagi)", type:"area", wide:true, placeholder:"Cuba lagi — kena semua betul untuk dapat Bonus Misteri." }
   ]); return; }
   if(currentView === "site"){ renderSettingsForm(main, "site", [
     { key:"faceImage", label:"Gambar muka 400×400 (1:1, dipaparkan bulat)", type:"image", wide:true },
@@ -666,7 +668,7 @@ function renderFields(container, fields, data){
       return `<div class="field ${wide}"><label>${f.label}</label><input type="text" data-key="${f.key}" value="${escapeAttr(val)}" placeholder="${f.placeholder||''}"></div>`;
     }
     if(f.type === "area"){
-      return `<div class="field ${wide}"><label>${f.label}</label><textarea data-key="${f.key}" rows="3">${escapeHtml(val)}</textarea></div>`;
+      return `<div class="field ${wide}"><label>${f.label}</label><textarea data-key="${f.key}" rows="3" placeholder="${escapeAttr(f.placeholder||'')}">${escapeHtml(val)}</textarea></div>`;
     }
     if(f.type === "select"){
       let opts = f.options;
