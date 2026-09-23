@@ -184,7 +184,6 @@
   .game-opt.wrong-pick{background:var(--n200);border-color:var(--n400);color:var(--n700);}
   .game-reveal{margin-top:4px;padding-top:15px;border-top:1px solid var(--n200);display:flex;flex-direction:column;gap:10px;}
   .game-verdict{margin:0;font-weight:800;font-size:19px;letter-spacing:-.01em;}
-  .game-why{margin:0;font-size:13.5px;line-height:1.55;color:var(--n700);max-width:48ch;}
   .game-final{background:#fff;border:1px solid var(--n300);border-radius:16px;padding:32px 24px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;}
   .game-final-score{margin:0;font-weight:800;font-size:clamp(26px,3.4vw,36px);letter-spacing:-.02em;}
 
@@ -422,18 +421,18 @@ const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXi
 // ====== DEMO DATA (fallback jika API kosong/tak set) ======
 // SEED:PRODUCTS:START — jangan edit manual, dikemas kini automatik oleh GitHub Action
 const DEMO = [
-  { id:"d2", title:"Sambal Ikan Bilis Pedas Gila", price:15.9, old:19.9, platform:"tiktok", category:"makanan", sold:3100, hot:true, why:"Kering, tak berair — tahan sebulan dalam peti." },
-  { id:"d5", title:"Kopi Tongkat Ali Pracampuran", price:22.5, platform:"tiktok", category:"makanan", sold:2200, hot:true, why:"Sachet mudah bawa, rasa tak pahit macam jenama lain." },
-  { id:"d10", title:"Khimar Instant Labuh Dua Lapis", price:29.9, platform:"tiktok", category:"muslimah", sold:2000, hot:true, why:"Fabrik sejuk, tak jarang walaupun labuh." },
-  { id:"d1", title:"Serunding Daging Kampung 200g", price:24.9, old:32, platform:"shopee", category:"makanan", sold:1800, hot:true, why:"Rangup, bukan serbuk — guna daging kampung sebenar." },
-  { id:"d6", title:"Jubah Nida Ironless Lengan Puff", price:89, old:129, platform:"shopee", category:"muslimah", sold:1500, hot:true, why:"Tak payah seterika, senang basuh dan cepat kering." },
-  { id:"d9", title:"Telekung Travel Lipat Ringkas", price:45, old:59, platform:"shopee", category:"muslimah", sold:1100, why:"Muat dalam beg tangan, ringan untuk dibawa travel." },
-  { id:"d4", title:"Biskut Tart Nenas Rangup 500g", price:28, old:35, platform:"tiktok", category:"makanan", sold:940, why:"Kulit rangup, isi tak terlalu manis." },
-  { id:"d7", title:"Tudung Bawal Cotton Voile Bidang 45", price:19.9, platform:"tiktok", category:"muslimah", sold:870, why:"Cotton voile sejuk dipakai, tak telus." },
-  { id:"d12", title:"Sejadah Travel Tebal Lipat Poket", price:32, old:42, platform:"tiktok", category:"rumah", sold:780, why:"Padding tebal tapi muat dalam poket beg." },
-  { id:"d3", title:"Kurma Ajwa Premium 500g", price:39, platform:"shopee", category:"makanan", sold:620, why:"Biji kecil, daging tebal, tak terlalu manis." },
-  { id:"d11", title:"Bekas Simpan Beras 10kg Bertutup", price:35, platform:"shopee", category:"rumah", sold:560, why:"Penutup ketat — semut tak boleh masuk." },
-  { id:"d8", title:"Set Baju Kurung Moden Ibu & Anak", price:149, old:189, platform:"shopee", category:"muslimah", sold:430, why:"Fabrik sama untuk ibu & anak, jahitan kemas." }
+  { id:"d2", title:"Sambal Ikan Bilis Pedas Gila", price:15.9, old:19.9, platform:"tiktok", category:"makanan", sold:3100, hot:true },
+  { id:"d5", title:"Kopi Tongkat Ali Pracampuran", price:22.5, platform:"tiktok", category:"makanan", sold:2200, hot:true },
+  { id:"d10", title:"Khimar Instant Labuh Dua Lapis", price:29.9, platform:"tiktok", category:"muslimah", sold:2000, hot:true },
+  { id:"d1", title:"Serunding Daging Kampung 200g", price:24.9, old:32, platform:"shopee", category:"makanan", sold:1800, hot:true },
+  { id:"d6", title:"Jubah Nida Ironless Lengan Puff", price:89, old:129, platform:"shopee", category:"muslimah", sold:1500, hot:true },
+  { id:"d9", title:"Telekung Travel Lipat Ringkas", price:45, old:59, platform:"shopee", category:"muslimah", sold:1100 },
+  { id:"d4", title:"Biskut Tart Nenas Rangup 500g", price:28, old:35, platform:"tiktok", category:"makanan", sold:940 },
+  { id:"d7", title:"Tudung Bawal Cotton Voile Bidang 45", price:19.9, platform:"tiktok", category:"muslimah", sold:870 },
+  { id:"d12", title:"Sejadah Travel Tebal Lipat Poket", price:32, old:42, platform:"tiktok", category:"rumah", sold:780 },
+  { id:"d3", title:"Kurma Ajwa Premium 500g", price:39, platform:"shopee", category:"makanan", sold:620 },
+  { id:"d11", title:"Bekas Simpan Beras 10kg Bertutup", price:35, platform:"shopee", category:"rumah", sold:560 },
+  { id:"d8", title:"Set Baju Kurung Moden Ibu & Anak", price:149, old:189, platform:"shopee", category:"muslimah", sold:430 }
 ];
 // SEED:PRODUCTS:END
 // SEED:CATEGORIES:START — jangan edit manual, dikemas kini automatik oleh GitHub Action
@@ -800,7 +799,6 @@ function renderGame(){
         ${picked ? `
         <div class="game-reveal">
           <p class="game-verdict" style="color:${correct?'var(--accent-700)':'var(--text)'}">${correct ? "Tepat!" : "Sebenarnya "+money(cur.p.price)}</p>
-          <p class="game-why">${cur.p.why||""}</p>
           <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:2px;">
             ${state.gameCfg.showBuy ? `<a href="${cur.p.link || (isTikTok?'https://www.tiktok.com/shop':'https://shopee.com.my/')}" target="_blank" rel="noopener nofollow sponsored" class="hero-cta" onclick="track('${cur.p.id}','${cur.p.platform}','${cur.p.title.replace(/'/g,"")}')"><span>Beli di ${isTikTok?'TikTok':'Shopee'}</span></a>` : ""}
             <button class="btn-outline" onclick="gameNext(${deck.length})">${state.gRound+1>=deck.length ? "Lihat keputusan" : "Soalan seterusnya"}</button>
@@ -924,7 +922,7 @@ function loadFromApi(){
     if(d && d.success && (d.products||[]).length){
       state.products = d.products.map(p=>({
         id:p.id, title:p.title, price:parseFloat(p.price)||0, old:parseFloat(p.old)||0,
-        platform:p.platform, category:p.category, imageUrl:p.imageUrl, why:p.why, link:p.affiliateLink,
+        platform:p.platform, category:p.category, imageUrl:p.imageUrl, link:p.affiliateLink,
         hot:p.hot, sold:p.sold
       }));
       const uniqueCats = [];
