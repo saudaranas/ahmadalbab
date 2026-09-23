@@ -392,10 +392,10 @@ const DEMO = [
 // SEED:PRODUCTS:END
 // SEED:CATEGORIES:START — jangan edit manual, dikemas kini automatik oleh GitHub Action
 const DEMO_CATS = [
-  { key:"buku", name:"Buku" },
-  { key:"baju-muslimah", name:"Baju Muslimah" },
-  { key:"makanan", name:"Makanan" },
-  { key:"barang-rumah", name:"Barang Rumah" }
+  { key:"Baju Muslimah", name:"Baju Muslimah" },
+  { key:"Barang Rumah", name:"Barang Rumah" },
+  { key:"Buku", name:"Buku" },
+  { key:"Makanan", name:"Makanan" }
 ];
 // SEED:CATEGORIES:END
 let DIGITAL = [
@@ -858,7 +858,9 @@ function loadFromApi(){
         platform:p.platform, category:p.category, imageUrl:p.imageUrl, why:p.why, link:p.affiliateLink,
         hot:p.hot, sold:p.sold
       }));
-      if((d.categories||[]).length) state.cats = d.categories;
+      const uniqueCats = [];
+      state.products.forEach(p=>{ if(p.category && uniqueCats.indexOf(p.category)===-1) uniqueCats.push(p.category); });
+      if(uniqueCats.length) state.cats = uniqueCats.sort().map(name=>({ key:name, name:name }));
       state.gDeck = null; renderAll(); renderGame();
     }
   }).catch(()=>{});
