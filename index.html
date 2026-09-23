@@ -160,7 +160,8 @@
 
   .game-score{border-radius:999px;background:var(--n200);color:var(--n800);font-size:12.5px;font-weight:700;padding:7px 14px;flex:none;}
   .game-card{background:#fff;border:1px solid var(--n300);border-radius:16px;overflow:hidden;display:flex;flex-wrap:wrap;}
-  .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);aspect-ratio:1/1;background:var(--n200);background-size:cover;background-position:center;}
+  .game-media{position:relative;flex:1 1 260px;min-width:min(100%,260px);align-self:stretch;min-height:260px;background:var(--n200);background-size:cover;background-position:center;}
+  @media(max-width:600px){ .game-media{aspect-ratio:1/1;min-height:0;} }
   .game-body{flex:1 1 320px;min-width:min(100%,300px);padding:24px;display:flex;flex-direction:column;gap:13px;justify-content:center;}
   .game-round{margin:0;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n600);}
   .game-title{font-weight:700;font-size:clamp(18px,2.2vw,23px);line-height:1.3;letter-spacing:-.01em;}
@@ -203,10 +204,12 @@
   .digital-dots button.active{background:var(--accent);}
 
   footer{margin-top:44px;padding:32px 0 56px;border-top:1px solid var(--n300);}
-  .footer-row{display:flex;flex-wrap:wrap;gap:32px 56px;align-items:flex-start;justify-content:space-between;}
+  .footer-row{display:flex;flex-wrap:wrap;gap:32px 40px;align-items:flex-start;}
+  .footer-brand-col{flex:1 1 220px;min-width:200px;}
   .footer-meta{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:baseline;font-size:12.5px;color:var(--n700);}
   .footer-col-title{margin:0 0 12px;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);}
   .footer-links{display:flex;flex-direction:column;gap:10px;font-size:13px;font-weight:600;}
+  .footer-placeholder{font-size:13px;font-weight:500;color:var(--n700);}
   .footer-links a{color:var(--n800);}
   button svg, a svg{display:block;flex:none;}
 </style>
@@ -356,7 +359,7 @@
 
   <footer>
     <div class="footer-row">
-      <div class="footer-meta" style="flex-direction:column;gap:10px;align-items:flex-start;max-width:280px;">
+      <div class="footer-brand-col footer-meta" style="flex-direction:column;gap:10px;align-items:flex-start;">
         <a href="https://ahmadalbab.store/" style="display:flex;align-items:center;gap:9px;">
           <img src="favicon.svg" alt="Logo Ahmad Albab" width="30" height="30" style="display:block;width:30px;height:30px;flex:none;border-radius:8px;">
           <span class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></span>
@@ -373,6 +376,16 @@
           <a href="artikel/">Artikel</a>
           <a href="#teka">Teka harga</a>
           <a href="#langgan">Review terkini</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Alat Percuma</p>
+        <p class="footer-placeholder">Akan datang</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Hubungi</p>
+        <div class="footer-links">
+          <a href="mailto:hello@ahmadalbab.store">hello@ahmadalbab.store</a>
         </div>
       </div>
     </div>
