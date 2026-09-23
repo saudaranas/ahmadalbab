@@ -384,7 +384,8 @@ function renderView(){
     { key:"pool", label:"Ambil produk dari", type:"select", options:["Semua produk","Terlaris sahaja","Ada diskaun sahaja"] },
     { key:"showBuy", label:"Tunjuk butang beli", type:"toggle" },
     { key:"winMessage", label:"Ayat bila menang (semua betul)", type:"area", wide:true, placeholder:"Power! Awak memang tahu harga pasaran — ini bonus misteri untuk awak." },
-    { key:"winLink", label:"Link Bonus Misteri (bila menang)", type:"text", wide:true, placeholder:"https://…" },
+    { key:"winButtonLabel", label:"Teks butang bila menang", type:"text", placeholder:"Claim Bonus Misteri" },
+    { key:"winLink", label:"Link butang bila menang (contoh: YouTube, WhatsApp)", type:"text", wide:true, placeholder:"https://…" },
     { key:"endNote", label:"Ayat bila tak menang (cuba lagi)", type:"area", wide:true, placeholder:"Cuba lagi — kena semua betul untuk dapat Bonus Misteri." }
   ]); return; }
   if(currentView === "site"){ renderSettingsForm(main, "site", [
