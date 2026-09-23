@@ -218,6 +218,7 @@ const NAV = [
   ]},
   { group: "Tetapan", items: [
     { key:"category", label:"Kategori Produk", initial:"K", hint:"Tambah / buang" },
+    { key:"articleTag", label:"Kategori Artikel", initial:"A", hint:"Tambah / buang" },
     { key:"connect", label:"Sambungan", initial:"S", hint:"Brevo, Telegram, data" }
   ]}
 ];
@@ -225,7 +226,7 @@ const NAV = [
 const FIELD_DEFS = {
   review: [
     { key:"title", label:"Tajuk review", type:"text", required:true },
-    { key:"tag", label:"Kategori", type:"select", options:["Panduan","Ulasan","Tips jimat"] },
+    { key:"tag", label:"Kategori", type:"select", options:["Panduan","Ulasan","Tips jimat"], dynamic:"articleTag" },
     { key:"readTime", label:"Masa bacaan", type:"text", placeholder:"5 min bacaan" },
     { key:"excerpt", label:"Ringkasan (dipaparkan sebagai kad)", type:"area", wide:true },
     { key:"body", label:"Kandungan penuh artikel", type:"area", wide:true },
@@ -258,6 +259,9 @@ const FIELD_DEFS = {
     { key:"hot", label:"Tanda terlaris", type:"toggle" }
   ],
   category: [
+    { key:"title", label:"Nama kategori", type:"text", required:true }
+  ],
+  articleTag: [
     { key:"title", label:"Nama kategori", type:"text", required:true }
   ],
   digital: [
@@ -370,7 +374,7 @@ function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboa
 
 // ====== LOAD DATA ======
 function loadAllSettingsAndContent(){
-  const types = ["review","hero","product","digital","category"];
+  const types = ["review","hero","product","digital","category","articleTag"];
   const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
   const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; settingsCache.connect=d.connect||{}; } });
   return Promise.all(contentCalls.concat([settingsCall])).catch(()=>{});
@@ -524,7 +528,7 @@ function saveSettingsForm(key){
 // ====== GENERIC LIST FORM (review / hero / product / digital) ======
 function renderListForm(main, type){
   const fields = FIELD_DEFS[type];
-  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product", category:"Kategori Produk" };
+  const titleMap = { review:"Post Review", hero:"1 · Hero Slider", product:"2 · Add Product", digital:"5 · Other Product", category:"Kategori Produk", articleTag:"Kategori Artikel" };
   editingType = null; editingId = null;
   const showShare = type === "review";
   main.innerHTML = `
@@ -679,6 +683,9 @@ function renderFields(container, fields, data){
       let opts = f.options;
       if(f.dynamic === "category" && (contentCache.category||[]).length){
         opts = contentCache.category.map(c=>c.title);
+      }
+      if(f.dynamic === "articleTag" && (contentCache.articleTag||[]).length){
+        opts = contentCache.articleTag.map(c=>c.title);
       }
       return `<div class="field ${wide}"><label>${f.label}</label><select data-key="${f.key}">${opts.map(o=>`<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join("")}</select></div>`;
     }
