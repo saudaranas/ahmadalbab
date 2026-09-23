@@ -49,15 +49,33 @@
 
 <footer>
   <div class="wrap footer-row">
-    <div class="footer-meta">
-      <p style="margin:0;">© <span id="year"></span> Ahmad Albab. Hak Cipta Terpelihara.</p>
+    <div class="footer-brand-col footer-meta" style="flex-direction:column;gap:10px;align-items:flex-start;">
+      <a href="../" style="display:flex;align-items:center;gap:9px;">
+        <img src="../favicon.svg" alt="Logo Ahmad Albab" width="30" height="30" style="display:block;width:30px;height:30px;flex:none;border-radius:8px;">
+        <span class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></span>
+      </a>
+      <p style="margin:0;">Review Produk Shopee &amp; Tiktok Untuk Anda!</p>
+      <p style="margin:0;">© <span id="year"></span> ahmadalbab. Hak Cipta Terpelihara.</p>
       <p style="margin:0;">No. Pendaftaran SSM: 202603001066 (CT0159040-U)</p>
     </div>
-    <nav aria-label="Navigasi footer" class="footer-links">
-      <a href="../">Produk terlaris</a>
-      <a href="../#digital">Produk digital</a>
-      <a href="./">Semua artikel</a>
-    </nav>
+    <div>
+      <p class="footer-col-title">Store</p>
+      <nav aria-label="Navigasi footer" class="footer-links">
+        <a href="../">Produk terlaris</a>
+        <a href="../#digital">Produk digital</a>
+        <a href="./">Semua artikel</a>
+      </nav>
+    </div>
+    <div>
+      <p class="footer-col-title">Alat Percuma</p>
+      <p class="footer-placeholder">Akan datang</p>
+    </div>
+    <div>
+      <p class="footer-col-title">Hubungi</p>
+      <div class="footer-links">
+        <a href="mailto:hello@ahmadalbab.store">hello@ahmadalbab.store</a>
+      </div>
+    </div>
   </div>
 </footer>
 
@@ -255,7 +273,7 @@ function renderArticle(item){
         <div class="article-meta">
           <span class="pill">${esc(item.tag||"Panduan")}</span>
           <span>${esc(item.readTime||"")}</span>
-          <span>· Ditulis oleh Ahmad Albab</span>
+          <span>· Ditulis oleh ${esc(item.authorName||"Ahmad Albab")}</span>
         </div>
         ${item.image
           ? `<figure><img src="${item.image}" alt="${esc(item.title)}" width="1200" height="675"><figcaption>${esc(item.title)}</figcaption></figure>`
@@ -270,6 +288,14 @@ function renderArticle(item){
           <a href="../">Lihat pilihan kami</a>
         </div>
         <p class="disclosure">Nota: kami tidak menguji setiap produk secara peribadi. Ulasan ini berdasarkan spesifikasi penjual, rating dan ulasan pembeli sebenar di Shopee dan TikTok Shop. Sesetengah link adalah link affiliate.</p>
+        ${item.authorBio ? `<div style="margin-top:24px;padding:18px;border:1px solid var(--n300);border-radius:14px;display:flex;gap:14px;align-items:flex-start;">
+          ${item.authorImage ? `<div style="width:52px;height:52px;border-radius:999px;flex:none;background-image:url('${item.authorImage}');background-size:cover;background-position:center;"></div>` : ""}
+          <div>
+            <p style="margin:0 0 4px;font-weight:700;font-size:14px;">${esc(item.authorName||"Ahmad Albab")}</p>
+            <p style="margin:0;font-size:13px;color:var(--n700);line-height:1.55;">${esc(item.authorBio)}</p>
+            ${item.authorLink ? `<a href="${item.authorLink}" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--accent-700);">Ikuti ${esc(item.authorName||"saya")} →</a>` : ""}
+          </div>
+        </div>` : ""}
       </article>
       <aside>
         <div class="side-card">
@@ -316,7 +342,7 @@ Promise.all([
   fetchWithTimeout(API_URL + "?action=getContent&type=review", 8000, 3),
   fetchWithTimeout(API_URL + "?action=getContent&type=digital", 8000, 3)
 ]).then(([reviewsRes, digitalRes])=>{
-  ALL_REVIEWS = (reviewsRes.items || []).map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", body:r.body||"", image:r.image||"", slug:r.slug||"" }));
+  ALL_REVIEWS = (reviewsRes.items || []).map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", body:r.body||"", image:r.image||"", slug:r.slug||"", authorName:r.authorName||"", authorImage:r.authorImage||"", authorBio:r.authorBio||"", authorLink:r.authorLink||"" }));
   DIGITAL_LINKS = (digitalRes.items || []).slice(0,3);
 
   const slug = slugParam();
