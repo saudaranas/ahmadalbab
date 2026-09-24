@@ -308,13 +308,20 @@ function renderArticle(item){
           : `<figure><div style="width:100%;aspect-ratio:16/9;border-radius:14px;background:var(--n200);display:flex;align-items:center;justify-content:center;color:var(--n700);font-size:13px;font-weight:600;">Gambar utama artikel (1200×675)</div></figure>`}
         ${item.excerpt ? `<p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);">Ringkasan</p><p class="lede">${esc(item.excerpt)}</p>` : ""}
         <div class="article-body">${paragraphs(item.body)}</div>
-        <div class="inline-cta">
+        ${item.ctaTarget === "Sembunyikan" ? "" :
+          item.ctaTarget === "Produk Digital" ? `<div class="inline-cta">
+          <div>
+            <p>Nak tengok kelas/panduan digital yang kami syorkan?</p>
+            <p style="font-weight:500;color:var(--accent-800);font-size:13px;margin-top:4px;">Senarai produk digital ada di laman utama.</p>
+          </div>
+          <a href="../#digital">Lihat pilihan kami</a>
+        </div>` : `<div class="inline-cta">
           <div>
             <p>Nak tengok produk yang kami sebut dalam artikel ni?</p>
             <p style="font-weight:500;color:var(--accent-800);font-size:13px;margin-top:4px;">Senarai pilihan kami ada di laman utama, lengkap dengan harga terkini.</p>
           </div>
           <a href="../">Lihat pilihan kami</a>
-        </div>
+        </div>`}
         <p class="disclosure">Nota: kami tidak menguji setiap produk secara peribadi. Ulasan ini berdasarkan spesifikasi penjual, rating dan ulasan pembeli sebenar di Shopee dan TikTok Shop. Sesetengah link adalah link affiliate.</p>
         ${item.authorBio ? `<div style="margin-top:24px;padding:18px;border:1px solid var(--n300);border-radius:14px;display:flex;gap:14px;align-items:flex-start;">
           ${item.authorImage ? `<div style="width:52px;height:52px;border-radius:999px;flex:none;background-image:url('${item.authorImage}');background-size:cover;background-position:center;"></div>` : ""}
@@ -371,7 +378,7 @@ Promise.all([
   fetchWithTimeout(API_URL + "?action=getContent&type=digital", 8000, 3),
   fetchWithTimeout(API_URL + "?action=getContent&type=articleTag", 8000, 3)
 ]).then(([reviewsRes, digitalRes, tagRes])=>{
-  ALL_REVIEWS = (reviewsRes.items || []).map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", body:r.body||"", image:r.image||"", slug:r.slug||"", authorName:r.authorName||"", authorImage:r.authorImage||"", authorBio:r.authorBio||"", authorLink:r.authorLink||"" }));
+  ALL_REVIEWS = (reviewsRes.items || []).map(r=>({ title:r.title||"", tag:r.tag||"Panduan", readTime:r.readTime||"", excerpt:r.excerpt||"", body:r.body||"", image:r.image||"", slug:r.slug||"", authorName:r.authorName||"", authorImage:r.authorImage||"", authorBio:r.authorBio||"", authorLink:r.authorLink||"", ctaTarget:r.ctaTarget||"" }));
   DIGITAL_LINKS = (digitalRes.items || []).slice(0,3);
   const liveTags = (tagRes.items || []).map(t=>t.title).filter(Boolean);
   if(liveTags.length) CATS = ["Semua"].concat(liveTags);
