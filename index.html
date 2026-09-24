@@ -530,8 +530,7 @@ function renderDigital(){
   const n = DIGITAL.length;
   const idx = ((state.art % n) + n) % n;
   track.style.transform = "translateX(-" + (idx*100) + "%)";
-  if(!track.dataset.built){
-    track.innerHTML = DIGITAL.map(d => `
+  track.innerHTML = DIGITAL.map(d => `
       <div class="hero-slide" style="flex:0 0 100%;min-width:100%;position:relative;">
         <div class="digital-card" style="width:100%;border:1px solid var(--n300);">
           <div class="digital-media" style="${d.image?`background-image:url('${d.image}')`:''}">${d.image?'':`<span class="digital-kicker">${d.kicker}</span>`}</div>
@@ -552,8 +551,6 @@ function renderDigital(){
           </div>
         </div>
       </div>`).join("");
-    track.dataset.built = "1";
-  }
   dots.innerHTML = DIGITAL.map((d,i)=>`<button class="${i===idx?'active':''}" onclick="state.art=${i};renderDigital();"></button>`).join("");
 }
 function shiftDigital(d){ state.art += d; renderDigital(); }
