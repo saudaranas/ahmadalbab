@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ahmadalbab.</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f3f2f2; --text:#201e1d; --accent:#ec3013; --n300:#d6d4d4; --n700:#6b6767; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+  .wrap{max-width:420px;padding:24px;text-align:center;}
+  .wordmark{font-weight:800;font-size:20px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
+  .spinner{width:28px;height:28px;border:3px solid var(--n300);border-top-color:var(--accent);border-radius:999px;margin:20px auto;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  p{color:var(--n700);font-size:14px;}
+  a{color:var(--accent);font-weight:700;text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <span class="wordmark">ahmadalbab<span style="color:var(--accent);">.</span></span>
+  <div id="content">
+    <div class="spinner"></div>
+    <p>Sedang alihkan…</p>
+  </div>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
+
+function showNotFound(){
+  document.getElementById("content").innerHTML =
+    '<p style="font-weight:700;font-size:16px;color:var(--text);margin-top:16px;">Halaman tidak dijumpai</p>' +
+    '<p>Link ni tak wujud, atau dah dipadam.</p>' +
+    '<a href="/">Balik ke Laman Utama</a>';
+}
+
+const path = window.location.pathname;
+const m = path.match(/^\/s\/([a-z0-9-]+)\/?$/i);
+
+if(m){
+  const slug = m[1];
+  fetch(API_URL + "?action=resolveShortUrl&slug=" + encodeURIComponent(slug))
+    .then(r=>r.json())
+    .then(d=>{
+      if(d && d.success){
+        fetch(API_URL + "?action=trackClick&id=" + encodeURIComponent(slug) + "&kind=shorturl&label=" + encodeURIComponent(slug), { mode: "no-cors" }).catch(()=>{});
+        window.location.replace(d.longUrl);
+      } else {
+        showNotFound();
+      }
+    })
+    .catch(showNotFound);
+} else {
+  showNotFound();
+}
+</script>
+
+</body>
+</html>
