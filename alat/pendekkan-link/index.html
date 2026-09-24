@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendekkan Link — ahmadalbab.</title>
+<meta name="description" content="Pendekkan link panjang secara percuma. Boleh custom alias, siap dengan tracking klik harian/mingguan/bulanan.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ahmadalbab.store/alat/pendekkan-link/">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../manifest.webmanifest">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3837035053916642" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3f2f2; --text:#201e1d;
+    --accent:#ec3013; --accent-600:#d02a10; --accent-700:#b8250e; --accent-800:#8f1c0b;
+    --accent-100:#fce2dc; --accent-200:#f9c7ba;
+    --n100:#f6f5f5; --n200:#eceaea; --n300:#d6d4d4; --n700:#6b6767;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Archivo',sans-serif;line-height:1.5;}
+  h1,h2{font-family:'Archivo',sans-serif;margin:0;}
+  a{color:var(--accent-700);text-decoration:none;}
+  a:hover{color:var(--accent);}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+  *:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  header{position:sticky;top:0;z-index:20;background:rgba(243,242,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--n300);}
+  .header-inner{position:relative;max-width:720px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+  .brand{display:flex;align-items:center;gap:9px;color:var(--text);}
+  .wordmark{font-weight:800;font-size:20px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text) !important;}
+  .back-home{font-size:13px;font-weight:600;color:var(--n700);}
+
+  main{padding:36px 0 60px;}
+  .breadcrumb{font-size:12.5px;color:var(--n700);margin-bottom:16px;}
+  .breadcrumb a{color:var(--n700);}
+  h1{font-weight:800;font-size:clamp(24px,4vw,32px);letter-spacing:-.02em;}
+  .lede{margin:10px 0 28px;color:var(--n700);font-size:14.5px;max-width:56ch;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--n300);}
+  .tab-btn{height:42px;padding:0 18px;border:0;background:transparent;font-size:14px;font-weight:700;color:var(--n700);border-bottom:2px solid transparent;margin-bottom:-1px;}
+  .tab-btn.active{color:var(--accent-700);border-bottom-color:var(--accent);}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  .card{background:#fff;border:1px solid var(--n300);border-radius:18px;padding:24px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--n700);margin-bottom:6px;}
+  .field input{width:100%;height:46px;border:1px solid var(--n300);border-radius:10px;padding:0 14px;font-family:inherit;font-size:14px;color:var(--text);background:var(--n100);}
+  .field input:focus{background:#fff;}
+  .field .hint{margin:6px 0 0;font-size:12px;color:var(--n700);}
+  .submit-btn{width:100%;height:50px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .submit-btn:hover{background:var(--accent-600);}
+  .submit-btn:disabled{opacity:.6;cursor:default;}
+  .form-msg{margin:12px 0 0;font-size:13px;text-align:center;}
+  .form-msg.error{color:var(--accent-800);}
+
+  .result{margin-top:20px;padding:18px;border-radius:14px;background:var(--accent-100);border:1px solid var(--accent-200);display:none;}
+  .result.show{display:block;}
+  .result p{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-800);}
+  .result-row{display:flex;gap:8px;align-items:center;}
+  .result-row input{flex:1;height:44px;border:1px solid var(--n300);border-radius:10px;padding:0 12px;font-family:inherit;font-size:14px;background:#fff;color:var(--text);}
+  .copy-btn{height:44px;padding:0 16px;border-radius:10px;border:0;background:var(--accent);color:#fff;font-size:13px;font-weight:700;flex:none;}
+
+  .stats-summary{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0;}
+  .stat-box{flex:1 1 140px;background:#fff;border:1px solid var(--n300);border-radius:14px;padding:16px;}
+  .stat-box p:first-child{margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--n700);}
+  .stat-box p:last-child{margin:0;font-size:24px;font-weight:800;}
+  .range-tabs{display:flex;gap:6px;margin:20px 0 14px;}
+  .range-btn{height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-size:12.5px;font-weight:600;color:var(--n800);}
+  .range-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:160px;overflow-x:auto;padding-bottom:4px;}
+  .bar-col{flex:1;min-width:18px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;}
+  .bar-val{font-size:9.5px;font-weight:700;color:var(--n700);}
+  .bar-fill{width:100%;border-radius:5px 5px 0 0;background:var(--accent);min-height:2px;}
+  .bar-day{font-size:9.5px;font-weight:600;color:var(--n700);white-space:nowrap;}
+
+  .ad-slot{margin:28px 0;min-height:90px;display:flex;align-items:center;justify-content:center;background:var(--n200);border-radius:12px;color:var(--n700);font-size:12px;}
+
+  footer{margin-top:44px;padding:32px 0 40px;border-top:1px solid var(--n300);}
+  .footer-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px 24px;}
+  .footer-brand-col p{font-size:13px;color:var(--n700);}
+  .footer-col-title{margin:0 0 12px;font-size:12px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--text);}
+  .footer-links{display:flex;flex-direction:column;gap:10px;font-size:13.5px;font-weight:500;}
+  .footer-links a{color:var(--n700);}
+  .footer-legal{margin-top:28px;padding-top:20px;border-top:1px solid var(--n300);display:flex;flex-wrap:wrap;justify-content:center;text-align:center;gap:4px 18px;font-size:12px;color:var(--n700);}
+  .wordmark-footer{font-weight:800;font-size:17px;letter-spacing:-.035em;text-transform:lowercase;color:var(--text);}
+  @media(max-width:760px){ .footer-row{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:460px){ .footer-row{grid-template-columns:1fr;gap:24px;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../../" class="brand">
+      <img src="../../favicon.svg" alt="Logo Ahmad Albab" width="32" height="32" style="display:block;width:32px;height:32px;border-radius:9px;">
+      <span class="wordmark">ahmadalbab<span style="color:var(--accent);">.</span></span>
+    </a>
+    <a href="../../" class="back-home">Laman Utama</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="../../">Laman Utama</a> / <span aria-current="page">Pendekkan Link</span>
+  </nav>
+  <h1>Pendekkan Link</h1>
+  <p class="lede">Tukar link panjang jadi pendek — percuma, boleh custom alias sendiri. Setiap klik direkod, boleh semak statistik bila-bila masa.</p>
+
+  <div class="tabs">
+    <button type="button" class="tab-btn active" id="tabCreate" onclick="switchTab('create')">Pendekkan Link</button>
+    <button type="button" class="tab-btn" id="tabStats" onclick="switchTab('stats')">Semak Statistik</button>
+  </div>
+
+  <div class="tab-panel active" id="panelCreate">
+    <div class="card">
+      <form id="shortenForm">
+        <div class="field">
+          <label for="longUrl">Link panjang</label>
+          <input type="url" id="longUrl" placeholder="https://contoh.com/link-yang-panjang" required>
+        </div>
+        <div class="field">
+          <label for="alias">Alias custom (pilihan)</label>
+          <input type="text" id="alias" placeholder="cth: checklist-rumah" maxlength="30">
+          <p class="hint">Kosongkan untuk dapat alias rawak automatik.</p>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span>Pendekkan Link</span>
+        </button>
+        <p class="form-msg" id="formMsg"></p>
+      </form>
+
+      <div class="result" id="result">
+        <p>Link pendek anda</p>
+        <div class="result-row">
+          <input type="text" id="resultUrl" readonly>
+          <button type="button" class="copy-btn" id="copyBtn">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panelStats">
+    <div class="card">
+      <form id="statsForm">
+        <div class="field" style="margin-bottom:12px;">
+          <label for="statsInput">Link pendek atau alias</label>
+          <input type="text" id="statsInput" placeholder="cth: ahmadalbab.store/s/checklist-rumah atau checklist-rumah" required>
+        </div>
+        <button type="submit" class="submit-btn" id="statsBtn"><span>Semak Statistik</span></button>
+        <p class="form-msg" id="statsMsg"></p>
+      </form>
+
+      <div id="statsResult" style="display:none;">
+        <div class="stats-summary">
+          <div class="stat-box"><p>Jumlah Klik</p><p id="statTotal">0</p></div>
+          <div class="stat-box"><p>Destinasi</p><p id="statDest" style="font-size:13px;font-weight:600;word-break:break-all;line-height:1.4;"></p></div>
+        </div>
+        <div class="range-tabs">
+          <button type="button" class="range-btn active" data-range="daily">Harian</button>
+          <button type="button" class="range-btn" data-range="weekly">Mingguan</button>
+          <button type="button" class="range-btn" data-range="monthly">Bulanan</button>
+        </div>
+        <div class="bars" id="statsBars"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ad-slot" id="adSlot">
+    <ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-3837035053916642" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="footer-brand-col">
+        <a href="../../" style="display:flex;align-items:center;gap:9px;">
+          <img src="../../favicon.svg" alt="Logo Ahmad Albab" width="30" height="30" style="display:block;width:30px;height:30px;flex:none;border-radius:8px;">
+          <span class="wordmark-footer">ahmadalbab<span style="color:var(--accent);">.</span></span>
+        </a>
+        <p style="margin:10px 0 0;">Review Produk Shopee &amp; Tiktok Untuk Anda!</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Store</p>
+        <div class="footer-links">
+          <a href="../../#produk">Produk terlaris</a>
+          <a href="../../#digital">Produk digital</a>
+          <a href="../../artikel/">Artikel</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Alat Percuma</p>
+        <div class="footer-links">
+          <a href="../pendekkan-link/">Pendekkan Link</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Hubungi</p>
+        <div class="footer-links">
+          <a href="mailto:hello@ahmadalbab.store">hello@ahmadalbab.store</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© <span id="year"></span> ahmadalbab. Hak Cipta Terpelihara.</span>
+      <span>No. Pendaftaran SSM: 202603001066 (CT0159040-U)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+try{ (adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+
+const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
+
+function switchTab(name){
+  document.getElementById("tabCreate").classList.toggle("active", name==="create");
+  document.getElementById("tabStats").classList.toggle("active", name==="stats");
+  document.getElementById("panelCreate").classList.toggle("active", name==="create");
+  document.getElementById("panelStats").classList.toggle("active", name==="stats");
+}
+
+// ---- Create short link ----
+document.getElementById("shortenForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const btn = document.getElementById("submitBtn");
+  const msg = document.getElementById("formMsg");
+  msg.textContent = ""; msg.classList.remove("error");
+  document.getElementById("result").classList.remove("show");
+
+  const longUrl = document.getElementById("longUrl").value.trim();
+  const alias = document.getElementById("alias").value.trim();
+
+  if(!/^https?:\/\//i.test(longUrl)){
+    msg.textContent = "Link mesti bermula dengan http:// atau https://";
+    msg.classList.add("error");
+    return;
+  }
+
+  btn.disabled = true;
+  btn.querySelector("span").textContent = "Sedang proses…";
+
+  fetch(API_URL, {
+    method: "POST",
+    body: JSON.stringify({ action:"createShortUrl", longUrl, alias })
+  }).then(r=>r.json()).then(d=>{
+    btn.disabled = false;
+    btn.querySelector("span").textContent = "Pendekkan Link";
+    if(d && d.success){
+      document.getElementById("resultUrl").value = d.shortUrl;
+      document.getElementById("result").classList.add("show");
+      document.getElementById("shortenForm").reset();
+    } else {
+      msg.textContent = (d && d.message) || "Gagal, cuba lagi.";
+      msg.classList.add("error");
+    }
+  }).catch(()=>{
+    btn.disabled = false;
+    btn.querySelector("span").textContent = "Pendekkan Link";
+    msg.textContent = "Gagal sambung ke server, cuba lagi.";
+    msg.classList.add("error");
+  });
+});
+
+document.getElementById("copyBtn").addEventListener("click", function(){
+  const input = document.getElementById("resultUrl");
+  input.select();
+  navigator.clipboard.writeText(input.value).then(()=>{
+    const btn = document.getElementById("copyBtn");
+    const old = btn.textContent;
+    btn.textContent = "Disalin!";
+    setTimeout(()=>{ btn.textContent = old; }, 1500);
+  }).catch(()=>{});
+});
+
+// ---- Stats ----
+let statsData = null;
+
+function extractSlug(input){
+  input = input.trim();
+  const m = input.match(/\/s\/([a-z0-9-]+)\/?/i);
+  if(m) return m[1];
+  return input.replace(/[^a-z0-9-]/gi, "");
+}
+
+function renderBars(range){
+  if(!statsData) return;
+  const list = statsData[range] || [];
+  const max = Math.max(1, ...list.map(x=>x.clicks));
+  document.getElementById("statsBars").innerHTML = list.map(x => `
+    <div class="bar-col">
+      <span class="bar-val">${x.clicks}</span>
+      <div class="bar-fill" style="height:${Math.max(4,(x.clicks/max)*100)}%;"></div>
+      <span class="bar-day">${x.label}</span>
+    </div>`).join("");
+}
+
+document.querySelectorAll(".range-btn").forEach(btn=>{
+  btn.addEventListener("click", function(){
+    document.querySelectorAll(".range-btn").forEach(b=>b.classList.remove("active"));
+    this.classList.add("active");
+    renderBars(this.dataset.range);
+  });
+});
+
+document.getElementById("statsForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const btn = document.getElementById("statsBtn");
+  const msg = document.getElementById("statsMsg");
+  msg.textContent = ""; msg.classList.remove("error");
+  document.getElementById("statsResult").style.display = "none";
+
+  const slug = extractSlug(document.getElementById("statsInput").value);
+  if(!slug){ msg.textContent = "Sila masukkan link atau alias yang sah."; msg.classList.add("error"); return; }
+
+  btn.disabled = true;
+  btn.querySelector("span").textContent = "Sedang semak…";
+
+  fetch(API_URL + "?action=getShortUrlStats&slug=" + encodeURIComponent(slug))
+    .then(r=>r.json()).then(d=>{
+      btn.disabled = false;
+      btn.querySelector("span").textContent = "Semak Statistik";
+      if(d && d.success){
+        statsData = d;
+        document.getElementById("statTotal").textContent = d.total;
+        document.getElementById("statDest").textContent = d.longUrl;
+        document.getElementById("statsResult").style.display = "block";
+        document.querySelectorAll(".range-btn").forEach(b=>b.classList.remove("active"));
+        document.querySelector('.range-btn[data-range="daily"]').classList.add("active");
+        renderBars("daily");
+      } else {
+        msg.textContent = (d && d.message) || "Link tidak dijumpai.";
+        msg.classList.add("error");
+      }
+    }).catch(()=>{
+      btn.disabled = false;
+      btn.querySelector("span").textContent = "Semak Statistik";
+      msg.textContent = "Gagal sambung ke server, cuba lagi.";
+      msg.classList.add("error");
+    });
+});
+</script>
+
+</body>
+</html>
