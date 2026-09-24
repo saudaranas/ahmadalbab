@@ -219,6 +219,7 @@ const NAV = [
   { group: "Tetapan", items: [
     { key:"category", label:"Kategori Produk", initial:"K", hint:"Tambah / buang" },
     { key:"articleTag", label:"Kategori Artikel", initial:"A", hint:"Tambah / buang" },
+    { key:"shorturls", label:"Pautan Pendek", initial:"P", hint:"Senarai & klik" },
     { key:"connect", label:"Sambungan", initial:"S", hint:"Brevo, Telegram, data" }
   ]}
 ];
@@ -373,7 +374,7 @@ function setRange(d){ rangeDays = d; renderRangeSeg(); if(currentView==="dashboa
 
 // ====== LOAD DATA ======
 function loadAllSettingsAndContent(){
-  const types = ["review","hero","product","digital","category","articleTag"];
+  const types = ["review","hero","product","digital","category","articleTag","shorturl"];
   const contentCalls = types.map(t => apiGet({action:"getContent", type:t}).then(d=>{ contentCache[t] = (d&&d.items)||[]; }));
   const settingsCall = apiGet({action:"getSettings"}).then(d=>{ if(d&&d.success){ settingsCache.game=d.game||{}; settingsCache.site=d.site||{}; settingsCache.connect=d.connect||{}; } });
   return Promise.all(contentCalls.concat([settingsCall])).catch(()=>{});
@@ -411,8 +412,50 @@ function renderView(){
     { key:"tgEvery", label:"Kekerapan laporan", type:"select", options:["Harian 9 pagi","Mingguan (Isnin)","Bulanan"] },
     { key:"tgInclude", label:"Isi laporan", type:"select", options:["Subscriber + Top 10 klik","Subscriber sahaja","Top 10 klik sahaja"] }
   ]); return; }
-  // list types: review, hero, product, digital, category
+  if(currentView === "shorturls"){ renderShortUrls(main); return; }
+  // list types: review, hero, product, digital, category, articleTag
   renderListForm(main, currentView);
+}
+
+// ====== SHORT URLS ======
+function renderShortUrls(main){
+  main.innerHTML = `
+    <section class="form-card">
+      <h2>Pautan Pendek</h2>
+      <p class="note">Senarai link yang dicipta orang ramai melalui alat "Pendekkan Link" — beserta jumlah klik sepanjang masa.</p>
+      <div id="shortUrlList" style="margin-top:16px;"></div>
+    </section>`;
+  const list = document.getElementById("shortUrlList");
+  list.innerHTML = `<p class="note">Memuatkan…</p>`;
+  apiGet({ action:"getClicks", range:"3650" }).then(d=>{
+    const clickMap = {};
+    ((d && d.byProduct) || []).forEach(x=>{ if(x.kind==="shorturl") clickMap[x.id] = x.clicks; });
+    const items = (contentCache.shorturl || []).slice().sort((a,b)=>(b.savedAt||0)-(a.savedAt||0));
+    if(!items.length){ list.innerHTML = `<div class="entries-empty">Belum ada pautan pendek dicipta.</div>`; return; }
+    list.innerHTML = `<div style="padding:14px 20px;font-size:12.5px;font-weight:700;color:var(--n700);border-bottom:1px solid var(--n200);">${items.length} pautan</div>` +
+      items.map((it,i)=>`
+      <div class="entry-row">
+        <div style="display:flex;gap:12px;align-items:flex-start;min-width:0;">
+          <span style="flex:none;font-size:13px;font-weight:700;color:var(--n700);min-width:20px;">${i+1}.</span>
+          <div style="min-width:0;">
+            <div class="entry-title">ahmadalbab.store/s/${escapeHtml(it.slug)}/</div>
+            <div class="entry-meta" style="word-break:break-all;">${escapeHtml(it.longUrl)} · <strong>${clickMap[it.id]||0} klik</strong></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex:none;">
+          <button class="btn-delete" onclick="deleteShortUrl('${it.id}')">Buang</button>
+        </div>
+      </div>`).join("");
+  }).catch(()=>{ list.innerHTML = `<p class="note">Gagal muatkan senarai.</p>`; });
+}
+
+function deleteShortUrl(id){
+  apiPost({ action:"deleteItem", token: TOKEN, type:"shorturl", id }).then(d=>{
+    if(d && d.success){
+      contentCache.shorturl = (contentCache.shorturl||[]).filter(x=>x.id!==id);
+      renderShortUrls(document.getElementById("mainArea"));
+    }
+  });
 }
 
 // ====== DASHBOARD ======
