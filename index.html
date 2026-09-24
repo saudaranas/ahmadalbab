@@ -500,9 +500,8 @@ function renderHero(){
   const n = ARTICLES.length;
   const idx = ((state.slide % n) + n) % n;
   track.style.transform = "translateX(-" + (idx*100) + "%)";
-  if(!track.dataset.built){
-    track.innerHTML = ARTICLES.map(a => `
-      <div class="hero-slide" style="background-image:none;">
+  track.innerHTML = ARTICLES.map(a => `
+      <div class="hero-slide" style="${a.image?`background-image:url('${a.image}')`:'background-image:none;'}">
         <div class="hero-scrim"></div>
         <div class="hero-content">
           <p class="hero-kicker">${a.kicker}</p>
@@ -514,8 +513,6 @@ function renderHero(){
           </a>
         </div>
       </div>`).join("");
-    track.dataset.built = "1";
-  }
   dots.innerHTML = ARTICLES.map((a,i)=>`<button style="width:${i===idx?'22px':'8px'};background:${i===idx?'#fff':'rgba(255,255,255,.45)'}" onclick="state.slide=${i};renderHero();"></button>`).join("");
 }
 function shiftHero(d){ state.slide += d; renderHero(); }
@@ -955,7 +952,7 @@ function loadFromApi(){
 
   fetch(API_URL + "?action=getContent&type=hero").then(r=>r.json()).then(d=>{
     if(d && d.success && (d.items||[]).length){
-      ARTICLES = d.items.map(h=>({ kicker:h.kicker||"", title:h.title||"", excerpt:h.excerpt||"", readTime:h.readTime||"", cta:h.cta||"Baca sebelum beli", href:h.href||"#produk" }));
+      ARTICLES = d.items.map(h=>({ kicker:h.kicker||"", title:h.title||"", excerpt:h.excerpt||"", readTime:h.readTime||"", cta:h.cta||"Baca sebelum beli", href:h.href||"#produk", image:h.image||"" }));
       state.slide = 0;
       const track = document.getElementById("heroTrack");
       delete track.dataset.built;
