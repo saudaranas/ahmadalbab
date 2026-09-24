@@ -100,6 +100,14 @@ function setHeaderNav(mode){
 
 function esc(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
 
+function copyEmailFallback(e){
+  navigator.clipboard.writeText("hello@ahmadalbab.store").then(()=>{
+    const note = document.getElementById("emailNote");
+    if(note) note.style.display = "block";
+  }).catch(()=>{});
+  return true; // biar mailto: tetap cuba jalan macam biasa
+}
+
 document.getElementById("menuToggle").addEventListener("click", ()=>{
   document.getElementById("headerNav").classList.toggle("open");
 });
@@ -230,7 +238,8 @@ function renderList(){
         <div class="side-card request-card">
           <h2>Request Review Produk</h2>
           <p>Ada produk yang anda teringin tahu berbaloi atau tidak? Beritahu kami — atau hantar ulasan anda sendiri untuk diterbitkan di sini.</p>
-          <a class="btn-email" href="mailto:hello@ahmadalbab.store">Hantar melalui emel</a>
+          <a class="btn-email" href="mailto:hello@ahmadalbab.store" id="emailBtn" onclick="return copyEmailFallback(event)">Hantar melalui emel</a>
+          <p id="emailNote" style="margin:8px 0 0;font-size:12px;color:var(--n700);display:none;">Alamat emel disalin: <strong>hello@ahmadalbab.store</strong></p>
         </div>
       </aside>
     </div>`;
