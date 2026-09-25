@@ -149,24 +149,32 @@ function formatInline(s){
 }
 
 function paragraphs(text){
-  const parts = (text||"").split(/\n+/).filter(p=>p.trim());
-  if(!parts.length) return "<p>Kandungan penuh belum ditambah lagi.</p>";
-  return parts.map(p=>{
-    const trimmed = p.trim();
+  const rawLines = (text||"").split("\n");
+  const items = [];
+  let blankRun = 0, first = true;
+  for (const raw of rawLines){
+    if (raw.trim() === ""){ blankRun++; }
+    else { items.push({ line: raw, gapBefore: first ? 0 : blankRun }); blankRun = 0; first = false; }
+  }
+  if(!items.length) return "<p>Kandungan penuh belum ditambah lagi.</p>";
+  return items.map(({line, gapBefore})=>{
+    const extra = gapBefore > 1 ? (gapBefore - 1) * 18 : 0;
+    const wrapStyle = extra ? ` style="margin-top:${extra}px;"` : "";
+    const trimmed = line.trim();
     const imgMatch = trimmed.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/);
     if(imgMatch){
       const alt = imgMatch[1], url = imgMatch[2];
-      return `<figure class="body-img"><img src="${url}" alt="${esc(alt)}" loading="lazy">${alt?`<figcaption>${esc(alt)}</figcaption>`:""}</figure>`;
+      return `<div${wrapStyle}><figure class="body-img"><img src="${url}" alt="${esc(alt)}" loading="lazy">${alt?`<figcaption>${esc(alt)}</figcaption>`:""}</figure></div>`;
     }
     const vidMatch = trimmed.match(/^\[video:(https?:\/\/[^\s\]]+)\]$/);
     if(vidMatch){
       const url = vidMatch[1];
       const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{6,})/);
-      if(ytMatch) return `<div class="body-video"><iframe src="https://www.youtube.com/embed/${ytMatch[1]}" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>`;
-      return `<div class="body-video"><video controls src="${url}"></video></div>`;
+      if(ytMatch) return `<div${wrapStyle}><div class="body-video"><iframe src="https://www.youtube.com/embed/${ytMatch[1]}" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div></div>`;
+      return `<div${wrapStyle}><div class="body-video"><video controls src="${url}"></video></div></div>`;
     }
-    if(trimmed.startsWith(">")) return `<blockquote>${formatInline(trimmed.slice(1).trim())}</blockquote>`;
-    return `<p>${formatInline(p)}</p>`;
+    if(trimmed.startsWith(">")) return `<div${wrapStyle}><blockquote>${formatInline(trimmed.slice(1).trim())}</blockquote></div>`;
+    return `<div${wrapStyle}><p>${formatInline(line)}</p></div>`;
   }).join("");
 }
 
