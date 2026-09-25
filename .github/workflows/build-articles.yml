@@ -4,6 +4,8 @@ on:
   workflow_dispatch: {}
   schedule:
     - cron: "0 */6 * * *"   # setiap 6 jam
+  repository_dispatch:
+    types: [content-updated]
 
 permissions:
   contents: write
