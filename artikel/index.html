@@ -100,6 +100,18 @@ function setHeaderNav(mode){
 
 function esc(s){ return String(s==null?"":s).replace(/</g,"&lt;"); }
 
+function shareArticle(title){
+  const url = window.location.href;
+  if(navigator.share){
+    navigator.share({ title: title, url: url }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      const label = document.getElementById("shareBtnLabel");
+      if(label){ const old = label.textContent; label.textContent = "Link Disalin!"; setTimeout(()=>{ label.textContent = old; }, 1500); }
+    }).catch(()=>{});
+  }
+}
+
 function copyEmailFallback(e){
   navigator.clipboard.writeText("hello@ahmadalbab.store").then(()=>{
     const note = document.getElementById("emailNote");
@@ -318,7 +330,7 @@ function renderArticle(item){
         ${item.image
           ? `<figure><img src="${item.image}" alt="${esc(item.title)}" width="1200" height="675"><figcaption>${esc(item.title)}</figcaption></figure>`
           : `<figure><div style="width:100%;aspect-ratio:16/9;border-radius:14px;background:var(--n200);display:flex;align-items:center;justify-content:center;color:var(--n700);font-size:13px;font-weight:600;">Gambar utama artikel (1200×675)</div></figure>`}
-        ${item.excerpt ? `<p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--n700);">Ringkasan</p><p class="lede">${esc(item.excerpt)}</p>` : ""}
+        ${item.excerpt ? `<div style="background:#faf6ec;border-radius:14px;padding:16px 18px;margin-bottom:18px;"><p style="margin:0;font-size:13px;line-height:1.65;color:var(--n800);">${esc(item.excerpt)}</p></div>` : ""}
         <div class="article-body">${paragraphs(item.body)}</div>
         ${item.ctaTarget === "Sembunyikan" ? "" :
           item.ctaTarget === "Produk Digital" ? `<div class="inline-cta">
@@ -334,7 +346,6 @@ function renderArticle(item){
           </div>
           <a href="../">Lihat pilihan kami</a>
         </div>`}
-        <p class="disclosure">Nota: kami tidak menguji setiap produk secara peribadi. Ulasan ini berdasarkan spesifikasi penjual, rating dan ulasan pembeli sebenar di Shopee dan TikTok Shop. Sesetengah link adalah link affiliate.</p>
         ${item.authorBio ? `<div style="margin-top:24px;padding:18px;border:1px solid var(--n300);border-radius:14px;display:flex;gap:14px;align-items:flex-start;">
           ${item.authorImage ? `<div style="width:52px;height:52px;border-radius:999px;flex:none;background-image:url('${item.authorImage}');background-size:cover;background-position:center;"></div>` : ""}
           <div>
@@ -343,6 +354,12 @@ function renderArticle(item){
             ${item.authorLink ? `<a href="${item.authorLink}" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--accent-700);">Ikuti ${esc(item.authorName||"saya")} →</a>` : ""}
           </div>
         </div>` : ""}
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--n200);text-align:center;">
+          <button type="button" onclick="shareArticle('${esc(item.title)}')" style="display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:999px;border:1px solid var(--n300);background:#fff;font-family:inherit;font-size:14px;font-weight:700;color:var(--text);cursor:pointer;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"></line><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"></line></svg>
+            <span id="shareBtnLabel">Kongsi Artikel</span>
+          </button>
+        </div>
       </article>
       <aside>
         <div class="side-card">
