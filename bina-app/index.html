@@ -33,8 +33,8 @@
 
   /* Tablet mockup: the one memorable element */
   .device{margin:40px auto 10px;max-width:440px;padding:0 6px}
-  .tablet{background:var(--bezel);border-radius:26px;padding:16px;box-shadow:0 24px 50px -22px rgba(27,36,48,.55);transform:rotate(-2deg)}
-  .screen{background:#fff;border-radius:12px;padding:16px 16px 18px;font-family:var(--display);text-align:left}
+  .tablet{background:var(--bezel);border-radius:20px;padding:7px;box-shadow:0 24px 50px -22px rgba(27,36,48,.55);transform:rotate(-2deg)}
+  .screen{background:#fff;border-radius:14px;padding:16px 16px 18px;font-family:var(--display);text-align:left}
   .scr-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
   .scr-top b{font-size:.98rem;white-space:nowrap}
   .scr-top{gap:10px}
@@ -87,7 +87,7 @@
   @media (max-width:520px){
     body{font-size:1.06rem}
     .author{width:92px;height:92px;margin-left:14px}
-    .tablet{padding:12px;border-radius:22px}
+    .tablet{padding:6px;border-radius:18px}
     .optin{padding:24px 18px 20px}
   }
   @media (prefers-reduced-motion:reduce){.tablet{transform:none}}
@@ -111,12 +111,23 @@
               mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
     }
   }
+
+  /* Highlight headline: sapuan marker kuning */
+  .hl{
+    background-image:linear-gradient(transparent 58%, rgba(242,176,30,.6) 58%, rgba(242,176,30,.6) 92%, transparent 92%);
+    background-repeat:no-repeat;background-size:100% 100%;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+    padding:0 .08em;
+    animation:hl-sweep 1.1s .35s cubic-bezier(.6,0,.2,1) both;
+  }
+  @keyframes hl-sweep{from{background-size:0% 100%}to{background-size:100% 100%}}
+  @media (prefers-reduced-motion:reduce){.hl{animation:none}}
 </style>
 </head>
 <body>
 
 <header class="hero wrap">
-  <h1>Siapa Nak Tahu Bagaimana Saya Bina Sistem Bisnes Sebenar Hanya Guna Tablet, Tanpa Laptop, Tanpa Belajar Coding?</h1>
+  <h1>Siapa Nak Tahu Bagaimana Saya Bina Sistem Bisnes Sebenar <span class="hl">Hanya Guna Tablet, Tanpa Laptop, Tanpa Belajar Coding</span>?</h1>
   <p class="sub">Saya bukan programmer. Latar belakang saya kejuruteraan awam. Tapi dengan AI, sistem yang saya bina kini digunakan oleh peniaga sebenar.</p>
 
   <figure class="device" aria-label="Contoh paparan sistem tempahan di skrin tablet">
