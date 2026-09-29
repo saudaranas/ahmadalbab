@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bina Sistem Bisnes Guna Tablet, Tanpa Coding | Nasrol</title>
+<meta name="description" content="Artikel percuma: bagaimana saya bina sistem bisnes sebenar hanya guna tablet dan AI, tanpa laptop dan tanpa belajar coding.">
+<meta property="og:title" content="Bina Sistem Bisnes Sebenar Hanya Guna Tablet, Tanpa Coding">
+<meta property="og:description" content="Artikel percuma untuk peniaga, freelancer dan suri rumah.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-deep:#C98C00;
+    --bezel:#2A3340; --danger:#B42318;
+    --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+    --body:"Literata", Georgia, "Times New Roman", serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;overflow-x:hidden;background:var(--page);color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.75}
+  img{max-width:100%;display:block}
+  .wrap{max-width:660px;margin:0 auto;padding:0 22px}
+
+  /* Hero */
+  .hero{padding-top:48px;padding-bottom:8px;text-align:center}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.85rem,5.4vw,2.7rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 18px}
+  .hero .sub{font-family:var(--display);font-weight:600;font-size:clamp(1.02rem,2.8vw,1.18rem);line-height:1.45;color:var(--muted);margin:0 auto;max-width:34em}
+
+  /* Tablet mockup: the one memorable element */
+  .device{margin:40px auto 10px;max-width:440px;padding:0 6px}
+  .tablet{background:var(--bezel);border-radius:26px;padding:16px;box-shadow:0 24px 50px -22px rgba(27,36,48,.55);transform:rotate(-2deg)}
+  .screen{background:#fff;border-radius:12px;padding:16px 16px 18px;font-family:var(--display);text-align:left}
+  .scr-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .scr-top b{font-size:.98rem;white-space:nowrap}
+  .scr-top{gap:10px}
+  .scr-top span{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+  .chip{font-size:.72rem;padding:5px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+  .days{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:12px}
+  .day{text-align:center;border:1px solid var(--line);border-radius:8px;padding:5px 0;font-size:.68rem;color:var(--muted);line-height:1.3}
+  .day strong{display:block;font-size:.95rem;color:var(--ink)}
+  .day.on{border-color:var(--teal);background:var(--teal-soft)}
+  .slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+  .slot{text-align:center;font-size:.74rem;padding:6px 0;border-radius:6px;background:var(--teal-soft);color:var(--teal);font-weight:600}
+  .slot.taken{background:#F1F3F2;color:#A3ABA8;text-decoration:line-through;font-weight:400}
+  .slot.pick{background:var(--teal);color:#fff}
+  .scr-btn{background:var(--ink);color:#fff;text-align:center;border-radius:8px;padding:9px;font-size:.8rem;font-weight:600}
+  .device figcaption{font-family:var(--display);font-size:.88rem;color:var(--muted);text-align:center;margin-top:22px}
+
+  /* Letter */
+  .letter{padding-top:34px;padding-bottom:10px}
+  .letter p{margin:0 0 1.2em}
+  .author{float:right;width:112px;height:112px;margin:4px 0 12px 20px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:2.2rem;color:var(--teal);shape-outside:circle(50%)}
+  .author img{width:100%;height:100%;object-fit:cover}
+  .pull{font-family:var(--display);font-weight:600;font-size:1.25rem;line-height:1.45;margin:1.6em 0;padding-left:18px;border-left:4px solid var(--gold)}
+  .letter strong{font-weight:600}
+
+  /* Form */
+  .optin{margin:34px 0 20px;padding:28px 24px 24px;border:2px solid var(--ink);border-radius:14px;background:#fff}
+  .optin h2{font-family:var(--display);font-weight:800;font-size:1.35rem;line-height:1.3;margin:0 0 6px}
+  .optin .lead{font-size:1rem;color:var(--muted);margin:0 0 20px;line-height:1.6}
+  label{display:block;font-family:var(--display);font-weight:600;font-size:.92rem;margin:0 0 6px}
+  label small{font-weight:400;color:var(--muted)}
+  input[type=text],input[type=email],input[type=tel]{width:100%;font:inherit;font-family:var(--display);font-size:1.02rem;padding:13px 14px;border:1.5px solid #B9C2BF;border-radius:10px;background:#fff;color:var(--ink);margin-bottom:16px}
+  input:focus{outline:3px solid rgba(15,118,110,.28);border-color:var(--teal)}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  button{width:100%;font-family:var(--display);font-weight:800;font-size:1.15rem;padding:16px;border:0;border-radius:10px;background:var(--gold);color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--gold-deep);margin-top:4px}
+  button:hover{filter:brightness(1.04)}
+  button:active{transform:translateY(2px);box-shadow:0 2px 0 var(--gold-deep)}
+  button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  button[disabled]{opacity:.7;cursor:wait}
+  .privacy{font-family:var(--display);font-size:.85rem;color:var(--muted);text-align:center;margin:14px 0 0}
+  .err{display:none;font-family:var(--display);font-size:.92rem;color:var(--danger);background:#FDEDEC;border-radius:8px;padding:10px 12px;margin:0 0 14px}
+  .err.show{display:block}
+
+  .sign{font-family:var(--display);margin:26px 0 0}
+  .sign b{display:block;font-size:1.1rem}
+  .sign span{color:var(--muted);font-size:.92rem}
+  footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:44px 22px 36px}
+
+  @media (max-width:520px){
+    body{font-size:1.06rem}
+    .author{width:92px;height:92px;margin-left:14px}
+    .tablet{padding:12px;border-radius:22px}
+    .optin{padding:24px 18px 20px}
+  }
+  @media (prefers-reduced-motion:reduce){.tablet{transform:none}}
+
+  /* Latar grid seragam (gaya growthtools): pudar ke tepi skrin */
+  html{background:var(--page)}
+  body{background:transparent;position:relative}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  }
+  @media (max-width:520px){
+    body::before{
+      -webkit-mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+              mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero wrap">
+  <h1>Siapa Nak Tahu Bagaimana Saya Bina Sistem Bisnes Sebenar Hanya Guna Tablet, Tanpa Laptop, Tanpa Belajar Coding?</h1>
+  <p class="sub">Saya bukan programmer. Latar belakang saya kejuruteraan awam. Tapi dengan AI, sistem yang saya bina kini digunakan oleh peniaga sebenar.</p>
+
+  <figure class="device" aria-label="Contoh paparan sistem tempahan di skrin tablet">
+    <div class="tablet">
+      <div class="screen" aria-hidden="true">
+        <div class="scr-top"><b>Tempah slot anda</b><span>Kedai Gunting Rambut</span></div>
+        <div class="chips"><span class="chip on">Potong rambut</span><span class="chip">Cukur</span><span class="chip">Cuci + gaya</span></div>
+        <div class="days">
+          <div class="day">Isn<strong>6</strong></div>
+          <div class="day on">Sel<strong>7</strong></div>
+          <div class="day">Rab<strong>8</strong></div>
+          <div class="day">Kha<strong>9</strong></div>
+          <div class="day">Jum<strong>10</strong></div>
+        </div>
+        <div class="slots">
+          <div class="slot taken">9:00</div><div class="slot">9:30</div><div class="slot taken">10:00</div><div class="slot pick">10:30</div>
+          <div class="slot">11:00</div><div class="slot taken">11:30</div><div class="slot">2:30</div><div class="slot">3:00</div>
+        </div>
+        <div class="scr-btn">Sahkan tempahan</div>
+      </div>
+    </div>
+    <figcaption>Contoh jenis sistem yang diterangkan dalam artikel.</figcaption>
+  </figure>
+</header>
+
+<main class="wrap">
+  <article class="letter">
+    <div class="author" id="author">N<img src="nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <p>Assalamualaikum &amp; hai 🙂</p>
+    <p>Nama saya Nasrol. Saya dah berkecimpung dalam pemasaran digital sejak 2007.</p>
+    <p>Selama bertahun-tahun, setiap kali perlukan sistem untuk bisnes, jawapannya sama: upah programmer, bayar mahal, tunggu lama. Kalau nak ubah sikit pun, kena tunggu lagi.</p>
+    <p>Tapi sejak kebelakangan ni, ada sesuatu yang berubah.</p>
+    <p>Saya mula bina sistem sendiri dengan bantuan AI. Bukan di laptop canggih, sebab saya tak guna laptop langsung. <strong>Semuanya dibina di sebuah tablet.</strong></p>
+    <p class="pull">Sistem tempahan, sistem pelanggan, sistem jualan. Kini digunakan oleh peniaga sebenar dalam bisnes harian mereka.</p>
+    <p>Saya dah sediakan satu artikel yang menerangkan bagaimana cara ini berfungsi, dan kenapa sesiapa sahaja (peniaga, freelancer, atau suri rumah) boleh bina sistem pertama mereka tanpa perlu belajar coding bertahun-tahun.</p>
+    <p>Kalau anda berminat untuk baca, masukkan nama dan emel anda di bawah. Artikel akan terus dihantar ke inbox anda.</p>
+  </article>
+
+  <section class="optin" aria-labelledby="optin-title">
+    <h2 id="optin-title">Hantar artikel ke emel saya</h2>
+    <p class="lead">Percuma. Ambil masa lebih kurang 7 minit untuk dibaca.</p>
+    <div class="err" id="err" role="alert"></div>
+    <form id="form" novalidate>
+      <label for="nama">Nama panggilan</label>
+      <input type="text" id="nama" name="nama" autocomplete="given-name" required maxlength="60">
+      <label for="emel">Emel</label>
+      <input type="email" id="emel" name="emel" autocomplete="email" inputmode="email" required maxlength="120">
+      <label for="wa">No. WhatsApp <small>(pilihan)</small></label>
+      <input type="tel" id="wa" name="wa" autocomplete="tel" inputmode="tel" placeholder="012-345 6789" maxlength="20">
+      <div class="hp" aria-hidden="true"><label for="website">Website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <button type="submit" id="btn">Hantar artikel kepada saya</button>
+    </form>
+    <p class="privacy">🔒 Emel anda selamat. Saya tak akan spam.</p>
+  </section>
+
+  <div class="sign">
+    <b>Nasrol</b>
+    <span>Jom bina app sama-sama</span>
+  </div>
+</main>
+
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<script>
+/* ====== TETAPAN ====== */
+const GAS_URL  = "PASTE_URL_WEB_APP_GAS_DI_SINI";   // .../exec
+const PIXEL_ID = "";                                  // Meta Pixel ID (kosongkan jika belum ada)
+const TQ_PATH  = "terima-kasih/";
+/* ===================== */
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Meta Pixel (hanya jika PIXEL_ID diisi)
+if (PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID); fbq('track', 'PageView');
+}
+
+// Tangkap sumber trafik (UTM / ref) untuk ukur prestasi funnel
+const qs = new URLSearchParams(location.search);
+const src = {
+  sumber:  qs.get('utm_source')   || qs.get('src') || (document.referrer ? new URL(document.referrer).hostname : 'terus'),
+  kempen:  qs.get('utm_campaign') || '',
+  ref:     qs.get('ref')          || ''
+};
+
+const form = document.getElementById('form');
+const btn  = document.getElementById('btn');
+const err  = document.getElementById('err');
+
+function showErr(msg){ err.textContent = msg; err.classList.add('show'); }
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err.classList.remove('show');
+
+  const nama = form.nama.value.trim();
+  const emel = form.emel.value.trim().toLowerCase();
+  const wa   = form.wa.value.trim();
+
+  if (!nama) { showErr('Sila isi nama panggilan anda.'); form.nama.focus(); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emel)) { showErr('Emel tak lengkap. Contoh: nama@gmail.com'); form.emel.focus(); return; }
+  if (wa && wa.replace(/\D/g,'').length < 9) { showErr('Nombor WhatsApp nampak tak lengkap. Boleh juga dibiarkan kosong.'); form.wa.focus(); return; }
+
+  btn.disabled = true; btn.textContent = 'Sedang menghantar…';
+
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action:'optin', nama, emel, wa, website: form.website.value, ...src, page: location.href })
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.msg || 'Gagal');
+
+    if (PIXEL_ID && window.fbq) fbq('track', 'Lead');
+    location.href = TQ_PATH + '?n=' + encodeURIComponent(nama);
+  } catch (ex) {
+    showErr(ex.message && ex.message !== 'Failed to fetch' && ex.message !== 'Gagal'
+      ? ex.message
+      : 'Tak dapat dihantar. Semak sambungan internet dan cuba sekali lagi.');
+    btn.disabled = false; btn.textContent = 'Hantar artikel kepada saya';
+  }
+});
+</script>
+</body>
+</html>
