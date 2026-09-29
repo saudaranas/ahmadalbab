@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Semak Inbox Anda | Nasrol</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📩</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --body:"Literata",Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:var(--body);font-size:1.12rem;line-height:1.75}
+  .wrap{max-width:600px;margin:0 auto;padding:56px 22px 40px}
+  .env{font-size:3rem;line-height:1;margin:0 0 14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,6vw,2.5rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 22px}
+  p{margin:0 0 1.15em}
+  .steps{margin:26px 0 28px;padding:0;list-style:none;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:0 0 18px 48px;font-size:1.04rem}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center}
+  .steps b{font-family:var(--display);font-weight:600}
+  .note{background:var(--teal-soft);border-radius:12px;padding:16px 18px;font-size:1rem;line-height:1.6}
+  .sign{display:flex;align-items:center;gap:16px;margin-top:34px;font-family:var(--display)}
+  .face{width:72px;height:72px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.6rem;color:var(--teal);flex:none}
+  .face img{width:100%;height:100%;object-fit:cover}
+  .sign b{display:block;font-size:1.1rem}
+  .sign span{color:var(--muted);font-size:.92rem}
+  footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:10px 22px 36px}
+
+  /* Latar grid seragam (gaya growthtools): pudar ke tepi skrin */
+  html{background:var(--page)}
+  body{background:transparent;position:relative}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  }
+  @media (max-width:520px){
+    body::before{
+      -webkit-mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+              mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="env" aria-hidden="true">📩</div>
+  <h1 id="title">Semak inbox anda!</h1>
+
+  <p>Terima kasih. Artikel dah pun dihantar ke emel anda.</p>
+
+  <ol class="steps">
+    <li><b>Buka emel anda</b> sekarang. Cari emel daripada Nasrol.</li>
+    <li><b>Tak jumpa dalam 5 minit?</b> Semak folder Spam atau Promotions.</li>
+    <li><b>Jumpa di Spam?</b> Tandakan "Bukan spam" supaya emel seterusnya sampai dengan betul.</li>
+  </ol>
+
+  <p class="note">Artikel ni saya tulis khas untuk orang yang rasa nak bina sistem sendiri mesti ada laptop mahal dan pandai coding. Baca sampai habis, sebab ada sesuatu di hujungnya yang saya rasa anda akan suka. 🙂</p>
+
+  <div class="sign">
+    <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <div><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
+  </div>
+</main>
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<script>
+const PIXEL_ID = ""; // sama seperti di optin page
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+const n = new URLSearchParams(location.search).get('n');
+if (n) document.getElementById('title').textContent = 'Semak inbox anda, ' + n.slice(0,40) + '!';
+
+if (PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID); fbq('track', 'PageView');
+}
+</script>
+</body>
+</html>
