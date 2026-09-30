@@ -130,7 +130,8 @@
   .proof{clear:both;margin:1.8em 0 2em;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;font-family:var(--display);box-shadow:0 10px 30px -18px rgba(27,36,48,.35)}
   .proof-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
   .proof-title{font-weight:600;font-size:.9rem;color:var(--muted)}
-  .proof-live{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--teal);font-weight:600}
+  .proof-live{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--teal);font-weight:600;white-space:nowrap;flex:none}
+  .proof-head{gap:12px}
   .proof-live i{width:8px;height:8px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
   .proof-total{margin:0 0 12px!important;font-size:1.08rem;line-height:1.4}
   .proof-total b{font-weight:800;font-size:1.3rem}
@@ -147,6 +148,10 @@
   .pill{font-size:.78rem;font-weight:600;color:#15803D;background:#DCFCE7;padding:3px 10px;border-radius:999px}
   .pill::before{content:"✓ "}
   .proof figcaption{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:12px}
+
+  /* Gambar tutup huruf sandaran sepenuhnya */
+  .author,.face{position:relative}
+  .author img,.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 </style>
 </head>
 <body>
@@ -199,7 +204,7 @@
         <li><span class="who">Pelanggan C</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
         <li><span class="who">Pelanggan D</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
       </ul>
-      <figcaption>4 peniaga sedang melanggan dan membayar setiap bulan. Nama sistem dan pelanggan disembunyikan untuk privasi.</figcaption>
+      <figcaption>P/S: Nama sistem dan pelanggan disembunyikan untuk privasi.</figcaption>
     </figure>
     <p>Saya dah sediakan satu artikel yang menerangkan bagaimana cara ini berfungsi, dan kenapa sesiapa sahaja (peniaga, freelancer, atau suri rumah) boleh bina sistem pertama mereka tanpa perlu belajar coding bertahun-tahun, sama ada untuk bisnes sendiri, atau untuk dijual kepada peniaga lain.</p>
     <p>Kalau anda berminat untuk baca, masukkan nama dan emel anda di bawah. Artikel akan terus dihantar ke inbox anda.</p>
@@ -232,7 +237,7 @@
 
 <script>
 /* ====== TETAPAN ====== */
-const GAS_URL  = "PASTE_URL_WEB_APP_GAS_DI_SINI";   // .../exec
+const GAS_URL  = "https://script.google.com/macros/s/AKfycbx-avqOrBdJp4-uhtnDiOwEgXuFu3uvjnrTCcIE5vLsKsNPm_hK2Xyn-bSHE8oV__YL/exec";   // .../exec
 const PIXEL_ID = "";                                  // Meta Pixel ID (kosongkan jika belum ada)
 const TQ_PATH  = "terima-kasih/";
 /* ===================== */
