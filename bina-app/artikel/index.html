@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dari Quiz Game Untuk Anak, Kepada Sistem Yang Peniaga Bayar Setiap Bulan | Nasrol</title>
+<meta property="og:title" content="Dari Quiz Game Untuk Anak, Kepada Sistem Yang Peniaga Bayar Setiap Bulan">
+<meta property="og:description" content="Cerita bagaimana saya bina sistem bisnes hanya guna tablet, dan kenapa anda pun boleh.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-deep:#C98C00; --danger:#B42318;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --body:"Literata",Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--page);-webkit-text-size-adjust:100%}
+  body{margin:0;overflow-x:hidden;background:transparent;position:relative;color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.8}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  }
+  img{max-width:100%;display:block}
+  .wrap{max-width:680px;margin:0 auto;padding-left:22px;padding-right:22px}
+
+  /* Kepala artikel */
+  header{padding-top:52px;padding-bottom:10px}
+  .kicker{font-family:var(--display);font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin:0 0 14px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,5.4vw,2.7rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 16px}
+  .dek{font-family:var(--display);font-weight:600;font-size:1.12rem;line-height:1.5;color:var(--muted);margin:0 0 24px}
+  .byline{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:.92rem;color:var(--muted);padding-bottom:22px;border-bottom:1px solid var(--line)}
+  .face{width:46px;height:46px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--teal);flex:none}
+  .face img{width:100%;height:100%;object-fit:cover}
+  .byline b{color:var(--ink);font-weight:600}
+
+  /* Isi */
+  article{padding-top:28px}
+  article p{margin:0 0 1.15em}
+  article h2{font-family:var(--display);font-weight:800;font-size:1.5rem;line-height:1.25;margin:2em 0 .7em}
+  .pull{font-family:var(--display);font-weight:600;font-size:1.3rem;line-height:1.45;margin:1.5em 0;padding-left:18px;border-left:4px solid var(--gold)}
+  .lesson{background:var(--teal-soft);border-radius:12px;padding:16px 18px;font-size:1.02rem;line-height:1.65}
+  article strong{font-weight:600}
+
+  /* 3 konsep */
+  .trio{list-style:none;margin:1.2em 0 1.4em;padding:0;display:grid;gap:12px}
+  .trio li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px 14px 64px;position:relative;font-size:1.02rem;line-height:1.65}
+  .trio li::before{content:attr(data-n);position:absolute;left:18px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center}
+  .trio b{display:block;font-family:var(--display);font-weight:800;font-size:1.08rem;margin-bottom:2px}
+
+  /* Kad bukti (sama seperti optin page) */
+  .proof{margin:1.4em 0 1.8em;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;font-family:var(--display);box-shadow:0 10px 30px -18px rgba(27,36,48,.35)}
+  .proof-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .proof-title{font-weight:600;font-size:.9rem;color:var(--muted)}
+  .proof-live{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;color:var(--teal);font-weight:600;white-space:nowrap;flex:none}
+  .proof-head{gap:12px}
+  .proof-live i{width:8px;height:8px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,.18)}
+  .proof-total{margin:0 0 12px!important;font-size:1.08rem;line-height:1.4}
+  .proof-total b{font-weight:800;font-size:1.3rem}
+  .proof-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .proof-list li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+  .proof-list .who{font-weight:600}
+  .proof-list .plan{color:var(--muted);font-size:.85rem;white-space:nowrap}
+  .pill{font-size:.78rem;font-weight:600;color:#15803D;background:#DCFCE7;padding:3px 10px;border-radius:999px}
+  .pill::before{content:"✓ "}
+  .proof figcaption{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:12px}
+
+  /* Dua jalan */
+  .paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.2em 0 1.4em}
+  .path{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:.98rem;line-height:1.6}
+  .path b{display:block;font-family:var(--display);font-weight:800;font-size:1.05rem;margin-bottom:4px}
+
+  /* Tawaran */
+  .offer{margin:2.2em 0 1em;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:26px 22px 22px;scroll-margin-top:20px}
+  .offer .tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:4px 12px;margin-bottom:12px}
+  .offer h2{margin:0 0 8px!important}
+  .offer .lead{font-size:1.02rem;color:var(--muted);margin:0 0 16px}
+  .gets{list-style:none;margin:0 0 18px;padding:0}
+  .gets li{position:relative;padding:7px 0 7px 32px;font-size:1.02rem;line-height:1.55;border-bottom:1px dashed var(--line)}
+  .gets li:last-child{border-bottom:0}
+  .gets li::before{content:"✓";position:absolute;left:0;top:7px;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+  .fit{font-size:.98rem;color:var(--muted);margin:0 0 18px}
+  .price{font-family:var(--display);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 4px}
+  .price .now{font-weight:800;font-size:2.4rem;line-height:1}
+  .price .was{color:var(--muted);text-decoration:line-through;font-size:1.1rem}
+  .launch{font-family:var(--display);font-size:.92rem;color:var(--teal);font-weight:600;margin:0 0 14px}
+
+  .bonus{background:#FFF7E0;border:1px solid #F5D98A;border-radius:12px;padding:16px;margin:16px 0 18px}
+  .bonus-title{font-family:var(--display);font-weight:800;font-size:1.02rem;margin:0 0 4px}
+  .bonus p{margin:0 0 12px;font-size:.98rem;line-height:1.6}
+  .clock{display:flex;gap:8px}
+  .clock div{flex:1;background:#fff;border:1px solid #F0D27D;border-radius:10px;text-align:center;padding:8px 0 6px;font-family:var(--display)}
+  .clock b{display:block;font-weight:800;font-size:1.5rem;line-height:1.1;font-variant-numeric:tabular-nums}
+  .clock span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .bonus.over{background:#F3F4F3;border-color:var(--line)}
+
+  .buy{display:block;width:100%;text-align:center;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.18rem;padding:17px;border:0;border-radius:10px;background:var(--gold);color:var(--ink);box-shadow:0 4px 0 var(--gold-deep);cursor:pointer}
+  .buy:hover{filter:brightness(1.04)}
+  .buy:active{transform:translateY(2px);box-shadow:0 2px 0 var(--gold-deep)}
+  .buy:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .buy.off{background:#E4E7E6;box-shadow:none;color:var(--muted);cursor:default;pointer-events:none}
+  .safe{font-family:var(--display);font-size:.85rem;color:var(--muted);text-align:center;margin:12px 0 0}
+
+  .sign{font-family:var(--display);margin:30px 0 0;display:flex;align-items:center;gap:14px}
+  .sign b{display:block;font-size:1.1rem}
+  .sign span{color:var(--muted);font-size:.92rem}
+  footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:44px 22px 36px}
+
+  @media (max-width:520px){
+    body{font-size:1.06rem}
+    body::before{
+      -webkit-mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+              mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+    .paths{grid-template-columns:1fr}
+    .offer{padding:22px 18px 18px}
+    .proof-list li{grid-template-columns:1fr auto;row-gap:1px}
+    .proof-list .who{grid-column:1;grid-row:1}
+    .proof-list .plan{grid-column:1;grid-row:2;font-size:.8rem}
+    .proof-list .pill{grid-column:2;grid-row:1 / span 2}
+  }
+
+  /* Gambar tutup huruf sandaran sepenuhnya */
+  .author,.face{position:relative}
+  .author img,.face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <p class="kicker">Artikel percuma</p>
+  <h1>Dari Quiz Game Untuk Anak, Kepada Sistem Yang Peniaga Bayar Setiap Bulan</h1>
+  <p class="dek">Cerita bagaimana saya bina sistem bisnes hanya guna tablet, dan kenapa anda pun boleh.</p>
+  <div class="byline">
+    <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <div><b>Nasrol</b> · Jom bina app sama-sama · 7 minit bacaan</div>
+  </div>
+</header>
+
+<main class="wrap">
+<article>
+  <p>Hai <span class="js-nama">anda</span>,</p>
+  <p>Terima kasih sebab minta artikel ni. Saya nak mulakan dengan satu cerita yang mungkin anda tak jangka, sebab semuanya bermula dari sesuatu yang langsung tak ada kaitan dengan bisnes.</p>
+
+  <h2>Semuanya bermula dengan quiz sifir</h2>
+  <p>Waktu tu bulan puasa. Saya nak buat sesuatu untuk anak saya, Aidin: satu quiz game sifir, dan satu quiz Ramadhan. Sesuatu yang dia boleh main sambil belajar.</p>
+  <p>Masalahnya, saya bukan programmer. Latar belakang saya kejuruteraan awam. Pemasaran digital, ya, sejak 2007. Tapi tulis kod? Tak pernah.</p>
+  <p>Jadi saya cuba minta tolong AI. Saya terangkan apa yang saya nak dalam bahasa biasa, dan AI tuliskan kodnya. Bila ada yang tak menjadi, saya beritahu, dan AI betulkan.</p>
+  <p>Game tu siap. Tapi yang paling saya ingat bukan game tu. Yang saya ingat ialah satu soalan yang muncul dalam kepala selepas itu:</p>
+  <p class="pull">"Kalau game pun boleh buat, maksudnya sistem untuk peniaga pun boleh buat, kan?"</p>
+  <p>Dan kalau sistem tu betul-betul selesaikan masalah peniaga, mereka akan sanggup bayar setiap bulan untuk terus guna.</p>
+
+  <h2>Kenapa tablet, bukan laptop?</h2>
+  <p>Laptop saya rosak pada tahun 2024. Sejak itu, semua kerja saya buat di tablet.</p>
+  <p>Mula-mula sebab terpaksa. Tapi lama-lama saya rasa ia satu kelebihan. Ringan, mudah dibawa ke mana-mana, dan tiada siapa perasan bila simpan dalam sling bag. Bila nak demo sistem kepada peniaga pun senang: keluarkan tablet, terus tunjuk. Tak perlu cari meja, tak perlu cari plug.</p>
+  <p>Pengajarannya: alat yang mahal bukan syarat. Kalau anda ada fon atau tablet dan internet, anda dah ada cukup untuk bermula.</p>
+
+  <h2>Peniaga pertama saya</h2>
+  <p>Peniaga pertama yang guna sistem saya memang dah lama perlukan sistem macam ni. Sebelum tu, dia pernah bayar lebih RM1,000 setahun untuk sistem yang serupa.</p>
+  <p>Tapi masalahnya bukan harga sahaja. Sistem lama tu bergantung pada perkakasan, dan perkakasan tu kerap rosak. Setiap kali rosak, keluar duit lagi.</p>
+  <p>Sistem saya tiada perkakasan langsung. Ia boleh digunakan terus dari fon yang dia dah ada.</p>
+  <p>Alhamdulillah, akhirnya dia terus ambil sistem tu untuk bantu urus bisnes dia.</p>
+  <p>Dari situ saya faham satu perkara: <strong>peniaga tak beli teknologi. Mereka beli penyelesaian kepada masalah yang mereka rasa setiap hari.</strong></p>
+
+  <h2>3 perkara yang buat semua ni mungkin</h2>
+  <p>Ramai sangka nak bina sistem, kena belajar coding bertahun-tahun. Dulu mungkin betul. Sekarang, cara saya bergantung pada tiga perkara sahaja:</p>
+  <ol class="trio">
+    <li data-n="1"><b>Google Sheets sebagai "otak"</b>Semua data, sama ada pelanggan, tempahan atau jualan, disimpan dalam Google Sheets. Ya, Sheets yang mungkin anda dah guna. Tak perlu sewa server.</li>
+    <li data-n="2"><b>AI sebagai "tukang"</b>Anda terangkan apa yang anda nak dalam bahasa biasa, dan AI yang tulis kod. Kerja anda ialah faham masalah, dan terangkan dengan jelas.</li>
+    <li data-n="3"><b>Laman percuma sebagai "kedai"</b>Sistem diletak di internet secara percuma, jadi ia boleh dibuka dari mana-mana fon. Tiada kos langganan bulanan untuk bermula.</li>
+  </ol>
+  <p>Gabungkan tiga perkara ni, dan anda boleh bina sistem tempahan, sistem rekod pelanggan, sistem jualan, apa sahaja yang berasaskan data.</p>
+
+  <h2>Ini bukan teori</h2>
+  <p>Inilah cara saya bina sistem yang kini digunakan oleh peniaga sebenar:</p>
+  <figure class="proof" aria-label="Status pelanggan sistem saya">
+    <div class="proof-head">
+      <span class="proof-title">Status pelanggan: Sistem X</span>
+      <span class="proof-live"><i aria-hidden="true"></i>Data sebenar</span>
+    </div>
+    <p class="proof-total"><b>22 peniaga</b> dah guna Sistem X</p>
+    <ul class="proof-list">
+      <li><span class="who">Pelanggan A</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
+      <li><span class="who">Pelanggan B</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
+      <li><span class="who">Pelanggan C</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
+      <li><span class="who">Pelanggan D</span><span class="plan">Langganan bulanan</span><span class="pill">Aktif</span></li>
+    </ul>
+    <figcaption>P/S: Nama sistem dan pelanggan disembunyikan untuk privasi.</figcaption>
+  </figure>
+
+  <h2>Dua jalan bila anda dah boleh bina</h2>
+  <div class="paths">
+    <div class="path"><b>Untuk bisnes sendiri</b>Tak perlu bayar vendor setiap tahun. Sistem ikut cara bisnes anda, bukan sebaliknya.</div>
+    <div class="path"><b>Untuk dijual</b>Peniaga di sekeliling anda ada masalah yang sama. Bina sekali, tawarkan kepada ramai, dengan caj bulanan.</div>
+  </div>
+  <p>Saya takkan kata ia jadi dalam semalaman. Tapi setiap peniaga yang terus guna sistem anda bulan demi bulan ialah bukti bahawa anda sedang selesaikan masalah sebenar.</p>
+
+  <h2>Apa yang saya harap saya tahu lebih awal</h2>
+  <p class="lesson">Anda tak perlu tahu semua benda untuk bermula. Yang penting, fokus untuk selesaikan masalah, dan mula guna AI untuk bantu anda terus bergerak. Saya harap saya tahu perkara ni dari awal lagi.</p>
+
+  <h2>Tapi…</h2>
+  <p>Kalau anda dah baca sampai sini, mungkin anda sedang fikir: <em>"Okay, saya faham. Tapi nak mula dari mana?"</em></p>
+  <p>Itu soalan yang sama saya hadapi dulu. Nak suruh AI buat apa dulu? Prompt macam mana yang betul? Bila keluar error, nak buat apa? Macam mana nak letak sistem tu online?</p>
+  <p>Di sinilah kebanyakan orang berhenti. Bukan sebab tak mampu, tapi sebab tiada peta.</p>
+
+  <section class="offer" id="kit" aria-labelledby="kit-title">
+    <span class="tag">Langkah seterusnya</span>
+    <h2 id="kit-title">Kit Bina App Pertama</h2>
+    <p class="lead">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari kosong sampai boleh digunakan pelanggan.</p>
+    <ul class="gets">
+      <li>Page tempahan untuk pelanggan: pilih servis, tarikh dan slot masa</li>
+      <li>Page admin untuk urus tempahan dan tukar status</li>
+      <li>Notifikasi Telegram setiap kali ada tempahan baru</li>
+      <li>Set prompt yang saya guna, tersusun ikut langkah</li>
+      <li>Video langkah demi langkah, termasuk cara letak sistem online</li>
+      <li>Semuanya boleh dibuat dari tablet atau fon</li>
+    </ul>
+    <p class="fit">Sistem tempahan sesuai untuk salon, bengkel, kelas tuisyen, jurugambar dan banyak lagi. Guna untuk bisnes sendiri, atau tawarkan kepada peniaga lain.</p>
+
+    <div class="price"><span class="now" id="price"></span><span class="was" id="was"></span></div>
+    <p class="launch" id="launch" hidden></p>
+
+    <div class="bonus" id="bonus" hidden>
+      <p class="bonus-title" id="bonus-title">🎁 Bonus khas 24 jam untuk anda</p>
+      <p id="bonus-text"></p>
+      <div class="clock" id="clock" aria-live="polite">
+        <div><b id="hh">--</b><span>Jam</span></div>
+        <div><b id="mm">--</b><span>Minit</span></div>
+        <div><b id="ss">--</b><span>Saat</span></div>
+      </div>
+    </div>
+
+    <a class="buy" id="buy" href="#" rel="noopener">Saya nak Kit ini</a>
+    <p class="safe" id="safe">🔒 Pembayaran selamat melalui FPX / kad</p>
+  </section>
+
+  <div class="sign">
+    <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <div><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
+  </div>
+</article>
+</main>
+
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<script>
+/* ====== TETAPAN (ubah di sini sahaja) ====== */
+const GAS_URL = "PASTE_URL_WEB_APP_GAS_DI_SINI";   // sama seperti optin page
+const PIXEL_ID = "";                                // Meta Pixel ID (pilihan)
+const OFFER = {
+  price:       "29",     // harga kit (RM)
+  normalPrice: "",       // harga asal untuk dipotong, contoh "49". Kosongkan jika tiada
+  checkoutUrl: "",       // link bayaran ToyyibPay. Selagi kosong, butang dimatikan
+  launchDate:  "",       // prajualan: contoh "15 Oktober 2026". Kosongkan jika kit dah siap
+  bonusText:   "",       // bonus 24 jam. Kosongkan untuk sembunyikan bahagian bonus
+  bonusHours:  24
+};
+/* ============================================ */
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Harga, prajualan, butang
+document.getElementById('price').textContent = 'RM' + OFFER.price;
+if (OFFER.normalPrice) document.getElementById('was').textContent = 'RM' + OFFER.normalPrice;
+if (OFFER.launchDate) {
+  const l = document.getElementById('launch');
+  l.textContent = '📅 Prajualan: akses kit dibuka pada ' + OFFER.launchDate;
+  l.hidden = false;
+}
+const buy = document.getElementById('buy');
+const leadId = new URLSearchParams(location.search).get('id') || '';
+if (OFFER.checkoutUrl) {
+  buy.href = OFFER.checkoutUrl + (leadId ? (OFFER.checkoutUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(leadId) : '');
+  buy.addEventListener('click', () => { if (PIXEL_ID && window.fbq) fbq('track', 'InitiateCheckout', {value: Number(OFFER.price), currency: 'MYR'}); });
+} else {
+  buy.classList.add('off');
+  buy.textContent = 'Pembayaran akan dibuka tidak lama lagi';
+  buy.removeAttribute('href');
+  document.getElementById('safe').hidden = true;
+}
+
+// Meta Pixel
+if (PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID); fbq('track', 'PageView'); fbq('track', 'ViewContent', {content_name: 'artikel-bina-app'});
+}
+
+// Nama + countdown bonus, dikira dari masa optin sebenar setiap lead
+async function loadLead() {
+  if (!leadId || GAS_URL.startsWith('PASTE')) return null;
+  try {
+    const r = await fetch(GAS_URL + '?action=lead&id=' + encodeURIComponent(leadId));
+    const d = await r.json();
+    return d.ok ? d : null;
+  } catch (e) { return null; }
+}
+
+function startBonus(optinMs) {
+  if (!OFFER.bonusText) return;
+  const box = document.getElementById('bonus');
+  document.getElementById('bonus-text').textContent = OFFER.bonusText;
+  const end = optinMs + OFFER.bonusHours * 3600 * 1000;
+  const pad = n => String(n).padStart(2, '0');
+  function tick() {
+    const left = end - Date.now();
+    if (left <= 0) {
+      box.classList.add('over');
+      document.getElementById('bonus-title').textContent = 'Bonus 24 jam dah tamat';
+      document.getElementById('bonus-text').textContent = 'Terima kasih kerana membaca. Kit masih boleh didapatkan pada harga di atas.';
+      document.getElementById('clock').hidden = true;
+      return;
+    }
+    const s = Math.floor(left / 1000);
+    document.getElementById('hh').textContent = pad(Math.floor(s / 3600));
+    document.getElementById('mm').textContent = pad(Math.floor(s % 3600 / 60));
+    document.getElementById('ss').textContent = pad(s % 60);
+    setTimeout(tick, 1000);
+  }
+  box.hidden = false;
+  tick();
+}
+
+loadLead().then(lead => {
+  if (!lead) return; // tiada LeadID sah: tiada nama & tiada bonus (jujur, tiada countdown palsu)
+  if (lead.nama) document.querySelectorAll('.js-nama').forEach(el => el.textContent = lead.nama);
+  if (lead.t) startBonus(Number(lead.t));
+});
+</script>
+</body>
+</html>
