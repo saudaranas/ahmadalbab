@@ -74,15 +74,43 @@
   .pill::before{content:"✓ "}
   .proof figcaption{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:12px}
 
-  /* Bukti bayaran */
-  .receipts{margin:-.6em 0 1.8em}
-  .rc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-  .rc-row img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);box-shadow:0 10px 26px -18px rgba(27,36,48,.5);background:#F4F5F3}
-  .receipts figcaption{font-family:var(--display);font-size:.86rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+  /* Bukti bayaran: gaya terapung + kilauan */
+  .receipts{margin:-.2em 0 1.8em}
+  .rc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:14px 4px 22px}
+  .rc{--r:0deg;--d:0s;position:relative;display:block;border-radius:14px;overflow:hidden;background:#F4F5F3;
+      box-shadow:0 22px 34px -18px rgba(27,36,48,.55),0 6px 12px -6px rgba(27,36,48,.25);
+      transform:rotate(var(--r));animation:float 5s ease-in-out var(--d) infinite}
+  .rc:nth-child(1){--r:-2.5deg;--d:0s}
+  .rc:nth-child(2){--r:1.5deg;--d:-1.2s}
+  .rc:nth-child(3){--r:-1deg;--d:-2.4s}
+  .rc:nth-child(4){--r:2.5deg;--d:-3.6s}
+  .rc img{width:100%;height:auto;display:block}
+  @keyframes float{
+    0%,100%{transform:translateY(0) rotate(var(--r))}
+    50%{transform:translateY(-10px) rotate(var(--r))}
+  }
+
+  /* Kilauan cahaya bergerak (untuk elemen bertanda .shine) */
+  .shine{position:relative;overflow:hidden}
+  .shine::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;pointer-events:none;
+    background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%,transparent 100%);
+    transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite}
+  .shine.late::after{animation-delay:2.2s}
+  @keyframes shine{0%{left:-60%}35%,100%{left:130%}}
+
+  /* Cover kit terapung */
+  .cover-wrap{display:block;border-radius:12px;margin:6px 0 16px;box-shadow:0 24px 40px -22px rgba(27,36,48,.55);animation:float 6s ease-in-out infinite;--r:0deg}
+  .cover-wrap .cover{margin:0}
+
+  .receipts figcaption{font-family:var(--display);font-size:.86rem;color:var(--muted);text-align:center;margin-top:4px;line-height:1.5}
   .disclaim{font-size:.95rem;color:var(--muted);font-style:italic}
   @media (max-width:520px){
-    .rc-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -22px;padding:0 22px 6px}
-    .rc-row img{flex:0 0 62%;scroll-snap-align:center}
+    .rc-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -22px;padding:16px 22px 26px;gap:16px}
+    .rc{flex:0 0 60%;scroll-snap-align:center}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .rc,.cover-wrap{animation:none}
+    .shine::after{display:none}
   }
 
   /* Dua jalan */
@@ -362,10 +390,10 @@
   </figure>
   <figure class="receipts">
     <div class="rc-row">
-      <img src="bukti-1.jpg" alt="Resit DuitNow RM30 daripada peniaga, dengan mesej dah bayar" loading="lazy" width="562" height="1078">
-      <img src="bukti-2.jpg" alt="Peniaga yang sama membuat bayaran bulanan seterusnya" loading="lazy" width="562" height="1078">
-      <img src="bukti-3.jpg" alt="Notifikasi bayaran RM30 berjaya dan sistem diaktifkan" loading="lazy" width="562" height="1078">
-      <img src="bukti-4.jpg" alt="Peniaga menghantar resit bayaran dan langganan dikemas kini" loading="lazy" width="562" height="1078">
+      <span class="rc shine"><img src="bukti-1.jpg" alt="Resit DuitNow RM30 daripada peniaga, dengan mesej dah bayar" loading="lazy" width="562" height="1078"></span>
+      <span class="rc"><img src="bukti-2.jpg" alt="Peniaga yang sama membuat bayaran bulanan seterusnya" loading="lazy" width="562" height="1078"></span>
+      <span class="rc shine late"><img src="bukti-3.jpg" alt="Notifikasi bayaran RM30 berjaya dan sistem diaktifkan" loading="lazy" width="562" height="1078"></span>
+      <span class="rc"><img src="bukti-4.jpg" alt="Peniaga menghantar resit bayaran dan langganan dikemas kini" loading="lazy" width="562" height="1078"></span>
     </div>
     <figcaption>Bayaran langganan daripada peniaga melalui WhatsApp. Butiran peribadi disembunyikan.<span class="swipe"> Leret ke kiri →</span></figcaption>
   </figure>
@@ -389,7 +417,7 @@
   <section class="offer" id="kit" aria-labelledby="kit-title">
     <span class="tag">Langkah seterusnya</span>
     <h2 id="kit-title">Kit Bina App Pertama</h2>
-    <img class="cover" src="kit-cover.jpg" alt="Kit Bina App Pertama: kotak produk, monitor, tablet dan fon memaparkan Sistem Tempahan Temujanji" width="900" height="672" loading="lazy">
+    <span class="cover-wrap shine"><img class="cover" src="kit-cover.jpg" alt="Kit Bina App Pertama: kotak produk, monitor, tablet dan fon memaparkan Sistem Tempahan Temujanji" width="900" height="672" loading="lazy"></span>
     <p class="lead">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari kosong sampai boleh digunakan pelanggan, terus dari tablet atau fon anda.</p>
     <figure class="screens">
       <div class="scr-row" aria-hidden="true">
