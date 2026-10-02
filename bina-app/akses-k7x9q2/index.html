@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Kit Bina App Pertama: Akses Pembeli</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔑</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-deep:#C98C00;
+    --wa:#1FA855; --wa-deep:#15803D;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --body:"Literata",Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--page);-webkit-text-size-adjust:100%}
+  body{margin:0;background:transparent;position:relative;color:var(--ink);font-family:var(--body);font-size:1.12rem;line-height:1.75}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:52px 22px 40px}
+  .kicker{font-family:var(--display);font-weight:600;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--teal);margin:0 0 12px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,6vw,2.5rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 14px}
+  h2{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.3;margin:30px 0 12px}
+  p{margin:0 0 1.1em}
+  .muted{color:var(--muted)}
+
+  /* Countdown */
+  .count{margin:22px 0 8px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:20px 18px;text-align:center;font-family:var(--display)}
+  .count-label{font-weight:600;font-size:.92rem;color:var(--muted);margin:0 0 12px}
+  .clock{display:flex;gap:8px}
+  .clock div{flex:1;background:var(--teal-soft);border-radius:10px;padding:10px 0 8px}
+  .clock b{display:block;font-weight:800;font-size:1.8rem;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--teal)}
+  .clock span{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .count-date{font-weight:800;font-size:1.05rem;margin:14px 0 0}
+
+  /* Senarai kandungan */
+  .mods{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .mod{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .mod-n{width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;font-family:var(--display);font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex:none}
+  .mod b{display:block;font-family:var(--display);font-weight:800;font-size:1.02rem;line-height:1.35}
+  .mod span{display:block;font-size:.95rem;color:var(--muted);line-height:1.55}
+  .mod .lock{margin-left:auto;font-size:1.1rem;opacity:.55;flex:none}
+  .mod a{display:inline-block;margin-top:8px;font-family:var(--display);font-weight:800;font-size:.92rem;color:var(--ink);background:var(--gold);border-radius:8px;padding:7px 14px;text-decoration:none;box-shadow:0 3px 0 var(--gold-deep)}
+  .mod a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .mod.bonus .mod-n{background:var(--gold);color:var(--ink)}
+
+  .note{background:var(--teal-soft);border-radius:12px;padding:16px 18px;font-size:1rem;line-height:1.6;margin:22px 0 0}
+  .wa{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.05rem;padding:14px;border-radius:10px;background:var(--wa);color:#fff;box-shadow:0 4px 0 var(--wa-deep)}
+  .wa.off{background:#E4E7E6;color:var(--muted);box-shadow:none;pointer-events:none}
+  .wa:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+  .sign{display:flex;align-items:center;gap:16px;margin-top:34px;font-family:var(--display)}
+  .face{width:60px;height:60px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.3rem;color:var(--teal);flex:none;position:relative}
+  .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .sign b{display:block;font-size:1.1rem}
+  .sign span{color:var(--muted);font-size:.92rem}
+  footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:10px 22px 36px}
+  @media (max-width:520px){
+    body{font-size:1.06rem}
+    body::before{
+      -webkit-mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+              mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+    .clock b{font-size:1.5rem}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <p class="kicker">Akses pembeli</p>
+  <h1>Kit Bina App Pertama</h1>
+
+  <!-- Paparan sebelum kit dibuka -->
+  <section id="pre">
+    <p>Terima kasih kerana menyertai prajualan! Kit sedang disiapkan, dan semua kandungan akan terbuka <strong>di halaman ini juga</strong>. Simpan link ini atau emel akses anda.</p>
+    <div class="count" aria-live="polite">
+      <p class="count-label" id="count-label">Akses dibuka dalam</p>
+      <div class="clock" id="clock">
+        <div><b id="dd">--</b><span>Hari</span></div>
+        <div><b id="hh">--</b><span>Jam</span></div>
+        <div><b id="mm">--</b><span>Minit</span></div>
+      </div>
+      <p class="count-date" id="count-date"></p>
+    </div>
+  </section>
+
+  <h2 id="list-title">Apa yang akan anda dapat</h2>
+  <ul class="mods" id="mods"></ul>
+
+  <p class="note" id="note">Jaminan 30 hari anda bermula dari tarikh akses dibuka. Saya juga akan hantar emel peringatan bila kit dah sedia.</p>
+
+  <a class="wa" id="wa" href="#" target="_blank" rel="noopener">Ada soalan? WhatsApp saya</a>
+
+  <div class="sign">
+    <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <div><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
+  </div>
+</main>
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<script>
+/* ====== TETAPAN (ubah di sini sahaja) ====== */
+const OPEN = false;                              // tukar ke true bila kit dah siap dan link modul dah diisi
+const OPEN_AT = "2026-10-05T09:00:00+08:00";     // tarikh & masa akses dibuka (waktu Malaysia)
+const OPEN_LABEL = "Isnin, 5 Oktober 2026 · 9:00 pagi";
+const WA_NUMBER = "";                            // contoh "60123456789"
+
+// Senarai kandungan kit. Isi "url" setiap modul bila dah siap (video YouTube unlisted, folder Drive, dll.)
+const MODULES = [
+  { t: "Video langkah demi langkah", d: "Bina Sistem Tempahan Temujanji dari kosong sampai online, terus dari tablet atau fon.", url: "" },
+  { t: "Set prompt tersusun", d: "Prompt yang saya guna sendiri, ikut urutan langkah. Salin, tampal, siap.", url: "" },
+  { t: "Template Google Sheets", d: "\"Otak\" sistem tempahan anda, sedia untuk disalin.", url: "" },
+  { t: "Panduan notifikasi Telegram", d: "Setiap tempahan baru terus masuk ke fon anda.", url: "" },
+  { t: "Panduan letak sistem online", d: "Cara terbitkan sistem secara percuma supaya pelanggan boleh guna.", url: "" },
+  { t: "Bonus: Prompt Penyelamat Error", d: "Salin terus ke AI bila sistem keluar error.", url: "", bonus: true },
+  { t: "Bonus: Skrip WhatsApp tawar sistem", d: "Untuk tawarkan sistem tempahan kepada peniaga, siap cadangan caj bulanan.", url: "", bonus: true },
+  { t: "Bonus: 20 jenis bisnes perlukan sistem tempahan", d: "Untuk cari pelanggan pertama anda.", url: "", bonus: true }
+];
+/* ============================================ */
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Senarai modul
+const ul = document.getElementById('mods');
+let n = 0, b = 0;
+MODULES.forEach(m => {
+  const li = document.createElement('li');
+  li.className = 'mod' + (m.bonus ? ' bonus' : '');
+  const num = document.createElement('div');
+  num.className = 'mod-n';
+  num.textContent = m.bonus ? '🎁' : String(++n);
+  const body = document.createElement('div');
+  const t = document.createElement('b'); t.textContent = m.t;
+  const d = document.createElement('span'); d.textContent = m.d;
+  body.append(t, d);
+  if (OPEN && m.url) {
+    const a = document.createElement('a');
+    a.href = m.url; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = 'Buka';
+    body.appendChild(a);
+  }
+  li.append(num, body);
+  if (!(OPEN && m.url)) {
+    const lock = document.createElement('span');
+    lock.className = 'lock'; lock.setAttribute('aria-label', 'Belum dibuka'); lock.textContent = '🔒';
+    li.appendChild(lock);
+  }
+  ul.appendChild(li);
+});
+
+// Paparan ikut status
+if (OPEN) {
+  document.getElementById('pre').hidden = true;
+  document.getElementById('list-title').textContent = 'Kandungan kit anda';
+  document.getElementById('note').textContent = 'Mulakan dengan modul 1 dan ikut urutan. Kalau tersangkut, WhatsApp saya. Jaminan 30 hari anda bermula hari ini.';
+} else {
+  document.getElementById('count-date').textContent = OPEN_LABEL;
+  const end = new Date(OPEN_AT).getTime();
+  const pad = x => String(x).padStart(2, '0');
+  (function tick() {
+    const left = end - Date.now();
+    if (left <= 0) {
+      document.getElementById('clock').hidden = true;
+      document.getElementById('count-label').textContent = 'Kit sedang dimuat naik. Sila semak semula sebentar lagi, atau tunggu emel daripada saya.';
+      return;
+    }
+    const s = Math.floor(left / 1000);
+    document.getElementById('dd').textContent = pad(Math.floor(s / 86400));
+    document.getElementById('hh').textContent = pad(Math.floor(s % 86400 / 3600));
+    document.getElementById('mm').textContent = pad(Math.floor(s % 3600 / 60));
+    setTimeout(tick, 1000);
+  })();
+}
+
+// WhatsApp
+const wa = document.getElementById('wa');
+if (WA_NUMBER) {
+  wa.href = 'https://wa.me/' + WA_NUMBER.replace(/\D/g, '') + '?text=' + encodeURIComponent('Assalamualaikum Nasrol, saya pembeli Kit Bina App Pertama. ');
+} else {
+  wa.classList.add('off'); wa.removeAttribute('href');
+}
+</script>
+</body>
+</html>
