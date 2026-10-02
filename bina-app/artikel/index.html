@@ -74,6 +74,17 @@
   .pill::before{content:"✓ "}
   .proof figcaption{font-size:.84rem;color:var(--muted);line-height:1.5;margin-top:12px}
 
+  /* Bukti bayaran */
+  .receipts{margin:-.6em 0 1.8em}
+  .rc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .rc-row img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);box-shadow:0 10px 26px -18px rgba(27,36,48,.5);background:#F4F5F3}
+  .receipts figcaption{font-family:var(--display);font-size:.86rem;color:var(--muted);text-align:center;margin-top:12px;line-height:1.5}
+  .disclaim{font-size:.95rem;color:var(--muted);font-style:italic}
+  @media (max-width:520px){
+    .rc-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -22px;padding:0 22px 6px}
+    .rc-row img{flex:0 0 62%;scroll-snap-align:center}
+  }
+
   /* Dua jalan */
   .paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:1.2em 0 1.4em}
   .path{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;font-size:.98rem;line-height:1.6}
@@ -349,6 +360,16 @@
     </ul>
     <figcaption>P/S: Nama sistem dan pelanggan disembunyikan untuk privasi.</figcaption>
   </figure>
+  <figure class="receipts">
+    <div class="rc-row">
+      <img src="bukti-1.jpg" alt="Resit DuitNow RM30 daripada peniaga, dengan mesej dah bayar" loading="lazy" width="562" height="1078">
+      <img src="bukti-2.jpg" alt="Peniaga yang sama membuat bayaran bulanan seterusnya" loading="lazy" width="562" height="1078">
+      <img src="bukti-3.jpg" alt="Notifikasi bayaran RM30 berjaya dan sistem diaktifkan" loading="lazy" width="562" height="1078">
+      <img src="bukti-4.jpg" alt="Peniaga menghantar resit bayaran dan langganan dikemas kini" loading="lazy" width="562" height="1078">
+    </div>
+    <figcaption>Bayaran langganan daripada peniaga melalui WhatsApp. Butiran peribadi disembunyikan.<span class="swipe"> Leret ke kiri →</span></figcaption>
+  </figure>
+  <p class="disclaim">Ini hasil saya sendiri. Kit di hujung artikel ini mengajar anda bina app pertama anda. Hasil pendapatan bergantung pada usaha dan keadaan masing-masing.</p>
 
   <h2>Dua jalan bila anda dah boleh bina sendiri</h2>
   <div class="paths">
