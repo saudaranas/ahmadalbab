@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Terima Kasih! Kit Anda Dalam Perjalanan | Nasrol</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎉</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-deep:#C98C00;
+    --wa:#1FA855; --wa-deep:#15803D;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --body:"Literata",Georgia,"Times New Roman",serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--page);-webkit-text-size-adjust:100%}
+  body{margin:0;background:transparent;position:relative;color:var(--ink);font-family:var(--body);font-size:1.12rem;line-height:1.75}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 75% 65% at 50% 40%, #000 35%, transparent 100%);
+  }
+  .wrap{max-width:600px;margin:0 auto;padding:56px 22px 40px}
+
+  .badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--wa-deep);background:#DCFCE7;border-radius:999px;padding:6px 14px;margin:0 0 18px}
+  .badge i{width:18px;height:18px;border-radius:50%;background:var(--wa-deep);color:#fff;font-style:normal;font-size:.7rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,6vw,2.5rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 16px}
+  .lead{font-size:1.08rem;margin:0 0 6px}
+  p{margin:0 0 1.15em}
+
+  /* Kad emel */
+  .mail{margin:26px 0 8px;background:#fff;border:2px solid var(--ink);border-radius:14px;padding:22px 20px 18px}
+  .mail-h{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .mail-ic{width:46px;height:46px;border-radius:12px;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex:none}
+  .mail-h b{display:block;font-family:var(--display);font-weight:800;font-size:1.15rem;line-height:1.3}
+  .mail-h span{font-family:var(--display);font-size:.88rem;color:var(--muted)}
+  .steps{margin:0;padding:0;list-style:none;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:0 0 16px 46px;font-size:1.02rem;line-height:1.6}
+  .steps li:last-child{padding-bottom:0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+  .steps b{font-family:var(--display);font-weight:600}
+  .steps code{font-family:var(--display);font-size:.92rem;background:#F1F3F2;border-radius:6px;padding:1px 7px}
+
+  .tip{background:var(--teal-soft);border-radius:12px;padding:16px 18px;font-size:1rem;line-height:1.6;margin:22px 0 0}
+
+  /* Bantuan */
+  .help{margin:30px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+  .help h2{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.3;margin:0 0 6px}
+  .help p{font-size:1rem;color:var(--muted);margin:0 0 14px;line-height:1.6}
+  .wa{display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.08rem;padding:15px;border-radius:10px;background:var(--wa);color:#fff;box-shadow:0 4px 0 var(--wa-deep)}
+  .wa:hover{filter:brightness(1.05)}
+  .wa:active{transform:translateY(2px);box-shadow:0 2px 0 var(--wa-deep)}
+  .wa:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .wa svg{width:22px;height:22px;flex:none}
+  .wa.off{background:#E4E7E6;color:var(--muted);box-shadow:none;pointer-events:none}
+
+  /* Ruang OTO (disembunyikan sehingga diaktifkan) */
+  .oto{margin:34px 0 0;background:#FFF7E0;border:1px solid #F5D98A;border-radius:14px;padding:22px 20px}
+  .oto .tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+  .oto h2{font-family:var(--display);font-weight:800;font-size:1.3rem;line-height:1.3;margin:0 0 8px}
+  .oto p{font-size:1rem;line-height:1.6;margin:0 0 16px}
+  .oto a{display:block;text-align:center;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.08rem;padding:15px;border-radius:10px;background:var(--gold);color:var(--ink);box-shadow:0 4px 0 var(--gold-deep)}
+
+  .sign{display:flex;align-items:center;gap:16px;margin-top:34px;font-family:var(--display)}
+  .face{width:64px;height:64px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.4rem;color:var(--teal);flex:none;position:relative}
+  .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .sign b{display:block;font-size:1.1rem}
+  .sign span{color:var(--muted);font-size:.92rem}
+  footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:10px 22px 36px}
+
+  @media (max-width:520px){
+    body{font-size:1.06rem}
+    body::before{
+      -webkit-mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+              mask-image:radial-gradient(ellipse 95% 60% at 50% 40%, #000 30%, transparent 100%);
+    }
+    .mail{padding:20px 16px 16px}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <span class="badge"><i aria-hidden="true">✓</i>Pembayaran diterima</span>
+  <h1 id="title">Terima kasih! Kit anda dalam perjalanan 🎉</h1>
+  <p class="lead">Tahniah kerana mengambil langkah pertama untuk bina app anda sendiri.</p>
+
+  <section class="mail" aria-labelledby="mail-title">
+    <div class="mail-h">
+      <div class="mail-ic" aria-hidden="true">📩</div>
+      <div><b id="mail-title">Akses kit dihantar ke emel anda</b><span>Biasanya sampai dalam beberapa minit</span></div>
+    </div>
+    <ol class="steps">
+      <li><b>Buka emel</b> yang anda gunakan semasa membuat bayaran tadi.</li>
+      <li><b>Cari emel bertajuk "Kit Bina App Pertama"</b>. Anda juga akan terima emel resit bayaran yang berasingan.</li>
+      <li><b>Tekan butang <code>Access</code></b> dalam emel tersebut untuk buka kit anda.</li>
+      <li><b>Tak jumpa?</b> Semak folder Spam, Promotions atau All Mail, dan cari perkataan <code>Kit Bina App</code>.</li>
+    </ol>
+  </section>
+
+  <p class="tip">💡 Bila dah jumpa, <strong>simpan atau bintangkan emel tu</strong> supaya senang dibuka semula bila-bila masa anda nak sambung.</p>
+
+  <section class="help" aria-labelledby="help-title">
+    <h2 id="help-title">Emel tak sampai dalam 10 minit?</h2>
+    <p>Jangan risau. WhatsApp saya dengan nama dan emel yang anda guna semasa bayar, dan saya akan bantu hantar semula akses anda.</p>
+    <a class="wa" id="wa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.5.5 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5 5 0 0 0 1.1 2.7 11.5 11.5 0 0 0 4.4 3.9c1.6.7 2.3.8 3.1.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
+      <span id="wa-text">WhatsApp saya untuk bantuan</span>
+    </a>
+  </section>
+
+  <!-- Ruang OTO: tukar OTO.enabled kepada true dalam TETAPAN di bawah bila produk upsell dah siap -->
+  <section class="oto" id="oto" aria-labelledby="oto-title" hidden>
+    <span class="tag">Tawaran khas untuk pembeli</span>
+    <h2 id="oto-title"></h2>
+    <p id="oto-text"></p>
+    <a id="oto-btn" href="#" rel="noopener"></a>
+  </section>
+
+  <div class="sign">
+    <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
+    <div><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
+  </div>
+</main>
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<script>
+/* ====== TETAPAN (ubah di sini sahaja) ====== */
+const WA_NUMBER = "";   // nombor WhatsApp bantuan, format antarabangsa tanpa + atau -, contoh "60123456789"
+const WA_MESSAGE = "Assalamualaikum Nasrol, saya dah beli Kit Bina App Pertama tapi belum terima emel akses. Nama: \nEmel: ";
+const OTO = {
+  enabled: false,       // tukar ke true bila produk upsell dah siap
+  title:   "",          // contoh "Tambah 2 Sistem Lagi, Harga Khas Pembeli"
+  text:    "",          // penerangan ringkas tawaran
+  button:  "",          // contoh "Ya, saya nak tambah — RM19"
+  url:     ""           // link BCL untuk produk upsell
+};
+/* ============================================ */
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Butang WhatsApp
+const wa = document.getElementById('wa');
+if (WA_NUMBER) {
+  wa.href = 'https://wa.me/' + WA_NUMBER.replace(/\D/g, '') + '?text=' + encodeURIComponent(WA_MESSAGE);
+} else {
+  wa.classList.add('off');
+  wa.removeAttribute('href');
+  document.getElementById('wa-text').textContent = 'Butang bantuan akan diaktifkan tidak lama lagi';
+}
+
+// Ruang OTO
+if (OTO.enabled && OTO.url) {
+  document.getElementById('oto-title').textContent = OTO.title;
+  document.getElementById('oto-text').textContent = OTO.text;
+  const b = document.getElementById('oto-btn');
+  b.textContent = OTO.button || 'Saya nak tawaran ini';
+  b.href = OTO.url;
+  document.getElementById('oto').hidden = false;
+}
+</script>
+</body>
+</html>
