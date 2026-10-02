@@ -83,15 +83,32 @@
   .offer{margin:2.2em 0 1em;background:#fff;border:2px solid var(--ink);border-radius:16px;padding:26px 22px 22px;scroll-margin-top:20px}
   .offer .tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase;color:var(--teal);background:var(--teal-soft);border-radius:999px;padding:4px 12px;margin-bottom:12px}
   .offer h2{margin:0 0 8px!important}
+  .offer h3{font-family:var(--display);font-weight:800;font-size:1.12rem;line-height:1.3;margin:22px 0 10px}
   .offer .lead{font-size:1.02rem;color:var(--muted);margin:0 0 16px}
   .gets{list-style:none;margin:0 0 18px;padding:0}
   .gets li{position:relative;padding:7px 0 7px 32px;font-size:1.02rem;line-height:1.55;border-bottom:1px dashed var(--line)}
   .gets li:last-child{border-bottom:0}
   .gets li::before{content:"✓";position:absolute;left:0;top:7px;width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center}
   .fit{font-size:.98rem;color:var(--muted);margin:0 0 18px}
+
+  /* Senarai bonus kekal */
+  .extras{list-style:none;margin:0 0 6px;padding:0}
+  .extras li{position:relative;padding:7px 0 7px 32px;font-size:1.02rem;line-height:1.55}
+  .extras li::before{content:"🎁";position:absolute;left:0;top:6px;font-size:1.05rem}
+
+  /* Perbandingan kos */
+  .compare{margin:0 0 20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--display)}
+  .compare div{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid var(--line);font-size:.95rem;line-height:1.4}
+  .compare div:last-child{border-bottom:0;background:var(--teal-soft)}
+  .compare span{color:var(--muted)}
+  .compare b{font-weight:800;white-space:nowrap;text-align:right}
+  .compare div:last-child span{color:var(--ink);font-weight:600}
+  .compare div:last-child b{color:var(--teal);font-size:1.08rem}
+
   .price{font-family:var(--display);display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:6px 0 4px}
   .price .now{font-weight:800;font-size:2.4rem;line-height:1}
   .price .was{color:var(--muted);text-decoration:line-through;font-size:1.1rem}
+  .price .once{font-size:.95rem;color:var(--muted);font-weight:600}
   .launch{font-family:var(--display);font-size:.92rem;color:var(--teal);font-weight:600;margin:0 0 14px}
 
   .bonus{background:#FFF7E0;border:1px solid #F5D98A;border-radius:12px;padding:16px;margin:16px 0 18px}
@@ -110,6 +127,26 @@
   .buy.off{background:#E4E7E6;box-shadow:none;color:var(--muted);cursor:default;pointer-events:none}
   .safe{font-family:var(--display);font-size:.85rem;color:var(--muted);text-align:center;margin:12px 0 0}
 
+  /* Jaminan */
+  .guarantee{margin:22px 0 0;padding:16px 18px 16px 64px;position:relative;border:1.5px dashed var(--teal);border-radius:12px;background:#F6FBFA}
+  .guarantee::before{content:"🛡️";position:absolute;left:18px;top:14px;font-size:1.7rem}
+  .guarantee b{display:block;font-family:var(--display);font-weight:800;font-size:1.06rem;margin-bottom:4px}
+  .guarantee p{margin:0 0 6px;font-size:.98rem;line-height:1.6}
+  .guarantee p:last-child{margin:0;font-family:var(--display);font-weight:600;color:var(--teal);font-size:.92rem}
+
+  /* Soalan lazim */
+  .faq{margin:2em 0 1.2em}
+  .faq h2{margin-top:0!important}
+  .faq details{border-bottom:1px solid var(--line);padding:4px 0}
+  .faq summary{list-style:none;cursor:pointer;font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:1.45;padding:12px 30px 12px 0;position:relative}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";position:absolute;right:4px;top:9px;font-size:1.4rem;color:var(--teal);font-weight:800;transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq summary:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:4px}
+  .faq details p{margin:0 0 14px;font-size:1rem;line-height:1.7;color:var(--muted)}
+  .final{margin:1.6em 0 0}
+  .final p{font-family:var(--display);font-weight:600;font-size:1.05rem;line-height:1.5;text-align:center;margin:0 0 14px}
+
   .sign{font-family:var(--display);margin:30px 0 0;display:flex;align-items:center;gap:14px}
   .sign b{display:block;font-size:1.1rem}
   .sign span{color:var(--muted);font-size:.92rem}
@@ -127,6 +164,9 @@
     .proof-list .who{grid-column:1;grid-row:1}
     .proof-list .plan{grid-column:1;grid-row:2;font-size:.8rem}
     .proof-list .pill{grid-column:2;grid-row:1 / span 2}
+    .compare div{font-size:.9rem;padding:11px 12px}
+    .guarantee{padding:16px 16px 16px 56px}
+    .guarantee::before{left:14px}
   }
 
   /* Gambar tutup huruf sandaran sepenuhnya */
@@ -211,7 +251,7 @@
   .cover{width:100%;height:auto;border-radius:12px;margin:6px 0 16px;background:#F4F5F3}
   .swipe{display:none}
   @media (max-width:520px){.swipe{display:inline}}
-  @media (prefers-reduced-motion:reduce){.phone{transform:none}}
+  @media (prefers-reduced-motion:reduce){.phone{transform:none}.faq summary::after{transition:none}}
 </style>
 </head>
 <body>
@@ -329,7 +369,7 @@
     <span class="tag">Langkah seterusnya</span>
     <h2 id="kit-title">Kit Bina App Pertama</h2>
     <img class="cover" src="kit-cover.jpg" alt="Kit Bina App Pertama: kotak produk, monitor, tablet dan fon memaparkan Sistem Tempahan Temujanji" width="900" height="672" loading="lazy">
-    <p class="lead">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari kosong sampai boleh digunakan pelanggan.</p>
+    <p class="lead">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari kosong sampai boleh digunakan pelanggan, terus dari tablet atau fon anda.</p>
     <figure class="screens">
       <div class="scr-row" aria-hidden="true">
         <div class="mini">
@@ -354,17 +394,33 @@
       </div>
       <figcaption>Gambaran sistem yang anda akan bina dalam kit ini.<span class="swipe"> Leret ke kiri untuk skrin seterusnya →</span></figcaption>
     </figure>
+
+    <h3>Apa yang anda dapat</h3>
     <ul class="gets">
       <li>Page tempahan untuk pelanggan: pilih servis, tarikh dan slot masa</li>
       <li>Page admin untuk urus tempahan dan tukar status</li>
       <li>Notifikasi Telegram setiap kali ada tempahan baru</li>
-      <li>Set prompt yang saya guna, tersusun ikut langkah</li>
-      <li>Video langkah demi langkah, termasuk cara letak sistem online</li>
+      <li>Set prompt yang saya guna sendiri, tersusun ikut langkah. Salin, tampal, siap.</li>
+      <li>Video langkah demi langkah, termasuk cara letak sistem online secara percuma</li>
       <li>Semuanya boleh dibuat dari tablet atau fon</li>
     </ul>
-    <p class="fit">Sistem tempahan sesuai untuk salon, bengkel, kelas tuisyen, jurugambar dan banyak lagi. Guna untuk bisnes sendiri, atau tawarkan kepada peniaga lain.</p>
 
-    <div class="price"><span class="now" id="price"></span><span class="was" id="was"></span></div>
+    <div id="extras-wrap" hidden>
+      <h3>Bonus untuk setiap pembeli</h3>
+      <ul class="extras" id="extras"></ul>
+    </div>
+
+    <p class="fit">Sistem tempahan sesuai untuk salon, bengkel, kelas tuisyen, jurugambar dan banyak lagi. Guna untuk bisnes sendiri, atau tawarkan kepada peniaga lain dengan caj bulanan.</p>
+
+    <h3>Bandingkan sendiri</h3>
+    <div class="compare" role="group" aria-label="Perbandingan kos">
+      <div><span>Upah programmer bina sistem tempahan</span><b>Ribuan ringgit</b></div>
+      <div><span>Sistem lama peniaga pertama saya</span><b>RM1,000+ setahun</b></div>
+      <div><span>Kit Bina App Pertama: bina sendiri, milik anda selamanya</span><b id="cmp-price"></b></div>
+    </div>
+
+    <div class="price"><span class="now" id="price"></span><span class="was" id="was"></span><span class="once">sekali bayar</span></div>
+    <p class="launch" id="note" hidden></p>
     <p class="launch" id="launch" hidden></p>
 
     <div class="bonus" id="bonus" hidden>
@@ -377,8 +433,48 @@
       </div>
     </div>
 
-    <a class="buy" id="buy" href="#" rel="noopener">Saya nak Kit ini</a>
-    <p class="safe" id="safe">🔒 Pembayaran selamat melalui FPX / kad</p>
+    <a class="buy" href="#" rel="noopener">Saya nak Kit ini</a>
+    <p class="safe">🔒 Pembayaran selamat melalui FPX / kad · Akses terus selepas bayar</p>
+
+    <div class="guarantee" id="guarantee" hidden>
+      <b id="g-title"></b>
+      <p>Ikut langkah dalam kit. Kalau sistem anda tak menjadi, hubungi saya dan saya bantu sampai ia berfungsi. Kalau masih tak jalan juga, saya pulangkan bayaran anda sepenuhnya.</p>
+      <p>Risiko ada pada saya, bukan anda.</p>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title">Soalan lazim</h2>
+    <details>
+      <summary>Saya langsung tak tahu teknologi. Boleh ke?</summary>
+      <p>Boleh. Saya pun bukan programmer. Kalau anda boleh guna WhatsApp dan Google Sheets, anda dah cukup bersedia untuk bermula. Setiap langkah diterangkan dalam video, dan prompt disediakan siap untuk disalin.</p>
+    </details>
+    <details>
+      <summary>Betul ke cukup guna tablet atau fon?</summary>
+      <p>Ya. Semua sistem saya dibina di tablet, dan kit ini disusun untuk alat yang sama. Laptop tak diperlukan.</p>
+    </details>
+    <details>
+      <summary>Berapa lama nak siap?</summary>
+      <p>Ikut rentak anda sendiri. Langkah-langkahnya pendek, jadi anda boleh buat sikit-sikit dan sambung bila-bila masa.</p>
+    </details>
+    <details>
+      <summary>Ada kos lain selepas beli?</summary>
+      <p>Tiada untuk bermula. Google Sheets, AI versi percuma dan laman untuk letak sistem online semuanya percuma.</p>
+    </details>
+    <details>
+      <summary>Bila keluar error, macam mana?</summary>
+      <p>Error memang perkara biasa, termasuk untuk saya. Kit ini tunjukkan cara minta AI betulkan error tersebut langkah demi langkah.</p>
+    </details>
+    <details id="faq-support" hidden>
+      <summary>Kalau saya tersangkut, boleh tanya?</summary>
+      <p id="support-text"></p>
+    </details>
+
+    <div class="final">
+      <p>Peta dah ada. Yang tinggal hanya langkah pertama anda.</p>
+      <a class="buy" href="#" rel="noopener">Saya nak bina app pertama saya</a>
+      <p class="safe">🔒 Pembayaran selamat melalui FPX / kad</p>
+    </div>
   </section>
 
   <div class="sign">
@@ -396,34 +492,79 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbx-avqOrBdJp4-uhtnDiOwE
 const PIXEL_ID = "";                                // Meta Pixel ID (pilihan)
 const OFFER = {
   price:       "29",     // harga kit (RM)
-  normalPrice: "",       // harga asal untuk dipotong, contoh "49". Kosongkan jika tiada
-  checkoutUrl: "",       // link bayaran ToyyibPay. Selagi kosong, butang dimatikan
+  normalPrice: "47",     // harga biasa (dipotong). Pastikan kit memang dijual pada harga ini selepas promosi
+  priceNote:   "Harga promosi RM29 untuk 50 pembeli pertama.",   // had harga SEBENAR. Kosongkan jika tiada
+  checkoutUrl: "",       // link bayaran BCL, contoh "https://bcl.my/xxxxx". Selagi kosong, butang dimatikan
   launchDate:  "",       // prajualan: contoh "15 Oktober 2026". Kosongkan jika kit dah siap
   bonusText:   "",       // bonus 24 jam. Kosongkan untuk sembunyikan bahagian bonus
-  bonusHours:  24
+  bonusHours:  24,
+  extras: [              // bonus untuk SEMUA pembeli. Buang mana-mana yang anda tak akan sediakan
+    "Prompt Penyelamat Error: salin terus ke AI bila sistem keluar error",
+    "Skrip WhatsApp untuk tawarkan sistem tempahan kepada peniaga, siap cadangan caj bulanan",
+    "Senarai 20 jenis bisnes yang perlukan sistem tempahan, untuk cari pelanggan pertama anda"
+  ],
+  guaranteeDays: 30,     // letak 0 untuk sembunyikan jaminan
+  support:     ""        // contoh "Boleh. Hubungi saya melalui emel di nasrol@contoh.com." Kosongkan untuk sembunyikan soalan ini
 };
 /* ============================================ */
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// Harga, prajualan, butang
+// Harga, nota harga, prajualan
 document.getElementById('price').textContent = 'RM' + OFFER.price;
+document.getElementById('cmp-price').textContent = 'RM' + OFFER.price + ' sekali';
 if (OFFER.normalPrice) document.getElementById('was').textContent = 'RM' + OFFER.normalPrice;
+if (OFFER.priceNote) {
+  const n = document.getElementById('note');
+  n.textContent = '⏳ ' + OFFER.priceNote;
+  n.hidden = false;
+}
 if (OFFER.launchDate) {
   const l = document.getElementById('launch');
   l.textContent = '📅 Prajualan: akses kit dibuka pada ' + OFFER.launchDate;
   l.hidden = false;
 }
-const buy = document.getElementById('buy');
-const leadId = new URLSearchParams(location.search).get('id') || '';
+
+// Bonus kekal
+if (OFFER.extras.length) {
+  const ul = document.getElementById('extras');
+  OFFER.extras.forEach(t => { const li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+  document.getElementById('extras-wrap').hidden = false;
+}
+
+// Jaminan
+if (OFFER.guaranteeDays > 0) {
+  document.getElementById('g-title').textContent = 'Jaminan ' + OFFER.guaranteeDays + ' hari: sistem anda jalan';
+  document.getElementById('guarantee').hidden = false;
+}
+
+// Soalan support
+if (OFFER.support) {
+  document.getElementById('support-text').textContent = OFFER.support;
+  document.getElementById('faq-support').hidden = false;
+}
+
+// Butang beli (kedua-dua butang)
+const LEAD_KEY = "binaapp_lead";   // sama seperti di optin & TQ page
+let leadId = new URLSearchParams(location.search).get('id') || '';
+try {
+  if (leadId) localStorage.setItem(LEAD_KEY, leadId);
+  else leadId = localStorage.getItem(LEAD_KEY) || '';
+} catch (_) {}
+const buttons = document.querySelectorAll('.buy');
 if (OFFER.checkoutUrl) {
-  buy.href = OFFER.checkoutUrl + (leadId ? (OFFER.checkoutUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(leadId) : '');
-  buy.addEventListener('click', () => { if (PIXEL_ID && window.fbq) fbq('track', 'InitiateCheckout', {value: Number(OFFER.price), currency: 'MYR'}); });
+  const url = OFFER.checkoutUrl + (leadId ? (OFFER.checkoutUrl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(leadId) : '');
+  buttons.forEach(b => {
+    b.href = url;
+    b.addEventListener('click', () => { if (PIXEL_ID && window.fbq) fbq('track', 'InitiateCheckout', {value: Number(OFFER.price), currency: 'MYR'}); });
+  });
 } else {
-  buy.classList.add('off');
-  buy.textContent = 'Pembayaran akan dibuka tidak lama lagi';
-  buy.removeAttribute('href');
-  document.getElementById('safe').hidden = true;
+  buttons.forEach(b => {
+    b.classList.add('off');
+    b.textContent = 'Pembayaran akan dibuka tidak lama lagi';
+    b.removeAttribute('href');
+  });
+  document.querySelectorAll('.safe').forEach(s => s.hidden = true);
 }
 
 // Meta Pixel
