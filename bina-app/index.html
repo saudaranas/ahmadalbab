@@ -240,6 +240,7 @@
 const GAS_URL  = "https://script.google.com/macros/s/AKfycbx-avqOrBdJp4-uhtnDiOwEgXuFu3uvjnrTCcIE5vLsKsNPm_hK2Xyn-bSHE8oV__YL/exec";   // .../exec
 const PIXEL_ID = "";                                  // Meta Pixel ID (kosongkan jika belum ada)
 const TQ_PATH  = "terima-kasih/";
+const LEAD_KEY = "binaapp_lead";                      // kunci simpanan LeadID di peranti (dikongsi dengan TQ & artikel)
 /* ===================== */
 
 document.getElementById('yr').textContent = new Date().getFullYear();
@@ -287,8 +288,12 @@ form.addEventListener('submit', async (e) => {
     const data = await res.json();
     if (!data.ok) throw new Error(data.msg || 'Gagal');
 
+    // Simpan LeadID supaya TQ page & artikel kenal pembaca ini
+    const lid = data.id || '';
+    if (lid) { try { localStorage.setItem(LEAD_KEY, lid); } catch (_) {} }
+
     if (PIXEL_ID && window.fbq) fbq('track', 'Lead');
-    location.href = TQ_PATH + '?n=' + encodeURIComponent(nama);
+    location.href = TQ_PATH + '?n=' + encodeURIComponent(nama) + (lid ? '&id=' + encodeURIComponent(lid) : '');
   } catch (ex) {
     showErr(ex.message && ex.message !== 'Failed to fetch' && ex.message !== 'Gagal'
       ? ex.message
