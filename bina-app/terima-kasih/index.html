@@ -12,7 +12,7 @@
 <style>
   :root{
     --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
-    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-deep:#C98C00;
     --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
     --body:"Literata",Georgia,"Times New Roman",serif;
   }
@@ -27,9 +27,19 @@
   .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;border-radius:50%;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center}
   .steps b{font-family:var(--display);font-weight:600}
   .note{background:var(--teal-soft);border-radius:12px;padding:16px 18px;font-size:1rem;line-height:1.6}
+
+  /* Baca terus */
+  .now{margin:26px 0 0;padding:20px 20px 18px;background:#fff;border:2px solid var(--ink);border-radius:14px}
+  .now b{display:block;font-family:var(--display);font-weight:800;font-size:1.12rem;line-height:1.35;margin-bottom:4px}
+  .now p{font-size:.98rem;color:var(--muted);margin:0 0 14px;line-height:1.6}
+  .read{display:block;text-align:center;text-decoration:none;font-family:var(--display);font-weight:800;font-size:1.1rem;padding:15px;border-radius:10px;background:var(--gold);color:var(--ink);box-shadow:0 4px 0 var(--gold-deep)}
+  .read:hover{filter:brightness(1.04)}
+  .read:active{transform:translateY(2px);box-shadow:0 2px 0 var(--gold-deep)}
+  .read:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
   .sign{display:flex;align-items:center;gap:16px;margin-top:34px;font-family:var(--display)}
-  .face{width:72px;height:72px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.6rem;color:var(--teal);flex:none}
-  .face img{width:100%;height:100%;object-fit:cover}
+  .face{width:72px;height:72px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.6rem;color:var(--teal);flex:none;position:relative}
+  .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .sign b{display:block;font-size:1.1rem}
   .sign span{color:var(--muted);font-size:.92rem}
   footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:10px 22px 36px}
@@ -70,6 +80,12 @@
 
   <p class="note">Artikel ni saya tulis khas untuk orang yang rasa nak bina sistem sendiri mesti ada laptop mahal dan pandai coding. Baca sampai habis, sebab ada sesuatu di hujungnya yang saya rasa anda akan suka. 🙂</p>
 
+  <div class="now">
+    <b>Tak sabar nak baca?</b>
+    <p>Artikel yang sama boleh dibuka terus di sini. Emel tu simpan untuk rujukan kemudian.</p>
+    <a class="read" id="read" href="../artikel/">Baca artikel sekarang</a>
+  </div>
+
   <div class="sign">
     <div class="face">N<img src="../nasrol.jpg" alt="Nasrol" onerror="this.remove()"></div>
     <div><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
@@ -78,11 +94,21 @@
 <footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
 
 <script>
-const PIXEL_ID = ""; // sama seperti di optin page
+const PIXEL_ID = "";             // sama seperti di optin page
+const LEAD_KEY = "binaapp_lead"; // sama seperti di optin page
 
 document.getElementById('yr').textContent = new Date().getFullYear();
-const n = new URLSearchParams(location.search).get('n');
+const qs = new URLSearchParams(location.search);
+const n = qs.get('n');
 if (n) document.getElementById('title').textContent = 'Semak inbox anda, ' + n.slice(0,40) + '!';
+
+// LeadID: dari URL dahulu, kalau tiada ambil dari peranti
+let lid = qs.get('id') || '';
+try {
+  if (lid) localStorage.setItem(LEAD_KEY, lid);
+  else lid = localStorage.getItem(LEAD_KEY) || '';
+} catch (_) {}
+if (lid) document.getElementById('read').href = '../artikel/?id=' + encodeURIComponent(lid);
 
 if (PIXEL_ID) {
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
