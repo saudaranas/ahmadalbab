@@ -265,7 +265,8 @@ function shareArticleStatic(title){
       </div>
       <div>
         <p class="footer-col-title">Alat Percuma</p>
-        <div class="footer-links"><a href="../../alat/pendekkan-link/">Pendekkan Link</a></div>
+        <div class="footer-links"><a href="../../alat/pendekkan-link/">Pendekkan Link</a>
+          <a href="../../alat/sudoku/">Sudoku Harian</a></div>
       </div>
       <div>
         <p class="footer-col-title">Hubungi</p>
@@ -277,6 +278,7 @@ function shareArticleStatic(title){
     <div class="footer-legal">
       <span>© ${year} ahmadalbab. Hak Cipta Terpelihara.</span>
       <span>No. Pendaftaran SSM: 202603001066 (CT0159040-U)</span>
+      <span class="legal-links"><a href="../../tentang/">Tentang Kami</a><a href="../../privasi/">Dasar Privasi</a><a href="../../penafian/">Penafian</a></span>
     </div>
   </div>
 </footer>
