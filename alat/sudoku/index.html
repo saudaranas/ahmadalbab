@@ -40,7 +40,7 @@
   .wordmark{font-weight:800;font-size:19px;letter-spacing:-.035em;color:var(--text);}
   .back-home{font-size:13px;font-weight:600;color:var(--n700);text-decoration:none;}
 
-  main{padding:18px 0 48px;}
+  main{padding:24px 0 48px;}
   .title-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px;}
   h1{margin:0;font-weight:800;font-size:clamp(24px,6vw,30px);letter-spacing:-.03em;}
   .today{font-size:13px;color:var(--n700);font-weight:600;}
@@ -226,6 +226,8 @@
     <button class="ghost-btn" id="newBtn">Puzzle baru</button>
   </div>
 
+  <div data-native-ad style="max-width:480px;margin:28px auto 0;"></div>
+
   <section class="info">
     <h2>Cara main</h2>
     <p>Isi setiap kotak dengan nombor 1 hingga 9. Setiap baris, setiap lajur dan setiap kotak 3×3 mesti ada semua nombor 1 hingga 9 tanpa berulang.</p>
@@ -363,6 +365,7 @@ function persist(){ if(S){ const copy = Object.assign({}, S, { history: S.histor
 function startMode(mode, forceNew){
   let saved = forceNew ? null : load(saveKey(mode));
   if(saved && mode === "harian" && saved.dateKey !== myDateKey()) saved = null;
+  if(saved && mode !== "harian" && saved.status !== "playing") saved = null;
   S = saved || newGameState(mode);
   S.paused = false;
   store("aab_sudoku_last", mode);
@@ -555,7 +558,7 @@ function openWin(fresh){
     </div>
     ${load("aab_sudoku_subscribed") ? "" : `
     <div class="optin">
-      <p>Nak puzzle harian dihantar ke emel setiap pagi?</p>
+      <p>Nak dapat review produk &amp; tawaran terkini dalam emel?</p>
       <form onsubmit="return subscribe(event)">
         <input type="email" id="optinEmail" placeholder="Emel anda" required autocomplete="email">
         <button type="submit">Hantar</button>
@@ -607,7 +610,7 @@ function niceTitle(s){
   return s.toLowerCase().replace(/(^|[\s([\/-])([a-z])/g, (m,p,c) => p + c.toUpperCase());
 }
 function track(id, kind, label){
-  try{ fetch(API_URL + "?action=trackClick&id=" + encodeURIComponent(id) + "&kind=" + encodeURIComponent(kind) + "&label=" + encodeURIComponent(label||""), { mode:"no-cors" }); }catch(e){}
+  try{ fetch(API_URL + "?action=trackClick&id=" + encodeURIComponent(id) + "&kind=" + encodeURIComponent(kind) + "&label=" + encodeURIComponent(label||""), { mode:"no-cors" }).catch(()=>{}); }catch(e){}
 }
 function renderGifts(){
   const box = document.getElementById("giftBox");
@@ -679,5 +682,6 @@ document.getElementById("todayLabel").textContent = myDateLabel();
 })();
 try{ (adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
 </script>
+<script src="../native-ad.js" defer></script>
 </body>
 </html>
