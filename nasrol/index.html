@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nasrol — Eastel, LG & sistem bisnes</title>
+<meta name="description" content="Peluang side income dengan telco, pakej LG dengan TV percuma, dan kit bina sistem bisnes.">
+<link rel="canonical" href="https://ahmadalbab.store/nasrol/">
+<meta property="og:title" content="Nasrol — Eastel, LG & sistem bisnes">
+<meta property="og:description" content="Peluang side income dengan telco, dan pakej LG dengan TV percuma.">
+<meta property="og:url" content="https://ahmadalbab.store/nasrol/">
+<meta property="og:image" content="https://ahmadalbab.store/nasrol/nasrol.jpg">
+<meta property="og:type" content="profile">
+<meta name="theme-color" content="#FBFCFA">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B2430; --muted:#586272; --page:#FBFCFA; --line:#DCE2DF;
+    --teal:#0F766E; --teal-soft:#E3F1EF; --gold:#F2B01E; --gold-soft:#FDF3D7;
+    --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+    --body:"Literata",Georgia,serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--page);-webkit-text-size-adjust:100%}
+  body{margin:0;overflow-x:hidden;background:transparent;position:relative;color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.6}
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(27,36,48,.10) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(27,36,48,.10) 1px, transparent 1px);
+    background-size:28px 28px;background-position:center top;
+    -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 35%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(ellipse 80% 70% at 50% 35%, #000 35%, transparent 100%);
+  }
+  a{color:inherit;text-decoration:none}
+  a:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:14px}
+  .wrap{max-width:460px;margin:0 auto;padding:44px 20px calc(36px + env(safe-area-inset-bottom))}
+
+  /* Profil */
+  .hello{text-align:center;margin-bottom:28px}
+  .face{width:112px;height:112px;margin:0 auto 14px;border-radius:50%;overflow:hidden;background:var(--teal-soft);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:2.4rem;color:var(--teal);border:3px solid #fff;box-shadow:0 0 0 1.5px var(--ink),5px 6px 0 var(--gold)}
+  .face img{width:100%;height:100%;object-fit:cover;display:block}
+  h1{font-family:var(--display);font-weight:800;font-size:2rem;line-height:1.1;letter-spacing:-.02em;margin:0}
+  h1 .hl{background:linear-gradient(transparent 58%, var(--gold) 58%, var(--gold) 90%, transparent 90%);padding:0 3px}
+  .tag{margin:10px auto 0;max-width:30ch;color:var(--muted);font-size:1rem}
+
+  /* Kad */
+  .stack{display:flex;flex-direction:column;gap:14px}
+  .card{position:relative;display:block;background:#fff;border:1.5px solid var(--ink);border-radius:18px;padding:18px 18px 16px;box-shadow:4px 5px 0 var(--ink);transition:transform .12s, box-shadow .12s}
+  .card:hover{transform:translate(-1px,-1px);box-shadow:5px 6px 0 var(--ink)}
+  .card:active{transform:translate(3px,4px);box-shadow:1px 1px 0 var(--ink)}
+  .card.hero{background:var(--gold-soft)}
+  .sticker{position:absolute;top:-12px;right:14px;transform:rotate(4deg);background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:800;font-size:.78rem;padding:4px 10px;border-radius:999px;border:1.5px solid var(--ink)}
+  .card .emo{font-size:1.7rem;line-height:1;margin-bottom:8px;display:block}
+  .card h2{font-family:var(--display);font-weight:800;font-size:1.28rem;line-height:1.2;letter-spacing:-.01em;margin:0 0 6px}
+  .card p{margin:0 0 12px;font-size:.95rem;color:#2f3a47}
+  .card ul{margin:0 0 14px;padding:0;list-style:none;font-size:.92rem}
+  .card li{position:relative;padding-left:22px;margin-bottom:4px}
+  .card li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:700}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:999px;background:var(--teal);color:#fff;font-family:var(--display);font-weight:800;font-size:1rem}
+  .card.hero .btn{background:var(--ink)}
+  .card.is-soon{cursor:default}
+  .card.is-soon:hover,.card.is-soon:active{transform:none;box-shadow:4px 5px 0 var(--ink)}
+  .card.is-soon{background:#fff}
+  .card.is-soon .emo,.card.is-soon .tx{opacity:.6}
+  .soon{flex:none;font-family:var(--display);font-weight:800;font-size:.72rem;color:var(--muted);border:1.5px dashed var(--muted);border-radius:999px;padding:4px 9px;white-space:nowrap}
+  .note{margin:6px 0 0;font-size:.78rem;color:var(--muted);text-align:center}
+
+  .mini{display:flex;align-items:center;gap:14px;padding:14px 16px}
+  .mini .emo{margin:0;font-size:1.6rem;flex:none}
+  .mini h2{font-size:1.05rem;margin:0}
+  .mini p{margin:2px 0 0;font-size:.86rem;color:var(--muted)}
+  .mini .tx{flex:1;min-width:0}
+  .mini .go{flex:none;width:30px;height:30px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.2rem;line-height:1}
+  .mini.hero .go{background:var(--ink)}
+
+  .label{font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--muted);margin:26px 0 10px}
+  footer{margin-top:34px;text-align:center;font-family:var(--display);font-size:.8rem;color:var(--muted)}
+  footer a{text-decoration:underline}
+  @media(prefers-reduced-motion:reduce){ .card{transition:none} }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <section class="hello">
+    <div class="face" id="face">N</div>
+    <h1>Hai, saya <span class="hl">Nasrol</span> 👋</h1>
+    <p class="tag" id="tag"></p>
+  </section>
+
+  <div class="stack" id="main"></div>
+
+  <footer>© <span id="yr"></span> Nasrol · <a href="../privasi/">Dasar Privasi</a></footer>
+</main>
+
+<script>
+/* =========================================================
+   EDIT DI SINI SAHAJA.
+   - Item yang url kosong ("") akan disembunyikan automatik.
+   - whatsapp: nombor dengan kod negara, tanpa + atau sengkang. Contoh: "60123456789"
+   ========================================================= */
+const CONFIG = {
+  photo: "nasrol.jpg",                 // gambar dalam folder nasrol/ (sandaran: ../bina-app/nasrol.jpg)
+  tagline: "Suka bina sistem bisnes sambil hirup kopi. Ni benda-benda yang saya rasa berbaloi untuk dikongsi.",
+  whatsapp: "",                 // ← ISI nombor WhatsApp, contoh "60123456789"
+  links: [
+    { emoji: "📶", title: "Buat duit dengan telco?", desc: "Kongsi pelan Eastel dengan kawan & famili, dapat ganjaran. Jom tengok caranya.",
+      url: "https://rezeki.digital", highlight: true, sticker: "Side income" },
+    { emoji: "📺", title: "Nak TV percuma?", desc: "Ada pakej LG yang datang dengan TV percuma. Tertakluk syarat.",
+      url: "", soon: "Akan datang 👀" },                       // ← ISI url LG bila dah ada
+    { emoji: "💬", title: "WhatsApp saya", desc: "Tanya apa-apa, saya balas sendiri.",
+      wa: "Salam Nasrol, saya datang dari link bio." },
+    { emoji: "📱", title: "Kit Bina App Pertama", desc: "Bina sistem tempahan guna tablet, tanpa coding.", url: "/bina-app/" },
+    { emoji: "🧩", title: "Sudoku Harian", desc: "Rehat 5 minit, puzzle baharu setiap hari.", url: "/alat/sudoku/" }
+  ]
+};
+/* ========================================================= */
+
+const API_URL = "https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec";
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;"); }
+function track(label){ try{ fetch(API_URL+"?action=trackClick&id="+encodeURIComponent("nasrol-"+label)+"&kind=bio&label="+encodeURIComponent(label),{mode:"no-cors"}).catch(()=>{}); }catch(e){} }
+function hrefFor(it){
+  if(it.url) return it.url;
+  if(it.wa && CONFIG.whatsapp) return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(it.wa);
+  return "";
+}
+function attrs(href, label){
+  const ext = /^https?:\/\//.test(href);
+  return `href="${esc(href)}"${ext ? ' target="_blank" rel="noopener"' : ""} onclick="track('${esc(label).replace(/'/g,"")}')"`;
+}
+
+const face = document.getElementById("face");
+if(CONFIG.photo){
+  const img = new Image(); img.alt = "Nasrol";
+  img.onload = () => { face.textContent = ""; face.appendChild(img); };
+  img.onerror = () => { if(!img.dataset.fb){ img.dataset.fb = "1"; img.src = "../bina-app/nasrol.jpg"; } };
+  img.src = CONFIG.photo;
+}
+document.getElementById("tag").textContent = CONFIG.tagline;
+
+document.getElementById("main").innerHTML = CONFIG.links.map(it => {
+  const href = hrefFor(it);
+  if(!href && !it.soon) return "";
+  const tag = href ? "a" : "div";
+  return `<${tag} class="card mini${it.highlight ? ' hero' : ''}${href ? '' : ' is-soon'}" ${href ? attrs(href, it.title) : 'aria-disabled="true"'}>
+    ${it.sticker ? `<span class="sticker">${esc(it.sticker)}</span>` : ""}
+    <span class="emo">${it.emoji||""}</span>
+    <span class="tx"><h2>${esc(it.title)}</h2><p>${esc(it.desc)}</p></span>
+    ${href ? '<span class="go">›</span>' : `<span class="soon">${esc(it.soon)}</span>`}
+  </${tag}>`;
+}).join("");
+
+document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
