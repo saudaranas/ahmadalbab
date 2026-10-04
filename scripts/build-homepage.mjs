@@ -14,6 +14,29 @@ const START_MARKER = "// SEED:PRODUCTS:START — jangan edit manual, dikemas kin
 const END_MARKER = "// SEED:PRODUCTS:END";
 const CATS_START_MARKER = "// SEED:CATEGORIES:START — jangan edit manual, dikemas kini automatik oleh GitHub Action";
 const CATS_END_MARKER = "// SEED:CATEGORIES:END";
+const DIGITAL_START = "// SEED:DIGITAL:START — jangan edit manual, dikemas kini automatik oleh GitHub Action";
+const DIGITAL_END = "// SEED:DIGITAL:END";
+const HERO_START = "// SEED:HERO:START — jangan edit manual, dikemas kini automatik oleh GitHub Action";
+const HERO_END = "// SEED:HERO:END";
+
+function replaceBlock(html, start, end, body, label) {
+  const a = html.indexOf(start), b = html.indexOf(end);
+  if (a === -1 || b === -1 || b < a) {
+    console.error(`Tidak jumpa penanda ${label} dalam index.html. Kekalkan macam sedia ada.`);
+    return html;
+  }
+  return html.slice(0, a) + start + "\n" + body + html.slice(b);
+}
+
+async function fetchContent(type) {
+  try {
+    const d = await fetchJsonRetry(`${API_URL}?action=getContent&type=${type}`);
+    return (d && d.success && d.items) ? d.items : [];
+  } catch (e) {
+    console.error(`Gagal ambil ${type}:`, e.message);
+    return [];
+  }
+}
 
 function jsStringLiteral(s) {
   return JSON.stringify(String(s ?? ""));
@@ -111,8 +134,23 @@ async function main() {
     }
   }
 
+  const heroItems = await fetchContent("hero");
+  if (heroItems.length) {
+    const heroJs = heroItems.map((h) => `  { kicker:${jsStringLiteral(h.kicker)}, title:${jsStringLiteral(h.title)}, excerpt:${jsStringLiteral(h.excerpt)}, readTime:${jsStringLiteral(h.readTime)}, cta:${jsStringLiteral(h.cta || "Baca sebelum beli")}, href:${jsStringLiteral(h.href || "#produk")}, image:${jsStringLiteral(h.image)} }`).join(",\n");
+    html = replaceBlock(html, HERO_START, HERO_END, "let ARTICLES = [\n" + heroJs + "\n];\n", "SEED:HERO");
+  }
+
+  const digitalItems = await fetchContent("digital");
+  if (digitalItems.length) {
+    const digJs = digitalItems.map((g) => {
+      const points = String(g.points || "").split("\n").filter(Boolean);
+      return `  { brand:${jsStringLiteral(g.brand)}, kicker:${jsStringLiteral(g.kicker)}, title:${jsStringLiteral(g.title)}, desc:${jsStringLiteral(g.desc)}, points:${JSON.stringify(points)}, price:${jsStringLiteral(g.price)}, old:${jsStringLiteral(g.old)}, badge:${jsStringLiteral(g.badge)}, cta:${jsStringLiteral(g.cta || "Lihat tawaran")}, link:${jsStringLiteral(g.link || "#")}, image:${jsStringLiteral(g.image)} }`;
+    }).join(",\n");
+    html = replaceBlock(html, DIGITAL_START, DIGITAL_END, "let DIGITAL = [\n" + digJs + "\n];\n", "SEED:DIGITAL");
+  }
+
   await fs.writeFile(INDEX_PATH, html, "utf8");
-  console.log(`Selesai — ${products.length} produk dan ${categories.length} kategori dibakar ke dalam index.html.`);
+  console.log(`Selesai — ${products.length} produk, ${categories.length} kategori, ${heroItems.length} slaid hero dan ${digitalItems.length} produk digital dibakar ke dalam index.html.`);
 }
 
 main().catch((err) => {
