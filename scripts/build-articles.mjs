@@ -266,7 +266,8 @@ function shareArticleStatic(title){
       <div>
         <p class="footer-col-title">Alat Percuma</p>
         <div class="footer-links"><a href="../../alat/pendekkan-link/">Pendekkan Link</a>
-          <a href="../../alat/sudoku/">Sudoku Harian</a></div>
+          <a href="../../alat/sudoku/">Sudoku Harian</a>
+          <a href="../../alat/mancing/">Mancing Kampung</a></div>
       </div>
       <div>
         <p class="footer-col-title">Hubungi</p>
