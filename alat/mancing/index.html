@@ -3,8 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Mancing Kampung</title>
-<meta name="description" content="Game memancing santai di kampung. Kumpul 16 jenis ikan bersama Awang dan Mek Zah, jual di gerai Tok Wan Leman.">
+<title>Mancing Kampung — Game Memancing Percuma | ahmadalbab.</title>
+<meta name="description" content="Game memancing percuma di kampung. Pilih Awang atau Mira, kumpul 16 jenis ikan termasuk Kelah Merah, main terus di telefon tanpa daftar.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://ahmadalbab.store/alat/mancing/">
+<meta property="og:title" content="Mancing Kampung — boleh kumpul semua 16 ikan?">
+<meta property="og:description" content="Game memancing santai di kampung. Main terus di telefon, tak perlu daftar.">
+<meta property="og:url" content="https://ahmadalbab.store/alat/mancing/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://ahmadalbab.store/alat/mancing/pratonton.png">
+<meta property="og:image:width" content="960">
+<meta property="og:image:height" content="704">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#24402c">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
@@ -115,6 +128,10 @@
   .br-item.mati{opacity:.5}
   .tengah{text-align:center}
   .nota{font-size:12px;opacity:.65;text-align:center;margin:8px 0 0}
+  #kaki{max-width:520px;margin:0 auto;padding:4px 10px 28px;text-align:center;font-size:12px;opacity:.85}
+  #kaki [data-native-ad]{margin:0 0 14px;text-align:left}
+  #kaki nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;margin-bottom:6px}
+  #kaki nav a{color:var(--kertas)}
   @media (prefers-reduced-motion:reduce){#toast{transition:none}#pc-bar.salah{animation:none}}
 </style>
 </head>
@@ -143,6 +160,18 @@
       <button id="btn-a">A<small>Pancing</small></button>
     </div>
   </div>
+</div>
+
+<div id="kaki">
+  <div data-native-ad></div>
+  <nav aria-label="Pautan laman">
+    <a href="../../">Laman Utama</a>
+    <a href="../sudoku/">Sudoku Harian</a>
+    <a href="../pendekkan-link/">Pendekkan Link</a>
+    <a href="../../artikel/">Artikel</a>
+    <a href="../../privasi/">Dasar Privasi</a>
+  </nav>
+  <div>© <span id="tahun"></span> ahmadalbab.</div>
 </div>
 
 <div id="intro" class="modal">
@@ -182,7 +211,7 @@
 <div id="barang" class="modal hide">
   <div class="kad">
     <h2>Barang pancing Tok Wan</h2>
-    <p class="nota" style="margin:2px 0 10px">Pautan affiliate Shopee. Kami mungkin terima komisen jika anda membeli.</p>
+    <p class="nota" style="margin:2px 0 10px">Pautan affiliate. Kami mungkin terima komisen jika anda membeli.</p>
     <div id="br-senarai"></div>
     <p class="tengah" style="margin:14px 0 0"><button class="btn" id="btn-tutup-br">Kembali memancing</button></p>
   </div>
@@ -239,6 +268,36 @@ const SHOPEE = {
   legenda: {teks:'Nak rasa tarikan ikan betul? Tengok set joran sungai', link:'https://GANTI-LINK-LEGENDA'},
 };
 const linkSedia = l => l && !l.includes('GANTI');
+
+/* Produk juga diambil terus dari admin ahmadalbab.store: mana-mana produk dengan
+   kategori yang mengandungi "pancing" (contoh: "Memancing") akan muncul di gerai
+   Tok Wan. Kalau tiada, senarai SHOPEE di atas digunakan. */
+const API_URL = 'https://script.google.com/macros/s/AKfycbx0d9SD9yEU8_KwP1R5TbXiPfSnXOEaOIVE20qA4J6peoXtRwR87ox9bTWtPAiqz3eY8A/exec';
+const KATEGORI_PANCING = /pancing|fishing/i;
+let PRODUK_ADMIN = [];
+function muatProduk(){
+  const tapis = list => (list || []).filter(p => p && p.title && p.link && KATEGORI_PANCING.test(p.category || ''));
+  try { PRODUK_ADMIN = tapis(JSON.parse(localStorage.getItem('aab_products_v1') || 'null')); } catch(e){}
+  fetch(API_URL + '?action=getData').then(r => r.json()).then(d => {
+    if (d && d.success) PRODUK_ADMIN = tapis((d.products || []).map(p => ({id:p.id, title:p.title, price:p.price, platform:p.platform, category:p.category, imageUrl:p.imageUrl, link:p.affiliateLink})));
+  }).catch(() => {});
+}
+function senaraiProduk(){
+  if (PRODUK_ADMIN.length) return PRODUK_ADMIN.map(p => {
+    const tiktok = String(p.platform || '').toLowerCase() === 'tiktok', h = parseFloat(p.price);
+    return {id:p.id, kind:tiktok ? 'tiktok' : 'shopee', nama:p.title, harga:(h ? 'RM' + h.toFixed(2) : '') + (tiktok ? ' di TikTok Shop' : ' di Shopee'), gambar:p.imageUrl, emoji:'🎣', link:p.link};
+  });
+  return SHOPEE.produk.map((p, i) => ({...p, id:'mancing-' + (i + 1), kind:'shopee', harga:p.harga + ' di Shopee'}));
+}
+function linkLegenda(){
+  if (linkSedia(SHOPEE.legenda.link)) return {id:'mancing-legenda', kind:'shopee', link:SHOPEE.legenda.link};
+  const p = senaraiProduk().find(x => linkSedia(x.link));
+  return p ? {id:p.id, kind:p.kind, link:p.link} : null;
+}
+function jejakKlik(id, kind, label){
+  try { fetch(API_URL + '?action=trackClick&id=' + encodeURIComponent(id) + '&kind=' + encodeURIComponent(kind) + '&label=' + encodeURIComponent(label), {mode:'no-cors'}); } catch(e){}
+}
+muatProduk();
 
 const TEMPOH_MASA = 60000; // 1 minit setiap waktu
 const NAMA_ZON = {sungai:'Sungai', kolam:'Kolam Tok Ketua', paya:'Paya Bendang', laut:'Laut'};
@@ -866,8 +925,9 @@ function dapatIkan(ikan){
   const ik = el('tk-iklan');
   if (ikan.tahap === 'legenda' && SHOPEE.legenda.teks) {
     ik.classList.remove('hide');
-    el('tk-iklan-a').textContent = SHOPEE.legenda.teks + (linkSedia(SHOPEE.legenda.link) ? ' ›' : ' (link belum ditetapkan)');
-    el('tk-iklan-a').href = linkSedia(SHOPEE.legenda.link) ? SHOPEE.legenda.link : '#';
+    const L = linkLegenda();
+    el('tk-iklan-a').textContent = SHOPEE.legenda.teks + (L ? ' ›' : ' (link belum ditetapkan)');
+    el('tk-iklan-a').href = L ? L.link : '#';
   } else ik.classList.add('hide');
   S.mode = 'kad'; kunci(600); tunjuk('tangkap'); kemasHUD();
   lagu(ikan.tahap === 'legenda' ? [523, 659, 784, 1047, 1319] : [523, 659, 784]);
@@ -884,12 +944,18 @@ function tutupKad(){
 /* ===================== BARANG PANCING (SHOPEE) ===================== */
 function bukaBarang(){
   S.mode = 'barang';
-  el('br-senarai').innerHTML = SHOPEE.produk.map(p => {
+  const esc = t => String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const senarai = senaraiProduk();
+  el('br-senarai').innerHTML = senarai.map((p, i) => {
     const sedia = linkSedia(p.link);
-    const gambar = p.gambar ? `<img src="${p.gambar}" alt="">` : `<span class="br-emoji">${p.emoji}</span>`;
-    return `<a class="br-item${sedia ? '' : ' mati'}" ${sedia ? `href="${p.link}" target="_blank" rel="noopener sponsored"` : ''}>
-      ${gambar}<span><b>${p.nama}</b><small>${sedia ? p.harga + ' di Shopee' : 'link belum ditetapkan'}</small></span></a>`;
+    const gambar = p.gambar ? `<img src="${esc(p.gambar)}" alt="" loading="lazy">` : `<span class="br-emoji">${p.emoji}</span>`;
+    return `<a class="br-item${sedia ? '' : ' mati'}" data-i="${i}" ${sedia ? `href="${esc(p.link)}" target="_blank" rel="noopener nofollow sponsored"` : ''}>
+      ${gambar}<span><b>${esc(p.nama)}</b><small>${sedia ? esc(p.harga) : 'link belum ditetapkan'}</small></span></a>`;
   }).join('');
+  el('br-senarai').onclick = e => {
+    const a = e.target.closest('.br-item'); if (!a || a.classList.contains('mati')) return;
+    const p = senarai[+a.dataset.i]; jejakKlik(p.id, p.kind, p.nama + ' (Mancing: gerai)');
+  };
   tunjuk('barang');
 }
 function tutupBarang(){ sorok('barang'); S.mode = 'jalan'; }
@@ -1274,7 +1340,12 @@ el('inp-nama').addEventListener('input', e => { e.target.dataset.ubah = e.target
 el('inp-nama').addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); e.target.blur(); mulaGame(); } });
 el('barang').addEventListener('click', e => { if (e.target.id === 'barang') tutupBarang(); });
 el('btn-tutup-br').addEventListener('click', tutupBarang);
-el('tk-iklan-a').addEventListener('click', e => { e.stopPropagation(); if (!linkSedia(SHOPEE.legenda.link)) e.preventDefault(); });
+el('tk-iklan-a').addEventListener('click', e => {
+  e.stopPropagation(); const L = linkLegenda();
+  if (!L) return e.preventDefault();
+  jejakKlik(L.id, L.kind, SHOPEE.legenda.teks + ' (Mancing: legenda)');
+});
+el('tahun').textContent = new Date().getFullYear();
 
 const KEYMAP = {ArrowUp:'atas', KeyW:'atas', ArrowDown:'bawah', KeyS:'bawah', ArrowLeft:'kiri', KeyA:'kiri', ArrowRight:'kanan', KeyD:'kanan'};
 window.addEventListener('keydown', e => {
@@ -1298,5 +1369,6 @@ Promise.race([
   new Promise(r => setTimeout(r, 2000)),
 ]).finally(mula);
 </script>
+<script src="../native-ad.js" defer></script>
 </body>
 </html>
