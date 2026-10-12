@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roadmap Bina App Dari Zero | Nasrol</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Palet diambil dari cover: indigo cover + kuning amber sebagai warna tindakan */
+  --page:#F7F7FC; --ink:#17183B; --muted:#5B5E7A; --line:#E3E3F0; --card:#FFFFFF; --on-bright:#17183B;
+  --brand:#5B4FD8; --brand-deep:#4237B8; --brand-soft:#ECEAFE;
+  --sun:#FFB61E; --sun-deep:#D98E00; --hl:rgba(255,197,51,.75);
+  --coral:#FF6B5B; --coral-soft:#FFEDEA;
+  --sky:#3BA7F0; --sky-soft:#E4F2FD; --grape:#8B6CF6; --grape-soft:#F0EBFE;
+  --mint:#12A26B; --mint-deep:#0B7A50; --mint-soft:#DDF5EA;
+  --display:"Plus Jakarta Sans",system-ui,sans-serif;
+  --body:"Literata",Georgia,serif;
+  --gutter:clamp(20px,5.5vw,32px);
+}
+*{box-sizing:border-box}
+html{background-color:#F7F7FC;background-image:radial-gradient(90% 45% at 50% 0%,rgba(91,79,216,.10),transparent 70%),linear-gradient(180deg,#F8F8FD,#F3F2FB);background-attachment:fixed;min-height:100%;-webkit-text-size-adjust:100%}
+body{margin:0;overflow-x:hidden;background:transparent;position:relative;color:var(--ink);font-family:var(--body);font-size:1.125rem;line-height:1.75}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(to right,rgba(91,79,216,.09) 1px,transparent 1px),linear-gradient(rgba(91,79,216,.09) 1px,transparent 1px);
+  background-size:28px 28px;background-position:center top;
+  -webkit-mask-image:radial-gradient(80% 70% at 50% 35%,#000 40%,transparent 100%);mask-image:radial-gradient(80% 70% at 50% 35%,#000 40%,transparent 100%)}
+@media(max-width:520px){body{font-size:1.06rem}
+  body::before{-webkit-mask-image:radial-gradient(110% 75% at 50% 35%,#000 45%,transparent 100%);mask-image:radial-gradient(110% 75% at 50% 35%,#000 45%,transparent 100%)}}
+img{max-width:100%;display:block}
+.wrap{max-width:660px;margin:0 auto;padding-left:max(var(--gutter),env(safe-area-inset-left));padding-right:max(var(--gutter),env(safe-area-inset-right))}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.15;letter-spacing:-.015em;margin:0}
+p{margin:0 0 1.15em}
+strong{font-weight:600}
+.hl{background-image:linear-gradient(transparent 58%,rgba(255,200,61,.75) 58%,rgba(255,200,61,.75) 92%,transparent 92%);background-repeat:no-repeat;background-size:100% 100%;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:0 .08em;animation:hl 1.1s cubic-bezier(.6,0,.2,1) .35s both}
+@keyframes hl{from{background-size:0 100%}to{background-size:100% 100%}}
+.ul{text-decoration:underline;text-decoration-color:var(--coral);text-decoration-thickness:3px;text-underline-offset:5px;text-decoration-skip-ink:none}
+.btn{display:flex;flex-wrap:wrap;gap:0 .35em;align-items:center;justify-content:center;text-align:center;width:100%;min-height:56px;padding:14px 18px;font-family:var(--display);font-weight:800;font-size:1.12rem;border:0;border-radius:12px;background:var(--sun);color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--sun-deep);text-decoration:none}
+.btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--sun-deep)}
+.btn:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.btn[disabled]{opacity:.7;cursor:wait}
+.btn.kunci{background:var(--line);color:var(--muted);box-shadow:none;cursor:not-allowed}
+.btn.biru{background:var(--sky);color:#fff;box-shadow:0 4px 0 #1C74B8}
+.sign{font-family:var(--display);margin:28px 0 0}
+.sign b{display:block;font-size:1.1rem}.sign span{color:var(--muted);font-size:.92rem}
+footer{font-family:var(--display);font-size:.82rem;color:var(--muted);text-align:center;padding:40px var(--gutter) calc(32px + env(safe-area-inset-bottom))}
+
+
+/* bukti bayaran */
+.receipts{margin:1em 0 1.6em}
+.rc-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:14px 4px 22px}
+.rc{--r:0deg;--d:0s;position:relative;display:block;border-radius:14px;overflow:hidden;background:#F1F1F7;box-shadow:0 22px 34px -18px rgba(23,24,59,.5),0 6px 12px -6px rgba(23,24,59,.2);transform:rotate(var(--r));animation:float 5s ease-in-out var(--d) infinite}
+.rc:nth-child(1){--r:-2.5deg}.rc:nth-child(2){--r:1.5deg;--d:-1.2s}.rc:nth-child(3){--r:-1deg;--d:-2.4s}.rc:nth-child(4){--r:2.5deg;--d:-3.6s}
+.rc img{width:100%;height:auto}
+@keyframes float{0%,100%{transform:translateY(0) rotate(var(--r))}50%{transform:translateY(-10px) rotate(var(--r))}}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;pointer-events:none;background:linear-gradient(105deg,transparent,rgba(255,255,255,.55) 50%,transparent);transform:skewX(-18deg);animation:shine 4.5s ease-in-out infinite}
+.shine.late::after{animation-delay:2.2s}
+@keyframes shine{0%{left:-60%}35%,100%{left:130%}}
+.receipts figcaption,.screens figcaption{font-family:var(--display);font-size:.86rem;color:var(--muted);text-align:center;line-height:1.5;margin-top:4px}
+.swipe{display:none}
+.income{margin:0 0 1.2em;background:var(--brand-soft);border-left:4px solid var(--brand);border-radius:12px;padding:16px 18px 14px;font-family:var(--display)}
+.income-h{font-weight:800;font-size:1.02rem;margin:0 0 6px!important}.income-p{font-size:1rem;line-height:1.55;margin:0 0 6px!important}
+.income small{display:block;font-size:.84rem;color:var(--muted);line-height:1.5}
+.disclaim{font-size:.95rem;color:var(--muted);font-style:italic}
+
+/* tawaran */
+.cover-wrap{display:block;border-radius:14px;margin:8px 0 16px;box-shadow:0 24px 40px -22px rgba(23,24,59,.5);animation:float 6s ease-in-out infinite;--r:0deg}
+.kit-img{width:100%;height:auto;border-radius:14px;background:#F1F1F7}
+.lead-kit{font-family:var(--display);font-size:1.02rem;line-height:1.55;color:var(--muted)}
+.tawaran h3{font-family:var(--display);font-weight:800;font-size:1.12rem;margin:24px 0 10px}
+.screens{margin:1.2em 0}
+.scr-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini{background:#F8F8FC;border:1px solid var(--line);border-radius:14px;padding:12px;font-family:var(--display);font-size:.78rem;min-width:0;line-height:1.4}
+.mini-h{font-size:.68rem;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.m-title{font-weight:800;font-size:.9rem;margin-bottom:8px}
+.m-chips{display:flex;gap:4px;margin-bottom:8px}.m-chips span{font-size:.68rem;padding:3px 8px;border-radius:99px;border:1px solid var(--line);background:#fff}
+.m-chips .on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.m-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:8px}
+.m-slots span{text-align:center;font-size:.68rem;padding:4px 0;border-radius:5px;background:var(--brand-soft);color:var(--brand);font-weight:700}
+.m-slots .x{background:#ECECF2;color:#A3A5B8;text-decoration:line-through;font-weight:400}.m-slots .on{background:var(--brand);color:#fff}
+.m-btn{background:var(--ink);color:#fff;text-align:center;border-radius:6px;padding:6px;font-size:.72rem;font-weight:700}
+.m-row{display:grid;grid-template-columns:auto 1fr auto;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.72rem}
+.m-row span{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-row em{font-style:normal;font-size:.62rem;font-weight:700;padding:2px 6px;border-radius:99px}
+.s-new{background:#FFF3D6;color:#8A5A00}.s-ok{background:var(--mint-soft);color:var(--mint-deep)}.s-done{background:#ECECF2;color:var(--muted)}
+.tg{background:#DCE8F2}
+.bubble{background:#fff;border-radius:12px 12px 12px 4px;padding:10px 10px 18px;font-size:.74rem;line-height:1.55;position:relative}
+.bubble b{display:block;margin-bottom:2px}.bubble .t{position:absolute;right:8px;bottom:4px;font-size:.6rem;color:#8A96A3}
+.gets{list-style:none;margin:0 0 18px;padding:0;font-family:var(--display)}
+.gets li{position:relative;padding:8px 0 8px 32px;font-size:1rem;line-height:1.5;border-bottom:1px dashed var(--line)}
+.gets li:last-child{border-bottom:0}
+.gets li::before{content:"✓";position:absolute;left:0;top:9px;width:22px;height:22px;border-radius:50%;background:var(--mint);color:#fff;font-weight:800;font-size:.75rem;display:flex;align-items:center;justify-content:center}
+.pattern{background:var(--brand-soft);border-radius:12px;padding:14px 16px;margin:0 0 6px}
+.pattern p{margin:0;font-size:.98rem;line-height:1.6}
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 6px;font-family:var(--display)}
+.bcard{position:relative;background:linear-gradient(160deg,#FFF8E6,#FFEFC7);border:1.5px solid #F5D58A;border-radius:14px;padding:30px 12px 14px;text-align:center;line-height:1.35}
+.bno{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--sun);font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.bcard i{display:block;font-style:normal;font-size:1.8rem;margin-bottom:6px}
+.bcard b{display:block;font-size:.92rem;margin-bottom:4px}.bcard small{font-size:.78rem;color:var(--muted)}
+.compare{margin:0 0 20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--display)}
+.compare div{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 14px;border-bottom:1px solid var(--line);font-size:.95rem;line-height:1.4}
+.compare div:last-child{border-bottom:0;background:var(--brand-soft)}
+.compare div>span{color:var(--muted)}.compare b{font-weight:800;white-space:nowrap;text-align:right}
+.compare div:last-child>span{color:var(--ink);font-weight:700}.compare div:last-child b{color:var(--brand);font-size:1.06rem}
+.safe{font-family:var(--display);font-size:.85rem;color:var(--muted);text-align:center;margin:12px 0 0}
+.guarantee{margin:22px 0 0;padding:16px 18px 16px 62px;position:relative;border:1.5px dashed var(--mint);border-radius:12px;background:#F4FBF7;font-family:var(--display)}
+.guarantee::before{content:"🛡️";position:absolute;left:18px;top:14px;font-size:1.6rem}
+.guarantee b{display:block;font-weight:800;font-size:1.04rem;margin-bottom:4px}
+.guarantee p{margin:0 0 6px;font-size:.95rem;line-height:1.55}.guarantee p:last-child{margin:0;font-weight:700;color:var(--mint-deep)}
+@media(max-width:520px){
+  .rc-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*var(--gutter));padding:16px var(--gutter) 26px;gap:16px}
+  .rc{flex:0 0 60%;scroll-snap-align:center}
+  .scr-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 calc(-1*clamp(18px,5vw,28px));padding:4px clamp(18px,5vw,28px) 8px}
+  .mini{flex:0 0 72%;scroll-snap-align:center}
+  .swipe{display:inline}
+  .bonus-grid{grid-template-columns:1fr;gap:16px}
+  .bcard{display:grid;grid-template-columns:44px 1fr;text-align:left;column-gap:12px;padding:20px 14px 14px;align-items:center}
+  .bcard i{grid-row:span 2;margin:0}
+  .compare div{font-size:.9rem;padding:11px 12px}
+}
+@media(prefers-reduced-motion:reduce){.rc,.cover-wrap{animation:none}.shine::after{display:none}}
+/* ===== TEMA: KERTAS INDIGO + AMBER ===== */
+[hidden]{display:none!important}
+h1,h2,h3{letter-spacing:-.02em}
+h1{color:var(--ink)}
+.btn{background:var(--sun);color:var(--ink);box-shadow:0 4px 0 var(--sun-deep)}
+.btn:active{box-shadow:0 2px 0 var(--sun-deep)}
+.btn.kunci{background:var(--line);color:var(--muted);box-shadow:none}
+.btn.biru{background:var(--brand);color:#fff;box-shadow:0 4px 0 var(--brand-deep)}
+.hl{background-image:linear-gradient(transparent 58%,var(--hl) 58%,var(--hl) 92%,transparent 92%);text-shadow:none}
+.ul{text-decoration-color:var(--brand)}
+.tag{background:var(--brand-soft)!important;color:var(--brand)!important;font-weight:700!important}
+.pull{border-left-color:var(--brand)!important}
+input::placeholder{color:#9A9CB5}
+a{color:var(--brand)}
+@media(prefers-reduced-motion:reduce){.hl{animation:none}*{transition:none!important}}
+
+body{padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+body[data-mode="tutup"] .bila-buka,body[data-mode="buka"] .bila-tutup{display:none!important}
+.kepala{padding-top:clamp(36px,9vw,56px)}
+.tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:.85rem;background:var(--sky-soft);color:#4237B8;border-radius:999px;padding:5px 14px;margin-bottom:16px}
+.kepala h1{font-size:clamp(1.8rem,6.6vw,2.6rem);line-height:1.12;margin-bottom:14px}
+.meta{font-family:var(--display);font-size:.92rem;color:var(--muted);margin-bottom:22px}
+.simpan{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-family:var(--display);text-decoration:none;color:var(--ink);margin:0 0 28px}
+.simpan .ik{flex:0 0 44px;height:44px;border-radius:12px;background:var(--coral);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem}
+.simpan b{display:block}.simpan small{color:var(--muted)}
+article h2{font-size:clamp(1.4rem,5vw,1.8rem);margin:2em 0 .6em}
+article h2 .no{display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:.45em;margin-right:.35em;font-size:.85em;vertical-align:.08em}
+.c1{background:var(--sun);color:var(--on-bright)}.c2{background:var(--coral-soft);color:var(--coral)}.c3{background:var(--sky-soft);color:var(--sky)}.c4{background:var(--grape-soft);color:var(--grape)}
+.pull{font-family:var(--display);font-weight:600;font-size:1.22rem;line-height:1.45;margin:1.6em 0;padding:4px 0 4px 18px;border-left:5px solid var(--coral)}
+
+/* roadmap visual */
+.jalan{list-style:none;margin:1.4em 0 1.8em;padding:0;position:relative;font-family:var(--display)}
+.jalan::before{content:"";position:absolute;left:21px;top:22px;bottom:22px;width:4px;border-radius:2px;background:repeating-linear-gradient(var(--line) 0 10px,transparent 10px 18px)}
+.jalan li{position:relative;display:grid;grid-template-columns:46px 1fr;gap:14px;padding:0 0 18px}
+.jalan .titik{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:1.1rem;position:relative;z-index:1;border:3px solid var(--page)}
+.jalan .isi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1rem;line-height:1.5}
+.jalan .isi b{display:block;font-size:1.08rem;margin-bottom:2px}
+.jalan .isi span{color:var(--muted)}
+.jalan li:nth-child(1) .titik{background:var(--sun);color:var(--on-bright)}
+.jalan li:nth-child(2) .titik{background:var(--coral);color:#fff}
+.jalan li:nth-child(3) .titik{background:var(--sky);color:#fff}
+.jalan li:nth-child(4) .titik{background:var(--grape);color:#fff}
+.jalan li:last-child{padding-bottom:0}
+
+.tools{display:grid;gap:10px;margin:1.2em 0 1.6em;font-family:var(--display)}
+.tools div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1rem;line-height:1.45}
+.tools i{font-style:normal;grid-row:span 2;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem}
+.tools div:nth-child(1) i{background:var(--coral-soft)}.tools div:nth-child(2) i{background:var(--mint-soft)}.tools div:nth-child(3) i{background:var(--grape-soft)}
+.tools span{color:var(--muted);font-size:.94rem}
+
+.sangkut{background:var(--coral-soft);border-radius:16px;padding:18px 18px 6px;margin:1.4em 0}
+.sangkut p{margin-bottom:.8em}
+.sangkut ul{margin:0 0 1em;padding-left:1.2em}
+.sangkut li{margin:.3em 0}
+
+/* tawaran */
+.pemisah{display:flex;align-items:center;gap:12px;margin:3em 0 1.6em;font-family:var(--display);font-weight:600;color:var(--muted);font-size:.9rem}
+.pemisah::before,.pemisah::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--line) 0 8px,transparent 8px 14px)}
+.tawaran{background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:clamp(22px,6vw,32px) clamp(18px,5vw,28px);box-shadow:6px 6px 0 var(--sun)}
+.tawaran h2{font-size:clamp(1.5rem,5.5vw,2rem);margin:6px 0 12px}
+.label-kit{display:inline-block;font-family:var(--display);font-weight:800;font-size:.8rem;padding:4px 12px;border-radius:999px}
+body[data-mode="tutup"] .label-kit{background:var(--grape-soft);color:var(--grape)}
+body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
+.banding{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;font-family:var(--display);font-size:.95rem;line-height:1.4}
+.banding div{border-radius:14px;padding:14px}
+.banding div:first-child{background:var(--sky-soft)}
+.banding div:last-child{background:var(--ink);color:#fff}
+.banding div:last-child li::marker{color:var(--sun)}
+.banding b{display:block;margin-bottom:6px}
+.banding ul{margin:0;padding-left:1.1em}
+.banding li{margin:.25em 0}
+@media(max-width:380px){.banding{grid-template-columns:1fr}}
+.modul{list-style:none;padding:0;margin:16px 0;display:grid;gap:8px;font-family:var(--display);font-size:1rem;line-height:1.45}
+.modul li{display:grid;grid-template-columns:28px 1fr;gap:10px}
+.modul li::before{content:"✓";width:26px;height:26px;border-radius:50%;background:var(--mint);color:#fff;display:grid;place-items:center;font-weight:800;font-size:.8rem;margin-top:1px}
+.demo{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--sun);border-radius:14px;padding:14px 16px;font-family:var(--display);font-weight:800;color:var(--on-bright);text-decoration:none;margin:16px 0}
+.demo span{font-weight:600;font-size:.88rem;display:block}
+.harga-blok{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin:18px 0 6px;font-family:var(--display)}
+.harga-blok .harga{font-size:3rem;font-weight:800;line-height:1;color:var(--coral)}
+.harga-blok s{color:var(--muted);font-size:1.2rem}
+.harga-blok small{flex-basis:100%;color:var(--muted);font-size:.92rem}
+.slot{margin:10px 0 18px;font-family:var(--display);font-size:.9rem;color:var(--muted)}
+.slot .trek{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:6px}
+.slot .trek i{display:block;height:100%;background:linear-gradient(90deg,var(--sun),var(--coral))}
+.masa{display:flex;gap:8px;justify-content:center;margin:14px 0 16px;font-family:var(--display)}
+.masa div{flex:0 1 76px;background:var(--grape);color:#fff;border-radius:12px;padding:8px 0;text-align:center}
+.masa b{display:block;font-size:1.6rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.masa small{font-size:.72rem;opacity:.85}
+.jaminan{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center;margin:18px 0 0;font-family:var(--display);font-size:.95rem;line-height:1.45}
+.jaminan .cop{width:58px;height:58px;border-radius:50%;background:var(--mint);color:#fff;display:grid;place-items:center;text-align:center;font-weight:800;font-size:.7rem;line-height:1.1}
+.jaminan .cop b{font-size:1.3rem;display:block}
+
+.faq{margin-top:2.2em;font-family:var(--display)}
+.faq h2{font-size:1.4rem;margin-bottom:12px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px}
+.faq summary{padding:14px 16px;font-weight:600;cursor:pointer;list-style:none;font-size:1rem}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;font-weight:800;color:var(--sky)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{padding:0 16px 14px;color:var(--muted);margin:0;font-size:.95rem;line-height:1.55}
+.wa{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:12px;background:#25D366;color:#fff;font-family:var(--display);font-weight:800;text-decoration:none;margin-top:14px}
+
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:10;background:var(--card);border-top:1px solid var(--line);box-shadow:0 -8px 24px -16px rgba(23,24,59,.4);padding:12px max(var(--gutter),env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(var(--gutter),env(safe-area-inset-left));display:flex;gap:12px;align-items:center;font-family:var(--display);transform:translateY(110%);transition:transform .25s}
+.sticky.on{transform:none}
+.sticky .info{flex:0 0 auto;line-height:1.2}.sticky .info b{font-size:1.25rem}.sticky .info small{color:var(--muted);font-size:.78rem}
+.sticky .btn{min-height:48px;font-size:1rem}
+</style>
+</head>
+<body data-mode="tutup">
+
+<header class="kepala wrap">
+  <span class="tag">Roadmap · ±7 minit bacaan</span>
+  <h1>Roadmap Bina App Dari Zero: <span class="hl">4 Langkah Dari Idea Ke Sistem Yang Peniaga Guna</span></h1>
+  <p class="meta">Untuk <span id="nama">anda</span>, oleh Nasrol</p>
+  <a class="simpan" id="pdf" href="#" download>
+    <span class="ik">PDF</span><span><b>Simpan Roadmap dalam telefon</b><small>Versi PDF untuk rujukan bila-bila masa</small></span>
+  </a>
+</header>
+
+<main class="wrap">
+<article>
+  <p>Hai <span class="js-nama">kawan</span> 👋</p>
+  <p>Sebelum masuk langkah, saya nak betulkan satu salah faham yang buat ramai orang tak pernah mula.</p>
+  <p>Ramai fikir untuk bina sistem, kita kena belajar coding dulu. Dua tahun, tiga tahun. Lepas tu baru boleh buat sesuatu yang berguna.</p>
+  <p class="pull">Hari ini, kerja anda bukan menulis kod. Kerja anda ialah faham masalah, dan terangkan kepada AI dengan jelas.</p>
+  <p>Anda jadi arkitek. AI jadi tukang. Itulah perubahan besar yang buat orang macam saya, yang tak ada latar belakang IT, boleh bina sistem yang peniaga guna setiap hari.</p>
+
+  <h2><span class="no c1">1</span>Kenapa peniaga sanggup bayar</h2>
+  <p>Cuba perhati kedai di sekeliling anda. Kedai gunting rambut ambil tempahan melalui WhatsApp, sampai slot bertindih. Kedai makan rekod order dalam kertas. Pusat tuisyen catat yuran dalam buku.</p>
+  <p>Mereka tak perlukan sistem besar macam syarikat korporat. Mereka cuma perlukan <strong>satu masalah diselesaikan</strong>. Dan masalah kecil yang berulang setiap hari tu, mereka sanggup bayar untuk hilangkan.</p>
+  <p>Itu sebabnya sistem pertama anda tak perlu canggih. Ia cuma perlu jadi.</p>
+
+  <h2><span class="no c2">2</span>Roadmap 4 langkah</h2>
+  <p>Ini jalan yang saya lalui, dari zero sampai sistem online:</p>
+  <ol class="jalan">
+    <li><span class="titik">1</span><div class="isi"><b>Pilih satu masalah, satu jenis kedai</b><span>Jangan bina "sistem untuk semua". Contoh: sistem tempahan temujanji untuk kedai gunting rambut.</span></div></li>
+    <li><span class="titik">2</span><div class="isi"><b>Bina dengan AI</b><span>Terangkan dalam bahasa biasa: siapa guna, apa mereka tekan, apa yang perlu disimpan. AI tulis kodnya.</span></div></li>
+    <li><span class="titik">3</span><div class="isi"><b>Simpan data dan bawa online</b><span>Data masuk Google Sheet. Sistem dapat link sendiri yang boleh dibuka dari telefon pelanggan.</span></div></li>
+    <li><span class="titik">4</span><div class="isi"><b>Tunjuk demo, kemudian jual</b><span>Peniaga tak beli penerangan. Mereka beli bila nampak sistem tu berjalan di depan mata.</span></div></li>
+  </ol>
+
+  <h2><span class="no c3">3</span>3 tools percuma yang saya guna</h2>
+  <div class="tools">
+    <div><i>🤖</i><b>Claude</b><span>Tukang yang tulis kod berdasarkan apa yang anda terangkan.</span></div>
+    <div><i>📊</i><b>Google Sheet + Apps Script</b><span>Tempat simpan data, dan "enjin" di belakang sistem.</span></div>
+    <div><i>🌐</i><b>GitHub</b><span>Rumah untuk sistem anda online, dengan link sendiri.</span></div>
+  </div>
+  <p>Ketiga-tiganya ada versi percuma yang cukup untuk bina sistem pertama, dan boleh digunakan dari laptop, tablet atau fon.</p>
+
+  <h2><span class="no c4">4</span>Cari pelanggan pertama</h2>
+  <p>Mula dengan orang yang anda dah kenal. Kedai yang anda selalu pergi. Kawan yang berniaga. Saudara yang ada bisnes kecil.</p>
+  <p>Jangan cerita tentang AI atau teknologi. Tunjuk sahaja di telefon: "Pelanggan abang boleh tempah sendiri, slot tak bertindih lagi." Itu bahasa yang peniaga faham.</p>
+  <p>Untuk harga, ada dua cara biasa: bayaran sekali untuk setup, atau langganan bulanan. Sistem saya yang digunakan 22 peniaga tu guna cara langganan bulanan.</p>
+
+  <h2>Ini bukan teori</h2>
+  <p>Ini bayaran langganan sebenar daripada peniaga yang guna sistem saya. Semuanya dibina dengan cara yang sama seperti dalam Roadmap ini:</p>
+  <figure class="receipts">
+    <div class="rc-row">
+      <span class="rc shine"><img src="https://ahmadalbab.store/bina-app/artikel/bukti-1.jpg" alt="Resit DuitNow RM30 daripada peniaga, dengan mesej dah bayar" loading="lazy" width="562" height="1078"></span>
+      <span class="rc"><img src="https://ahmadalbab.store/bina-app/artikel/bukti-2.jpg" alt="Peniaga yang sama membuat bayaran bulanan seterusnya" loading="lazy" width="562" height="1078"></span>
+      <span class="rc shine late"><img src="https://ahmadalbab.store/bina-app/artikel/bukti-3.jpg" alt="Notifikasi bayaran RM30 berjaya dan sistem diaktifkan" loading="lazy" width="562" height="1078"></span>
+      <span class="rc"><img src="https://ahmadalbab.store/bina-app/artikel/bukti-4.jpg" alt="Peniaga menghantar resit bayaran dan langganan dikemas kini" loading="lazy" width="562" height="1078"></span>
+    </div>
+    <figcaption>Bayaran langganan daripada peniaga melalui WhatsApp. Butiran peribadi disembunyikan.<span class="swipe"> Leret ke kiri →</span></figcaption>
+  </figure>
+  <div class="income">
+    <p class="income-h">💡 Bagaimana sistem ini menjana pendapatan</p>
+    <p class="income-p">Setiap peniaga membayar yuran setup dan langganan bulanan untuk terus guna sistem ini.</p>
+    <small>Satu sistem, dibina sekali, dijual kepada ramai peniaga dengan caj bulanan.</small>
+  </div>
+  <p class="disclaim">Ini hasil saya sendiri. Hasil pendapatan bergantung pada usaha dan keadaan masing-masing.</p>
+
+  <h2>Di mana kebanyakan orang tersangkut</h2>
+  <div class="sangkut">
+    <p>Roadmap ni tunjuk jalan. Tapi bila mula buat, hampir semua orang tersangkut di tiga tempat yang sama:</p>
+    <ul>
+      <li><strong>Prompt pertama.</strong> Tak tahu nak terangkan apa kepada AI, jadi hasilnya bersepah.</li>
+      <li><strong>Bila AI bagi kod yang error.</strong> Tak tahu nak betulkan macam mana.</li>
+      <li><strong>Nak bawa sistem online.</strong> Langkah setup yang kecil, tapi tersilap satu, semua tak jalan.</li>
+    </ul>
+  </div>
+  <p>Saya pun pernah tersangkut di ketiga-tiga tempat tu. Sebab itu saya rakam setiap langkah, dari prompt pertama sampai sistem online.</p>
+</article>
+
+<div class="pemisah">Untuk yang nak buat sampai siap</div>
+
+<section class="tawaran" id="kit" aria-labelledby="kit-title">
+  <span class="label-kit bila-tutup">Pratonton · belum dibuka</span>
+  <span class="label-kit bila-buka">✓ Dah dibuka</span>
+  <h2 id="kit-title">Kit Bina App Pertama</h2>
+
+  <!-- Gambar bundle (kit + bonus) dari Gemini: simpan sebagai kit-bundle.jpg dalam folder artikel/. Jika tiada, kit-cover bina-app dipaparkan -->
+  <span class="cover-wrap shine"><img class="kit-img" src="kit-bundle.jpg" onerror="this.onerror=null;this.src='https://ahmadalbab.store/bina-app/artikel/kit-cover.jpg'" alt="Kit Bina App Pertama beserta bonus" loading="lazy" width="900" height="672"></span>
+
+  <p class="lead-kit">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari zero sampai boleh digunakan pelanggan.</p>
+
+  <div class="banding">
+    <div><b>Roadmap (percuma)</b><ul><li>Gambaran 4 langkah</li><li>Tools yang diguna</li><li>Cara cari pelanggan</li></ul></div>
+    <div><b>Kit (berbayar)</b><ul><li>Video setiap langkah</li><li>Prompt siap copy</li><li>Sampai sistem online</li></ul></div>
+  </div>
+
+  <figure class="screens">
+    <div class="scr-row" aria-hidden="true">
+      <div class="mini">
+        <div class="mini-h">Page pelanggan</div>
+        <div class="m-title">Tempah slot anda</div>
+        <div class="m-chips"><span class="on">Potong</span><span>Cukur</span></div>
+        <div class="m-slots"><span class="x">9:00</span><span>9:30</span><span class="on">10:30</span><span>11:00</span><span class="x">2:00</span><span>2:30</span></div>
+        <div class="m-btn">Sahkan tempahan</div>
+      </div>
+      <div class="mini">
+        <div class="mini-h">Page admin</div>
+        <div class="m-title">Tempahan hari ini</div>
+        <div class="m-row"><b>10:30</b><span>Ali · Potong</span><em class="s-new">Baru</em></div>
+        <div class="m-row"><b>11:00</b><span>Siti · Cuci</span><em class="s-ok">Sah</em></div>
+        <div class="m-row"><b>2:30</b><span>Raju · Cukur</span><em class="s-ok">Sah</em></div>
+        <div class="m-row"><b>3:00</b><span>Mei · Potong</span><em class="s-done">Selesai</em></div>
+      </div>
+      <div class="mini tg">
+        <div class="mini-h">Notifikasi Telegram</div>
+        <div class="bubble"><b>🔔 Tempahan baru</b>👤 Ali<br>✂️ Potong rambut<br>📅 Sel, 7 Okt · 10:30<br>📱 012-345 6789<span class="t">10:02</span></div>
+      </div>
+    </div>
+    <figcaption>Gambaran sistem yang anda akan bina dalam kit ini.<span class="swipe"> Leret ke kiri →</span></figcaption>
+  </figure>
+
+  <a class="demo" href="https://vibecodermy.github.io/sistem-tempahan-demo/" target="_blank" rel="noopener">
+    <div>Cuba demo sistem sebenar<span>Buka dan cuba tempah sendiri</span></div><span aria-hidden="true" style="font-size:1.4rem">↗</span>
+  </a>
+
+  <h3>Apa yang anda dapat</h3>
+  <ul class="gets">
+    <li>Page tempahan untuk pelanggan: pilih servis, tarikh dan slot masa</li>
+    <li>Page admin untuk urus tempahan dan tukar status</li>
+    <li>Notifikasi Telegram setiap kali ada tempahan baru</li>
+    <li>Set prompt yang saya guna sendiri, tersusun ikut langkah. Salin, tampal, siap.</li>
+    <li>Video langkah demi langkah, termasuk cara letak sistem online secara percuma</li>
+  </ul>
+
+  <div class="pattern">
+    <p><strong>Sistem tempahan ialah projek latihan anda.</strong> Bila dah siap satu, anda faham corak yang sama untuk bina sistem lain: rekod pelanggan, pesanan, kehadiran, stok. Yang berubah cuma data dan nama butang.</p>
+  </div>
+
+  <h3>Bonus untuk setiap pembeli</h3>
+  <div class="bonus-grid">
+    <div class="bcard"><span class="bno">Bonus 1</span><i aria-hidden="true">🛟</i><b>Prompt Penyelamat Error</b><small>Salin terus ke AI bila sistem keluar error</small></div>
+    <div class="bcard"><span class="bno">Bonus 2</span><i aria-hidden="true">💬</i><b>Skrip WhatsApp tawar sistem</b><small>Siap dengan cadangan caj bulanan</small></div>
+    <div class="bcard"><span class="bno">Bonus 3</span><i aria-hidden="true">📋</i><b>20 jenis bisnes perlukan sistem tempahan</b><small>Untuk cari pelanggan pertama anda</small></div>
+  </div>
+
+  <h3>Bandingkan sendiri</h3>
+  <div class="compare" role="group" aria-label="Perbandingan kos">
+    <div><span>Upah programmer bina sistem tempahan</span><b>Ribuan ringgit</b></div>
+    <div><span>Sistem lama peniaga pertama saya</span><b>RM1,000+ setahun</b></div>
+    <div><span>Kit + 3 bonus: bina sendiri, milik anda selamanya</span><b><span class="js-harga">RM29</span> sekali</b></div>
+  </div>
+
+  <div class="harga-blok">
+    <span class="harga js-harga">RM29</span><s class="js-asal">RM47</s>
+    <small class="js-nota">Harga pelancaran untuk 50 pembeli pertama</small>
+  </div>
+
+  <div class="bila-tutup">
+    <p style="font-family:var(--display);font-weight:700;text-align:center;margin:14px 0 0">Dibuka <span class="js-tarikh">—</span></p>
+    <div class="masa" aria-label="Kira detik ke tarikh kit dibuka">
+      <div><b id="h">0</b><small>hari</small></div><div><b id="j">00</b><small>jam</small></div><div><b id="m">00</b><small>minit</small></div>
+    </div>
+    <span class="btn kunci" aria-disabled="true">Dibuka <span class="js-tarikh-ringkas">—</span></span>
+    <p class="safe">Anda dah dalam senarai. Emel akan sampai sebaik kit dibuka.</p>
+  </div>
+
+  <div class="bila-buka">
+    <div class="slot"><span id="slot-teks">—</span><div class="trek"><i id="slot-bar" style="width:0"></i></div></div>
+    <a class="btn js-beli" href="#">Saya nak Kit ini — <span class="js-harga">RM29</span></a>
+    <p class="safe">🔒 Pembayaran selamat melalui FPX / kad · Akses terus selepas bayar</p>
+  </div>
+
+  <div class="guarantee">
+    <b>Jaminan 30 hari: sistem anda jalan</b>
+    <p>Ikut langkah dalam kit. Kalau sistem anda tak menjadi, hubungi saya dan saya bantu sampai ia berfungsi. Kalau masih tak jalan juga, saya pulangkan bayaran anda sepenuhnya.</p>
+    <p>Risiko ada pada saya, bukan anda.</p>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>Soalan lazim</h2>
+  <details><summary>Saya langsung tak tahu teknologi. Boleh ke?</summary><p>Boleh. Saya pun bukan programmer. Kalau anda boleh guna WhatsApp dan Google Sheets, anda dah cukup bersedia. Setiap langkah diterangkan dalam video, dan prompt disediakan siap untuk disalin.</p></details>
+  <details><summary>Perlu laptop?</summary><p>Tak semestinya. Kit ini boleh diikuti dari laptop, tablet atau fon.</p></details>
+  <details><summary>Bisnes saya tak guna tempahan. Masih sesuai?</summary><p>Sesuai. Sistem tempahan dipilih sebab ia mengandungi semua asas: borang, data, page admin dan notifikasi. Bila faham corak ni, anda boleh minta AI ubah suai untuk keperluan bisnes anda sendiri.</p></details>
+  <details><summary>Ada kos lain selepas beli?</summary><p>Tiada untuk bermula. Google Sheets, AI versi percuma dan laman untuk letak sistem online semuanya percuma.</p></details>
+  <details><summary>Bila keluar error, macam mana?</summary><p>Error memang perkara biasa, termasuk untuk saya. Kit ini tunjukkan cara minta AI betulkan error langkah demi langkah, dan Bonus 1 khas untuk itu.</p></details>
+  <details><summary>Harga RM29 sampai bila?</summary><p>Untuk 50 pembeli pertama, dikira untuk semua pembeli. Lepas penuh, harga jadi RM47.</p></details>
+  <details><summary>Kalau saya tersangkut?</summary><p>WhatsApp saya. Saya sendiri yang balas.</p></details>
+  <a class="wa" id="wa" href="#">Tanya melalui WhatsApp</a>
+</section>
+
+<div class="sign"><b>Nasrol</b><span>Jom bina app sama-sama</span></div>
+</main>
+
+<footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
+
+<div class="sticky" id="sticky">
+  <div class="info"><b class="js-harga">RM29</b><br><small class="js-sticky">50 slot</small></div>
+  <a class="btn js-beli bila-buka" href="#">Dapatkan Kit</a>
+  <a class="btn biru bila-tutup" href="#kit">Lihat Kit · <span class="js-tarikh-ringkas">—</span></a>
+</div>
+
+<script>
+/* ===================== TETAPAN ===================== */
+const GAS_URL      = "";                          // [ISI] sama dengan optin (untuk rekod ArtikelDibuka)
+const PDF_URL      = "roadmap-bina-app-dari-zero.pdf";   // [ISI] PDF dalam folder artikel/, atau link Drive
+const OFFER_OPEN   = "auto";   // "auto" ikut LAUNCH_ISO | true paksa buka | false paksa tutup
+const LAUNCH_ISO   = "2026-10-18T21:00:00+08:00";  // [ISI] tarikh & masa SEBENAR Hari 6
+const SLOT_LAUNCH  = 50;
+const SLOT_DIAMBIL = 0;        // [ISI] kemas kini manual — kira SEMUA pembeli (Threads + majalah.com)
+const HARGA_LAUNCH = 29, HARGA_BIASA = 47;
+const BCL_LAUNCH   = "https://nucleuslegacy.bcl.my/form/kit-bina-app-pertama";
+const BCL_BIASA    = "https://nucleuslegacy.bcl.my/form/kit-bina-app-pertama";   // [ISI] tukar jika ada form RM47 berasingan
+const WHATSAPP     = "60XXXXXXXXX";                // [ISI]
+/* =================================================== */
+const $$ = s => document.querySelectorAll(s);
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+const q = new URLSearchParams(location.search);
+const nama = q.get('n') || '';
+const lid = q.get('id') || (()=>{ try { return localStorage.getItem('roadmap_lead') || ''; } catch(_) { return ''; } })();
+if (nama) { document.getElementById('nama').textContent = nama; $$('.js-nama').forEach(e => e.textContent = nama); }
+if (lid) { try { localStorage.setItem('roadmap_lead', lid); } catch(_) {}
+  if (GAS_URL) fetch(GAS_URL + '?action=buka&id=' + encodeURIComponent(lid)).catch(()=>{}); }
+
+document.getElementById('pdf').href = PDF_URL;
+document.getElementById('wa').href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Salam Nasrol, saya nak tanya tentang Kit Bina App Pertama.');
+
+const launch = new Date(LAUNCH_ISO);
+const buka = OFFER_OPEN === "auto" ? Date.now() >= launch.getTime() : !!OFFER_OPEN;
+document.body.dataset.mode = buka ? "buka" : "tutup";
+$$('.js-tarikh').forEach(e => e.textContent = launch.toLocaleString('ms-MY',{weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit'}));
+$$('.js-tarikh-ringkas').forEach(e => e.textContent = launch.toLocaleString('ms-MY',{day:'numeric',month:'short'}));
+
+const penuh = SLOT_DIAMBIL >= SLOT_LAUNCH, baki = Math.max(0, SLOT_LAUNCH - SLOT_DIAMBIL);
+const harga = penuh ? HARGA_BIASA : HARGA_LAUNCH;
+$$('.js-harga').forEach(e => e.textContent = 'RM' + harga);
+$$('.js-asal').forEach(e => e.hidden = penuh);
+const bcl = penuh ? BCL_BIASA : BCL_LAUNCH;
+$$('.js-beli').forEach(e => e.href = bcl + (lid ? (bcl.includes('?') ? '&' : '?') + 'ref=' + encodeURIComponent(lid) : ''));
+$$('.js-nota').forEach(e => e.textContent = penuh ? 'Slot harga pelancaran dah penuh' : 'Harga pelancaran untuk ' + SLOT_LAUNCH + ' pembeli pertama');
+$$('.js-sticky').forEach(e => e.textContent = penuh ? 'harga biasa' : (buka ? 'baki ' + baki + ' slot' : SLOT_LAUNCH + ' slot pertama'));
+document.getElementById('slot-teks').textContent = penuh ? 'Slot RM' + HARGA_LAUNCH + ' dah penuh.' : SLOT_DIAMBIL + '/' + SLOT_LAUNCH + ' slot RM' + HARGA_LAUNCH + ' dah diambil';
+document.getElementById('slot-bar').style.width = Math.min(100, SLOT_DIAMBIL / SLOT_LAUNCH * 100) + '%';
+
+if (!buka) {
+  const p = x => String(x).padStart(2,'0'), g = i => document.getElementById(i);
+  (function tick(){
+    const d = (launch.getTime() - Date.now()) / 1000;
+    if (d <= 0 && OFFER_OPEN === "auto") { location.reload(); return; }
+    g('h').textContent = Math.max(0, Math.floor(d/86400)); g('j').textContent = p(Math.max(0, Math.floor(d%86400/3600))); g('m').textContent = p(Math.max(0, Math.floor(d%3600/60)));
+    setTimeout(tick, 20000);
+  })();
+}
+
+/* sticky bar muncul selepas pembaca lepas tajuk, sembunyi bila kotak Kit kelihatan */
+const sticky = document.getElementById('sticky'), kit = document.getElementById('kit');
+let kitNampak = false;
+new IntersectionObserver(es => { kitNampak = es[0].isIntersecting; upd(); }).observe(kit);
+function upd(){ sticky.classList.toggle('on', scrollY > 500 && !kitNampak); }
+addEventListener('scroll', upd, {passive:true});
+</script>
+</body>
+</html>
