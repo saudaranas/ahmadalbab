@@ -242,7 +242,7 @@ form.addEventListener('submit', async e => {
     const data = await res.json();
     if (!data.ok) throw new Error(data.msg || 'Gagal');
     const lid = data.id || '';
-    if (lid) { try { localStorage.setItem(LEAD_KEY, lid); } catch(_) {} }
+    try { if (lid) localStorage.setItem(LEAD_KEY, lid); localStorage.setItem('roadmap_nama', nama); } catch(_) {}
     if (PIXEL_ID && window.fbq) fbq('track', 'Lead');
     location.href = TQ_PATH + '?n=' + encodeURIComponent(nama) + (lid ? '&id=' + encodeURIComponent(lid) : '');
   } catch (ex) {
