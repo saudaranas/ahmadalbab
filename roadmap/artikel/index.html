@@ -149,7 +149,7 @@ body[data-mode="tutup"] .bila-buka,body[data-mode="buka"] .bila-tutup{display:no
 .simpan b{display:block}.simpan small{color:var(--muted)}
 article h2{font-size:clamp(1.4rem,5vw,1.8rem);margin:2em 0 .6em}
 article h2 .no{display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:.45em;margin-right:.35em;font-size:.85em;vertical-align:.08em}
-.c1{background:var(--sun);color:var(--on-bright)}.c2{background:var(--coral-soft);color:var(--coral)}.c3{background:var(--sky-soft);color:var(--sky)}.c4{background:var(--grape-soft);color:var(--grape)}
+.c1,.c2,.c3,.c4{background:var(--sun);color:var(--ink)}
 .pull{font-family:var(--display);font-weight:600;font-size:1.22rem;line-height:1.45;margin:1.6em 0;padding:4px 0 4px 18px;border-left:5px solid var(--coral)}
 
 /* roadmap visual */
@@ -160,16 +160,13 @@ article h2 .no{display:inline-grid;place-items:center;width:1.6em;height:1.6em;b
 .jalan .isi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1rem;line-height:1.5}
 .jalan .isi b{display:block;font-size:1.08rem;margin-bottom:2px}
 .jalan .isi span{color:var(--muted)}
-.jalan li:nth-child(1) .titik{background:var(--sun);color:var(--on-bright)}
-.jalan li:nth-child(2) .titik{background:var(--coral);color:#fff}
-.jalan li:nth-child(3) .titik{background:var(--sky);color:#fff}
-.jalan li:nth-child(4) .titik{background:var(--grape);color:#fff}
+.jalan .titik{background:var(--sun);color:var(--ink)}
 .jalan li:last-child{padding-bottom:0}
 
 .tools{display:grid;gap:10px;margin:1.2em 0 1.6em;font-family:var(--display)}
 .tools div{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1rem;line-height:1.45}
 .tools i{font-style:normal;grid-row:span 2;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.3rem}
-.tools div:nth-child(1) i{background:var(--coral-soft)}.tools div:nth-child(2) i{background:var(--mint-soft)}.tools div:nth-child(3) i{background:var(--grape-soft)}
+.tools i{background:#fff;border:1px solid var(--line)}.tools i img{width:26px;height:26px}
 .tools span{color:var(--muted);font-size:.94rem}
 
 .sangkut{background:var(--coral-soft);border-radius:16px;padding:18px 18px 6px;margin:1.4em 0}
@@ -190,7 +187,8 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
 .banding div:first-child{background:var(--sky-soft)}
 .banding div:last-child{background:var(--ink);color:#fff}
 .banding div:last-child li::marker{color:var(--sun)}
-.banding b{display:block;margin-bottom:6px}
+.banding b{display:block;margin-bottom:2px}
+.bd-sub{display:block;font-size:.82rem;opacity:.8;margin-bottom:8px}
 .banding ul{margin:0;padding-left:1.1em}
 .banding li{margin:.25em 0}
 @media(max-width:380px){.banding{grid-template-columns:1fr}}
@@ -243,7 +241,7 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
 
 <main class="wrap">
 <article>
-  <p>Hai <span class="js-nama">kawan</span> 👋</p>
+  <p>Hai<span class="js-nama"></span> 👋</p>
   <p>Sebelum masuk langkah, saya nak betulkan satu salah faham yang buat ramai orang tak pernah mula.</p>
   <p>Ramai fikir untuk bina sistem, kita kena belajar coding dulu. Dua tahun, tiga tahun. Lepas tu baru boleh buat sesuatu yang berguna.</p>
   <p class="pull">Hari ini, kerja anda bukan menulis kod. Kerja anda ialah faham masalah, dan terangkan kepada AI dengan jelas.</p>
@@ -265,9 +263,9 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
 
   <h2><span class="no c3">3</span>3 tools percuma yang saya guna</h2>
   <div class="tools">
-    <div><i>🤖</i><b>Claude</b><span>Tukang yang tulis kod berdasarkan apa yang anda terangkan.</span></div>
-    <div><i>📊</i><b>Google Sheet + Apps Script</b><span>Tempat simpan data, dan "enjin" di belakang sistem.</span></div>
-    <div><i>🌐</i><b>GitHub</b><span>Rumah untuk sistem anda online, dengan link sendiri.</span></div>
+    <div><i><img src="https://cdn.simpleicons.org/claude/D97757" alt="Logo Claude" width="26" height="26"></i><b>Claude</b><span>Tukang yang tulis kod berdasarkan apa yang anda terangkan.</span></div>
+    <div><i><img src="https://cdn.simpleicons.org/googlesheets/34A853" alt="Logo Google Sheets" width="26" height="26"></i><b>Google Sheet + Apps Script</b><span>Tempat simpan data, dan "enjin" di belakang sistem.</span></div>
+    <div><i><img src="https://cdn.simpleicons.org/github/181717" alt="Logo GitHub" width="26" height="26"></i><b>GitHub</b><span>Rumah untuk sistem anda online, dengan link sendiri.</span></div>
   </div>
   <p>Ketiga-tiganya ada versi percuma yang cukup untuk bina sistem pertama, dan boleh digunakan dari laptop, tablet atau fon.</p>
 
@@ -319,8 +317,8 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
   <p class="lead-kit">Anda akan bina sendiri sebuah <strong>Sistem Tempahan Temujanji</strong>, dari zero sampai boleh digunakan pelanggan.</p>
 
   <div class="banding">
-    <div><b>Roadmap (percuma)</b><ul><li>Gambaran 4 langkah</li><li>Tools yang diguna</li><li>Cara cari pelanggan</li></ul></div>
-    <div><b>Kit (berbayar)</b><ul><li>Video setiap langkah</li><li>Prompt siap copy</li><li>Sampai sistem online</li></ul></div>
+    <div><b>Roadmap (percuma)</b><small class="bd-sub">Anda <u>faham</u> apa perlu dibuat</small><ul><li>4 langkah dari idea ke sistem</li><li>Kenal 3 tools yang digunakan</li><li>Tahu cara cari pelanggan</li></ul></div>
+    <div><b>Kit (berbayar)</b><small class="bd-sub">Anda <u>siapkan</u> sistem sebenar</small><ul><li>Video tunjuk setiap langkah, ikut terus</li><li>Prompt siap, salin &amp; tampal ke AI</li><li>Dibimbing sampai sistem boleh dibuka di telefon pelanggan</li></ul></div>
   </div>
 
   <figure class="screens">
@@ -381,7 +379,7 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
 
   <div class="harga-blok">
     <span class="harga js-harga">RM29</span><s class="js-asal">RM47</s>
-    <small class="js-nota">Harga pelancaran untuk 50 pembeli pertama</small>
+    <small class="js-nota">Harga pelancaran untuk 10 pembeli pertama</small>
   </div>
 
   <div class="bila-tutup">
@@ -413,7 +411,7 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
   <details><summary>Bisnes saya tak guna tempahan. Masih sesuai?</summary><p>Sesuai. Sistem tempahan dipilih sebab ia mengandungi semua asas: borang, data, page admin dan notifikasi. Bila faham corak ni, anda boleh minta AI ubah suai untuk keperluan bisnes anda sendiri.</p></details>
   <details><summary>Ada kos lain selepas beli?</summary><p>Tiada untuk bermula. Google Sheets, AI versi percuma dan laman untuk letak sistem online semuanya percuma.</p></details>
   <details><summary>Bila keluar error, macam mana?</summary><p>Error memang perkara biasa, termasuk untuk saya. Kit ini tunjukkan cara minta AI betulkan error langkah demi langkah, dan Bonus 1 khas untuk itu.</p></details>
-  <details><summary>Harga RM29 sampai bila?</summary><p>Untuk 50 pembeli pertama, dikira untuk semua pembeli. Lepas penuh, harga jadi RM47.</p></details>
+  <details><summary>Harga RM29 sampai bila?</summary><p>Untuk 10 pembeli pertama sahaja. Lepas 10 slot penuh, harga jadi RM47.</p></details>
   <details><summary>Kalau saya tersangkut?</summary><p>WhatsApp saya. Saya sendiri yang balas.</p></details>
   <a class="wa" id="wa" href="#">Tanya melalui WhatsApp</a>
 </section>
@@ -424,7 +422,7 @@ body[data-mode="buka"] .label-kit{background:var(--mint-soft);color:#0B7A50}
 <footer>© <span id="yr"></span> Nasrol Sani. Semua hak terpelihara.</footer>
 
 <div class="sticky" id="sticky">
-  <div class="info"><b class="js-harga">RM29</b><br><small class="js-sticky">50 slot</small></div>
+  <div class="info"><b class="js-harga">RM29</b><br><small class="js-sticky">10 slot</small></div>
   <a class="btn js-beli bila-buka" href="#">Dapatkan Kit</a>
   <a class="btn biru bila-tutup" href="#kit">Lihat Kit · <span class="js-tarikh-ringkas">—</span></a>
 </div>
@@ -435,7 +433,7 @@ const GAS_URL      = "";                          // [ISI] sama dengan optin (un
 const PDF_URL      = "roadmap-bina-app-dari-zero.pdf";   // [ISI] PDF dalam folder artikel/, atau link Drive
 const OFFER_OPEN   = "auto";   // "auto" ikut LAUNCH_ISO | true paksa buka | false paksa tutup
 const LAUNCH_ISO   = "2026-10-18T21:00:00+08:00";  // [ISI] tarikh & masa SEBENAR Hari 6
-const SLOT_LAUNCH  = 50;
+const SLOT_LAUNCH  = 10;
 const SLOT_DIAMBIL = 0;        // [ISI] kemas kini manual — kira SEMUA pembeli (Threads + majalah.com)
 const HARGA_LAUNCH = 29, HARGA_BIASA = 47;
 const BCL_LAUNCH   = "https://nucleuslegacy.bcl.my/form/kit-bina-app-pertama";
@@ -446,9 +444,9 @@ const $$ = s => document.querySelectorAll(s);
 document.getElementById('yr').textContent = new Date().getFullYear();
 
 const q = new URLSearchParams(location.search);
-const nama = q.get('n') || '';
+const nama = q.get('n') || (()=>{ try { return localStorage.getItem('roadmap_nama') || ''; } catch(_) { return ''; } })();
 const lid = q.get('id') || (()=>{ try { return localStorage.getItem('roadmap_lead') || ''; } catch(_) { return ''; } })();
-if (nama) { document.getElementById('nama').textContent = nama; $$('.js-nama').forEach(e => e.textContent = nama); }
+if (nama) { document.getElementById('nama').textContent = nama; $$('.js-nama').forEach(e => e.textContent = ' ' + nama); try { localStorage.setItem('roadmap_nama', nama); } catch(_) {} }
 if (lid) { try { localStorage.setItem('roadmap_lead', lid); } catch(_) {}
   if (GAS_URL) fetch(GAS_URL + '?action=buka&id=' + encodeURIComponent(lid)).catch(()=>{}); }
 
